@@ -1,8 +1,9 @@
 package com.geogym.schedule.service;
 
+import java.time.LocalDate;
 import java.util.List;
 
-import com.geogym.schedule.dto.CalendarMemo;
+import com.geogym.schedule.dto.ScheduleMemo;
 import com.geogym.schedule.exception.MemoAlreadyExistException;
 import com.geogym.schedule.exception.MemoNotFoundException;
 import com.geogym.user.dto.User;
@@ -27,7 +28,7 @@ public interface ScheduleMemoService {
 	 * @param memo 메모의 내용과 날짜를 포함한다.
 	 * @throws MemoAlreadyExistException 이미 해당 메모가 존재하는 경우
 	 */
-	void addMemo(User user, CalendarMemo memo) throws MemoAlreadyExistException;
+	void addMemo(User user, ScheduleMemo memo) throws MemoAlreadyExistException;
 	
 	/**
 	 * 존재하는 메모에 덮어 씌울 때
@@ -35,31 +36,31 @@ public interface ScheduleMemoService {
 	 * @param user user_no 필드를 포함하는 객체
 	 * @param memo 메모의 내용과 날짜를 포함한다.
 	 */
-	void forceAddMemo(User user, CalendarMemo memo);
+	void forceAddMemo(User user, ScheduleMemo memo);
 	
 	/**
 	 * 
 	 * @param user user_no 필드를 포함하는 객체
 	 * @param memo calendar_memo_date 필드를 포함하는 객체
 	 */
-	void deleteMemo(User user, CalendarMemo memo);
+	void deleteMemo(User user, LocalDate date);
 	
 	/**
 	 * 
 	 * @param user user_no 필드를 포함하는 객체
-	 * @param memo calendar_memo_date 필드를 포함하는 객체
-	 * @return CalendarMemo의 모든 필드를 포함한다.
+	 * @param memo 조회 하려는 날짜
+	 * @return ScheduleMemo의 모든 필드를 포함한다.
 	 * @throws MemoNotFoundException 조회 결과가 없을 때
 	 */
-	CalendarMemo getMemo(User user, CalendarMemo memo) throws MemoNotFoundException;
+	ScheduleMemo getMemo(User user, LocalDate date) throws MemoNotFoundException;
 	
 	/**
 	 * 
 	 * @param user user_no 필드를 포함하는 객체
-	 * @param from calendar_memo_date 필드를 포함하는 객체, 조회 시작 날짜
-	 * @param to calendar_memo_date 필드를 포함하는 객체, 조회 종료 날짜, 시작 날짜보다 크다.
-	 * @return CalendarMemo의 모든 필드를 포함한다.
+	 * @param from 조회 시작 날짜
+	 * @param to 조회 종료 날짜, 시작 날짜보다 크다.
+	 * @return ScheduleMemo의 모든 필드를 포함한다.
 	 */
-	List<CalendarMemo> getMemosList(User user, CalendarMemo from, CalendarMemo to);
+	List<ScheduleMemo> getMemosList(User user, LocalDate from, LocalDate to);
 	
 }
