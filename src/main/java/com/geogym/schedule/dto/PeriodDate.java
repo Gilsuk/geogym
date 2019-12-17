@@ -6,6 +6,7 @@ public class PeriodDate {
 	
 	private LocalDate from;
 	private LocalDate to;
+	private String check;
 	@Override
 	public String toString() {
 		return "PeriodDate [from=" + from + ", to=" + to + "]";

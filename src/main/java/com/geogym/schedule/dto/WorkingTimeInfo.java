@@ -8,5 +8,9 @@ public class WorkingTimeInfo {
 	private LocalDate date;
 	private LocalTime open_time;
 	private LocalTime close_time;
-
+	
+	
+	
+	
+	
 }
