@@ -6,5 +6,6 @@ public class Message {
 	
 	private int user_no;
 	private LocalDateTime date;
+	private String content;
 
 }
