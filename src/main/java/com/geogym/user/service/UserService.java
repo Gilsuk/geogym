@@ -5,8 +5,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.geogym.common.exception.DuplicatedException;
 import com.geogym.common.exception.ParamIncorrectException;
-import com.geogym.trainer.dto.Trainer;
-import com.geogym.trainer.exception.UserNotTrainerException;
 import com.geogym.user.dto.LoginInfo;
 import com.geogym.user.dto.SignupInfo;
 import com.geogym.user.dto.User;
@@ -46,5 +44,6 @@ public interface UserService {
 	
 	void signUp(SignupInfo info) throws DuplicatedException, ParamIncorrectException;
 	
+
 	
 }

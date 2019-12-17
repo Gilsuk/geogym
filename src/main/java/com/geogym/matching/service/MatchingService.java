@@ -4,7 +4,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 import com.geogym.matching.dto.MatchingSchedule;
-import com.geogym.matching.exception.LessThanOneHour;
+import com.geogym.matching.exception.LessThanOneHourException;
 import com.geogym.matching.exception.MatchingNotAvailable;
 import com.geogym.trainer.dto.Trainer;
 import com.geogym.user.dto.User;
@@ -29,7 +29,7 @@ public interface MatchingService {
 	 * @param schedule 취소할 일정
 	 * @param msg 취소 사유
 	 */
-	void cancle(MatchingSchedule schedule, String msg) throws LessThanOneHour;
+	void cancle(MatchingSchedule schedule, String msg) throws LessThanOneHourException;
 	
 	/**
 	 * PT신청시 정기권이 있는 트레이너인지 체크
@@ -46,6 +46,6 @@ public interface MatchingService {
 	 * @param user
 	 * @return
 	 */
-	List<MatchingSchedule> getPTInfo(User user, LocalDateTime today);
+	List<MatchingSchedule> getPTInfos(User user, LocalDateTime today);
 	
 }
