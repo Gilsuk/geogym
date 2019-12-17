@@ -12,14 +12,17 @@ import com.geogym.schedule.dto.PeriodDateTime;
 import com.geogym.schedule.dto.ScheduleMemo;
 
 import com.geogym.trainer.dto.Trainer;
+import com.geogym.trainer.exception.UserNotTrainerException;
 import com.geogym.user.dto.User;
 import com.geogym.user.dto.UserEvaluation;
 
 public interface TrainerService {
 	
-
-
 	
+	/**
+	 * userno 로 트레이너 객체를 반환한다.
+	 */
+	Trainer getTrainerByUserno(User user) throws UserNotTrainerException;
 	
 	/**
 	 * 
@@ -48,7 +51,7 @@ public interface TrainerService {
 	 * 
 	 *  밑의 tranerUpdate 로 통합할 수 있을 가능성 존재함
 	 */
-	public void setTrainerPrice(Trainer trainer);
+	void setTrainerPrice(Trainer trainer);
 	
 	/**
 	 * 
@@ -57,7 +60,7 @@ public interface TrainerService {
 	 *  
 	 * @return List<Trainer> 리스트를 이용해 트레이너 정보를 받아온다
 	 */
-	public List<Trainer> viewTrainerList();
+	List<Trainer> viewTrainerList();
 	
 	/**
 	 * 트레이너 정보 조회
@@ -67,7 +70,7 @@ public interface TrainerService {
 	 * @param trainer - 트레이너 ID 혹은 트레이너 번호를 기준으로 한다
 	 * @return	Trainer - 트레이너 DTO 를 불러온다
 	 */
-	public Trainer selectTrainer(Trainer trainer);
+	Trainer selectTrainer(Trainer trainer);
 	
 	
 	/**
@@ -84,7 +87,7 @@ public interface TrainerService {
 	 * @param trainer - 트레이너 ID 혹은 트레이너 번호를 기준으로 한다
 	 * @return	Trainer - 트레이너 DTO 를 불러온다
 	 */
-	public Trainer updateTraner(Trainer trainer);
+	Trainer updateTraner(Trainer trainer);
 	
 	/**
 	 * 트레이너 정보 삭제
@@ -96,7 +99,7 @@ public interface TrainerService {
 	 * @param trainer - 트레이너 ID 혹은 트레이너 번호를 기준으로 한다
 	 * @return Trainer - 트레이너 DTO 를 불러온다
 	 */
-	public Trainer deleteTraner(Trainer trainer);
+	Trainer deleteTraner(Trainer trainer);
 	
 	
 	/**
@@ -107,7 +110,7 @@ public interface TrainerService {
 	 * @param periodDate - 해당 월 정보를 입력받는다
 	 * @return Map<LocalDate, List<ScheduleMemo>> - 날 을 키로 두고 근무, 휴일 등을 벨류값으로 리턴한다
 	 */
-	public Map<LocalDate, String> getMapScheduleDateTraner(Trainer trainer, PeriodDate periodDate);
+	Map<LocalDate, String> getMapScheduleDateTraner(Trainer trainer, PeriodDate periodDate);
 	
 	/**
 	 * 트레이너 근무일정 중 날 단위 구분 조회
@@ -116,7 +119,7 @@ public interface TrainerService {
 	 * @param periodDate - 해달 일 정보를 받아온다
 	 * @return String - 해당 일에 해당 트레이너의 스케쥴 정보를 근무, 휴일 등으로 불러온다 
 	 */
-	public String selectScheduleDateTraner(Trainer trainer, PeriodDate periodDate);
+	String selectScheduleDateTraner(Trainer trainer, PeriodDate periodDate);
 	
 	/**
 	 * 트레이너 근무일정 중 날 단위 구분 스케줄 입력
@@ -126,7 +129,7 @@ public interface TrainerService {
 	 * @param periodDate - 해달 일 정보를 받아온다
 	 * @return Map<Trainer, PeriodDate> - DB 수정 후 월단위 근무일정 페이지로 갈 수 있도록 Trainer, PeriodDate를 반환한다
 	 */
-	public Map<LocalDate, String> insertScheduleDateTraner(Trainer trainer, PeriodDate periodDate);
+	Map<LocalDate, String> insertScheduleDateTraner(Trainer trainer, PeriodDate periodDate);
 	
 	/**
 	 * 트레이너 근무일정 중 날 단위 구분 스케줄 수정
@@ -138,7 +141,7 @@ public interface TrainerService {
 	 * @param periodDate - 해달 일 정보를 받아온다
 	 * @return Map<LocalDate, String> - DB 수정 후 월단위 근무일정 페이지로 갈 수 있도록 Trainer, PeriodDate를 반환한다
 	 */
-	public Map<LocalDate, String> updateScheduleDateTraner(Trainer trainer, PeriodDate periodDate);
+	Map<LocalDate, String> updateScheduleDateTraner(Trainer trainer, PeriodDate periodDate);
 	
 	/**
 	 * 트레이너 한 주 단위 근무일정 맵 받아오는 서비스
@@ -148,7 +151,7 @@ public interface TrainerService {
 	 * @param periodDate - 기준점이 될 일 정보를 입력받는다
 	 * @return Map<LocalDate, List<ScheduleMemo>> - 날 을 키로 두고 해당일의 List<ScheduleMemo>를 벨류값으로 리턴한다
 	 */
-	public Map<LocalDate, List<ScheduleMemo>> getMapScheduleTimeTraner(Trainer trainer, PeriodDate periodDate);
+	Map<LocalDate, List<ScheduleMemo>> getMapScheduleTimeTraner(Trainer trainer, PeriodDate periodDate);
 	
 	/**
 	 * 트레이너 근무일정 중 시간단위 스케줄 리스트로 받아오기
@@ -157,7 +160,7 @@ public interface TrainerService {
 	 * @param periodDateTime - 해달 일,시 정보를 받아온다
 	 * @return List<ScheduleMemo> - 해당 일 스케쥴들을 리스트를 이용하여 받아온다
 	 */
-	public List<ScheduleMemo> selectScheduleTimeTraner(Trainer trainer, PeriodDateTime periodDateTime);
+	List<ScheduleMemo> selectScheduleTimeTraner(Trainer trainer, PeriodDateTime periodDateTime);
 	
 	/**
 	 * 트레이너 근무일정 중 시간단위 스케줄 입력
@@ -167,7 +170,7 @@ public interface TrainerService {
 	 * @param periodDateTime - 해달 일,시 정보를 받아온다
 	 * @return Map<LocalDate, List<ScheduleMemo>> - DB 수정 후 주단위 근무일정 페이지로 갈 수 있도록 한다
 	 */
-	public Map<LocalDate, List<ScheduleMemo>> insertScheduleTimeTraner(Trainer trainer, PeriodDateTime periodDateTime);
+	Map<LocalDate, List<ScheduleMemo>> insertScheduleTimeTraner(Trainer trainer, PeriodDateTime periodDateTime);
 	
 	/**
 	 * 트레이너 근무일정 중 시간단위 스케줄 수정하기
@@ -177,7 +180,7 @@ public interface TrainerService {
 	 * @param periodDateTime - 해달 일,시 정보를 받아온다
 	 * @return Map<Trainer, PeriodDateTime> - DB 수정 후 주단위 근무일정 페이지로 갈 수 있도록 한다
 	 */
-	public Map<LocalDate, List<ScheduleMemo>> updateScheduleTimeTraner(Trainer trainer, PeriodDateTime periodDateTime);
+	Map<LocalDate, List<ScheduleMemo>> updateScheduleTimeTraner(Trainer trainer, PeriodDateTime periodDateTime);
 	
 	/**
 	 * 트레이너 근무일정 중 시간단위 스케줄 제거하기
@@ -187,7 +190,7 @@ public interface TrainerService {
 	 * @param periodDateTime - 해달 일,시 정보를 받아온다
 	 * @return Map<Trainer, PeriodDateTime> - DB 수정 후 주단위 근무일정 페이지로 갈 수 있도록 한다
 	 */
-	public Map<LocalDate, List<ScheduleMemo>> deldetScheduleTimeTraner(Trainer trainer, PeriodDateTime periodDateTime);
+	Map<LocalDate, List<ScheduleMemo>> deldetScheduleTimeTraner(Trainer trainer, PeriodDateTime periodDateTime);
 	
 	
 	/**
@@ -197,7 +200,7 @@ public interface TrainerService {
 	 * @param i - 변동시킬 근 수치
 	 * @return int - 변동된 근 수치
 	 */
-	public int updateCoinTraner(Trainer trainer, int i);
+	int updateCoinTraner(Trainer trainer, int i);
 	
 	/**
 	 * 회원 수 조회
@@ -208,7 +211,7 @@ public interface TrainerService {
 	 * @param trainer -트레이너 PK를 기준으로 한다
 	 * @return int - 회원수
 	 */
-	public int ptMemberWithTraner(Trainer trainer);
+	int ptMemberWithTraner(Trainer trainer);
 	
 	/**
 	 * 담당 회원 등록
@@ -218,7 +221,7 @@ public interface TrainerService {
 	 * @param trainer-트레이너 PK를 기준으로 한다
 	 * @param member-회원 PK 를 기준으로 한다
 	 */
-	public void ptJoin(Trainer trainer, Member member);
+	void ptJoin(Trainer trainer, Member member);
 	
 	/**
 	 * 트레이너 평가(별점) 조회
@@ -227,7 +230,7 @@ public interface TrainerService {
 	 * @param trainer -  PK를 기준으로 한다
 	 * @return int - 별점 수치를 반환한다
 	 */
-	public int reputationSelectTrainer(Trainer trainer);
+	int reputationSelectTrainer(Trainer trainer);
 	
 	
 	/**
@@ -238,7 +241,7 @@ public interface TrainerService {
 	 * @param trainer - PK를 기준으로 한다
 	 * @param i - 입력하는 별점 수치
 	 */
-	public void reputationUpdateTrainer(Trainer trainer, int i);
+	void reputationUpdateTrainer(Trainer trainer, int i);
 	
 	/**
 	 * 이용권 등록한 추천인 수 조회 
@@ -246,7 +249,7 @@ public interface TrainerService {
 	 * @param trainer - PK를 기준으로 한다
 	 * @return - 추천인 수 반환
 	 */
-	public int countReferrer(Trainer trainer);
+	int countReferrer(Trainer trainer);
 	
 	
 	/**
@@ -258,7 +261,7 @@ public interface TrainerService {
 	 * @param member - PK를 기준으로 한다
 	 * @param string - 발송할 취소사유
 	 */
-	public void cancelPt(Trainer trainer, Member member, String string);
+	void cancelPt(Trainer trainer, Member member, String string);
 
 
 

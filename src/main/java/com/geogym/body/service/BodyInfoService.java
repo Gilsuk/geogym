@@ -2,22 +2,27 @@ package com.geogym.body.service;
 
 import java.util.List;
 
-import com.geogym.body.dto.BodyInfo;
 import com.geogym.body.dto.BodyCommentary;
+import com.geogym.body.dto.BodyInfo;
+import com.geogym.common.exception.ParamIncorrectException;
 import com.geogym.schedule.dto.PeriodDate;
 import com.geogym.user.dto.User;
-import com.geogym.util.exception.NullParamException;
 
 public interface BodyInfoService {
 	
+	/**
+	 * 
+	 * @param user
+	 * @return
+	 */
 	BodyInfo getRecentBodyInfo(User user);
 	
 	/**
 	 * 신체 정보를 새로 삽입하거나 중복이면 덮어씌운다.
 	 * @param bodyinfo
-	 * @throws NullParamException bodyinfo 내의 필드가 다 채워지지 않은 경우
+	 * @throws ParamIncorrectException bodyinfo 내의 필드가 다 채워지지 않은 경우
 	 */
-	void setBodyInfo(BodyInfo bodyinfo) throws NullParamException;
+	void setBodyInfo(BodyInfo bodyinfo) throws ParamIncorrectException;
 	
 	/**
 	 * 신체정보를 삭제한다. 삭제 할 때 연결된 코멘터리 정보도 삭제한다.

@@ -1,10 +1,23 @@
 package com.geogym.payment.service;
 
+import java.util.List;
+
+import com.geogym.common.dto.Paging;
+import com.geogym.payment.dto.CoinChangesInfo;
 import com.geogym.payment.exception.CoinNotEnoughException;
-import com.geogym.trainer.dto.Trainer;
 import com.geogym.user.dto.User;
 
-public interface PaymentService {
+public interface CoinService {
+	
+	/**
+	 * 유저가 보유한 코인을 반환한다.
+	 */
+	int getCoinAmount(User user);
+	
+	/**
+	 * 코인 사용 내역을 반환한다.
+	 */
+	List<CoinChangesInfo> getListCoinChangesInfo(User user, Paging paging);
 	
 	/**
 	 * 근을 소비할때 호출
@@ -14,12 +27,9 @@ public interface PaymentService {
 	 * @param user - 코인을 소비할 유저 객체
 	 */
 	void payByCoin(int amount, User user) throws CoinNotEnoughException;
-
-	/**
-	 * 정기권을 이용한 PT 신청시 횟수 차감
-	 * 
-	 * @param user
-	 * @param trainer
-	 */
-	void payBySeasonTicket(User user, Trainer trainer);
+	
+	// 충전
+	// 환불
+	
+	
 }
