@@ -231,42 +231,7 @@ public interface TrainerService {
 	 */
 	public void cancelPt(Trainer trainer, Member member, String string);
 
+
+
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
