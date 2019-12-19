@@ -7,10 +7,11 @@ import java.util.List;
 import java.util.Map;
 
 import com.geogym.body.dto.BodyInfo;
+import com.geogym.matching.dto.training_memo;
 import com.geogym.schedule.dto.PeriodDate;
 import com.geogym.schedule.dto.PeriodDateTime;
 import com.geogym.schedule.dto.ScheduleMemo;
-
+import com.geogym.trainer.dto.PtTicket;
 import com.geogym.trainer.dto.Trainer;
 import com.geogym.trainer.exception.UserNotTrainerException;
 import com.geogym.user.dto.User;
@@ -44,9 +45,13 @@ public interface TrainerService {
 	 * @param user 해당 유저번호에 맞는 유저에게 평가 내용 작성
 	 * @param trainer 트레이너별로 회원정보 평가 삽입
 	 */
-	void userEvaluation(User user, Trainer trainer,UserEvaluation userEvaluation);
+	void userEvaluation(PtTicket pt_ticket);
 	
-	
+	/**
+	 * 
+	 * @param user
+	 * @return
+	 */
 	List<UserEvaluation> selectEvaluation(User user);
 	
 	
@@ -221,7 +226,7 @@ public interface TrainerService {
 	 * @param trainer-트레이너 PK를 기준으로 한다
 	 * @param member-회원 PK 를 기준으로 한다
 	 */
-	void ptJoin(Trainer trainer, Member member);
+	void ptJoin(Trainer trainer, User user);
 	
 	/**
 	 * 트레이너 평가(별점) 조회
@@ -261,7 +266,7 @@ public interface TrainerService {
 	 * @param member - PK를 기준으로 한다
 	 * @param string - 발송할 취소사유
 	 */
-	void cancelPt(Trainer trainer, Member member, String string);
+	void cancelPt(training_memo training_memo);
 
 
 
