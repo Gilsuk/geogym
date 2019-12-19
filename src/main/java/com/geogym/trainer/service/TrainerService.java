@@ -20,19 +20,26 @@ public interface TrainerService {
 	
 	
 	/**
-	 * userno 로 트레이너 객체를 반환한다.
+	 *  유저와 연결된 트레이너 정보를 불러온다
+	 * 
+	 * @param user - 유저정보를 받아온다
+	 * @return Trainer - 유저와 pt 하는 트레이너 리턴
+	 * @throws UserNotTrainerException - 유저가 pt 하는 트레이너가 없을 때
 	 */
 	Trainer getTrainerByUserno(User user) throws UserNotTrainerException;
 	
 	/**
+	 * 해당 트레이너의 PT 회원들을 조회
 	 * 
-	 * @param trainer 해당 트레이너 번호에 해당하는 PT 회원들을 조회
-	 * @return 회원정보반환
+	 * 
+	 * @param trainer - 해당 트레이너 번호를 사용한다
+	 * @return List<BodyInfo> - 회원들의 몸 상태 정보를 리스트로 반환 
 	 */
 	List<BodyInfo> selectUser(Trainer trainer);
 	
 	
 	/**
+	 * 
 	 * 
 	 * @param user 해당 유저번호에 맞는 유저에게 평가 내용 작성
 	 * @param trainer 트레이너별로 회원정보 평가 삽입
