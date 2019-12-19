@@ -49,7 +49,7 @@ public interface TrainerService {
 	 * 
 	 * @param trainer - 트레이너 정보를 받아 그 트레이너의 근 수치를 설정한다
 	 * 
-	 *  밑의 tranerUpdate 로 통합할 수 있을 가능성 존재함
+	 *  
 	 */
 	void setTrainerPrice(Trainer trainer);
 	
@@ -58,7 +58,7 @@ public interface TrainerService {
 	 *  트레이너 리스트 받아오기 
 	 *  회원이 트레이너전체 정보를 받아오고 싶을 때 사용한다
 	 *  
-	 * @return List<Trainer> 리스트를 이용해 트레이너 정보를 받아온다
+	 * @return List<Trainer> - 리스트를 이용해 트레이너 정보를 받아온다
 	 */
 	List<Trainer> viewTrainerList();
 	
@@ -123,25 +123,23 @@ public interface TrainerService {
 	
 	/**
 	 * 트레이너 근무일정 중 날 단위 구분 스케줄 입력
-	 * 입력 후 getMapScheduleDateTraner 를 호출한다
+	 * 
 	 * 
 	 * @param trainer - 트레이너 ID 혹은 트레이너 번호를 기준으로 한다
 	 * @param periodDate - 해달 일 정보를 받아온다
-	 * @return Map<Trainer, PeriodDate> - DB 수정 후 월단위 근무일정 페이지로 갈 수 있도록 Trainer, PeriodDate를 반환한다
+	 * 
 	 */
-	Map<LocalDate, String> insertScheduleDateTraner(Trainer trainer, PeriodDate periodDate);
+	void insertScheduleDateTraner(Trainer trainer, PeriodDate periodDate);
 	
 	/**
 	 * 트레이너 근무일정 중 날 단위 구분 스케줄 수정
-	 * 수정 후 getMapScheduleDateTraner 를 호출한다
 	 * 
 	 * 하루 단위의 스케줄은 무조건 존재해야만 하기 때문에 딜리트 서비스는 없다.
 	 *  
 	 * @param trainer - 트레이너 ID 혹은 트레이너 번호를 기준으로 한다
 	 * @param periodDate - 해달 일 정보를 받아온다
-	 * @return Map<LocalDate, String> - DB 수정 후 월단위 근무일정 페이지로 갈 수 있도록 Trainer, PeriodDate를 반환한다
 	 */
-	Map<LocalDate, String> updateScheduleDateTraner(Trainer trainer, PeriodDate periodDate);
+	void updateScheduleDateTraner(Trainer trainer, PeriodDate periodDate);
 	
 	/**
 	 * 트레이너 한 주 단위 근무일정 맵 받아오는 서비스
@@ -164,33 +162,28 @@ public interface TrainerService {
 	
 	/**
 	 * 트레이너 근무일정 중 시간단위 스케줄 입력
-	 * 입력 후 getMapScheduleTimeTraner 를 호출한다
 	 * 
 	 * @param trainer - 트레이너 ID 혹은 트레이너 번호를 기준으로 한다
 	 * @param periodDateTime - 해달 일,시 정보를 받아온다
 	 * @return Map<LocalDate, List<ScheduleMemo>> - DB 수정 후 주단위 근무일정 페이지로 갈 수 있도록 한다
 	 */
-	Map<LocalDate, List<ScheduleMemo>> insertScheduleTimeTraner(Trainer trainer, PeriodDateTime periodDateTime);
+	void insertScheduleTimeTraner(Trainer trainer, PeriodDateTime periodDateTime);
 	
 	/**
 	 * 트레이너 근무일정 중 시간단위 스케줄 수정하기
-	 *  수정 후 getMapScheduleTimeTraner 를 호출한다
 	 * 
 	 * @param trainer - 트레이너 ID 혹은 트레이너 번호를 기준으로 한다
 	 * @param periodDateTime - 해달 일,시 정보를 받아온다
-	 * @return Map<Trainer, PeriodDateTime> - DB 수정 후 주단위 근무일정 페이지로 갈 수 있도록 한다
 	 */
-	Map<LocalDate, List<ScheduleMemo>> updateScheduleTimeTraner(Trainer trainer, PeriodDateTime periodDateTime);
+	void updateScheduleTimeTraner(Trainer trainer, PeriodDateTime periodDateTime);
 	
 	/**
 	 * 트레이너 근무일정 중 시간단위 스케줄 제거하기
-	 * 제거 후 getMapScheduleTimeTraner 를 호출한다
 	 * 
 	 * @param trainer - 트레이너 ID 혹은 트레이너 번호를 기준으로 한다
 	 * @param periodDateTime - 해달 일,시 정보를 받아온다
-	 * @return Map<Trainer, PeriodDateTime> - DB 수정 후 주단위 근무일정 페이지로 갈 수 있도록 한다
 	 */
-	Map<LocalDate, List<ScheduleMemo>> deldetScheduleTimeTraner(Trainer trainer, PeriodDateTime periodDateTime);
+	void deldetScheduleTimeTraner(Trainer trainer, PeriodDateTime periodDateTime);
 	
 	
 	/**
