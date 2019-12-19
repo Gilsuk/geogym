@@ -6,3 +6,4 @@
 - [스토리보드](https://ovenapp.io/project/f28kVDQLFJSxNXLXcZzFyj9ZzKC0QJ8u#WBJpP)
 
 ## 설계
+- [ERD](https://www.erdcloud.com/d/oLiEbuWh8fsdyLshp)
