@@ -7,3 +7,4 @@
 
 ## 설계
 - [ERD](https://www.erdcloud.com/d/oLiEbuWh8fsdyLshp)
+- [diagrams](https://drive.google.com/file/d/1ixzUVQxiDwiCICyOU21Yq87QP80Lt4xd/view?usp=sharing)
