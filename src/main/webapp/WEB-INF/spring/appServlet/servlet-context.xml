@@ -22,8 +22,38 @@
 	<beans:bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
 		<beans:property name="prefix" value="/WEB-INF/views/" />
 		<beans:property name="suffix" value=".jsp" />
+		<beans:property name="order" value="1" />
+	</beans:bean>
+
+	<beans:bean class="org.springframework.web.servlet.view.BeanNameViewResolver">
+		<beans:property name="order" value="0" />
 	</beans:bean>
 	
+	<beans:bean id="jsonView"
+		class="org.springframework.web.servlet.view.json.MappingJackson2JsonView">
+	<beans:property name="contentType"
+		value="application/json;charset=utf-8" />
+	</beans:bean>
+<!--     <beans:bean id="authenticationInterceptor" class="selectKey.util.CustomIntercepter" /> -->
+<!--     <beans:bean id="boardInterceptor" class="selectKey.controller.BoardInterceptor" /> -->
+
+<!--     <interceptors> -->
+<!--         <interceptor> -->
+<!--             <mapping path="/interceptor/login"/> -->
+<!--             <beans:ref bean="authenticationInterceptor"/> -->
+<!--         </interceptor> -->
+<!--         <interceptor> -->
+<!--             <mapping path="/board/write"/> -->
+<!--             <beans:ref bean="boardInterceptor"/> -->
+<!--         </interceptor> -->
+<!--     </interceptors> -->
+
+    <beans:bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+    	<beans:property name="maxInMemorySize" value="1048576" />
+    	<beans:property name="maxUploadSize" value="10485760" />
+    	<beans:property name="maxUploadSizePerFile" value="5242880" />
+    </beans:bean>
+
 	<context:component-scan base-package="com.geogym.www" />
 	
 	

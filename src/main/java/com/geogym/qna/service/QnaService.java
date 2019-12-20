@@ -2,44 +2,116 @@ package com.geogym.qna.service;
 
 import java.util.List;
 
-import org.springframework.ui.Model;
-
 import com.geogym.common.dto.Paging;
 import com.geogym.qna.dto.Qna;
-import com.geogym.qna.dto.QnaAttachment;
+import com.geogym.qna.dto.Search;
+import com.geogym.user.dto.User;
 
 public interface QnaService {
 	
-	//목록불러오기
-	public List<Qna> getList(Paging paging, int boardno);
+	
+	/**
+	 * 페이징 정보를 활용하여 보여질 게시글 목록만 조회
+	 *  
+	 * @param Paging - 페이징 정보
+	 * @return List - 게시글 목록
+	 */
+	public List<Qna> getListAll(Paging paging);
+	
 
-	//검색했을때 검색조건에 맞는 목록만 불러오기 
-	public List<Qna> getSearchList(Paging paging, int boardno);
+	/**
+	 * 유저가 쓴 글 검색 (페이징)
+	 * @param User - 유저 
+	 * @param paging - 페이징
+	 * @return 
+	 */
+	public List<Qna> getListAccount(User user, Paging paging);
+	
+	/**
+	 * 조건 검색 (페이징)
+	 * @param search - 검색조건
+	 * @param paging - 페이징
+	 * @return
+	 */
+	public List<Qna> getListAccount(Search search, Paging paging);
+	
+	/**
+	 * 요청파라미터 curPage를 파싱한다
+	 * Board TB와 curPage 값을 이용한 Paging 객체를 생성하고 반환
+	 * 
+	 * @return Paging - 페이징 정보
+	 */
+	public Paging getPaging();
+	
+	
+	/**
+	 * 페이징 계산 
+	 * @param user - 유저
+	 * @return
+	 */
+	public Paging getPaging(User user);
+	
+	
+	/**
+	 * 페이징 계산 
+	 * @param paging - 검색조건
+	 * @return
+	 */
+	public Paging getPaging(Paging paging);
+	
+	
+	/**
+	 * 요청 파라미터 게시글 번호 파싱
+	 * 
+	 * @return QnA - 게시글 번호를 가진 객체
+	 */
+	public Qna getQna_no();
+	
+	
+	/**
+	 * 질문글 작성(유저)
+	 * 	입력한 게시글 내용을 DB에 저장
+	 * 
+	 *  첨부파일을 함께 업로드 할 수 있도록 처리
+	 * 
+	 * @param req - 요청정보 객체(게시글내용 + 첨부파일)
+	 * write - 글쓰기
+	 * void - 반환 받을게 아무것도 없을 때
+	 */
+	public void write();
+	
+	/**
+	 * 답글 작성(트레이너)
+	 * 	입력한 게시글 내용을 DB에 저장
+	 * 
+	 *  첨부파일을 함께 업로드 할 수 있도록 처리
+	 * 
+	 * @param req - 요청정보 객체(게시글내용 + 첨부파일)
+	 * write - 글쓰기
+	 * void - 반환 받을게 아무것도 없을 때
+	 */
+	public void writeAnswer();
+	
 
-	//페이징 불러오기
-	public Paging getPaging(Model req);
+	/**
+	 * 게시글 수정
+	 * 
+	 * @param req - 요청 정보 객체
+	 */
+	public void modify();
 
-	//상세보기
-	//boardno로 조회해서 게시글 보기
-	public Qna view(Qna qna_no);
+	
+	/**
+	 * 게시글 삭제
+	 * 
+	 * @param qna - 삭제할 게시글 번호를 가진 객체
+	 * String - 삭제됐다는 확인 메세지 보내기 
+	 */
+	public String delete(Qna qna);
+	
+	
+	
 
-	//게시글 작성(파일첨부 x )
-	public void write(Qna qna_no);
-
-	//게시글 작성(파일첨부 o )
-	public int write(Model req);
-
-	//게시글에 첨부된 파일 가져오기 
-	public QnaAttachment getFile(QnaAttachment qnaAttachment);
-	   
-	//게시판 큐앤에이 넘버 추출
-	public Qna getIdx(Model req);
-  
-	//게시글 삭제
-	public void delete(Qna qna_no);
-
-	//게시글 수정
-	public void update(Model req);
 
 
 }

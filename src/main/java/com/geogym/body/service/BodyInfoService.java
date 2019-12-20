@@ -6,6 +6,7 @@ import com.geogym.body.dto.BodyCommentary;
 import com.geogym.body.dto.BodyInfo;
 import com.geogym.common.exception.ParamIncorrectException;
 import com.geogym.schedule.dto.PeriodDate;
+import com.geogym.schedule.exception.TooLongPeriodException;
 import com.geogym.user.dto.User;
 
 public interface BodyInfoService {
@@ -32,25 +33,35 @@ public interface BodyInfoService {
 	/**
 	 * Period 대신 paging으로 처리하는 것도 고려해봄직
 	 */
-	List<BodyInfo> getBodyInfosByPeriod(User user, PeriodDate period);
+	List<BodyInfo> getBodyInfosByPeriod(User user, PeriodDate period)
+			throws TooLongPeriodException;
 
 	/**
 	 * 주마다 한 건씩 조회한다.
 	 */
-	List<BodyInfo> getBodyInfosByWeek(User user, PeriodDate period);
+	List<BodyInfo> getBodyInfosByWeek(User user, PeriodDate period)
+			throws TooLongPeriodException;
 
 	/**
 	 * 월말 기준으로 한 건씩 조회 한다.
 	 */
-	List<BodyInfo> getBodyInfosByMonth(User user, PeriodDate period);
+	List<BodyInfo> getBodyInfosByMonth(User user, PeriodDate period)
+			throws TooLongPeriodException;
 
+	/**
+	 * 신체정보에 달린 트레이너의 코멘터리를 조회
+	 * @param bodyinfo
+	 * @return
+	 */
 	BodyCommentary getCommentary(BodyInfo bodyinfo);
 	
 	/**
 	 * 개인 코멘트는 굳이 필요 없는듯 하여
 	 * 트레이너만 작성 가능하도록 메소드를 정의함
+	 * @throws ParamIncorrectException 필드가 비어있는 경우
 	 */
-	void setBodyCommentary(BodyCommentary commentary);
+	void setBodyCommentary(BodyCommentary commentary)
+			throws ParamIncorrectException;
 	
 	void deleteBodyCommentary(BodyCommentary commentary);
 	
