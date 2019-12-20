@@ -2,15 +2,10 @@ package com.geogym.qna.service;
 
 import java.util.List;
 
-import org.springframework.ui.Model;
-
 import com.geogym.common.dto.Paging;
 import com.geogym.qna.dto.Qna;
-import com.geogym.qna.dto.QnaAttachment;
-
-import ziozio.dto.QnA;
-import ziozio.dto.QnAFile;
-import ziozio.service.face.User;
+import com.geogym.qna.dto.Search;
+import com.geogym.user.dto.User;
 
 public interface QnaService {
 	
@@ -21,7 +16,7 @@ public interface QnaService {
 	 * @param Paging - 페이징 정보
 	 * @return List - 게시글 목록
 	 */
-	public List<QnA> getListAll(Paging paging);
+	public List<Qna> getListAll(Paging paging);
 	
 
 	/**
@@ -30,7 +25,7 @@ public interface QnaService {
 	 * @param paging - 페이징
 	 * @return 
 	 */
-	public List<QnA> getListAccount(User user, Paging paging);
+	public List<Qna> getListAccount(User user, Paging paging);
 	
 	/**
 	 * 조건 검색 (페이징)
@@ -38,7 +33,7 @@ public interface QnaService {
 	 * @param paging - 페이징
 	 * @return
 	 */
-	public List<QnA> getListAccount(Search search, Paging paging);
+	public List<Qna> getListAccount(Search search, Paging paging);
 	
 	/**
 	 * 요청파라미터 curPage를 파싱한다
@@ -70,7 +65,7 @@ public interface QnaService {
 	 * 
 	 * @return QnA - 게시글 번호를 가진 객체
 	 */
-	public QnA getQna_no();
+	public Qna getQna_no();
 	
 	
 	/**
@@ -112,7 +107,7 @@ public interface QnaService {
 	 * @param qna - 삭제할 게시글 번호를 가진 객체
 	 * String - 삭제됐다는 확인 메세지 보내기 
 	 */
-	public String delete(QnA qna);
+	public String delete(Qna qna);
 	
 	
 	
