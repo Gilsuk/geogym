@@ -175,5 +175,6 @@ gradle-app.setting
 ### geogym specific ###
 *.db
 **/upload/
+*.ucls
 
 # End of https://www.gitignore.io/api/java,maven,eclipse
