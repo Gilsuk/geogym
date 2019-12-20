@@ -14,12 +14,6 @@ import ziozio.service.face.User;
 
 public interface QnaService {
 	
-	/**
-	 * 게시글 목록 조회
-	 *  
-	 * @return List - 게시글 목록
-	 */
-	public List<QnA> getListAll();
 	
 	/**
 	 * 페이징 정보를 활용하여 보여질 게시글 목록만 조회
@@ -29,12 +23,6 @@ public interface QnaService {
 	 */
 	public List<QnA> getListAll(Paging paging);
 	
-	/**
-	 * 유저가 쓴 글 검색 
-	 * @param account - 유저계정
-	 * @return List - 게시글 목록
-	 */
-	public List<QnA> getListAccount(User user);
 
 	/**
 	 * 유저가 쓴 글 검색 (페이징)
@@ -44,6 +32,13 @@ public interface QnaService {
 	 */
 	public List<QnA> getListAccount(User user, Paging paging);
 	
+	/**
+	 * 조건 검색 (페이징)
+	 * @param search - 검색조건
+	 * @param paging - 페이징
+	 * @return
+	 */
+	public List<QnA> getListAccount(Search search, Paging paging);
 	
 	/**
 	 * 요청파라미터 curPage를 파싱한다
@@ -61,22 +56,21 @@ public interface QnaService {
 	 */
 	public Paging getPaging(User user);
 	
+	
+	/**
+	 * 페이징 계산 
+	 * @param paging - 검색조건
+	 * @return
+	 */
+	public Paging getPaging(Paging paging);
+	
+	
 	/**
 	 * 요청 파라미터 게시글 번호 파싱
 	 * 
 	 * @return QnA - 게시글 번호를 가진 객체
 	 */
 	public QnA getQna_no();
-	
-	/**
-	 * 상세보기 게시글 조회
-	 * 조회수 업데이트
-	 * 
-	 * @param viewBoard - 상세보기할 boardno를 가진 객체
-	 * @return QnA - 상세보기할 게시글 조회 결과
-	 */
-	public QnA view(QnA viewQna);
-	
 	
 	
 	/**
@@ -103,30 +97,14 @@ public interface QnaService {
 	 */
 	public void writeAnswer();
 	
-	/**
-	 * 글 작성자인지 판단하기
-	 * 
-	 * @param req - 요청 정보 객체
-	 * @return boolean - true : 로그인한 사람이 글 작성자
-	 * boolean - 참거짓
-	 */
-	public boolean checkNick();
 
 	/**
 	 * 게시글 수정
 	 * 
 	 * @param req - 요청 정보 객체
 	 */
-	public void update();
+	public void modify();
 
-	/**
-	 * ID를 통해 닉네임얻기
-	 * 
-	 * @param qna - id를 가진 qna 객체
-	 * @return String - 닉네임
-	 * String - 무조건 반환 
-	 */
-	public String getNick(QnA qna);
 	
 	/**
 	 * 게시글 삭제

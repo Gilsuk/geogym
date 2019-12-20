@@ -1,4 +1,4 @@
-package com.geogym.qna.service;
+package com.geogym.attachment.service;
 
 public interface Attachment {
 	
