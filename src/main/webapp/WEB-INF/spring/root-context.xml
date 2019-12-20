@@ -30,6 +30,6 @@
 	</bean>
 
 	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
-		<property name="basePackage" value="com.geogym" />
+		<property name="basePackage" value="com.geogym.*.service, com.geogym.*.dao" />
 	</bean>
 </beans>
