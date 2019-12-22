@@ -2,7 +2,17 @@ package com.geogym.attachment.service;
 
 import com.geogym.qna.dto.Qna;
 
+/**
+ * 업로드 파일 관리 서비스
+ * @author 대호
+ *
+ */
 public interface Attachment {
+	
+	
+	
+	void upload(Attachment attachment);
+	
 	
 	/**
 	 * 파일 업로드(큐앤에이, 기타 포함)

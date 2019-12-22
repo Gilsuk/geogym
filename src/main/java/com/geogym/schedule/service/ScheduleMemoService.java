@@ -3,8 +3,8 @@ package com.geogym.schedule.service;
 import java.time.LocalDate;
 import java.util.List;
 
-import com.geogym.matching.dto.MatchingSchedule;
 import com.geogym.message.dto.Message;
+import com.geogym.pt.dto.MatchingSchedule;
 import com.geogym.schedule.dto.PeriodDate;
 import com.geogym.schedule.dto.ScheduleMemo;
 import com.geogym.schedule.dto.WorkingTimeInfo;

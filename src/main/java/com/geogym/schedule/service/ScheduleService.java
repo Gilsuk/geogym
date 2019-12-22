@@ -5,7 +5,7 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.List;
 
-import com.geogym.matching.dto.MatchingSchedule;
+import com.geogym.pt.dto.MatchingSchedule;
 import com.geogym.trainer.dto.Trainer;
 import com.geogym.user.dto.User;
 
@@ -18,10 +18,10 @@ public interface ScheduleService {
 	 * ex)트레이너의 2시에 스케줄이 있으면 1:30은 제외
 	 * 
 	 * @param trainer
-	 * @param locaDate
+	 * @param localDate
 	 * @return
 	 */
-	List<LocalTime> getAvilableTime(Trainer trainer, LocalDate locaDate);
+	List<LocalTime> getAvilableTime(Trainer trainer, LocalDate localDate);
 
 	/**
 	 * 
