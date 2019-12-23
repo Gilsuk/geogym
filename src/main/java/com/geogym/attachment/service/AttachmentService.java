@@ -12,14 +12,14 @@ import com.geogym.trainer.dto.Trainer;
  * 업로드 파일 관리 서비스
  *
  */
-public interface Attachment {
+public interface AttachmentService {
 	
 	/**
 	 * 파일을 업로드 한다.
 	 * @param attachment - attachment_no를 포함하여 완전한 정보를 담고 있는 attachment 객체
 	 * attachment_no는 시퀀스를 통해 얻어온다.
 	 */
-	void upload(Attachment attachment);
+	void upload(AttachmentService attachment);
 	
 	/**
 	 * 시퀀스 nextval
@@ -32,7 +32,7 @@ public interface Attachment {
 	 * @param 게시글 번호가 포함된 qna dto
 	 * @return 업로드 파일 리스트 반환. 조회 결과가 없다면, 비어있는 리스트를 반환한다.
 	 */
-	List<Attachment> getAttachments(Qna qna);
+	List<AttachmentService> getAttachments(Qna qna);
 	
 	/**
 	 * 연결된 업로드 파일 조회
@@ -40,7 +40,7 @@ public interface Attachment {
 	 * @param 게시글 번호가 포함된 qnaAnswer dto
 	 * @return 업로드 파일 리스트 반환. 조회 결과가 없다면, 비어있는 리스트를 반환한다.
 	 */
-	List<Attachment> getAttachments(QnaAnswer qnaAnswer);
+	List<AttachmentService> getAttachments(QnaAnswer qnaAnswer);
 
 	/**
 	 * 연결된 업로드 파일 조회
@@ -48,20 +48,20 @@ public interface Attachment {
 	 * @param 고유 번호가 포함된 BodyInfo dto
 	 * @return 업로드 파일 리스트 반환. 조회 결과가 없다면, 비어있는 리스트를 반환한다.
 	 */
-	List<Attachment> getAttachments(BodyInfo bodyinfo);
+	List<AttachmentService> getAttachments(BodyInfo bodyinfo);
 	
 	/**
 	 * 트레이너의 프로필 사진을 반환
 	 * @param trainer trainer_no를 포함하는 객체
 	 */
-	Attachment getAttachment(Trainer trainer);
+	AttachmentService getAttachment(Trainer trainer);
 
 	/**
 	 * 트레이닝 메모의 첨부자료 조회
 	 * @param trainingMemo - training_memo_no를 포함하는 객체
 	 * @return
 	 */
-	Attachment getAttachment(TrainingMemo trainingMemo);
+	AttachmentService getAttachment(TrainingMemo trainingMemo);
 
 	/**
 	 * 연결된 파일 모두 삭제
@@ -82,11 +82,11 @@ public interface Attachment {
 	 * @param qna qna_no를 포함하는 객체
 	 * @param attachment attachment_no를 포함하는 객체
 	 */
-	void removeAttachment(Qna qna, Attachment attachment);
+	void removeAttachment(Qna qna, AttachmentService attachment);
 	
-	void removeAttachment(QnaAnswer qnaAnswer, Attachment attachment);
+	void removeAttachment(QnaAnswer qnaAnswer, AttachmentService attachment);
 
-	void removeAttachment(BodyInfo bodyinfo, Attachment attachment);
+	void removeAttachment(BodyInfo bodyinfo, AttachmentService attachment);
 	
 	/**
 	 * 트레이너의 프로필 사진을 삭제
