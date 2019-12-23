@@ -2,6 +2,7 @@ package com.geogym.attachment.service;
 
 import java.util.List;
 
+import com.geogym.attachment.dto.Attachment;
 import com.geogym.body.dto.BodyInfo;
 import com.geogym.memo.dto.TrainingMemo;
 import com.geogym.qna.dto.Qna;
@@ -88,6 +89,13 @@ public interface AttachmentService {
 
 	void removeAttachment(BodyInfo bodyinfo, AttachmentService attachment);
 	
+	/**
+	 * 업로드 파일을 교체한다.
+	 * 기존 업로드된 파일은 삭제한다.
+	 * @param attachment 교체 대상 attachment_no를 포함하는 객체
+	 */
+	void updateAttachment(Attachment attachment);
+
 	/**
 	 * 트레이너의 프로필 사진을 삭제
 	 * 단, 해당컬럼은 NOT NULL 이므로 파일만 삭제하고, 컬럼에는 기본값 사진 주소로 업데이트 한다.

@@ -33,13 +33,12 @@ public interface TrainerService {
 	 * 
 	 * 
 	 * @param trainer - 해당 트레이너 번호를 사용한다
-	 * @return List<BodyInfo> - 회원들의 몸 상태 정보를 리스트로 반환 
+	 * @return List<User> - 회원 리스트
 	 */
-	List<BodyInfo> selectUser(Trainer trainer);
+	List<User> getClients(Trainer trainer);
 	
 	
 	/**
-	 * 
 	 * 
 	 * @param user 해당 유저번호에 맞는 유저에게 평가 내용 작성
 	 * @param trainer 트레이너별로 회원정보 평가 삽입
