@@ -24,12 +24,12 @@
 			value="/WEB-INF/config/mybatis-config.xml" />
 		<property name="mapperLocations">
 			<array>
-				<value>classpath:/com/geogym/**/dao/**.xml</value>
+				<value>classpath:/com/geogym/**/dao/*.xml</value>
 			</array>
 		</property>
 	</bean>
 
 	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
-		<property name="basePackage" value="com.geogym.*.service, com.geogym.*.dao" />
+		<property name="basePackage" value="com.geogym.*.dao" />
 	</bean>
 </beans>
