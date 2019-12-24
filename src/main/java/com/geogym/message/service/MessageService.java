@@ -28,7 +28,7 @@ public interface MessageService {
 	 */
 	List<Message> getMessages(User user);
 	
-	/** 난 공산당이 싫어요 헝헝 -주용
+	/** 
 	 * 알림을 확인했을 때, 확인한 알림을 삭제하고 그 다음번 알림을 가져와서 채워넣는 용도.
 	 * 예시)
 	 * 읽지 않은 알림이 10개가 있고, 화면에 3개만 보여준다고 할때,

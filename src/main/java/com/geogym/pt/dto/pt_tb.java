@@ -1,4 +1,4 @@
-package com.geogym.matching.dto;
+package com.geogym.pt.dto;
 
 public class pt_tb {
 	private int pt_tb_no;

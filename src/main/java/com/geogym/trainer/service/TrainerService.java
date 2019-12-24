@@ -6,10 +6,10 @@ import java.util.List;
 import java.util.Map;
 
 import com.geogym.body.dto.BodyInfo;
-import com.geogym.matching.dto.training_memo;
+import com.geogym.memo.dto.CalendarMemo;
 import com.geogym.schedule.dto.PeriodDate;
 import com.geogym.schedule.dto.PeriodDateTime;
-import com.geogym.schedule.dto.ScheduleMemo;
+import com.geogym.schedule.dto.Schedule;
 import com.geogym.trainer.dto.PtTicket;
 import com.geogym.trainer.dto.Trainer;
 import com.geogym.trainer.exception.UserNotTrainerException;
@@ -33,13 +33,12 @@ public interface TrainerService {
 	 * 
 	 * 
 	 * @param trainer - 해당 트레이너 번호를 사용한다
-	 * @return List<BodyInfo> - 회원들의 몸 상태 정보를 리스트로 반환 
+	 * @return List<User> - 회원 리스트
 	 */
-	List<BodyInfo> selectUser(Trainer trainer);
+	List<User> getClients(Trainer trainer);
 	
 	
 	/**
-	 * 
 	 * 
 	 * @param user 해당 유저번호에 맞는 유저에게 평가 내용 작성
 	 * @param trainer 트레이너별로 회원정보 평가 삽입
@@ -53,14 +52,10 @@ public interface TrainerService {
 	 */
 	List<UserEvaluation> selectEvaluation(User user);
 	
-	
-
 	/**
 	 * 트레이너별 몸값(일일PT 신청시 차감되는 근) 책정
 	 * 
 	 * @param trainer - 트레이너 정보를 받아 그 트레이너의 근 수치를 설정한다
-	 * 
-	 *  
 	 */
 	void setTrainerPrice(Trainer trainer);
 	
@@ -81,7 +76,7 @@ public interface TrainerService {
 	 * @param trainer - 트레이너 ID 혹은 트레이너 번호를 기준으로 한다
 	 * @return	Trainer - 트레이너 DTO 를 불러온다
 	 */
-	Trainer selectTrainer(Trainer trainer);
+	Trainer getTrainer(Trainer trainer);
 	
 	
 	/**
@@ -160,7 +155,7 @@ public interface TrainerService {
 	 * @param periodDate - 기준점이 될 일 정보를 입력받는다
 	 * @return Map<LocalDate, List<ScheduleMemo>> - 날 을 키로 두고 해당일의 List<ScheduleMemo>를 벨류값으로 리턴한다
 	 */
-	Map<LocalDate, List<ScheduleMemo>> getMapScheduleTimeTraner(Trainer trainer, PeriodDate periodDate);
+	Map<LocalDate, List<CalendarMemo>> getMapScheduleTimeTraner(Trainer trainer, PeriodDate periodDate);
 	
 	/**
 	 * 트레이너 근무일정 중 시간단위 스케줄 리스트로 받아오기
@@ -169,7 +164,7 @@ public interface TrainerService {
 	 * @param periodDateTime - 해달 일,시 정보를 받아온다
 	 * @return List<ScheduleMemo> - 해당 일 스케쥴들을 리스트를 이용하여 받아온다
 	 */
-	List<ScheduleMemo> selectScheduleTimeTraner(Trainer trainer, PeriodDateTime periodDateTime);
+	List<CalendarMemo> selectScheduleTimeTraner(Trainer trainer, PeriodDateTime periodDateTime);
 	
 	/**
 	 * 트레이너 근무일정 중 시간단위 스케줄 입력
@@ -186,7 +181,7 @@ public interface TrainerService {
 	 * @param trainer - 트레이너 ID 혹은 트레이너 번호를 기준으로 한다
 	 * @param periodDateTime - 해달 일,시 정보를 받아온다
 	 */
-	void updateScheduleTimeTraner(Trainer trainer, PeriodDateTime periodDateTime);
+	void modifySchedule(Schedule schedule);
 	
 	/**
 	 * 트레이너 근무일정 중 시간단위 스케줄 제거하기
@@ -194,38 +189,10 @@ public interface TrainerService {
 	 * @param trainer - 트레이너 ID 혹은 트레이너 번호를 기준으로 한다
 	 * @param periodDateTime - 해달 일,시 정보를 받아온다
 	 */
-	void deldetScheduleTimeTraner(Trainer trainer, PeriodDateTime periodDateTime);
+	void removeSchedule(Schedule schedule);
 	
 	
-	/**
-	 * PT 매칭시 변동된 근 집계
-	 * 
-	 * @param trainer - 트레이너 PK를 기준으로 한다
-	 * @param i - 변동시킬 근 수치
-	 * @return int - 변동된 근 수치
-	 */
-	int updateCoinTraner(Trainer trainer, int i);
 	
-	/**
-	 * 회원 수 조회
-	 * 
-	 * 해당 트레이너와 PT 를 진행하고 있는 회원 수 조회 
-	 * 
-	 * 
-	 * @param trainer -트레이너 PK를 기준으로 한다
-	 * @return int - 회원수
-	 */
-	int ptMemberWithTraner(Trainer trainer);
-	
-	/**
-	 * 담당 회원 등록
-	 * 
-	 * 해당 트레이너에게 PT 매칭시 등록하기
-	 * 
-	 * @param trainer-트레이너 PK를 기준으로 한다
-	 * @param member-회원 PK 를 기준으로 한다
-	 */
-	void ptJoin(Trainer trainer, User user);
 	
 	/**
 	 * 트레이너 평가(별점) 조회
@@ -234,8 +201,7 @@ public interface TrainerService {
 	 * @param trainer -  PK를 기준으로 한다
 	 * @return int - 별점 수치를 반환한다
 	 */
-	int reputationSelectTrainer(Trainer trainer);
-	
+	int getReputation(Trainer trainer);
 	
 	/**
 	 * 트레이너 평가(별점) 등록
@@ -245,7 +211,7 @@ public interface TrainerService {
 	 * @param trainer - PK를 기준으로 한다
 	 * @param i - 입력하는 별점 수치
 	 */
-	void reputationUpdateTrainer(Trainer trainer, int i);
+	void reputate(Trainer trainer, int i);
 	
 	/**
 	 * 이용권 등록한 추천인 수 조회 
@@ -254,21 +220,5 @@ public interface TrainerService {
 	 * @return - 추천인 수 반환
 	 */
 	int countReferrer(Trainer trainer);
-	
-	
-	/**
-	 * 잡힌 일정 취소 사유와 함께 취소 가능(자동으로 알림 발송
-	 * 
-	 * MessageService 의 sendMessage 를 활용한다
-	 * 
-	 * @param trainer - PK를 기준으로 한다
-	 * @param member - PK를 기준으로 한다
-	 * @param string - 발송할 취소사유
-	 */
-	void cancelPt(training_memo training_memo);
-
-
-
-
 }
 
