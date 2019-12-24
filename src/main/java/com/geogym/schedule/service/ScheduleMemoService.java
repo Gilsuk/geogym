@@ -27,13 +27,15 @@ import com.geogym.user.dto.User;
  */
 public interface ScheduleMemoService {
 	
+	
+	
 	/**
 	 * 
 	 * @param user user_no 필드를 포함하는 객체
 	 * @param memo 메모의 내용과 날짜를 포함한다.
 	 * @throws MemoAlreadyExistException 이미 해당 메모가 존재하는 경우
 	 */
-	void addMemo(User user, ScheduleMemo memo) throws MemoAlreadyExistException;
+	public void addMemo(User user, ScheduleMemo memo) throws MemoAlreadyExistException;
 	
 	/**
 	 * 존재하는 메모에 덮어 씌울 때
