@@ -85,16 +85,18 @@ public class TrainerServiceImpl implements TrainerService {
 		return trainerDao.getTrainer(trainer);
 	}
 
-	@Override
-	public Trainer updateTraner(Trainer trainer) {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
 	@Override
-	public Trainer deleteTraner(Trainer trainer) {
+	public void deleteTraner(Trainer trainer) {
 		// TODO Auto-generated method stub
-		return null;
+		
+		trainer.setAttachment_no(-1);
+		trainer.setTrainer_address("없음");
+		trainer.setTrainer_price(-1);
+		trainer.setTrainer_profile("없음");
+		
+		updateTrainer(trainer);
+		
 	}
 
 	@Override
