@@ -13,6 +13,7 @@
 		<property name="connectionProperties" >
 			<props>
 				<prop key="foreign_keys">true</prop>
+				<prop key="synchronous">OFF</prop>
 			</props>
 		</property>
 	</bean>
