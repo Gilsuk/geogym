@@ -4,10 +4,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
-import com.geogym.pt.dto.MatchingSchedule;
 import com.geogym.schedule.dto.WorkingTimeInfo;
-import com.geogym.trainer.dto.Trainer;
-import com.geogym.user.dto.User;
 
 public interface WorkingDayService {
 	

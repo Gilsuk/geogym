@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="com.geogym.schedule.dao.ScheduleDao">
+
+<resultMap type="com.geogym.schedule.dto.Schedule" id="schedule">
+	<result column="attendance_date" property="schedule_date"/>
+	<result column="attendance_start" property="schedule_from"/>
+	<result column="attendance_end" property="schedule_to"/>
+</resultMap>
+
+<select id="selectWorkingTimeInaDay" parameterType="com.geogym.schedule.dto.Schedule">
+	SELECT attendance_start AS schedule_from, attendance_end AS schedule_to FROM attendance
+	WHERE 1=1
+	AND trainer_no = #{trainer.trainer_no}
+	AND attendance_date = #{schedule_date}
+</select>
+
+</mapper>
