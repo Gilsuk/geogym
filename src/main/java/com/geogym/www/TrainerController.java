@@ -48,27 +48,37 @@ public class TrainerController {
 	
 	
 	//트레이너 테이블 수정
-	@RequestMapping(value = "/trainer/update", method = RequestMethod.GET)
+	@RequestMapping(value = "/trainer/update", method = RequestMethod.POST)
 	private void updateTrainer(Trainer trainer) {
 		logger.info("updateTrainer");
 		
 		
-		
-		Trainer trainer2 = new Trainer();
-		trainer2.setTrainer_no(1);
-		trainer2.setUser_no(1);
-		trainer2.setTrainer_address("addredd");
-		trainer2.setTrainer_price(1);
-		trainer2.setTrainer_profile("profile");
+		// 이부분은 테스트용
+//		Trainer trainer2 = new Trainer();
+//		trainer2.setTrainer_no(1);
+//		trainer2.setUser_no(1);
+//		trainer2.setTrainer_address("addredd");
+//		trainer2.setTrainer_price(1);
+//		trainer2.setTrainer_profile("profile");
 //		trainer2.setAttachment_no(1);
 		
-		trainerService.updateTrainer(trainer2);
+		trainerService.updateTrainer(trainer);
 		
-		System.out.println(trainer2);
+		System.out.println(trainer);
 		logger.info("성공");
+
+	}
+	
+	//트레이너 정보 제거하기
+	@RequestMapping(value = "/trainer/delete", method = RequestMethod.GET)
+	private void TrainerDelete(Trainer trainer) {
+		logger.info("Delete");
+		
+		trainerService.deleteTraner(trainer);
 
 		
 	}
+	
 	
 
 }

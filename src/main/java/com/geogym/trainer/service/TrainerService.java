@@ -55,7 +55,12 @@ public interface TrainerService {
 //	List<UserEvaluation> selectEvaluation(User user);
 	
 	/**
-	 * 트레이너 테이블 수정
+	 * 트레이너 프로필 수정
+	 * 
+	 * 트레이너 정보 업데이트하기
+	 * 
+	 * 미리 selectTrainer 구문을 이용해 해당 트레이너의 모든 정보를 불러온 후
+	 * 업데이트 하고 싶은 부분만 바꿔서 업데이트한다.
 	 * 
 	 * @param trainer - 트레이너 정보 수정
 	 */
@@ -80,34 +85,19 @@ public interface TrainerService {
 	 */
 	Trainer getTrainer(Trainer trainer);
 	
-	
-	/**
-	 * 트레이너 프로필 수정
-	 * 
-	 * 트레이너 정보 업데이트하기
-	 * 
-	 * 미리 selectTrainer 구문을 이용해 해당 트레이너의 모든 정보를 불러온 후
-	 * 업데이트 하고 싶은 부분만 바꿔서 업데이트한다.
-	 * 
-	 * 
-	 * 업데이트 후 selectTrainer 를 수행하여 수정된 정보를 반환한다
-	 * 
-	 * @param trainer - 트레이너 ID 혹은 트레이너 번호를 기준으로 한다
-	 * @return	Trainer - 트레이너 DTO 를 불러온다
-	 */
-	Trainer updateTraner(Trainer trainer);
+
 	
 	/**
 	 * 트레이너 정보 삭제
 	 * 미리 selectTrainer 구문을 이용해 해당 트레이너의 모든 정보를 불러온 후
-	 * PK 를 제외한 모든 값을 null 로 넣어 updateTraner 를 이용해 업데이트한다
+	 * PK 를 제외한 모든 값을 더미데이터로 넣어 updateTraner 를 이용해 업데이트한다
 	 * 
 	 * 업데이트 후 selectTrainer 를 수행하여 수정된 정보를 반환한다
 	 * 
 	 * @param trainer - 트레이너 ID 혹은 트레이너 번호를 기준으로 한다
 	 * @return Trainer - 트레이너 DTO 를 불러온다
 	 */
-	Trainer deleteTraner(Trainer trainer);
+	void deleteTraner(Trainer trainer);
 	
 	
 	/**
