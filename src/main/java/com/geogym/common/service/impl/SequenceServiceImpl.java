@@ -14,7 +14,8 @@ public class SequenceServiceImpl implements SequenceService {
 
 	@Override
 	public int getNextVal(Table table) {
-		return dao.selectNextVal(table.toString());
+		dao.increaseCurVal(table.toString());
+		return dao.selectCurVal(table.toString());
 	}
 
 	@Override

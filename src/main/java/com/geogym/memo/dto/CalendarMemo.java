@@ -1,8 +1,8 @@
-package com.geogym.schedule.dto;
+package com.geogym.memo.dto;
 
 import java.time.LocalDate;
 
-public class ScheduleMemo {
+public class CalendarMemo {
 	
 	private int user_no;
 	private LocalDate calendar_memo_date;

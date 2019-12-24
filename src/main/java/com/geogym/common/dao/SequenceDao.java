@@ -4,6 +4,6 @@ public interface SequenceDao {
 
 	int selectCurVal(String tbname);
 
-	int selectNextVal(String tbname);
+	void increaseCurVal(String tbname);
 
 }

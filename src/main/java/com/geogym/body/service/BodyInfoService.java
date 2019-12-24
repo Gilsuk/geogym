@@ -50,7 +50,7 @@ public interface BodyInfoService {
 
 	/**
 	 * 신체정보에 달린 트레이너의 코멘터리를 조회
-	 * @param bodyinfo
+	 * @param bodyinfo - bodyinfo_no 를 포함해야함
 	 * @return
 	 */
 	BodyCommentary getCommentary(BodyInfo bodyinfo);

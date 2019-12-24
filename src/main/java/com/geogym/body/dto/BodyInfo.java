@@ -5,16 +5,20 @@ import java.time.LocalDate;
 public class BodyInfo {
 	private int bodyinfo_no;
 	private int user_no;
-	private LocalDate date;
+	private String user_name;
+	private char user_gender;
+	private LocalDate user_birth;
+	private LocalDate bodyinfo_date;
 	private double bodyinfo_height;
 	private double bodyinfo_weight;
 	private double bodyinfo_fat; // 체지방량
 	private double bodyinfo_muscle; // 골격근량
 	@Override
 	public String toString() {
-		return "BodyInfo [bodyinfo_no=" + bodyinfo_no + ", user_no=" + user_no + ", date=" + date + ", bodyinfo_height="
-				+ bodyinfo_height + ", bodyinfo_weight=" + bodyinfo_weight + ", bodyinfo_fat=" + bodyinfo_fat
-				+ ", bodyinfo_muscle=" + bodyinfo_muscle + "]";
+		return "BodyInfo [bodyinfo_no=" + bodyinfo_no + ", user_no=" + user_no + ", user_name=" + user_name
+				+ ", user_gender=" + user_gender + ", user_birth=" + user_birth + ", bodyinfo_date=" + bodyinfo_date
+				+ ", bodyinfo_height=" + bodyinfo_height + ", bodyinfo_weight=" + bodyinfo_weight + ", bodyinfo_fat="
+				+ bodyinfo_fat + ", bodyinfo_muscle=" + bodyinfo_muscle + "]";
 	}
 	public int getBodyinfo_no() {
 		return bodyinfo_no;
@@ -28,11 +32,29 @@ public class BodyInfo {
 	public void setUser_no(int user_no) {
 		this.user_no = user_no;
 	}
-	public LocalDate getDate() {
-		return date;
+	public String getUser_name() {
+		return user_name;
 	}
-	public void setDate(LocalDate date) {
-		this.date = date;
+	public void setUser_name(String user_name) {
+		this.user_name = user_name;
+	}
+	public char getUser_gender() {
+		return user_gender;
+	}
+	public void setUser_gender(char user_gender) {
+		this.user_gender = user_gender;
+	}
+	public LocalDate getUser_birth() {
+		return user_birth;
+	}
+	public void setUser_birth(LocalDate user_birth) {
+		this.user_birth = user_birth;
+	}
+	public LocalDate getBodyinfo_date() {
+		return bodyinfo_date;
+	}
+	public void setBodyinfo_date(LocalDate bodyinfo_date) {
+		this.bodyinfo_date = bodyinfo_date;
 	}
 	public double getBodyinfo_height() {
 		return bodyinfo_height;
