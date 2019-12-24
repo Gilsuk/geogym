@@ -10,6 +10,11 @@
 		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
 		<property name="driverClassName" value="org.sqlite.JDBC" />
 		<property name="url" value="jdbc:sqlite:geogym.db" />
+		<property name="connectionProperties" >
+			<props>
+				<prop key="foreign_keys">true</prop>
+			</props>
+		</property>
 	</bean>
 
 	<bean id="dataSource"
