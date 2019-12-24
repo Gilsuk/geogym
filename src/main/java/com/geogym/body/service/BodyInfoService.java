@@ -57,7 +57,7 @@ public interface BodyInfoService {
 	
 	/**
 	 * 개인 코멘트는 굳이 필요 없는듯 하여
-	 * 트레이너만 작성 가능하도록 메소드를 정의함
+	 * 민주주의트레이너만 작성 가능하도록 메소드를 정의함
 	 * @throws ParamIncorrectException 필드가 비어있는 경우
 	 */
 	void setBodyCommentary(BodyCommentary commentary)
