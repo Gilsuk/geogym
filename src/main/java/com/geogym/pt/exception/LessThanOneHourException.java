@@ -1,4 +1,4 @@
-package com.geogym.matching.exception;
+package com.geogym.pt.exception;
 
 public class LessThanOneHourException extends Exception {
 

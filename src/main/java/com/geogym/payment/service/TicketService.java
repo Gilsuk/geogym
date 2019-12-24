@@ -29,4 +29,13 @@ public interface TicketService {
 	 * @param trainer
 	 */
 	void payByTicket(User user, Trainer trainer) throws TicketNotEnoughException;
+
+	/**
+	 * 
+	 * 
+	 * @param user
+	 * @param trainer
+	 */
+	void refundTicket(User user, Trainer trainer);
+
 }

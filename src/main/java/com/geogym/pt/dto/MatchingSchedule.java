@@ -1,4 +1,4 @@
-package com.geogym.matching.dto;
+package com.geogym.pt.dto;
 
 import java.time.LocalDateTime;
 

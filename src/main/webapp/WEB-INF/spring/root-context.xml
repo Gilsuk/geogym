@@ -10,6 +10,12 @@
 		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
 		<property name="driverClassName" value="org.sqlite.JDBC" />
 		<property name="url" value="jdbc:sqlite:geogym.db" />
+		<property name="connectionProperties" >
+			<props>
+				<prop key="foreign_keys">true</prop>
+				<prop key="synchronous">OFF</prop>
+			</props>
+		</property>
 	</bean>
 
 	<bean id="dataSource"
@@ -30,6 +36,6 @@
 	</bean>
 
 	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
-		<property name="basePackage" value="com.geogym.*.service, com.geogym.*.dao" />
+		<property name="basePackage" value="com.geogym.*.dao" />
 	</bean>
 </beans>

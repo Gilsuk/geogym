@@ -31,5 +31,6 @@ public interface CoinService {
 	// 충전
 	// 환불
 	
+	void refundCoin(int amount, User user);
 	
 }
