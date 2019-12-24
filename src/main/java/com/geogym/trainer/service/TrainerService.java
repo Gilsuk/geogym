@@ -6,10 +6,10 @@ import java.util.List;
 import java.util.Map;
 
 import com.geogym.body.dto.BodyInfo;
+import com.geogym.memo.dto.CalendarMemo;
 import com.geogym.schedule.dto.PeriodDate;
 import com.geogym.schedule.dto.PeriodDateTime;
 import com.geogym.schedule.dto.Schedule;
-import com.geogym.schedule.dto.ScheduleMemo;
 import com.geogym.trainer.dto.PtTicket;
 import com.geogym.trainer.dto.Trainer;
 import com.geogym.trainer.exception.UserNotTrainerException;
@@ -155,7 +155,7 @@ public interface TrainerService {
 	 * @param periodDate - 기준점이 될 일 정보를 입력받는다
 	 * @return Map<LocalDate, List<ScheduleMemo>> - 날 을 키로 두고 해당일의 List<ScheduleMemo>를 벨류값으로 리턴한다
 	 */
-	Map<LocalDate, List<ScheduleMemo>> getMapScheduleTimeTraner(Trainer trainer, PeriodDate periodDate);
+	Map<LocalDate, List<CalendarMemo>> getMapScheduleTimeTraner(Trainer trainer, PeriodDate periodDate);
 	
 	/**
 	 * 트레이너 근무일정 중 시간단위 스케줄 리스트로 받아오기
@@ -164,7 +164,7 @@ public interface TrainerService {
 	 * @param periodDateTime - 해달 일,시 정보를 받아온다
 	 * @return List<ScheduleMemo> - 해당 일 스케쥴들을 리스트를 이용하여 받아온다
 	 */
-	List<ScheduleMemo> selectScheduleTimeTraner(Trainer trainer, PeriodDateTime periodDateTime);
+	List<CalendarMemo> selectScheduleTimeTraner(Trainer trainer, PeriodDateTime periodDateTime);
 	
 	/**
 	 * 트레이너 근무일정 중 시간단위 스케줄 입력
