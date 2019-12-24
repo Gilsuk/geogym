@@ -12,6 +12,7 @@ import com.geogym.schedule.dto.PeriodDateTime;
 import com.geogym.schedule.dto.Schedule;
 import com.geogym.trainer.dto.PtTicket;
 import com.geogym.trainer.dto.Trainer;
+import com.geogym.trainer.dto.User_issue;
 import com.geogym.trainer.exception.UserNotTrainerException;
 import com.geogym.user.dto.User;
 import com.geogym.user.dto.UserEvaluation;
@@ -43,9 +44,10 @@ public interface TrainerService {
 	 * @param user 해당 유저번호에 맞는 유저에게 평가 내용 작성
 	 * @param trainer 트레이너별로 회원정보 평가 삽입
 	 */
-	void userEvaluation(PtTicket pt_ticket);
+	void userEvaluation(User_issue user_issue);
 	
 	/**
+	 * 
 	 * 
 	 * @param user
 	 * @return
@@ -53,11 +55,11 @@ public interface TrainerService {
 	List<UserEvaluation> selectEvaluation(User user);
 	
 	/**
-	 * 트레이너별 몸값(일일PT 신청시 차감되는 근) 책정
+	 * 트레이너 테이블 수정
 	 * 
-	 * @param trainer - 트레이너 정보를 받아 그 트레이너의 근 수치를 설정한다
+	 * @param trainer - 트레이너 정보 수정
 	 */
-	void setTrainerPrice(Trainer trainer);
+	void updateTrainer(Trainer trainer);
 	
 	/**
 	 * 
