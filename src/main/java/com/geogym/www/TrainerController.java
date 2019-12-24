@@ -70,7 +70,7 @@ public class TrainerController {
 	}
 	
 	//트레이너 정보 제거하기
-	@RequestMapping(value = "/trainer/delete", method = RequestMethod.GET)
+	@RequestMapping(value = "/trainer/delete", method = RequestMethod.POST)
 	private void TrainerDelete(Trainer trainer) {
 		logger.info("Delete");
 		
@@ -78,6 +78,17 @@ public class TrainerController {
 
 		
 	}
+	// 트레이너 평점 조회
+	@RequestMapping(value = "/trainer/reputation", method = RequestMethod.GET)
+	private void TrainerReputation(Model model, Trainer trainer) {
+		logger.info("reputation");
+		
+		
+		model.addAttribute("reputation", trainerService.getReputation(trainer));
+
+		
+	}
+	
 	
 	
 

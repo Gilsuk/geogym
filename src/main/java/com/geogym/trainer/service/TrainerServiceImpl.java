@@ -156,7 +156,9 @@ public class TrainerServiceImpl implements TrainerService {
 	@Override
 	public int getReputation(Trainer trainer) {
 		// TODO Auto-generated method stub
-		return 0;
+		
+		
+		return trainerDao.getReputation(trainer);
 	}
 
 	@Override
