@@ -22,12 +22,12 @@ public interface TrainerService {
 	
 	/**
 	 *  유저와 연결된 트레이너 정보를 불러온다
-	 * 
+	 *  xxxx
 	 * @param user - 유저정보를 받아온다
 	 * @return Trainer - 유저와 pt 하는 트레이너 리턴
 	 * @throws UserNotTrainerException - 유저가 pt 하는 트레이너가 없을 때
 	 */
-	Trainer getTrainerByUserno(User user) throws UserNotTrainerException;
+//	Trainer getTrainerByUserno(User user) throws UserNotTrainerException;
 	
 	/**
 	 * 해당 트레이너의 PT 회원들을 조회
@@ -44,15 +44,15 @@ public interface TrainerService {
 	 * @param user 해당 유저번호에 맞는 유저에게 평가 내용 작성
 	 * @param trainer 트레이너별로 회원정보 평가 삽입
 	 */
-	void userEvaluation(User_issue user_issue);
+//	void userEvaluation(User_issue user_issue);
 	
 	/**
 	 * 
-	 * 
+	 * xx
 	 * @param user
 	 * @return
 	 */
-	List<UserEvaluation> selectEvaluation(User user);
+//	List<UserEvaluation> selectEvaluation(User user);
 	
 	/**
 	 * 트레이너 테이블 수정

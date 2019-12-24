@@ -4,18 +4,11 @@ import java.util.List;
 
 import com.geogym.trainer.dto.PtTicket;
 import com.geogym.trainer.dto.Trainer;
-import com.geogym.trainer.dto.User_issue;
 import com.geogym.user.dto.User;
 
 public interface TrainerDao {
 
-	/**
-	 * User의 user_no 로 pt_ticket 을 특정한다
-	 * 
-	 * @param user - 유저 번호를 받아온다
-	 * @return PtTicket - 피티 티켓을 받아온다
-	 */
-	PtTicket getPtTicketToUser(User user);
+
 	
 	/**
 	 * 피티 티켓 정보로 트레이너 정보를 불러온다
@@ -33,12 +26,12 @@ public interface TrainerDao {
 	 */
 	List<User> getPtUserToTrainer(Trainer trainer);
 
-	/**
-	 * 
-	 * 
-	 * @param user_issue - 해당 user_issue 에 작성
-	 */
-	void setUser_issue(User_issue user_issue);
+//	/**
+//	 * 
+//	 * 
+//	 * @param user_issue - 해당 user_issue 에 작성
+//	 */
+//	void setUser_issue(User_issue user_issue);
 
 	/**
 	 * 트레이너 테이블 수정
@@ -55,6 +48,16 @@ public interface TrainerDao {
 	 * @return List<Trainer> - 리스트를 이용해 트레이너 정보를 받아온다
 	 */
 	List<Trainer> viewTrainerList();
+
+	/**
+	 * 트레이너 정보 조회
+	 * 트레이너 정보 불러오기
+	 * 트레이너의 상세정보 조회 시 사용한다
+	 * 
+	 * @param trainer - 트레이너 ID 혹은 트레이너 번호를 기준으로 한다
+	 * @return	Trainer - 트레이너 DTO 를 불러온다
+	 */
+	Trainer getTrainer(Trainer trainer);
 	
 
 

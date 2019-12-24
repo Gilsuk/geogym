@@ -14,10 +14,7 @@ import com.geogym.schedule.dto.PeriodDate;
 import com.geogym.schedule.dto.PeriodDateTime;
 import com.geogym.schedule.dto.Schedule;
 import com.geogym.trainer.dao.TrainerDao;
-import com.geogym.trainer.dto.PtTicket;
 import com.geogym.trainer.dto.Trainer;
-import com.geogym.trainer.dto.User_issue;
-import com.geogym.trainer.exception.UserNotTrainerException;
 import com.geogym.user.dto.User;
 import com.geogym.user.dto.UserEvaluation;
 
@@ -30,18 +27,7 @@ public class TrainerServiceImpl implements TrainerService {
 	
 	@Autowired TrainerDao trainerDao;
 
-	@Override
-	public Trainer getTrainerByUserno(User user) throws UserNotTrainerException {
-		// TODO Auto-generated method stub
-		// 유저와 연결된 트레이너 정보를 불러온다
 
-		PtTicket ptTicket = trainerDao.getPtTicketToUser(user);	
-		if (ptTicket.getPt_ticket_amount() == 0) {
-			return null;
-		}
-		
-		return trainerDao.getTrainerToPtTicket(ptTicket);
-	}
 
 	@Override
 	public List<User> getClients(Trainer trainer) {
@@ -56,16 +42,32 @@ public class TrainerServiceImpl implements TrainerService {
 
 
 
-	@Override
-	public List<UserEvaluation> selectEvaluation(User user) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+//	@Override
+//	public List<UserEvaluation> selectEvaluation(User user) {
+//		// TODO Auto-generated method stub
+//		return null;
+//	}
 
 	@Override
 	public void updateTrainer(Trainer trainer) {
 		// TODO Auto-generated method stub
 		// 트레이너 테이블 수정
+		
+		Trainer trainer2 = getTrainer(trainer);
+		
+		if (trainer.getAttachment_no() == 0) {
+			trainer.setAttachment_no(trainer2.getAttachment_no());
+		}
+		if (trainer.getTrainer_address() == null) {
+			trainer.setTrainer_address(trainer2.getTrainer_address());
+		}
+		if (trainer.getTrainer_price() == 0) {
+			trainer.setTrainer_price(trainer2.getTrainer_price());
+		}
+		if (trainer.getTrainer_profile() == null) {
+			trainer.setTrainer_profile(trainer2.getTrainer_profile());
+		}
+		
 		trainerDao.updateTrainer(trainer);
 		
 	}
@@ -80,7 +82,7 @@ public class TrainerServiceImpl implements TrainerService {
 	@Override
 	public Trainer getTrainer(Trainer trainer) {
 		// TODO Auto-generated method stub
-		return null;
+		return trainerDao.getTrainer(trainer);
 	}
 
 	@Override
@@ -167,11 +169,11 @@ public class TrainerServiceImpl implements TrainerService {
 		return 0;
 	}
 
-	@Override
-	public void userEvaluation(User_issue user_issue) {
-		trainerDao.setUser_issue(user_issue);
-
-		
-	}
+//	@Override
+//	public void userEvaluation(User_issue user_issue) {
+//		trainerDao.setUser_issue(user_issue);
+//
+//		
+//	}
 
 }
