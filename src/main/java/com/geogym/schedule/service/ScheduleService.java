@@ -5,12 +5,12 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.List;
 
-import com.geogym.pt.dto.MatchingSchedule;
+import com.geogym.schedule.dto.Schedule;
 import com.geogym.trainer.dto.Trainer;
 import com.geogym.user.dto.User;
 
 public interface ScheduleService {
-	
+
 	/**
 	 * 트레이너의 빈 시간을 30분 단위로 끊어서 리스트로 리턴
 	 * 
@@ -22,7 +22,7 @@ public interface ScheduleService {
 	 * @return
 	 */
 	List<LocalTime> getAvilableTime(Trainer trainer, LocalDate localDate);
-
+	
 	/**
 	 * 
 	 * 
@@ -41,5 +41,5 @@ public interface ScheduleService {
 	 */
 	void cancelPTSchedule(Trainer trainer, User user, LocalDateTime locaDatetime);
 	
-	List<MatchingSchedule> getPTSchedule(Trainer trainer, User user, LocalDateTime locaDatetime);
+	List<Schedule> getPTSchedule(Trainer trainer, User user, LocalDateTime locaDatetime);
 }

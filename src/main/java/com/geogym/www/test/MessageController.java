@@ -1,5 +1,6 @@
 package com.geogym.www.test;
 
+import java.time.LocalTime;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -24,6 +25,10 @@ public class MessageController {
 	//--- 메세지 전송 ---------------------------
 	@RequestMapping(value="/test/message/sendinfinity")
 	public void sendMessageInfinite(Message message) { 
+		
+		LocalTime time = LocalTime.of(9, 0);
+		
+		logger.info(time.toString());
 		
 		// 테스트 데이터입니다
 		message.setUser_no(1);

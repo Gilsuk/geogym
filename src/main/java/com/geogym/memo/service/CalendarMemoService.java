@@ -5,9 +5,7 @@ import java.util.List;
 
 import com.geogym.memo.dto.CalendarMemo;
 import com.geogym.message.dto.Message;
-import com.geogym.pt.dto.MatchingSchedule;
-import com.geogym.schedule.dto.PeriodDate;
-import com.geogym.schedule.dto.WorkingTimeInfo;
+import com.geogym.schedule.dto.Schedule;
 import com.geogym.schedule.exception.MemoAlreadyExistException;
 import com.geogym.schedule.exception.MemoNotFoundException;
 import com.geogym.trainer.dto.Trainer;
@@ -85,7 +83,7 @@ public interface CalendarMemoService {
 	 * @param date 트레이너 저장된 일정을 취소(delete) 
 	 * @param message 취소사유를 알림에 저장후 , 해당 회원에게 출력.
 	 */
-	void cancleSchdule(Trainer trainer,MatchingSchedule date, Message message );
+	void cancleSchdule(Trainer trainer,Schedule date, Message message );
 	
 	
 	

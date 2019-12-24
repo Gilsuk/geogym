@@ -3,9 +3,9 @@ package com.geogym.pt.service;
 import java.time.LocalDateTime;
 import java.util.List;
 
-import com.geogym.pt.dto.MatchingSchedule;
 import com.geogym.pt.exception.LessThanOneHourException;
 import com.geogym.pt.exception.MatchingNotAvailable;
+import com.geogym.schedule.dto.Schedule;
 import com.geogym.trainer.dto.Trainer;
 import com.geogym.user.dto.User;
 
@@ -17,7 +17,7 @@ public interface MatchingService {
 	 * @param schedule
 	 * @throws MatchingNotAvailable 시간차로 먼저 예약이 잡힌 경우
 	 */
-	void match(MatchingSchedule schedule) throws MatchingNotAvailable;
+	void match(Schedule schedule) throws MatchingNotAvailable;
 	
 	/**
 	 * 회원과 트레이너 일정에서 각각 삭제
@@ -29,7 +29,7 @@ public interface MatchingService {
 	 * @param schedule 취소할 일정
 	 * @param msg 취소 사유
 	 */
-	void cancle(MatchingSchedule schedule, String msg) throws LessThanOneHourException;
+	void cancle(Schedule schedule, String msg) throws LessThanOneHourException;
 	
 	/**
 	 * PT신청시 정기권이 있는 트레이너인지 체크
@@ -46,7 +46,7 @@ public interface MatchingService {
 	 * @param user
 	 * @return
 	 */
-	List<MatchingSchedule> getPTInfos(User user, LocalDateTime today);
+	List<Schedule> getPTInfos(User user, LocalDateTime today);
 	
 	
 	
