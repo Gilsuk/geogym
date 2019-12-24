@@ -30,7 +30,7 @@
 			value="/WEB-INF/config/mybatis-config.xml" />
 		<property name="mapperLocations">
 			<array>
-				<value>classpath:/com/geogym/**/dao/**.xml</value>
+				<value>classpath:/com/geogym/**/dao/**/*.xml</value>
 			</array>
 		</property>
 	</bean>
