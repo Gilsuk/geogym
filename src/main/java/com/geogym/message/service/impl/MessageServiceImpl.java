@@ -26,7 +26,7 @@ public class MessageServiceImpl implements MessageService {
 			return;
 		
 		message.setMessage_date(LocalDateTime.now());
-		message.setMessage_expire_date(LocalDateTime.of(9999,12,31,23,59));
+		message.setMessage_expire_date(LocalDateTime.MAX);
 
 		try {
 			messageDao.insertMessage(message);
@@ -54,7 +54,7 @@ public class MessageServiceImpl implements MessageService {
 		if(noti.getNotification_content() == null || noti.getNotification_content().equals(""))
 			return;
 		
-		noti.setNotification_expire_date(LocalDateTime.of(9999,12,31,23,59));
+		noti.setNotification_expire_date(LocalDateTime.MAX);
 		
 		messageDao.insertNotification(noti);
 	}
