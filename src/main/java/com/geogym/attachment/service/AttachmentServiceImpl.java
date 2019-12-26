@@ -15,9 +15,8 @@ public class AttachmentServiceImpl implements AttachmentService {
 
 	@Override
 	public Attachment upload(MultipartFile multipartFile) {
-		return null;
 		// TODO Auto-generated method stub
-		
+		return null;
 	}
 
 	@Override
@@ -27,31 +26,31 @@ public class AttachmentServiceImpl implements AttachmentService {
 	}
 
 	@Override
-	public List<AttachmentService> getAttachments(Qna qna) {
+	public List<Attachment> getAttachments(Qna qna) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public List<AttachmentService> getAttachments(QnaAnswer qnaAnswer) {
+	public List<Attachment> getAttachments(QnaAnswer qnaAnswer) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public List<AttachmentService> getAttachments(BodyInfo bodyinfo) {
+	public List<Attachment> getAttachments(BodyInfo bodyinfo) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public AttachmentService getAttachment(Trainer trainer) {
+	public Attachment getAttachment(Trainer trainer) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public AttachmentService getAttachment(TrainingMemo trainingMemo) {
+	public Attachment getAttachment(TrainingMemo trainingMemo) {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -75,19 +74,19 @@ public class AttachmentServiceImpl implements AttachmentService {
 	}
 
 	@Override
-	public void removeAttachment(Qna qna, AttachmentService attachment) {
+	public void removeAttachment(Qna qna, Attachment attachment) {
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	public void removeAttachment(QnaAnswer qnaAnswer, AttachmentService attachment) {
+	public void removeAttachment(QnaAnswer qnaAnswer, Attachment attachment) {
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	public void removeAttachment(BodyInfo bodyinfo, AttachmentService attachment) {
+	public void removeAttachment(BodyInfo bodyinfo, Attachment attachment) {
 		// TODO Auto-generated method stub
 		
 	}
@@ -109,5 +108,7 @@ public class AttachmentServiceImpl implements AttachmentService {
 		// TODO Auto-generated method stub
 		
 	}
+
+	
 
 }

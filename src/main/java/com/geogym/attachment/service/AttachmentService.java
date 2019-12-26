@@ -39,7 +39,7 @@ public interface AttachmentService {
 	 * @param 게시글 번호가 포함된 qna dto
 	 * @return 업로드 파일 리스트 반환. 조회 결과가 없다면, 비어있는 리스트를 반환한다.
 	 */
-	List<AttachmentService> getAttachments(Qna qna);
+	List<Attachment> getAttachments(Qna qna);
 	
 	/**
 	 * 연결된 업로드 파일 조회
@@ -47,7 +47,7 @@ public interface AttachmentService {
 	 * @param 게시글 번호가 포함된 qnaAnswer dto
 	 * @return 업로드 파일 리스트 반환. 조회 결과가 없다면, 비어있는 리스트를 반환한다.
 	 */
-	List<AttachmentService> getAttachments(QnaAnswer qnaAnswer);
+	List<Attachment> getAttachments(QnaAnswer qnaAnswer);
 
 	/**
 	 * 연결된 업로드 파일 조회
@@ -55,20 +55,20 @@ public interface AttachmentService {
 	 * @param 고유 번호가 포함된 BodyInfo dto
 	 * @return 업로드 파일 리스트 반환. 조회 결과가 없다면, 비어있는 리스트를 반환한다.
 	 */
-	List<AttachmentService> getAttachments(BodyInfo bodyinfo);
+	List<Attachment> getAttachments(BodyInfo bodyinfo);
 	
 	/**
 	 * 트레이너의 프로필 사진을 반환
 	 * @param trainer trainer_no를 포함하는 객체
 	 */
-	AttachmentService getAttachment(Trainer trainer);
+	Attachment getAttachment(Trainer trainer);
 
 	/**
 	 * 트레이닝 메모의 첨부자료 조회
 	 * @param trainingMemo - training_memo_no를 포함하는 객체
 	 * @return
 	 */
-	AttachmentService getAttachment(TrainingMemo trainingMemo);
+	Attachment getAttachment(TrainingMemo trainingMemo);
 
 	/**
 	 * 연결된 파일 모두 삭제
@@ -89,11 +89,11 @@ public interface AttachmentService {
 	 * @param qna qna_no를 포함하는 객체
 	 * @param attachment attachment_no를 포함하는 객체
 	 */
-	void removeAttachment(Qna qna, AttachmentService attachment);
+	void removeAttachment(Qna qna, Attachment attachment);
 	
-	void removeAttachment(QnaAnswer qnaAnswer, AttachmentService attachment);
+	void removeAttachment(QnaAnswer qnaAnswer, Attachment attachment);
 
-	void removeAttachment(BodyInfo bodyinfo, AttachmentService attachment);
+	void removeAttachment(BodyInfo bodyinfo, Attachment attachment);
 	
 	/**
 	 * 업로드 파일을 교체한다.
