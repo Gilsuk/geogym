@@ -19,7 +19,6 @@ public class MessageController {
 
 	private static final Logger logger = LoggerFactory.getLogger(MessageController.class);
 	
-	
 	@Autowired MessageService messageService;
 	
 	//--- 메세지 전송 ---------------------------

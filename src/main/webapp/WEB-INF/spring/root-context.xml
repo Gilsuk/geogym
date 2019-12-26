@@ -34,8 +34,9 @@
 			</array>
 		</property>
 	</bean>
-
+	
 	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
 		<property name="basePackage" value="com.geogym.*.dao" />
 	</bean>
+	
 </beans>

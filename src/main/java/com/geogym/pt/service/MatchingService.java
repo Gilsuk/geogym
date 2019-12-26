@@ -17,7 +17,7 @@ public interface MatchingService {
 	 * @param schedule
 	 * @throws MatchingNotAvailable 시간차로 먼저 예약이 잡힌 경우
 	 */
-	void match(Schedule schedule) throws MatchingNotAvailable;
+	void match(User user, Schedule schedule) throws MatchingNotAvailable;
 	
 	/**
 	 * 회원과 트레이너 일정에서 각각 삭제
@@ -71,6 +71,7 @@ public interface MatchingService {
 	 * @return int - 회원수
 	 */
 	int ptMemberWithTraner(Trainer trainer);
+	
 	/**
 	 * PT 매칭시 변동된 근 집계
 	 * 

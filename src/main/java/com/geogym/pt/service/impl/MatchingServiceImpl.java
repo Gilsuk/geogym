@@ -19,12 +19,13 @@ import com.geogym.user.dto.User;
 public class MatchingServiceImpl implements MatchingService {
 
 	@Autowired MatchingDao matchingDao;
-	@Autowired ScheduleService ScheduleService;
+	@Autowired ScheduleService scheduleService;
 	
 	@Override
-	public void match(Schedule schedule) throws MatchingNotAvailable {
-		// TODO Auto-generated method stub
-
+	public void match(User user, Schedule schedule) throws MatchingNotAvailable {
+		
+		user.setUser_no(12);
+		
 	}
 
 	@Override
