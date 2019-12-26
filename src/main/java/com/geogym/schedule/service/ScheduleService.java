@@ -32,8 +32,9 @@ public interface ScheduleService {
 	 * @param trainer
 	 * @param user
 	 * @param locaDatetime
+	 * @throws InvalidParamException 
 	 */
-	void setPTShcedule(User user, Schedule schedule);
+	void setPTShcedule(User user, Schedule schedule) throws InvalidParamException;
 	
 	/**
 	 * 
@@ -56,8 +57,9 @@ public interface ScheduleService {
 	/**
 	 * 
 	 * @param schedule
+	 * @throws InvalidParamException 
 	 */
-	void setSchedule(Schedule schedule);
+	void setSchedule(Schedule schedule) throws InvalidParamException;
 	
 	/**
 	 * 
@@ -68,8 +70,9 @@ public interface ScheduleService {
 	 * @param end
 	 * @param msg
 	 * @return
+	 * @throws InvalidParamException 
 	 */
-	Schedule getScheduleByParam(Trainer trainer, LocalDate date, LocalTime start, LocalTime end, String msg);
+	boolean isAvailableSchedule(Schedule scheduleList, List<LocalTime> list) throws InvalidParamException;
 	
 	/**
 	 * 
@@ -88,4 +91,5 @@ public interface ScheduleService {
 	 * @return
 	 */
 	List<LocalTime> getPTAvilableTime(Trainer trainer, LocalDate localDate);
+
 }

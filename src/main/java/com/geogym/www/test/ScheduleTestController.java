@@ -75,11 +75,18 @@ public class ScheduleTestController {
 		Schedule schedule = new Schedule();
 		Trainer trainer = new Trainer();
 		trainer.setTrainer_no(1);
+
+		schedule.setTrainer(trainer);
+		schedule.setSchedule_date(LocalDate.of(2019, 12, 30));
+		schedule.setSchedule_from(LocalTime.of(13, 00));
+		schedule.setSchedule_to(LocalTime.of(14, 00));
+		schedule.setSchedule_msg("아오 짜증난다");
 		
-		schedule = scheduleService.getScheduleByParam(
-				trainer, LocalDate.of(2020, 01, 01), LocalTime.of(12, 00), LocalTime.of(13, 00), "test2");
-		
-		scheduleService.setSchedule(schedule);
+		try {
+			scheduleService.setSchedule(schedule);
+		} catch (InvalidParamException e) {
+			// 올바르지 않은 파라미터
+		}
 	}
 	
 	// -------------------------------------------------------------------------
@@ -92,15 +99,19 @@ public class ScheduleTestController {
 		Schedule schedule = new Schedule();
 		Trainer trainer = new Trainer();
 		trainer.setTrainer_no(1);
-		
 		User user = new User();
-		
 		user.setUser_no(12);
 		
-		schedule = scheduleService.getScheduleByParam(
-				trainer, LocalDate.of(2019, 12, 31), LocalTime.of(10, 00), LocalTime.of(12, 00), "테스트으");
-		
-		scheduleService.setPTShcedule(user, schedule);
+		schedule.setTrainer(trainer);
+		schedule.setSchedule_date(LocalDate.of(2019, 12, 30));
+		schedule.setSchedule_from(LocalTime.of(12, 00));
+		schedule.setSchedule_msg("아오 짜증난다2");
+
+		try {
+			scheduleService.setPTShcedule(user, schedule);
+		} catch (InvalidParamException e) {
+			// 올바르지 않은 파라미터
+		}
 	}
 	
 	// -------------------------------------------------------------------------
@@ -117,8 +128,6 @@ public class ScheduleTestController {
 		List<LocalTime> list;
 		
 		list = scheduleService.getPTAvilableTime(trainer, localDate);
-		
-		logger.info(list.toString());
 	}
 	
 	
@@ -151,8 +160,6 @@ public class ScheduleTestController {
 		
 //		logger.info(LocalDate.of(2019,02,01).lengthOfMonth()+"");
 		List<PT> list = scheduleService.getPTScheduleByMonth(user, localDate);
-		
-		logger.info(list.toString());
 	}
 	// --------------------------------------------------------------------------
 

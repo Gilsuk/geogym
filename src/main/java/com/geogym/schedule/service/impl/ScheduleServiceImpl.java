@@ -8,8 +8,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-import javax.servlet.http.HttpServletRequest;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,9 +33,6 @@ public class ScheduleServiceImpl implements ScheduleService {
 
 	@Autowired
 	SequenceService sequenceService;
-
-	@Autowired
-	HttpServletRequest req;
 
 	@Override
 	public List<LocalTime> getAvilableTime(Trainer trainer, LocalDate workingDate) throws InvalidParamException {
@@ -95,9 +90,15 @@ public class ScheduleServiceImpl implements ScheduleService {
 	}
 
 	@Override
-	public void setPTShcedule(User user, Schedule schedule) {
+	public void setPTShcedule(User user, Schedule schedule) throws InvalidParamException {
 
-		if (schedule.getSchedule_date() == null) {
+		List<LocalTime> list = getPTAvilableTime(schedule.getTrainer(), schedule.getSchedule_date());
+		
+		boolean isAvailable = isAvailableSchedule(schedule, list);
+
+		schedule.setSchedule_to(schedule.getSchedule_from().plusHours(2));
+
+		if (!isAvailable) {
 			return;
 		}
 
@@ -120,89 +121,64 @@ public class ScheduleServiceImpl implements ScheduleService {
 	@Override
 	public void cancelPTSchedule(Trainer trainer, User user, LocalDateTime localDateTime) {
 		HashMap<String, Object> map = new HashMap<>();
-		
+
 		map.put("trainer_no", trainer.getTrainer_no());
 		map.put("user_no", user.getUser_no());
 		map.put("pt_date", localDateTime);
-		
-		map.put("schedule_date", LocalDate.of(
-				localDateTime.getYear(), 
-				localDateTime.getMonth(),
-				localDateTime.getDayOfMonth()));
-		map.put("schedule_from", LocalTime.of(
-				localDateTime.getHour(),
-				localDateTime.getMinute()));
-		
+
+		map.put("schedule_date",
+				LocalDate.of(localDateTime.getYear(), localDateTime.getMonth(), localDateTime.getDayOfMonth()));
+		map.put("schedule_from", LocalTime.of(localDateTime.getHour(), localDateTime.getMinute()));
+
 		scheduleDao.deletePT(map);
 		scheduleDao.deleteSchedule(map);
 	}
 
 	@Override
 	public List<PT> getPTScheduleByMonth(User user, LocalDate localdate) {
-		
+
 		HashMap<String, Object> map = new HashMap<>();
-		
+
 		map.put("user_no", user.getUser_no());
-		map.put("start", LocalDate.of(
-				localdate.getYear(),
-				localdate.getMonth(),
-				1));
-		map.put("end", LocalDateTime.of(
-				localdate.getYear(),
-				localdate.getMonth(),
-				localdate.lengthOfMonth(),
-				23,
-				59));
-		
+		map.put("start", LocalDate.of(localdate.getYear(), localdate.getMonth(), 1));
+		map.put("end", LocalDateTime.of(localdate.getYear(), localdate.getMonth(), localdate.lengthOfMonth(), 23, 59));
+
 		return scheduleDao.selectPTList(map);
 	}
 
 	@Override
-	public void setSchedule(Schedule schedule) {
+	public void setSchedule(Schedule schedule) throws InvalidParamException {
 
-		if (schedule.getSchedule_date() != null) {
+		List<LocalTime> list = getAvilableTime(schedule.getTrainer(), schedule.getSchedule_date());
 
-			schedule.setSchedule_no(sequenceService.getNextVal(Table.SCHEDULE));
+		boolean isAvailable = isAvailableSchedule(schedule, list);
 
-			scheduleDao.insertSchedule(schedule);
+		if (!isAvailable) {
+			return;
 		}
-		return;
+
+		schedule.setSchedule_no(sequenceService.getNextVal(Table.SCHEDULE));
+
+		scheduleDao.insertSchedule(schedule);
 	}
 
 	@Override
-	public Schedule getScheduleByParam(Trainer trainer, LocalDate date, LocalTime start, LocalTime end, String msg) {
-
-		Schedule schedule = new Schedule();
-
-		List<LocalTime> list = new ArrayList<LocalTime>();
+	public boolean isAvailableSchedule(Schedule schedule, List<LocalTime> list) throws InvalidParamException {
 
 		try {
 
-			list = getAvilableTime(trainer, date);
-
 			for (int i = 0; i < list.size(); i++) {
 
-				if (list.get(i).equals(start)) {
-
-					schedule.setTrainer(trainer);
-					schedule.setSchedule_date(date);
-					schedule.setSchedule_from(start);
-					schedule.setSchedule_to(end);
-					schedule.setSchedule_msg(msg);
-
-					break;
+				if (list.get(i).equals(schedule.getSchedule_from())) {
+					return true;
 				}
+
 			}
 
-			if (schedule.getSchedule_date() == null) {
-				logger.info("실패");
-			}
-
-		} catch (InvalidParamException e) {
-
+		} catch (NullPointerException e) {
+			throw new InvalidParamException();
 		}
-
-		return schedule;
+		return false;
 	}
 
 	@Override
@@ -241,9 +217,9 @@ public class ScheduleServiceImpl implements ScheduleService {
 			list.remove(scheduleList.get(i).getSchedule_from().minusHours(1));
 
 		}
-		
-		list.remove(list.size()-1);
-		
+
+		list.remove(list.size() - 1);
+
 		return list;
 	}
 
