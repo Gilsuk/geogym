@@ -7,23 +7,61 @@
 
 <mapper namespace="com.geogym.trainer.dao.TrainerDao">
 
-	<select id="getPtTicketToUser" parameterType="com.geogym.trainer.dto.PtTicket" resultType="com.geogym.trainer.dto.Trainer">
+	<select id="getPtTicketToUser"
+		parameterType="com.geogym.trainer.dto.PtTicket"
+		resultType="com.geogym.trainer.dto.Trainer">
 		SELECT * FROM trainer where trainer_no = #{trainer_no}
 	</select>
-	<select id="getPtUserToTrainer" parameterType="com.geogym.trainer.dto.Trainer" resultType="com.geogym.user.dto.User">
-		SELECT u.user_no, u.user_name, u.user_gender, u.user_birth, u.user_tel, u.user_id, 	u.user_pw, u.user_email  FROM user u, pt_ticket t  where trainer_no = #{trainer_no} and pt_ticket_amount > 0 and t.user_no = u.user_no
+	<select id="getPtUserToTrainer"
+		parameterType="com.geogym.trainer.dto.Trainer"
+		resultType="com.geogym.user.dto.User">
+		SELECT u.user_no, u.user_name, u.user_gender, u.user_birth,
+		u.user_tel, u.user_id, u.user_pw, u.user_email FROM user u, pt_ticket
+		t where trainer_no = #{trainer_no} and pt_ticket_amount > 0 and
+		t.user_no = u.user_no
 	</select>
-	<update id="updateTrainer" parameterType="com.geogym.trainer.dto.Trainer">
-		update trainer set trainer_address = #{trainer_address}, trainer_price = #{trainer_price}, trainer_profile = #{trainer_profile}, attachment_no = #{attachment_no} where trainer_no = #{trainer_no}
+	<update id="updateTrainer"
+		parameterType="com.geogym.trainer.dto.Trainer">
+		update trainer set trainer_address = #{trainer_address},
+		trainer_price = #{trainer_price}, trainer_profile =
+		#{trainer_profile}, attachment_no = #{attachment_no} where trainer_no
+		= #{trainer_no}
 	</update>
-	<select id="viewTrainerList" resultType="com.geogym.trainer.dto.Trainer">
+	<select id="viewTrainerList"
+		resultType="com.geogym.trainer.dto.Trainer">
 		SELECT * FROM trainer order by trainer_no DESC
 	</select>
-	<select id="getTrainer" parameterType="com.geogym.trainer.dto.Trainer" resultType="com.geogym.trainer.dto.Trainer">
+	<select id="getTrainer"
+		parameterType="com.geogym.trainer.dto.Trainer"
+		resultType="com.geogym.trainer.dto.Trainer">
 		SELECT * FROM trainer where trainer_no = #{trainer_no}
 	</select>
-	<select id="getReputation" parameterType="com.geogym.trainer.dto.Trainer" resultType="double">
-		SELECT avg(trainer_reputation_score) FROM trainer_reputation where trainer_no = #{trainer_no}
+	<select id="getReputation"
+		parameterType="com.geogym.trainer.dto.Trainer" resultType="double">
+		SELECT
+		avg(trainer_reputation_score) FROM trainer_reputation where trainer_no
+		= #{trainer_no}
 	</select>
+	<select id="countReputate"
+		parameterType="com.geogym.trainer.dto.T_reputation" resultType="int">
+		SELECT
+		count(*) FROM trainer_reputation where trainer_no = #{trainer_no} and
+		user_no = #{user_no}
+	</select>
+	<update id="updateReputate"
+		parameterType="com.geogym.trainer.dto.T_reputation">
+		update trainer_reputation set trainer_reputation_date =
+		datetime('now','localtime'), trainer_reputation_score =
+		#{trainer_reputation_score}, trainer_reputation_msg =
+		#{trainer_reputation_msg} where trainer_no = #{trainer_no} and user_no =
+		#{user_no}
+	</update>
+	<insert id="insertReputate"
+		parameterType="com.geogym.trainer.dto.T_reputation">
+		INSERT INTO trainer_reputation
+		(user_no,trainer_no,trainer_reputation_date,trainer_reputation_score,trainer_reputation_msg)
+		VALUES (#{user_no}, #{trainer_no}, datetime('now','localtime'),
+		#{trainer_reputation_score} #{trainer_reputation_msg});
+	</insert>
 
 </mapper>

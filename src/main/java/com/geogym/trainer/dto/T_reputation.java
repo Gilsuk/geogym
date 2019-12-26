@@ -1,6 +1,6 @@
 package com.geogym.trainer.dto;
 
-public class Trainer_reputation {
+public class T_reputation {
 	private int trainer_reputation_no;
 	private int user_no;
 	private int trainer_no;

@@ -11,6 +11,7 @@ import com.geogym.schedule.dto.PeriodDate;
 import com.geogym.schedule.dto.PeriodDateTime;
 import com.geogym.schedule.dto.Schedule;
 import com.geogym.trainer.dto.PtTicket;
+import com.geogym.trainer.dto.T_reputation;
 import com.geogym.trainer.dto.Trainer;
 import com.geogym.trainer.dto.User_issue;
 import com.geogym.trainer.exception.UserNotTrainerException;
@@ -200,10 +201,9 @@ public interface TrainerService {
 	 * 한 사람이 두 번 등록하지 못하도록 한다
 	 * 게시판의 추천 기능을 응용
 	 * 
-	 * @param trainer - PK를 기준으로 한다
-	 * @param i - 입력하는 별점 수치
+	 * @param T_reputation - 유저번호와 트레이너번호를 기준으로 한다
 	 */
-	void reputate(Trainer trainer, int i);
+	void reputate(T_reputation reputation);
 	
 	/**
 	 * 이용권 등록한 추천인 수 조회 

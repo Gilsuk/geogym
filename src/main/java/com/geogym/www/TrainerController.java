@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.geogym.trainer.dto.Trainer;
+import com.geogym.trainer.dto.T_reputation;
 import com.geogym.trainer.service.TrainerService;
 
 
@@ -48,23 +49,23 @@ public class TrainerController {
 	
 	
 	//트레이너 테이블 수정
-	@RequestMapping(value = "/trainer/update", method = RequestMethod.POST)
+	@RequestMapping(value = "/trainer/update", method = RequestMethod.GET)
 	private void updateTrainer(Trainer trainer) {
 		logger.info("updateTrainer");
 		
 		
 		// 이부분은 테스트용
-//		Trainer trainer2 = new Trainer();
-//		trainer2.setTrainer_no(1);
-//		trainer2.setUser_no(1);
-//		trainer2.setTrainer_address("addredd");
-//		trainer2.setTrainer_price(1);
-//		trainer2.setTrainer_profile("profile");
-//		trainer2.setAttachment_no(1);
+		Trainer trainer2 = new Trainer();
+		trainer2.setTrainer_no(1);
+		trainer2.setUser_no(1);
+		trainer2.setTrainer_address("addredd");
+		trainer2.setTrainer_price(1);
+		trainer2.setTrainer_profile("profile");
+		trainer2.setAttachment_no(1);
 		
-		trainerService.updateTrainer(trainer);
+		trainerService.updateTrainer(trainer2);
 		
-		System.out.println(trainer);
+		System.out.println(trainer2);
 		logger.info("성공");
 
 	}
@@ -91,6 +92,24 @@ public class TrainerController {
 		
 	}
 	
+	// 트레이너 평점 등록
+	@RequestMapping(value = "/trainer/reputate", method = RequestMethod.GET)
+	private void TrainerReputate(T_reputation reputation) {
+		
+		logger.info("reputate");
+		// 테스트용 구문
+		T_reputation reputation2 = new T_reputation();
+		reputation2.setTrainer_no(1);
+		reputation2.setUser_no(2);
+		reputation2.setTrainer_reputation_score(7);
+		reputation2.setTrainer_reputation_msg("ㅌㅅㅌ");
+		
+		System.out.println(reputation2);
+
+		
+		trainerService.reputate(reputation2);
+			
+	}
 	
 	
 

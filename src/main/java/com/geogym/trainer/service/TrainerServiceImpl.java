@@ -14,6 +14,7 @@ import com.geogym.schedule.dto.PeriodDate;
 import com.geogym.schedule.dto.PeriodDateTime;
 import com.geogym.schedule.dto.Schedule;
 import com.geogym.trainer.dao.TrainerDao;
+import com.geogym.trainer.dto.T_reputation;
 import com.geogym.trainer.dto.Trainer;
 import com.geogym.user.dto.User;
 import com.geogym.user.dto.UserEvaluation;
@@ -162,8 +163,17 @@ public class TrainerServiceImpl implements TrainerService {
 	}
 
 	@Override
-	public void reputate(Trainer trainer, int i) {
+	public void reputate(T_reputation reputation) {
 		// TODO Auto-generated method stub
+		
+		if (trainerDao.countReputate(reputation) >= 1) {
+			System.out.println(reputation);
+			trainerDao.updateReputate(reputation);
+			return;
+		}else {
+			trainerDao.insertReputate(reputation);
+		}
+		
 		
 	}
 
