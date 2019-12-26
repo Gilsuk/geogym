@@ -10,15 +10,16 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.geogym.memo.service.CalendarMemoService;
 import com.geogym.schedule.dto.PeriodDate;
-import com.geogym.schedule.service.ScheduleMemoService;
+
 import com.geogym.trainer.dto.Trainer;
 import com.geogym.trainer.service.TrainerService;
 
 @Controller
 public class ScheduleController {
 	
-	@Autowired ScheduleMemoService scheduleMemoService;
+	@Autowired CalendarMemoService calendarMemoService;
 	@Autowired TrainerService trainerService;
 	
 	//-----------user스케줄------------

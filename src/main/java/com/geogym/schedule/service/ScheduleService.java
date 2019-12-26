@@ -21,7 +21,7 @@ public interface ScheduleService {
 	 * @param localDate
 	 * @return
 	 */
-	List<LocalTime> getAvilableTime(Trainer trainer, LocalDate localDate);
+	public List<LocalTime> getAvilableTime(Trainer trainer, LocalDate localDate);
 
 	/**
 	 * 
@@ -30,7 +30,7 @@ public interface ScheduleService {
 	 * @param user
 	 * @param locaDatetime
 	 */
-	void setPTShcedule(Trainer trainer, User user, LocalDateTime locaDatetime);
+	public void setPTShcedule(Trainer trainer, User user, LocalDateTime locaDatetime);
 	
 	/**
 	 * 
@@ -39,7 +39,7 @@ public interface ScheduleService {
 	 * @param user
 	 * @param locaDatetime
 	 */
-	void cancelPTSchedule(Trainer trainer, User user, LocalDateTime locaDatetime);
+	public void cancelPTSchedule(Trainer trainer, User user, LocalDateTime locaDatetime);
 	
-	List<MatchingSchedule> getPTSchedule(Trainer trainer, User user, LocalDateTime locaDatetime);
+	public List<MatchingSchedule> getPTSchedule(Trainer trainer, User user, LocalDateTime locaDatetime);
 }
