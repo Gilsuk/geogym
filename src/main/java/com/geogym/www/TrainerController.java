@@ -66,8 +66,8 @@ public class TrainerController {
 		
 		// 이부분은 테스트용
 		Trainer trainer2 = new Trainer();
-		trainer2.setTrainer_no(1);
-		trainer2.setUser_no(1);
+		trainer2.setTrainer_no(2);
+		trainer2.setUser_no(2);
 		trainer2.setTrainer_address("addredd");
 		trainer2.setTrainer_price(1);
 		trainer2.setTrainer_profile("profile");
@@ -84,6 +84,9 @@ public class TrainerController {
 	@RequestMapping(value = "/trainer/delete", method = RequestMethod.POST)
 	private void TrainerDelete(Trainer trainer, MultipartFile file) {
 		logger.info("Delete");
+		
+		// 테스트용, RequestMethod 를 GET 으로 바꿔야함
+		trainer.setTrainer_no(1);
 		
 		trainerService.deleteTraner(trainer, file);
 

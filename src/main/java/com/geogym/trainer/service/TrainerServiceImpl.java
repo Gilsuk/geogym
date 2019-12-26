@@ -13,6 +13,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.geogym.attachment.dto.Attachment;
 import com.geogym.attachment.service.AttachmentService;
 import com.geogym.attachment.service.AttachmentServiceImpl;
+import com.geogym.common.service.SequenceService;
 import com.geogym.memo.dto.CalendarMemo;
 import com.geogym.schedule.dto.PeriodDate;
 import com.geogym.schedule.dto.PeriodDateTime;
@@ -30,6 +31,7 @@ public class TrainerServiceImpl implements TrainerService {
 
 	
 	@Autowired TrainerDao trainerDao;
+	@Autowired SequenceService seqService;
 	AttachmentService attachmentService = new AttachmentServiceImpl();
 
 
@@ -76,6 +78,7 @@ public class TrainerServiceImpl implements TrainerService {
 		
 		Trainer trainer2 = getTrainer(trainer);
 		
+		
 		if (trainer.getAttachment() == null) {
 			trainer.setAttachment(trainer2.getAttachment());
 		}
@@ -103,6 +106,8 @@ public class TrainerServiceImpl implements TrainerService {
 	@Override
 	public Trainer getTrainer(Trainer trainer) {
 		// TODO Auto-generated method stub
+		// 트레이너 정보 받기
+		
 		return trainerDao.getTrainer(trainer);
 	}
 
@@ -110,12 +115,14 @@ public class TrainerServiceImpl implements TrainerService {
 	@Override
 	public void deleteTraner(Trainer trainer, MultipartFile file) {
 		// TODO Auto-generated method stub
-		
+		// 트레이너 제거하기
 		
 		
 		trainer.setTrainer_address("없음");
 		trainer.setTrainer_price(-1);
 		trainer.setTrainer_profile("없음");
+		
+		attachmentService.removeAttachment(trainer);
 		
 		updateTrainer(trainer);
 		
