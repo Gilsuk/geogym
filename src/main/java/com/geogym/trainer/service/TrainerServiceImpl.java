@@ -10,7 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.geogym.attachment.dto.Attachment;
 import com.geogym.attachment.service.AttachmentService;
 import com.geogym.attachment.service.AttachmentServiceImpl;
 import com.geogym.common.service.SequenceService;
@@ -19,9 +18,12 @@ import com.geogym.schedule.dto.PeriodDate;
 import com.geogym.schedule.dto.PeriodDateTime;
 import com.geogym.schedule.dto.Schedule;
 import com.geogym.trainer.dao.TrainerDao;
+import com.geogym.trainer.dto.PtTicket;
 import com.geogym.trainer.dto.T_reputation;
 import com.geogym.trainer.dto.Trainer;
+import com.geogym.trainer.exception.UserNotTrainerException;
 import com.geogym.user.dto.User;
+import com.geogym.user.dto.UserEvaluation;
 
 
 @Service

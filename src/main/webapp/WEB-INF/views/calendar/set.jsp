@@ -8,7 +8,13 @@
 </head>
 <body>
 
-<h1>트레이너리스트</h1>
+<form action="/calendar/set" method ="post">
+
+
+
+<button>전송</button>
+
+</form>
 
 </body>
 </html>

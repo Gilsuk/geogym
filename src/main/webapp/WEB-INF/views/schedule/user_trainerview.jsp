@@ -8,7 +8,5 @@
 </head>
 <body>
 
-<h1>트레이너리스트</h1>
-
 </body>
 </html>
