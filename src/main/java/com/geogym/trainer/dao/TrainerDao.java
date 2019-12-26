@@ -66,7 +66,7 @@ public interface TrainerDao {
 	 * @param trainer -  PK를 기준으로 한다
 	 * @return int - 별점 수치를 반환한다
 	 */
-	int getReputation(Trainer trainer);
+	double getReputation(Trainer trainer);
 	
 
 

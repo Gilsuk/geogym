@@ -154,7 +154,7 @@ public class TrainerServiceImpl implements TrainerService {
 	}
 
 	@Override
-	public int getReputation(Trainer trainer) {
+	public double getReputation(Trainer trainer) {
 		// TODO Auto-generated method stub
 		
 		

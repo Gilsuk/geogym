@@ -1,11 +1,11 @@
 package com.geogym.trainer.dto;
 
-public class trainer_reputation {
+public class Trainer_reputation {
 	private int trainer_reputation_no;
 	private int user_no;
 	private int trainer_no;
 	private String trainer_reputation_date;
-	private int trainer_reputation_score;
+	private double trainer_reputation_score;
 	private String trainer_reputation_msg;
 
 	@Override
@@ -48,11 +48,11 @@ public class trainer_reputation {
 		this.trainer_reputation_date = trainer_reputation_date;
 	}
 
-	public int getTrainer_reputation_score() {
+	public double getTrainer_reputation_score() {
 		return trainer_reputation_score;
 	}
 
-	public void setTrainer_reputation_score(int trainer_reputation_score) {
+	public void setTrainer_reputation_score(double trainer_reputation_score) {
 		this.trainer_reputation_score = trainer_reputation_score;
 	}
 

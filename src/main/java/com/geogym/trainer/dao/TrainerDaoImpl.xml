@@ -22,8 +22,8 @@
 	<select id="getTrainer" parameterType="com.geogym.trainer.dto.Trainer" resultType="com.geogym.trainer.dto.Trainer">
 		SELECT * FROM trainer where trainer_no = #{trainer_no}
 	</select>
-	<select id="getReputation" parameterType="com.geogym.trainer.dto.Trainer" resultType="int">
-		SELECT count(*) FROM trainer_reputation where trainer_no = #{trainer_no}
+	<select id="getReputation" parameterType="com.geogym.trainer.dto.Trainer" resultType="double">
+		SELECT avg(trainer_reputation_score) FROM trainer_reputation where trainer_no = #{trainer_no}
 	</select>
 
 </mapper>

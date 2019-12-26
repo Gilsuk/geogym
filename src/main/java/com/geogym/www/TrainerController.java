@@ -83,6 +83,8 @@ public class TrainerController {
 	private void TrainerReputation(Model model, Trainer trainer) {
 		logger.info("reputation");
 		
+		// 테스트용 구문
+		trainer.setTrainer_no(1);
 		
 		model.addAttribute("reputation", trainerService.getReputation(trainer));
 
