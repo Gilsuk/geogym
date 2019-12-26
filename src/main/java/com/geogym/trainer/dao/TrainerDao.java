@@ -91,6 +91,14 @@ public interface TrainerDao {
 	 * @param reputation - 유저번호, 트레이너번호로 식별, 별점을 업데이트한다
 	 */
 	void insertReputate(T_reputation reputation);
+
+	
+	/**
+	 * 트레이너 테이블 인서트한다
+	 * 
+	 * @param trainer - 트레이너 타입을 받아서 그대로 생성한다
+	 */
+	void insertTrainer(Trainer trainer);
 	
 
 

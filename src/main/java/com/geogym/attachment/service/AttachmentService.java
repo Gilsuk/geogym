@@ -2,6 +2,8 @@ package com.geogym.attachment.service;
 
 import java.util.List;
 
+import org.springframework.web.multipart.MultipartFile;
+
 import com.geogym.attachment.dto.Attachment;
 import com.geogym.body.dto.BodyInfo;
 import com.geogym.memo.dto.TrainingMemo;
@@ -15,12 +17,16 @@ import com.geogym.trainer.dto.Trainer;
  */
 public interface AttachmentService {
 	
+
 	/**
 	 * 파일을 업로드 한다.
-	 * @param attachment - attachment_no를 포함하여 완전한 정보를 담고 있는 attachment 객체
-	 * attachment_no는 시퀀스를 통해 얻어온다.
+	 * 
+	 *  
+	 * @param multipartFile - multipartFile 타입의 파일을 업로드하고 attachment 형식으로 DB에 저장한다
+	 * attachment_no는 시퀀스를 통해 얻어온다
+	 * @return - 저장한 attachment 를 리턴한다
 	 */
-	void upload(AttachmentService attachment);
+	Attachment upload(MultipartFile multipartFile);
 	
 	/**
 	 * 시퀀스 nextval

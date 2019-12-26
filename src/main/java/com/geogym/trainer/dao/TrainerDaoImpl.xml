@@ -63,5 +63,10 @@
 		VALUES (#{user_no}, #{trainer_no}, datetime('now','localtime'),
 		#{trainer_reputation_score} #{trainer_reputation_msg});
 	</insert>
+	<insert id="insertTrainer" parameterType="com.geogym.trainer.dto.Trainer">
+		INSERT INTO trainer
+		(user_no,trainer_address,trainer_price,trainer_profile,attachment_no)
+		VALUES (#{user_no}, #{trainer_address}, #{trainer_price} #{trainer_profile}, #{attachment.getAttachment_no});
+	</insert>
 
 </mapper>
