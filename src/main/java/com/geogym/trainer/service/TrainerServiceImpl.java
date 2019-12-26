@@ -10,7 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.geogym.attachment.dto.Attachment;
 import com.geogym.attachment.service.AttachmentService;
 import com.geogym.attachment.service.AttachmentServiceImpl;
 import com.geogym.common.service.SequenceService;
@@ -203,12 +202,6 @@ public class TrainerServiceImpl implements TrainerService {
 		}
 		
 		
-	}
-
-	@Override
-	public int countReferrer(Trainer trainer) {
-		// TODO Auto-generated method stub
-		return 0;
 	}
 
 
