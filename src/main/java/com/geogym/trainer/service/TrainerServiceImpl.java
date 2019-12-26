@@ -8,13 +8,20 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
+import com.geogym.attachment.service.AttachmentService;
+import com.geogym.attachment.service.AttachmentServiceImpl;
+import com.geogym.common.service.SequenceService;
 import com.geogym.memo.dto.CalendarMemo;
 import com.geogym.schedule.dto.PeriodDate;
 import com.geogym.schedule.dto.PeriodDateTime;
 import com.geogym.schedule.dto.Schedule;
 import com.geogym.trainer.dao.TrainerDao;
+import com.geogym.trainer.dto.PtTicket;
+import com.geogym.trainer.dto.T_reputation;
 import com.geogym.trainer.dto.Trainer;
+import com.geogym.trainer.exception.UserNotTrainerException;
 import com.geogym.user.dto.User;
 import com.geogym.user.dto.UserEvaluation;
 
@@ -26,7 +33,8 @@ public class TrainerServiceImpl implements TrainerService {
 
 	
 	@Autowired TrainerDao trainerDao;
-
+	@Autowired SequenceService seqService;
+	AttachmentService attachmentService = new AttachmentServiceImpl();
 
 
 	@Override
@@ -40,6 +48,23 @@ public class TrainerServiceImpl implements TrainerService {
 		return list;
 	}
 
+	/**
+	 * 트레이너 생성
+	 * 
+	 * @param trainer - 트레이너 정보를 생성한다
+	 * @param multipartFile - 트레이너 사진
+	 */
+	@Override
+	public void insertTrainer(Trainer trainer, MultipartFile multipartFile) {
+		// TODO Auto-generated method stub
+		
+		
+		trainer.setAttachment(attachmentService.upload(multipartFile));
+		
+		trainerDao.insertTrainer(trainer);
+		
+		
+	}
 
 
 //	@Override
@@ -55,8 +80,9 @@ public class TrainerServiceImpl implements TrainerService {
 		
 		Trainer trainer2 = getTrainer(trainer);
 		
-		if (trainer.getAttachment_no() == 0) {
-			trainer.setAttachment_no(trainer2.getAttachment_no());
+		
+		if (trainer.getAttachment() == null) {
+			trainer.setAttachment(trainer2.getAttachment());
 		}
 		if (trainer.getTrainer_address() == null) {
 			trainer.setTrainer_address(trainer2.getTrainer_address());
@@ -82,18 +108,23 @@ public class TrainerServiceImpl implements TrainerService {
 	@Override
 	public Trainer getTrainer(Trainer trainer) {
 		// TODO Auto-generated method stub
+		// 트레이너 정보 받기
+		
 		return trainerDao.getTrainer(trainer);
 	}
 
 
 	@Override
-	public void deleteTraner(Trainer trainer) {
+	public void deleteTraner(Trainer trainer, MultipartFile file) {
 		// TODO Auto-generated method stub
+		// 트레이너 제거하기
 		
-		trainer.setAttachment_no(-1);
+		
 		trainer.setTrainer_address("없음");
 		trainer.setTrainer_price(-1);
 		trainer.setTrainer_profile("없음");
+		
+		attachmentService.removeAttachment(trainer);
 		
 		updateTrainer(trainer);
 		
@@ -154,7 +185,7 @@ public class TrainerServiceImpl implements TrainerService {
 	}
 
 	@Override
-	public int getReputation(Trainer trainer) {
+	public double getReputation(Trainer trainer) {
 		// TODO Auto-generated method stub
 		
 		
@@ -162,8 +193,17 @@ public class TrainerServiceImpl implements TrainerService {
 	}
 
 	@Override
-	public void reputate(Trainer trainer, int i) {
+	public void reputate(T_reputation reputation) {
 		// TODO Auto-generated method stub
+		
+		if (trainerDao.countReputate(reputation) >= 1) {
+			System.out.println(reputation);
+			trainerDao.updateReputate(reputation);
+			return;
+		}else {
+			trainerDao.insertReputate(reputation);
+		}
+		
 		
 	}
 
@@ -172,6 +212,9 @@ public class TrainerServiceImpl implements TrainerService {
 		// TODO Auto-generated method stub
 		return 0;
 	}
+
+
+
 
 //	@Override
 //	public void userEvaluation(User_issue user_issue) {

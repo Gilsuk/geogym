@@ -3,6 +3,7 @@ package com.geogym.trainer.dao;
 import java.util.List;
 
 import com.geogym.trainer.dto.PtTicket;
+import com.geogym.trainer.dto.T_reputation;
 import com.geogym.trainer.dto.Trainer;
 import com.geogym.user.dto.User;
 
@@ -66,7 +67,38 @@ public interface TrainerDao {
 	 * @param trainer -  PK를 기준으로 한다
 	 * @return int - 별점 수치를 반환한다
 	 */
-	int getReputation(Trainer trainer);
+	double getReputation(Trainer trainer);
+
+	/**
+	 * 트레이너 별점이 이미 등록되었는지 확인한다
+	 * count 가 1 이상일 경우 작동한다
+	 * 
+	 * @param reputation - 유저번호, 트레이너번호를 사용한다
+	 * @return - 일치하는 테이블의 숫자를 반환한다
+	 */
+	int countReputate(T_reputation reputation);
+
+	/**
+	 * 트레이너 별점이 이미 등록되었을 경우 이전의 별점을 업데이트한다
+	 * 
+	 * @param reputation - 유저번호, 트레이너번호로 식별, 별점을 업데이트한다
+	 */
+	void updateReputate(T_reputation reputation);
+
+	/**
+	 * 등록된 기록이 없을 경우 새 별점을 등록한다
+	 * 
+	 * @param reputation - 유저번호, 트레이너번호로 식별, 별점을 업데이트한다
+	 */
+	void insertReputate(T_reputation reputation);
+
+	
+	/**
+	 * 트레이너 테이블 인서트한다
+	 * 
+	 * @param trainer - 트레이너 타입을 받아서 그대로 생성한다
+	 */
+	void insertTrainer(Trainer trainer);
 	
 
 

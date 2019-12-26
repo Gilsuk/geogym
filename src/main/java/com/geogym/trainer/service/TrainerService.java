@@ -5,18 +5,27 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.Map;
 
+import org.springframework.web.multipart.MultipartFile;
+
 import com.geogym.body.dto.BodyInfo;
 import com.geogym.memo.dto.CalendarMemo;
 import com.geogym.schedule.dto.PeriodDate;
 import com.geogym.schedule.dto.PeriodDateTime;
 import com.geogym.schedule.dto.Schedule;
 import com.geogym.trainer.dto.PtTicket;
+import com.geogym.trainer.dto.T_reputation;
 import com.geogym.trainer.dto.Trainer;
 import com.geogym.trainer.dto.User_issue;
 import com.geogym.trainer.exception.UserNotTrainerException;
 import com.geogym.user.dto.User;
 import com.geogym.user.dto.UserEvaluation;
 
+/**
+ * 트레이너 관리 서비스
+ * 
+ * @author user1
+ *
+ */
 public interface TrainerService {
 	
 	
@@ -67,6 +76,14 @@ public interface TrainerService {
 	void updateTrainer(Trainer trainer);
 	
 	/**
+	 * 트레이너 생성
+	 * 
+	 * @param trainer - 트레이너 정보를 생성한다
+	 * @param multipartFile 
+	 */
+	void insertTrainer(Trainer trainer, MultipartFile multipartFile);
+	
+	/**
 	 * 
 	 *  트레이너 리스트 받아오기 
 	 *  회원이 트레이너전체 정보를 받아오고 싶을 때 사용한다
@@ -95,9 +112,10 @@ public interface TrainerService {
 	 * 업데이트 후 selectTrainer 를 수행하여 수정된 정보를 반환한다
 	 * 
 	 * @param trainer - 트레이너 ID 혹은 트레이너 번호를 기준으로 한다
+	 * @param file 
 	 * @return Trainer - 트레이너 DTO 를 불러온다
 	 */
-	void deleteTraner(Trainer trainer);
+	void deleteTraner(Trainer trainer, MultipartFile file);
 	
 	
 	/**
@@ -193,17 +211,16 @@ public interface TrainerService {
 	 * @param trainer -  PK를 기준으로 한다
 	 * @return int - 별점 수치를 반환한다
 	 */
-	int getReputation(Trainer trainer);
+	double getReputation(Trainer trainer);
 	
 	/**
 	 * 트레이너 평가(별점) 등록
 	 * 한 사람이 두 번 등록하지 못하도록 한다
 	 * 게시판의 추천 기능을 응용
 	 * 
-	 * @param trainer - PK를 기준으로 한다
-	 * @param i - 입력하는 별점 수치
+	 * @param T_reputation - 유저번호와 트레이너번호를 기준으로 한다
 	 */
-	void reputate(Trainer trainer, int i);
+	void reputate(T_reputation reputation);
 	
 	/**
 	 * 이용권 등록한 추천인 수 조회 

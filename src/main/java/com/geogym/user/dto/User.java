@@ -2,6 +2,8 @@ package com.geogym.user.dto;
 
 import java.time.LocalDate;
 
+import com.geogym.common.encrypt.HashConverter;
+
 public class User {
 	
 	private int user_no;
@@ -60,7 +62,7 @@ public class User {
 		return user_pw;
 	}
 	public void setUser_pw(String user_pw) {
-		this.user_pw = user_pw;
+		this.user_pw = HashConverter.toHash(user_pw);
 	}
 	public String getUser_email() {
 		return user_email;

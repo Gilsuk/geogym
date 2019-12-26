@@ -11,6 +11,7 @@ import com.geogym.pt.exception.LessThanOneHourException;
 import com.geogym.pt.exception.MatchingNotAvailable;
 import com.geogym.pt.service.MatchingService;
 import com.geogym.schedule.dto.Schedule;
+import com.geogym.schedule.exception.InvalidParamException;
 import com.geogym.schedule.service.ScheduleService;
 import com.geogym.trainer.dto.Trainer;
 import com.geogym.user.dto.User;
@@ -19,12 +20,22 @@ import com.geogym.user.dto.User;
 public class MatchingServiceImpl implements MatchingService {
 
 	@Autowired MatchingDao matchingDao;
-	@Autowired ScheduleService ScheduleService;
+	@Autowired ScheduleService scheduleService;
+//	@Autowired CoinService coinService;
+//	@Autowired TicketService tickectService;
 	
 	@Override
-	public void match(Schedule schedule) throws MatchingNotAvailable {
-		// TODO Auto-generated method stub
-
+	public void match(User user, Schedule schedule) throws MatchingNotAvailable {
+		
+		try {
+			
+			
+			
+			scheduleService.setPTShcedule(user, schedule);
+		} catch (InvalidParamException e) {
+			throw new MatchingNotAvailable();
+		}
+		
 	}
 
 	@Override

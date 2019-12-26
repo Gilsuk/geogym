@@ -1,18 +1,20 @@
 package com.geogym.trainer.dto;
 
+import com.geogym.attachment.dto.Attachment;
+
 public class Trainer {
 	private int trainer_no;
 	private int user_no;
 	private String trainer_address;
 	private int trainer_price;
 	private String trainer_profile;
-	private int attachment_no;
+	private Attachment attachment;
 
 	@Override
 	public String toString() {
 		return "Trainer [trainer_no=" + trainer_no + ", user_no=" + user_no + ", trainer_address=" + trainer_address
-				+ ", trainer_price=" + trainer_price + ", trainer_profile=" + trainer_profile + ", attachment_no="
-				+ attachment_no + "]";
+				+ ", trainer_price=" + trainer_price + ", trainer_profile=" + trainer_profile + ", attachment="
+				+ attachment + "]";
 	}
 
 	public int getTrainer_no() {
@@ -55,12 +57,12 @@ public class Trainer {
 		this.trainer_profile = trainer_profile;
 	}
 
-	public int getAttachment_no() {
-		return attachment_no;
+	public Attachment getAttachment() {
+		return attachment;
 	}
 
-	public void setAttachment_no(int attachment_no) {
-		this.attachment_no = attachment_no;
+	public void setAttachment(Attachment attachment) {
+		this.attachment = attachment;
 	}
 
 }
