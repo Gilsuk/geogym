@@ -54,5 +54,5 @@
     	<beans:property name="maxUploadSizePerFile" value="5242880" />
     </beans:bean>
 
-	<context:component-scan base-package="com.geogym.www, com.geogym.*.service, com.geogym.*.dao" />
+	<context:component-scan base-package="com.geogym.www, com.geogym.*.service, com.geogym.*.dao, com.geogym.common.adviser" />
 </beans:beans>

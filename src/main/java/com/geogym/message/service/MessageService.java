@@ -3,6 +3,7 @@ package com.geogym.message.service;
 import java.util.List;
 
 import com.geogym.message.dto.Message;
+import com.geogym.message.dto.Notification;
 import com.geogym.user.dto.User;
 
 public interface MessageService {
@@ -12,21 +13,44 @@ public interface MessageService {
 	 * 새로운 피드백 알림,
 	 * 결제 정보,
 	 * PT 매칭 취소 상태 등
+	 * expire_date - 파기를 원하는 날짜 (기간) - 무한정
 	 */
 	void sendMessage(Message message);
+	/**
+	 * 개인 알림
+	 * 새로운 피드백 알림,
+	 * 결제 정보,
+	 * PT 매칭 취소 상태 등
+	 * expire_date - 파기를 원하는 날짜 (기간)
+	 */
+	void sendMessage(Message message, int expire_date);
 	
 	/**
 	 * 전체 알림
 	 * 휴관일, 긴급 공지, 등
 	 * 
 	 * 알림 확인 상태를 처리하는 알고리즘에 대한 고려가 필요함
+	 * @param expire_date 
 	 */
-	void sendSystemMessage(Message message);
+	void sendSystemMessage(Notification noti);
+	
+	/**
+	 * 전체 알림
+	 * 휴관일, 긴급 공지, 등
+	 * 
+	 * 알림 확인 상태를 처리하는 알고리즘에 대한 고려가 필요함
+	 * @param expire_date 
+	 */
+	void sendSystemMessage(Notification noti, int expire_date);
 
 	/**
-	 * 보여질 총 개수 제한을 할 필요가 있어보인다.
+	 * 해당 유저의 메세지 리스트 받아오기
+	 * 
+	 * @param user - user_no를 가지고 있는 User객체
+	 * @param count - 보여지길 원하는 갯수
+	 * @return
 	 */
-	List<Message> getMessages(User user);
+	List<Message> getMessages(User user, int count);
 	
 	/** 
 	 * 알림을 확인했을 때, 확인한 알림을 삭제하고 그 다음번 알림을 가져와서 채워넣는 용도.
@@ -36,7 +60,7 @@ public interface MessageService {
 	 * 그 다음번인 4번째 알림을 이 메소드를 통해 가져와서 3개를 다시 채워넣는 용도
 	 * 
 	 * @param user
-	 * @param order 가장 최근으로부터 order 번째 메세지를 가져온다.
+	 * @param order 가장 최근으로부터 order(0부터 시작)번째 메세지를 가져온다.
 	 * @return
 	 */
 	Message getMessage(User user, int order);
@@ -46,5 +70,5 @@ public interface MessageService {
 	 * 다음에 알림 메세지를 조회할 때 해당 메세지가 더이상 표시되지 않도록 하는 기능
 	 * @param message
 	 */
-	void readMessage(User user, Message message);
+	void readMessage(Message message);
 }

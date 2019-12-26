@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 import com.geogym.memo.dto.CalendarMemo;
 import com.geogym.memo.service.CalendarMemoService;
 import com.geogym.message.dto.Message;
-import com.geogym.pt.dto.MatchingSchedule;
+import com.geogym.schedule.dto.Schedule;
 import com.geogym.schedule.exception.MemoAlreadyExistException;
 import com.geogym.schedule.exception.MemoNotFoundException;
 import com.geogym.trainer.dto.Trainer;
@@ -54,7 +54,7 @@ public class CalendarMemoServiceImpl implements CalendarMemoService{
 	}
 
 	@Override
-	public void cancleSchdule(Trainer trainer, MatchingSchedule date, Message message) {
+	public void cancleSchdule(Trainer trainer, Schedule date, Message message) {
 		// TODO Auto-generated method stub
 		
 	}

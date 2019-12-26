@@ -5,28 +5,38 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.Map;
 
+import org.springframework.web.multipart.MultipartFile;
+
 import com.geogym.body.dto.BodyInfo;
 import com.geogym.memo.dto.CalendarMemo;
 import com.geogym.schedule.dto.PeriodDate;
 import com.geogym.schedule.dto.PeriodDateTime;
 import com.geogym.schedule.dto.Schedule;
 import com.geogym.trainer.dto.PtTicket;
+import com.geogym.trainer.dto.T_reputation;
 import com.geogym.trainer.dto.Trainer;
+import com.geogym.trainer.dto.User_issue;
 import com.geogym.trainer.exception.UserNotTrainerException;
 import com.geogym.user.dto.User;
 import com.geogym.user.dto.UserEvaluation;
 
+/**
+ * 트레이너 관리 서비스
+ * 
+ * @author user1
+ *
+ */
 public interface TrainerService {
 	
 	
 	/**
 	 *  유저와 연결된 트레이너 정보를 불러온다
-	 * 
+	 *  xxxx
 	 * @param user - 유저정보를 받아온다
 	 * @return Trainer - 유저와 pt 하는 트레이너 리턴
 	 * @throws UserNotTrainerException - 유저가 pt 하는 트레이너가 없을 때
 	 */
-	Trainer getTrainerByUserno(User user) throws UserNotTrainerException;
+//	Trainer getTrainerByUserno(User user) throws UserNotTrainerException;
 	
 	/**
 	 * 해당 트레이너의 PT 회원들을 조회
@@ -43,21 +53,35 @@ public interface TrainerService {
 	 * @param user 해당 유저번호에 맞는 유저에게 평가 내용 작성
 	 * @param trainer 트레이너별로 회원정보 평가 삽입
 	 */
-	void userEvaluation(PtTicket pt_ticket);
+//	void userEvaluation(User_issue user_issue);
 	
 	/**
 	 * 
+	 * xx
 	 * @param user
 	 * @return
 	 */
-	List<UserEvaluation> selectEvaluation(User user);
+//	List<UserEvaluation> selectEvaluation(User user);
 	
 	/**
-	 * 트레이너별 몸값(일일PT 신청시 차감되는 근) 책정
+	 * 트레이너 프로필 수정
 	 * 
-	 * @param trainer - 트레이너 정보를 받아 그 트레이너의 근 수치를 설정한다
+	 * 트레이너 정보 업데이트하기
+	 * 
+	 * 미리 selectTrainer 구문을 이용해 해당 트레이너의 모든 정보를 불러온 후
+	 * 업데이트 하고 싶은 부분만 바꿔서 업데이트한다.
+	 * 
+	 * @param trainer - 트레이너 정보 수정
 	 */
-	void setTrainerPrice(Trainer trainer);
+	void updateTrainer(Trainer trainer);
+	
+	/**
+	 * 트레이너 생성
+	 * 
+	 * @param trainer - 트레이너 정보를 생성한다
+	 * @param multipartFile 
+	 */
+	void insertTrainer(Trainer trainer, MultipartFile multipartFile);
 	
 	/**
 	 * 
@@ -78,34 +102,20 @@ public interface TrainerService {
 	 */
 	Trainer getTrainer(Trainer trainer);
 	
-	
-	/**
-	 * 트레이너 프로필 수정
-	 * 
-	 * 트레이너 정보 업데이트하기
-	 * 
-	 * 미리 selectTrainer 구문을 이용해 해당 트레이너의 모든 정보를 불러온 후
-	 * 업데이트 하고 싶은 부분만 바꿔서 업데이트한다.
-	 * 
-	 * 
-	 * 업데이트 후 selectTrainer 를 수행하여 수정된 정보를 반환한다
-	 * 
-	 * @param trainer - 트레이너 ID 혹은 트레이너 번호를 기준으로 한다
-	 * @return	Trainer - 트레이너 DTO 를 불러온다
-	 */
-	Trainer updateTraner(Trainer trainer);
+
 	
 	/**
 	 * 트레이너 정보 삭제
 	 * 미리 selectTrainer 구문을 이용해 해당 트레이너의 모든 정보를 불러온 후
-	 * PK 를 제외한 모든 값을 null 로 넣어 updateTraner 를 이용해 업데이트한다
+	 * PK 를 제외한 모든 값을 더미데이터로 넣어 updateTraner 를 이용해 업데이트한다
 	 * 
 	 * 업데이트 후 selectTrainer 를 수행하여 수정된 정보를 반환한다
 	 * 
 	 * @param trainer - 트레이너 ID 혹은 트레이너 번호를 기준으로 한다
+	 * @param file 
 	 * @return Trainer - 트레이너 DTO 를 불러온다
 	 */
-	Trainer deleteTraner(Trainer trainer);
+	void deleteTraner(Trainer trainer, MultipartFile file);
 	
 	
 	/**
@@ -201,17 +211,16 @@ public interface TrainerService {
 	 * @param trainer -  PK를 기준으로 한다
 	 * @return int - 별점 수치를 반환한다
 	 */
-	int getReputation(Trainer trainer);
+	double getReputation(Trainer trainer);
 	
 	/**
 	 * 트레이너 평가(별점) 등록
 	 * 한 사람이 두 번 등록하지 못하도록 한다
 	 * 게시판의 추천 기능을 응용
 	 * 
-	 * @param trainer - PK를 기준으로 한다
-	 * @param i - 입력하는 별점 수치
+	 * @param T_reputation - 유저번호와 트레이너번호를 기준으로 한다
 	 */
-	void reputate(Trainer trainer, int i);
+	void reputate(T_reputation reputation);
 	
 	/**
 	 * 이용권 등록한 추천인 수 조회 
