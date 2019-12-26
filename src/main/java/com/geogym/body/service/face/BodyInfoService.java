@@ -1,4 +1,4 @@
-package com.geogym.body.service;
+package com.geogym.body.service.face;
 
 import java.util.List;
 
@@ -39,8 +39,7 @@ public interface BodyInfoService {
 	/**
 	 * 주마다 한 건씩 조회한다.
 	 */
-	List<BodyInfo> getBodyInfosByWeek(User user, PeriodDate period)
-			throws TooLongPeriodException;
+	List<BodyInfo> getBodyInfosByWeek(User user);
 
 	/**
 	 * 월말 기준으로 한 건씩 조회 한다.

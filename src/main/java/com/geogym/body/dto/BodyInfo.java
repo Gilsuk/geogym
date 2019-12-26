@@ -13,6 +13,8 @@ public class BodyInfo {
 	private double bodyinfo_weight;
 	private double bodyinfo_fat; // 체지방량
 	private double bodyinfo_muscle; // 골격근량
+	
+	
 	@Override
 	public String toString() {
 		return "BodyInfo [bodyinfo_no=" + bodyinfo_no + ", user_no=" + user_no + ", user_name=" + user_name
@@ -20,6 +22,8 @@ public class BodyInfo {
 				+ ", bodyinfo_height=" + bodyinfo_height + ", bodyinfo_weight=" + bodyinfo_weight + ", bodyinfo_fat="
 				+ bodyinfo_fat + ", bodyinfo_muscle=" + bodyinfo_muscle + "]";
 	}
+	
+	
 	public int getBodyinfo_no() {
 		return bodyinfo_no;
 	}
