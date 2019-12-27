@@ -11,10 +11,4 @@
 	WHERE schedule_no = #{schedule_no}
 </select>
 
-<select id="selectUserByscheduleNo" parameterType="com.geogym.schedule.dto.Schedule" resultType="com.geogym.pt.dto.PT">
-	SELECT schedule_no, pt_type_no, user_no AS `user.user_no`
-	, pt_request_date, pt_date FROM pt
-	WHERE schedule_no = #{schedule_no}
-</select>
-
 </mapper>

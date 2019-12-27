@@ -7,11 +7,22 @@ import com.geogym.common.dto.Paging;
 import com.geogym.payment.dto.Ticket;
 import com.geogym.payment.dto.TicketChangesInfo;
 import com.geogym.payment.exception.TicketNotEnoughException;
+import com.geogym.schedule.exception.InvalidParamException;
 import com.geogym.trainer.dto.Trainer;
 import com.geogym.user.dto.User;
 
 public interface TicketService {
 
+	
+	/**
+	 * 
+	 * @param user
+	 * @param trainer
+	 * @return
+	 * @throws InvalidParamException 
+	 */
+	boolean hasPTTicket(User user, Trainer trainer) throws InvalidParamException;
+	
 	/**
 	 * 유저가 보유한 티켓을 반환한다.
 	 */

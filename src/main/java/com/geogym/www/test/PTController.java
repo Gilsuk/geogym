@@ -55,8 +55,7 @@ public class PTController {
 		try {
 			matchingService.cancle(schedule, "PT취소");
 		} catch (LessThanOneHourException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			// 취소 신청시간 기점 PT시간 까지 1시간 미만 남았을 경우
 		}
 
 	}
@@ -67,7 +66,7 @@ public class PTController {
 		User user = new User();
 		user.setUser_no(10);
 		
-		LocalDate today = LocalDate.of(2019,12,30);
+		LocalDate today = LocalDate.of(2020,01,30);
 		
 		logger.info(matchingService.getPTInfos(user, today).toString());
 	}
