@@ -74,8 +74,9 @@ public interface TrainerService {
 	 * 업데이트 하고 싶은 부분만 바꿔서 업데이트한다.
 	 * 
 	 * @param trainer - 트레이너 정보 수정
+	 * @param file 
 	 */
-	void updateTrainer(Trainer trainer);
+	void updateTrainer(Trainer trainer, MultipartFile file);
 	
 	/**
 	 * 트레이너 생성
@@ -228,6 +229,14 @@ public interface TrainerService {
 	 * @param periodDateTime - 해달 일,시 정보를 받아온다
 	 */
 	void removeSchedule(Schedule schedule);
+
+
+	/**
+	 * 전체 인원의 평점 평균을 구한다
+	 * 
+	 * @return - double
+	 */
+	double getReputation();
 
 
 

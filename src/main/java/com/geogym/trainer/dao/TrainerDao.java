@@ -108,6 +108,13 @@ public interface TrainerDao {
 	 * @return - int 를 반환한다
 	 */
 	int countUserNo(Trainer trainer);
+
+	/**
+	 * 전체 인원의 평점 평균을 구한다
+	 * 
+	 * @return - double
+	 */
+	double getReputation();
 	
 
 
