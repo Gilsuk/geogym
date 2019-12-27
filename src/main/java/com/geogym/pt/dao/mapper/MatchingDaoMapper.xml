@@ -6,6 +6,15 @@
   
 <mapper namespace="com.geogym.pt.dao.MatchingDao">
 
+<select id="selectSchedule" parameterType="com.geogym.schedule.dto.Schedule" resultType="com.geogym.schedule.dto.Schedule">
+	SELECT schedule_no, trainer_no AS `trainer.trainer_no`, schedule_date, schedule_from, schedule_to, schedule_msg FROM schedule
+	WHERE schedule_no = #{schedule_no}
+</select>
 
+<select id="selectUserByscheduleNo" parameterType="com.geogym.schedule.dto.Schedule" resultType="com.geogym.pt.dto.PT">
+	SELECT schedule_no, pt_type_no, user_no AS `user.user_no`
+	, pt_request_date, pt_date FROM pt
+	WHERE schedule_no = #{schedule_no}
+</select>
 
 </mapper>
