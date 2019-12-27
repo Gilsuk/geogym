@@ -1,4 +1,4 @@
-package com.geogym.common.dto;
+package com.geogym.qna.dto;
 
 public class Paging {
 

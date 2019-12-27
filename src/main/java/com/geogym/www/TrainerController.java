@@ -2,6 +2,8 @@ package com.geogym.www;
 
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +16,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.geogym.trainer.dto.Trainer;
 import com.geogym.trainer.dto.T_reputation;
 import com.geogym.trainer.service.TrainerService;
+import com.geogym.user.dto.User;
 
 
 @Controller
@@ -28,12 +31,13 @@ public class TrainerController {
 	private void TrainerList(Model model) {
 		logger.info("TrainerList");
 		
-		List<Trainer> tlist = trainerService.viewTrainerList();
-		System.out.println(tlist);
+		List<Trainer> list = trainerService.viewTrainerList();
+		System.out.println(list);
 		
-		model.addAttribute("tlist", tlist);
+		model.addAttribute("list", list);
 		
 	}
+	
 	
 	//트레이너 정보 받아오기
 	@RequestMapping(value = "/trainer/select", method = RequestMethod.GET)
@@ -50,12 +54,23 @@ public class TrainerController {
 	
 	//트레이너 생성
 	@RequestMapping(value = "/trainer/insert", method = RequestMethod.GET)
-	private void insertTrainer(Trainer trainer, MultipartFile multipartFile) {
+	private String insertTrainer(Trainer trainer) {
 		logger.info("insertTrainer");
 		
-		trainerService.insertTrainer(trainer, multipartFile);
+		if (trainerService.checkTrainer(trainer)) {
+			return "redirect:/user/main";
+		}
+		return null;
 
 	}
+	//트레이너 생성
+		@RequestMapping(value = "/trainer/insert", method = RequestMethod.POST)
+		private void insertTrainer(Trainer trainer, MultipartFile multipartFile) {
+			logger.info("insertTrainer");
+			
+			trainerService.insertTrainer(trainer, multipartFile);
+
+		}
 	
 	
 	//트레이너 테이블 수정

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- 마이바티스 3 mapper DOCTYPE -->
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.geogym.attachment.dao.AttachmentDao">
+ 	<insert id="upload" parameterType="com.geogym.attachment.dto.Attachment">
+			INSERT INTO attachment(
+			attachment_no, attachment_origin_name,	attachment_stored_name, attachment_size, mime_no
+			) VALUES (#{attachment_no}, #{attachment_origin_name}, #{attachment_stored_name}, #{attachment_size}, #{mime_no})
+	</insert>
+
+
+	
+</mapper>

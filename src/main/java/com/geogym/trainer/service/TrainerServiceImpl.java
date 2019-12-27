@@ -1,8 +1,11 @@
+
 package com.geogym.trainer.service;
 
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Map;
+
+import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -18,12 +21,9 @@ import com.geogym.schedule.dto.PeriodDate;
 import com.geogym.schedule.dto.PeriodDateTime;
 import com.geogym.schedule.dto.Schedule;
 import com.geogym.trainer.dao.TrainerDao;
-import com.geogym.trainer.dto.PtTicket;
 import com.geogym.trainer.dto.T_reputation;
 import com.geogym.trainer.dto.Trainer;
-import com.geogym.trainer.exception.UserNotTrainerException;
 import com.geogym.user.dto.User;
-import com.geogym.user.dto.UserEvaluation;
 
 
 @Service
@@ -208,10 +208,16 @@ public class TrainerServiceImpl implements TrainerService {
 	}
 
 	@Override
-	public int countReferrer(Trainer trainer) {
+	public boolean checkTrainer(Trainer trainer) {
 		// TODO Auto-generated method stub
-		return 0;
+		if (trainerDao.countUserNo(trainer) >= 1) {
+			
+			return true;
+		}
+		
+		return false;
 	}
+
 
 
 
