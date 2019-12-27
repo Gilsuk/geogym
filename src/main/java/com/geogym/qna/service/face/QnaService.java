@@ -1,4 +1,4 @@
-package com.geogym.qna.service;
+package com.geogym.qna.service.face;
 
 import java.util.List;
 
@@ -30,10 +30,12 @@ public interface QnaService {
 	/**
 	 * 조건 검색 (페이징)
 	 * @param search - 검색조건
-	 * @param paging - 페이징
+	 * @param paging - 페이
 	 * @return
 	 */
 	public List<Qna> getListAccount(Search search, Paging paging);
+	
+	
 	
 	/**
 	 * 요청파라미터 curPage를 파싱한다
@@ -57,7 +59,7 @@ public interface QnaService {
 	 * @param paging - 검색조건
 	 * @return
 	 */
-	public Paging getPaging(Paging paging);
+	public Paging getPaging(int curPage);
 	
 	
 	/**
@@ -78,7 +80,7 @@ public interface QnaService {
 	 * write - 글쓰기
 	 * void - 반환 받을게 아무것도 없을 때
 	 */
-	public void write();
+	public void write(Qna qna);
 	
 	/**
 	 * 답글 작성(트레이너)
@@ -98,7 +100,7 @@ public interface QnaService {
 	 * 
 	 * @param req - 요청 정보 객체
 	 */
-	public void modify();
+	public void modify(Qna qna);
 
 	
 	/**
@@ -107,8 +109,21 @@ public interface QnaService {
 	 * @param qna - 삭제할 게시글 번호를 가진 객체
 	 * String - 삭제됐다는 확인 메세지 보내기 
 	 */
-	public String delete(Qna qna);
-	
+	public void delete(Qna qna);
+
+	/**
+	 * 게시글 조회
+	 * 
+	 * @param qna - qna_no DTO
+	 * @return Qna - 조회 결과
+	 */
+	public Qna view(Qna qna);
+
+
+
+
+
+
 	
 	
 

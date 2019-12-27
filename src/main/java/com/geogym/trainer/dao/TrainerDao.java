@@ -99,6 +99,15 @@ public interface TrainerDao {
 	 * @param trainer - 트레이너 타입을 받아서 그대로 생성한다
 	 */
 	void insertTrainer(Trainer trainer);
+
+	/**
+	 * 트레이너 테이블의 user_no 를 받아서 
+	 * 같은 user_no 를 가지는 테이블이 있는지 센다
+	 * 
+	 * @param trainer - user_no 를 받아서 사용한다
+	 * @return - int 를 반환한다
+	 */
+	int countUserNo(Trainer trainer);
 	
 
 

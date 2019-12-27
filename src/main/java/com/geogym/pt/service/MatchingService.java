@@ -1,8 +1,9 @@
 package com.geogym.pt.service;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.util.List;
 
+import com.geogym.pt.dto.PT;
 import com.geogym.pt.exception.LessThanOneHourException;
 import com.geogym.pt.exception.MatchingNotAvailable;
 import com.geogym.schedule.dto.Schedule;
@@ -46,9 +47,7 @@ public interface MatchingService {
 	 * @param user
 	 * @return
 	 */
-	List<Schedule> getPTInfos(User user, LocalDateTime today);
-	
-	
+	List<PT> getPTInfos(User user, LocalDate today);
 	
 	
 	/**

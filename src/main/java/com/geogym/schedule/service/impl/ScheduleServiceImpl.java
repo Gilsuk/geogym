@@ -73,7 +73,6 @@ public class ScheduleServiceImpl implements ScheduleService {
 						isAvailable = false;
 
 						break;
-
 					}
 				}
 
@@ -121,8 +120,6 @@ public class ScheduleServiceImpl implements ScheduleService {
 		message.setUser_no(user.getUser_no());
 		message.setMessage_content(schedule.getSchedule_date()+"일 "+schedule.getSchedule_from()+"시에 PT 일정이 잡혔습니다.");
 		
-		logger.info(message.toString());
-		
 		messageService.sendMessage(message, 30);
 
 	}
@@ -146,8 +143,6 @@ public class ScheduleServiceImpl implements ScheduleService {
 		
 		message.setUser_no(user.getUser_no());
 		message.setMessage_content(localDateTime+"에 잡혀있던 PT 일정이 취소되었습니다.");
-		
-		logger.info(message.toString());
 		
 		messageService.sendMessage(message, 30);
 	}
@@ -211,8 +206,6 @@ public class ScheduleServiceImpl implements ScheduleService {
 
 		list = scheduleDao.selectSchedule(schedule);
 
-		logger.info(list.toString());
-
 		return list;
 	}
 
@@ -221,8 +214,6 @@ public class ScheduleServiceImpl implements ScheduleService {
 
 		List<LocalTime> list = new ArrayList<LocalTime>();
 		List<Schedule> scheduleList = getSchedule(trainer, localDate);
-
-		logger.info(list.toString());
 
 		try {
 			list = getAvilableTime(trainer, localDate);

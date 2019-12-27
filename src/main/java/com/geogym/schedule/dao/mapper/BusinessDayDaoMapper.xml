@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="com.geogym.schedule.dao.BusinessDayDao">
+
+<select id="selectCountBusinessDay" parameterType="java.time.LocalDate" resultType="int">
+	SELECT count(*) FROM business_day
+	WHERE business_day_date = #{date}
+</select>
+
+<insert id="insertBusinessDay" parameterType="com.geogym.schedule.dto.BusinessDay">
+	INSERT INTO business_day
+	VALUES (#{business_day_date},
+	#{business_day_starttime},
+	#{business_day_endtime})
+</insert>
+
+<select id="selectBusinessDay" parameterType="java.time.LocalDate" resultType="com.geogym.schedule.dto.BusinessDay">
+	SELECT * FROM business_day
+	WHERE business_day_date = #{business_day_date}
+</select>
+
+<select id="selectBusinessDaysWholeMonth" parameterType="hashmap" resultType="com.geogym.schedule.dto.BusinessDay">
+	SELECT * FROM business_day
+	WHERE 1=1
+	AND business_day_date BETWEEN #{start} AND #{end}
+</select>
+
+</mapper>

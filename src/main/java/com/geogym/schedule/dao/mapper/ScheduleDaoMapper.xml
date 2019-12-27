@@ -6,13 +6,6 @@
   
 <mapper namespace="com.geogym.schedule.dao.ScheduleDao">
 
-<resultMap type="com.geogym.schedule.dto.Schedule"
-	id="schedule">
-	<result column="attendance_date" property="schedule_date" />
-	<result column="attendance_start" property="schedule_from" />
-	<result column="attendance_end" property="schedule_to" />
-</resultMap>
-
 	<select id="selectWorkingTimeInaDay"
 		parameterType="com.geogym.schedule.dto.Schedule"
 		resultType="com.geogym.schedule.dto.Schedule">
