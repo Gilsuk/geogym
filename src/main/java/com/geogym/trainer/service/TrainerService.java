@@ -5,6 +5,8 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.web.multipart.MultipartFile;
 
 import com.geogym.body.dto.BodyInfo;
@@ -136,8 +138,14 @@ public interface TrainerService {
 	 */
 	void reputate(T_reputation reputation);
 	
-	
-	
+	/**
+	 * 이 유저아이디와 같은 유저넘버를 가지는 트레이너 테이블이 있는지 조회
+	 * 
+	 * @param trainer - user_no 를 받아온다
+	 */
+	boolean checkTrainer(Trainer trainer);
+
+
 	/**
 	 * 트레이너 한달 단위 근무일정 맵 받아오는 서비스
 	 * 이 서비스에서 관련 서비스들을 호출한다
@@ -220,5 +228,10 @@ public interface TrainerService {
 	 * @param periodDateTime - 해달 일,시 정보를 받아온다
 	 */
 	void removeSchedule(Schedule schedule);
+
+
+
+
+
 }
 

@@ -12,5 +12,6 @@
 			) VALUES (#{attachment_no}, #{attachment_origin_name}, #{attachment_stored_name}, #{attachment_size}, #{mime_no})
 	</insert>
 
+
 	
 </mapper>

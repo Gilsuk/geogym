@@ -142,6 +142,7 @@ public class AttachmentServiceImpl implements AttachmentService {
 		return null;
 	}
 
+
 	@Override
 	public Attachment getAttachment(Trainer trainer) {
 		// TODO Auto-generated method stub

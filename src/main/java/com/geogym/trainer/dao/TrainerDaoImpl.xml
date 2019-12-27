@@ -82,5 +82,8 @@
 		VALUES (#{user_no}, #{trainer_address}, #{trainer_price}
 		#{trainer_profile}, #{attachment.getAttachment_no})
 	</insert>
+	<select id="countUserNo" parameterType="com.geogym.trainer.dto.Trainer" resultType="int">
+		select count(*) from trainer where user_no = #{user_no}
+	</select>
 
 </mapper>
