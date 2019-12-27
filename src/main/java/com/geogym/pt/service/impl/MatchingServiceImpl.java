@@ -30,7 +30,6 @@ public class MatchingServiceImpl implements MatchingService {
 		try {
 			
 			
-			
 			scheduleService.setPTShcedule(user, schedule);
 		} catch (InvalidParamException e) {
 			throw new MatchingNotAvailable();
