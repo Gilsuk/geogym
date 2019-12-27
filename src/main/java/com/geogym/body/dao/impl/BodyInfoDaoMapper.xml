@@ -32,7 +32,10 @@
   	</insert>
   	
   	<select id="selectBodyInfoByWeek" parameterType='hashmap' resultType="com.geogym.body.dto.BodyInfo">
-  		SELECT * FROM bodyinfo WHERE user_no = ${user_no} AND bodyinfo_date BETWEEN DATE(#{date} ,'-7 days') AND #{date} limit 1
+  		SELECT * FROM bodyinfo 
+  		WHERE user_no = ${user_no} 
+  		AND bodyinfo_date BETWEEN DATE(#{date} ,'-7 days') 
+  		AND #{date} limit 1
   	</select>
   	
   	

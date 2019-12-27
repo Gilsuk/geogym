@@ -18,6 +18,7 @@ import com.geogym.common.service.SequenceService;
 import com.geogym.schedule.dto.PeriodDate;
 import com.geogym.schedule.exception.TooLongPeriodException;
 import com.geogym.user.dto.User;
+import com.google.gson.Gson;
 
 @Service
 public class BodyInfoServiceImpl implements BodyInfoService{
@@ -68,7 +69,27 @@ public class BodyInfoServiceImpl implements BodyInfoService{
 			if(bodyInfo!=null) 
 			list.add(bodyInfo);
 		}
-		return list;
+		
+		Gson gson = new Gson();
+		
+//		차트에 데이터 넣기 (2차원 배열 사용)
+		ArrayList arr = new ArrayList();
+		ArrayList tmp = new ArrayList();
+
+		for(BodyInfo b : list) {
+			ArrayList a = new ArrayList();
+			
+			a.add("new Date(" + b.getBodyinfo_date().getYear()
+					+ "," + b.getBodyinfo_date().getMonthValue()
+					+ "," + b.getBodyinfo_date().getDayOfMonth()
+					+ ")");
+			a.add(b.getBodyinfo_weight());
+			a.add(b.getBodyinfo_muscle());
+			a.add(b.getBodyinfo_fat());
+			
+			arr.add(a);
+		}
+		return arr;
 	}
 
 	private BodyInfo getBodyInfosByWeek(User user, LocalDate localDate) {
