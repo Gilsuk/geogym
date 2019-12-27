@@ -1,3 +1,4 @@
+
 package com.geogym.trainer.service;
 
 import java.time.LocalDate;

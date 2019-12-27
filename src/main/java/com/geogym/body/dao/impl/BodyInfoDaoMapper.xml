@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+  <mapper namespace="com.geogym.body.dao.face.BodyInfoDao">
+  	
+  	<!-- 로그인, 회원가입 완성시 user_no 파라미터 수정할것. -->
+  	<select id="selectCurrentBodyInfo" parameterType="com.geogym.user.dto.User" resultType="com.geogym.body.dto.BodyInfo">
+  		SELECT * FROM bodyinfo where user_no = 1 ORDER BY bodyinfo_date DESC limit 1
+  	</select>
+  	
+<!--   	bodyinfo_date 고치면 수정할것 -->
+  	<insert id="insertBodyInfo" parameterType="com.geogym.body.dto.BodyInfo">
+  		INSERT INTO BodyInfo
+  			( bodyinfo_no ,
+  			 user_no , 
+  			 bodyinfo_date , 
+  			 bodyinfo_height , 
+  			 bodyinfo_weight , 
+  			 bodyinfo_fat , 
+  			 bodyinfo_muscle )
+  		VALUES
+  			( 1 , 
+  			1 , 
+  			#{bodyinfo_date} , 
+  			#{bodyinfo_height} , 
+  			#{bodyinfo_weight} , 
+  			#{bodyinfo_fat} , 
+  			#{bodyinfo_muscle} )
+  	</insert>
+  	
+  	<select id="selectBodyInfoByWeek" parameterType='hashmap' resultType="com.geogym.body.dto.BodyInfo">
+  		SELECT * FROM bodyinfo WHERE user_no = ${user_no} AND bodyinfo_date BETWEEN DATE(#{date} ,'-7 days') AND #{date} limit 1
+  	</select>
+  	
+  	
+  	
+  </mapper>

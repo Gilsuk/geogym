@@ -1,8 +1,5 @@
 package com.geogym.www.test;
 
-import java.time.LocalDateTime;
-import java.time.LocalTime;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -45,7 +42,9 @@ public class UserTestController {
 	}
 
 	@RequestMapping(value = "/user/join", method = RequestMethod.POST)
-	public void join(User user, LocalTime time, LocalDateTime datetime) {
+	public void join(User user) {
+		
+		System.out.println(user);
 		
 		try {
 			serv.signUp(user);

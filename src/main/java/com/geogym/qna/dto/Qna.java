@@ -2,19 +2,20 @@ package com.geogym.qna.dto;
 
 public class Qna {
 	
-	private int qna_no;
-	private int user_no;
-	private int qna_category_no;
-	private String qna_title;
-	private String qna_content;
-	private String qna_date;
-	private boolean qna_private;
-	private boolean qna_notice;
+	private int qna_no; //qan 번호
+	private int user_no; //작성자
+	private String user_name; //작성자 이름 
+	private String qna_title; //제목
+	private String qna_content; //본문
+	private String qna_date; //일시
+	private boolean qna_isprivate; //공개여부
+	private boolean qna_notice; //공지
+	
 	@Override
 	public String toString() {
-		return "Qna [qna_no=" + qna_no + ", user_no=" + user_no + ", qna_category_no=" + qna_category_no
-				+ ", qna_title=" + qna_title + ", qna_content=" + qna_content + ", qna_date=" + qna_date
-				+ ", qna_private=" + qna_private + ", qna_notice=" + qna_notice + "]";
+		return "Qna [qna_no=" + qna_no + ", user_no=" + user_no + ", user_name=" + user_name + ", qna_title="
+				+ qna_title + ", qna_content=" + qna_content + ", qna_date=" + qna_date + ", qna_isprivate="
+				+ qna_isprivate + ", qna_notice=" + qna_notice + "]";
 	}
 	public int getQna_no() {
 		return qna_no;
@@ -28,11 +29,11 @@ public class Qna {
 	public void setUser_no(int user_no) {
 		this.user_no = user_no;
 	}
-	public int getQna_category_no() {
-		return qna_category_no;
+	public String getUser_name() {
+		return user_name;
 	}
-	public void setQna_category_no(int qna_category_no) {
-		this.qna_category_no = qna_category_no;
+	public void setUser_name(String user_name) {
+		this.user_name = user_name;
 	}
 	public String getQna_title() {
 		return qna_title;
@@ -52,11 +53,11 @@ public class Qna {
 	public void setQna_date(String qna_date) {
 		this.qna_date = qna_date;
 	}
-	public boolean isQna_private() {
-		return qna_private;
+	public boolean isQna_isprivate() {
+		return qna_isprivate;
 	}
-	public void setQna_private(boolean qna_private) {
-		this.qna_private = qna_private;
+	public void setQna_isprivate(boolean qna_isprivate) {
+		this.qna_isprivate = qna_isprivate;
 	}
 	public boolean isQna_notice() {
 		return qna_notice;
@@ -64,9 +65,6 @@ public class Qna {
 	public void setQna_notice(boolean qna_notice) {
 		this.qna_notice = qna_notice;
 	}
-	
-	
-	
 	
 
 }

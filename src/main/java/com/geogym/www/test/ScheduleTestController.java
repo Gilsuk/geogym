@@ -103,8 +103,8 @@ public class ScheduleTestController {
 		user.setUser_no(12);
 		
 		schedule.setTrainer(trainer);
-		schedule.setSchedule_date(LocalDate.of(2019, 12, 30));
-		schedule.setSchedule_from(LocalTime.of(12, 00));
+		schedule.setSchedule_date(LocalDate.of(2019, 12, 31));
+		schedule.setSchedule_from(LocalTime.of(10, 00));
 		schedule.setSchedule_msg("아오 짜증난다2");
 
 		try {
@@ -128,6 +128,8 @@ public class ScheduleTestController {
 		List<LocalTime> list;
 		
 		list = scheduleService.getPTAvilableTime(trainer, localDate);
+		
+		logger.info(list.toString());
 	}
 	
 	
@@ -135,7 +137,7 @@ public class ScheduleTestController {
 	
 	
 	// --- PT 취소 --------------------------------------------------------------
-	@RequestMapping(value="/test/calcelPT")
+	@RequestMapping(value="/test/cancelPT")
 	public void cancelPT() {
 		
 		Trainer trainer = new Trainer();

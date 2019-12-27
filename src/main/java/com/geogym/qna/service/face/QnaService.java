@@ -1,4 +1,4 @@
-package com.geogym.qna.service;
+package com.geogym.qna.service.face;
 
 import java.util.List;
 
@@ -30,7 +30,7 @@ public interface QnaService {
 	/**
 	 * 조건 검색 (페이징)
 	 * @param search - 검색조건
-	 * @param paging - 페이징
+	 * @param paging - 페이
 	 * @return
 	 */
 	public List<Qna> getListAccount(Search search, Paging paging);
@@ -57,7 +57,7 @@ public interface QnaService {
 	 * @param paging - 검색조건
 	 * @return
 	 */
-	public Paging getPaging(Paging paging);
+	public Paging getPaging(int curPage);
 	
 	
 	/**

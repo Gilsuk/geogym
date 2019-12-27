@@ -90,6 +90,6 @@ public interface ScheduleService {
 	 * @param localDate
 	 * @return
 	 */
-	List<LocalTime> getPTAvilableTime(Trainer trainer, LocalDate localDate);
 
+	List<LocalTime> getPTAvilableTime(Trainer trainer, LocalDate localDate);
 }
