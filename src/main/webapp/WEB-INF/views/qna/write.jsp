@@ -2,8 +2,6 @@
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>    
 
-<c:import url="/WEB-INF/views/layout/header.jsp" />
-
 <!-- Naver SmartEditor -->
 <script type="text/javascript" src="/resources/se/js/service/HuskyEZCreator.js" charset="utf-8"></script>
 
@@ -61,7 +59,6 @@ $(document).ready(function() {
 
 </div><!-- .container -->
 
-<c:import url="/WEB-INF/views/layout/footer.jsp" />
 
 <!-- 스마트에디터 초기화코드 -->
 <script type="text/javascript">

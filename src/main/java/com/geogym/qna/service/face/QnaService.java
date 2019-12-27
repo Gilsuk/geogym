@@ -35,6 +35,8 @@ public interface QnaService {
 	 */
 	public List<Qna> getListAccount(Search search, Paging paging);
 	
+	
+	
 	/**
 	 * 요청파라미터 curPage를 파싱한다
 	 * Board TB와 curPage 값을 이용한 Paging 객체를 생성하고 반환
@@ -78,7 +80,7 @@ public interface QnaService {
 	 * write - 글쓰기
 	 * void - 반환 받을게 아무것도 없을 때
 	 */
-	public void write();
+	public void write(Qna qna);
 	
 	/**
 	 * 답글 작성(트레이너)
@@ -98,7 +100,7 @@ public interface QnaService {
 	 * 
 	 * @param req - 요청 정보 객체
 	 */
-	public void modify();
+	public void modify(Qna qna);
 
 	
 	/**
@@ -107,8 +109,21 @@ public interface QnaService {
 	 * @param qna - 삭제할 게시글 번호를 가진 객체
 	 * String - 삭제됐다는 확인 메세지 보내기 
 	 */
-	public String delete(Qna qna);
-	
+	public void delete(Qna qna);
+
+	/**
+	 * 게시글 조회
+	 * 
+	 * @param qna - qna_no DTO
+	 * @return Qna - 조회 결과
+	 */
+	public Qna view(Qna qna);
+
+
+
+
+
+
 	
 	
 

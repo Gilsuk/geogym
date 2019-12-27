@@ -2,6 +2,8 @@ package com.geogym.www.test;
 
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -12,6 +14,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.geogym.common.dto.Paging;
 import com.geogym.qna.dto.Qna;
 import com.geogym.qna.service.face.QnaService;
+import com.geogym.user.dto.User;
+
 
 @Controller
 public class QnaController {
@@ -46,6 +50,25 @@ public class QnaController {
 	//질문글 작성(트레이너) 
 	@RequestMapping(value="/qna/writeAnswer", method=RequestMethod.GET)
 	public void writeAnswer() { }
+	
+	@RequestMapping(value="/qna/view", method=RequestMethod.GET)
+	public String view( Qna viewBoard, Model model, User user) {
+		
+		// 게시글 번호가 1보다 작으면 목록으로 보내기
+		if(viewBoard.getQna_no() < 1) {
+			return "redirect:/qna/list";
+		}
+		
+		// 게시글 상세 정보 전달
+		viewBoard = qnaService.view(viewBoard);
+		model.addAttribute("view", viewBoard);
+
+		return "/qna/view";
+	}
+	
+	public void view() {
+		
+	}
 
 	
 }

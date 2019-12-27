@@ -66,9 +66,8 @@ public class QnaServiceImpl implements QnaService{
 	}
 
 	@Override
-	public void write() {
-		// TODO Auto-generated method stub
-		
+	public void write(Qna qna) {
+		qnaDao.write(qna);
 	}
 
 	@Override
@@ -78,15 +77,22 @@ public class QnaServiceImpl implements QnaService{
 	}
 
 	@Override
-	public void modify() {
-		// TODO Auto-generated method stub
+	public void modify(Qna qna) {
+		
+		qnaDao.update(qna);
 		
 	}
 
 	@Override
-	public String delete(Qna qna) {
-		// TODO Auto-generated method stub
-		return null;
+	public void delete(Qna qna) {
+		
+		qnaDao.delete(qna);
+	}
+
+	@Override
+	public Qna view(Qna qna) {
+		
+		return qnaDao.selectQnaByQnaNo(qna);
 	}
 
 }
