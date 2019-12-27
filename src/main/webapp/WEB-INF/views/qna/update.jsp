@@ -36,7 +36,7 @@ $(document).ready(function() {
 
 <div class="container">
 
-<h1>글쓰기 페이지</h1>
+<h1>질문 글쓰기 페이지</h1>
 <hr>
 
 <form action="/board/update" method="post">
