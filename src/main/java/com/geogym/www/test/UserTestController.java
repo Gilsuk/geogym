@@ -47,7 +47,7 @@ public class UserTestController {
 		System.out.println(user);
 		
 		try {
-			serv.signUp(user);
+			serv.join(user);
 		} catch (DuplicatedException e) {
 			e.printStackTrace();
 		} catch (ParamIncorrectException e) {

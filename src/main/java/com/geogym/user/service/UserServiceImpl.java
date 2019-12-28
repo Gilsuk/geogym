@@ -21,7 +21,6 @@ public class UserServiceImpl implements UserService {
 	
 	@Autowired private HttpSession session;
 	@Autowired private HttpServletRequest req;
-	@Autowired private HttpServletResponse resp;
 	@Autowired private UserInfoDao dao;
 	@Autowired private CookieService cookieService;
 
@@ -72,20 +71,37 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public boolean isManager(User user) {
+		int cnt = dao.selectCntManagerByUserno(user.getUser_no());
+		if (cnt > 0)
+			return true;
 		return false;
 	}
 
 	@Override
-	public void login(LoginInfo info) throws UserNotFoundException, NotVerifiedUserException, ParamIncorrectException {
+	public void login(LoginInfo info) throws UserNotFoundException {
+		User user = dao.selectUserByIdAndPw(info);
+		if (user == null) throw new UserNotFoundException();
+		
+		setUserToSession(user);
+	}
+
+	@Override
+	public void setUserToSession(User user) {
+		session.setAttribute("loggedInUser", user);
 	}
 
 	@Override
 	public void logout() {
+		cookieService.removeLoginCookie();
+		session.removeAttribute("loggedInUser");
 	}
 
 	@Override
-	public void signUp(User info) throws DuplicatedException, ParamIncorrectException {
+	public void join(User user) throws DuplicatedException {
 		
+		try {
+			dao.insertUser(user);
+		} catch (Exception e) { throw new DuplicatedException(); }
 
 	}
 

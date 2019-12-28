@@ -20,6 +20,7 @@ public class CookieServiceImpl implements CookieService {
 	@Autowired private HttpServletRequest req;
 	@Autowired private HttpServletResponse resp;
 	@Autowired private CookieDao dao;
+	@Autowired private UserService serv;
 	
 	@Override
 	public void restoreSessionAccount() throws CookieNotFoundException {
@@ -41,7 +42,7 @@ public class CookieServiceImpl implements CookieService {
 		dao.update(cookie);
 
 		// 세션에 로그인 정보(Account)를 전달한다.
-		req.getSession().setAttribute("loggedInUser", user);
+		serv.setUserToSession(user);
 	}
 
 	private LoginCookie getCookieWithPrimaryKeys(String cookie_id) {

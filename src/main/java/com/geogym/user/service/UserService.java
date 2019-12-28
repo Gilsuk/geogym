@@ -4,7 +4,6 @@ import com.geogym.common.exception.DuplicatedException;
 import com.geogym.common.exception.ParamIncorrectException;
 import com.geogym.user.dto.LoginInfo;
 import com.geogym.user.dto.User;
-import com.geogym.user.exception.NotVerifiedUserException;
 import com.geogym.user.exception.UserNotFoundException;
 
 /**
@@ -31,11 +30,12 @@ public interface UserService {
 	 */
 	boolean isManager(User user);
 	
-	void login(LoginInfo info)
-			throws UserNotFoundException, NotVerifiedUserException, ParamIncorrectException;
+	void login(LoginInfo info) throws UserNotFoundException;
 	
 	void logout();
 	
-	void signUp(User info) throws DuplicatedException, ParamIncorrectException;
+	void join(User info) throws DuplicatedException, ParamIncorrectException;
+
+	void setUserToSession(User user);
 	
 }
