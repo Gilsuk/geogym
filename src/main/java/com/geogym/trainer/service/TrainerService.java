@@ -231,16 +231,5 @@ public interface TrainerService {
 	void removeSchedule(Schedule schedule);
 
 
-	/**
-	 * 전체 인원의 평점 평균을 구한다
-	 * 
-	 * @return - double
-	 */
-	double getReputation();
-
-
-
-
-
 }
 

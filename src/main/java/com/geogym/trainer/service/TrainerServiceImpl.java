@@ -193,14 +193,6 @@ public class TrainerServiceImpl implements TrainerService {
 		
 		return trainerDao.getReputation(trainer);
 	}
-	
-	@Override
-	public double getReputation() {
-		// TODO Auto-generated method stub
-		return trainerDao.getReputation();
-	}
-
-
 
 	@Override
 	public void reputate(T_reputation reputation) {
