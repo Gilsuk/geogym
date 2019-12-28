@@ -51,7 +51,7 @@ public class UserServiceImpl implements UserService {
 			}
 			
 		} catch (ClassCastException e) {
-			// session attribute에 account라는 이름으로 다른 객체가 들어있는 경우
+			// session attribute에 loggedInUser라는 이름으로 다른 객체가 들어있는 경우
 			// 발생하면 안되는 심각한 에러
 			e.printStackTrace();
 			return null;
