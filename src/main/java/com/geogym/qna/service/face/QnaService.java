@@ -30,7 +30,7 @@ public interface QnaService {
 	/**
 	 * 조건 검색 (페이징)
 	 * @param search - 검색조건
-	 * @param paging - 페이
+	 * @param paging - 페이징
 	 * @return
 	 */
 	public List<Qna> getListAccount(Search search, Paging paging);

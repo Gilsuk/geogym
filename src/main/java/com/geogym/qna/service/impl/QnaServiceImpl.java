@@ -54,9 +54,9 @@ public class QnaServiceImpl implements QnaService{
 		
 		int totalCount = qnaDao.selectCntAll();
 		
-		Paging paging2 = new Paging(totalCount, curPage);
+		Paging paging = new Paging(totalCount, curPage);
 				
-		return paging2;
+		return paging;
 	}
 
 	@Override

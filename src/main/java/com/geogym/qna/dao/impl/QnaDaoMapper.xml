@@ -10,7 +10,7 @@
 	</select>
 	
 	<select id="selectAll" parameterType="com.geogym.common.dto.Paging" resultType="com.geogym.qna.dto.Qna">
-	SELECT * FROM qna Order by qna_no DESC limit 10 offset #{startNo }-1
+	SELECT qna.*, (SELECT user_name FROM user WHERE qna.user_no = user_no) AS user_name FROM qna Order by qna_no DESC limit 10 offset #{startNo } - 1
 	</select>
 	
 	<!-- 이름 조인해야함 ㅜ -->

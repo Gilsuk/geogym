@@ -40,18 +40,16 @@ td:nth-child(2) {
 	<tr>
 		<th style="width: 10%">QnA번호</th>
 		<th style="width: 20%">작성자</th>
-		<th style="width: 30%">제목</th>
-		<th style="width: 30%">본문</th>
+		<th style="width: 55%; text-align: center;">제목</th>
 		<th style="width: 15%">일시</th>
 	</tr>
 </thead>
 <tbody>
 <c:forEach items="${list }" var="b">
 	<tr>
-		<td>${b.qna_no }</td>
-		<td>${b.user_name }</td>
+		<td>${b.user_no }</td>
+		<td><a href="/qna/view?user_no=${b.user_no }">${b.user_name }</a></td>
 		<td>${b.qna_title }</td>
-		<td>${b.qna_content }</td>
 		<fmt:parseDate value="${b.qna_date }" pattern="yyyy-MM-dd'T'HH:mm" var="parsedDateTime" type="both" />
 		<td><fmt:formatDate pattern="yyyy-MM-dd/HH:mm" value="${ parsedDateTime }" /></td>
 		
@@ -88,7 +86,7 @@ td:nth-child(2) {
 		<button id="btnWrite" class="btn btn-Warning font-gothic"
 		style="background-color: #FFD2BD">글쓰기</button>
 	</div>
-	</c:if>
+</c:if>
 
 
 </div><!-- .container -->
