@@ -117,7 +117,7 @@ public class TrainerServiceImpl implements TrainerService {
 
 
 	@Override
-	public void deleteTraner(Trainer trainer, MultipartFile file) {
+	public void deleteTrainer(Trainer trainer, MultipartFile file) {
 		// TODO Auto-generated method stub
 		// 트레이너 제거하기
 		

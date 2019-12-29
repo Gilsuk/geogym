@@ -1,19 +1,16 @@
 package com.geogym.user.service;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.geogym.common.exception.DuplicatedException;
 import com.geogym.common.exception.ParamIncorrectException;
 import com.geogym.user.dao.UserInfoDao;
 import com.geogym.user.dto.LoginInfo;
 import com.geogym.user.dto.User;
 import com.geogym.user.exception.CookieNotFoundException;
-import com.geogym.user.exception.NotVerifiedUserException;
 import com.geogym.user.exception.UserNotFoundException;
 
 @Service
@@ -82,6 +79,9 @@ public class UserServiceImpl implements UserService {
 		User user = dao.selectUserByIdAndPw(info);
 		if (user == null) throw new UserNotFoundException();
 		
+		if (info.isShouldRemember())
+			cookieService.setNewCookie(user);
+		
 		setUserToSession(user);
 	}
 
@@ -97,12 +97,23 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public void join(User user) throws DuplicatedException {
+	public void join(User user) throws ParamIncorrectException {
 		
 		try {
 			dao.insertUser(user);
-		} catch (Exception e) { throw new DuplicatedException(); }
+		} catch (Exception e) { throw new ParamIncorrectException(); }
 
+	}
+
+	@Override
+	public void setUserToManager(User user) {
+		if (!isManager(user))
+			dao.insertIntoManager(user.getUser_no());
+	}
+
+	@Override
+	public void degradeUserFromManager(User user) {
+		dao.deleteFromManager(user.getUser_no());
 	}
 
 }
