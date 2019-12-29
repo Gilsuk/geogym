@@ -22,6 +22,7 @@ public enum Property {
 			propertySources.addLast(new ResourcePropertySource("classpath:geogym.properties"));
 			this.value = env.getProperty(key);
 		} catch (IOException e) {
+			System.out.println(key + "가 '/src/main/resources/geogym.properties'에 등록되어 있지 않습니다.");
 			this.value = "NONE";
 		} finally {
 			if (ctx != null) ctx.close();
