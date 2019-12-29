@@ -2,8 +2,9 @@ package com.geogym.qna.service.face;
 
 import java.util.List;
 
-import com.geogym.common.dto.Paging;
+import com.geogym.qna.dto.Paging;
 import com.geogym.qna.dto.Qna;
+import com.geogym.qna.dto.QnaAnswer;
 import com.geogym.qna.dto.Search;
 import com.geogym.user.dto.User;
 
@@ -59,7 +60,7 @@ public interface QnaService {
 	 * @param paging - 검색조건
 	 * @return
 	 */
-	public Paging getPaging(int curPage);
+	public Paging getPaging(Paging paging);
 	
 	
 	/**
@@ -83,19 +84,6 @@ public interface QnaService {
 	public void write(Qna qna);
 	
 	/**
-	 * 답글 작성(트레이너)
-	 * 	입력한 게시글 내용을 DB에 저장
-	 * 
-	 *  첨부파일을 함께 업로드 할 수 있도록 처리
-	 * 
-	 * @param req - 요청정보 객체(게시글내용 + 첨부파일)
-	 * write - 글쓰기
-	 * void - 반환 받을게 아무것도 없을 때
-	 */
-	public void writeAnswer();
-	
-
-	/**
 	 * 게시글 수정
 	 * 
 	 * @param req - 요청 정보 객체
@@ -118,7 +106,6 @@ public interface QnaService {
 	 * @return Qna - 조회 결과
 	 */
 	public Qna view(Qna qna);
-
 
 
 

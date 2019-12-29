@@ -5,22 +5,23 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.geogym.common.dto.Paging;
-import com.geogym.qna.dao.face.QnaDao;
+import com.geogym.qna.dao.QnaDao;
+import com.geogym.qna.dto.Paging;
 import com.geogym.qna.dto.Qna;
+import com.geogym.qna.dto.QnaAnswer;
 import com.geogym.qna.dto.Search;
 import com.geogym.qna.service.face.QnaService;
 import com.geogym.user.dto.User;
 
-
 @Service
-public class QnaServiceImpl implements QnaService{
-	
-	@Autowired QnaDao qnaDao;
+public class QnaServiceImpl implements QnaService {
+
+	@Autowired
+	QnaDao qnaDao;
 
 	@Override
 	public List<Qna> getListAll(Paging paging) {
-		
+
 		return qnaDao.selectAll(paging);
 	}
 
@@ -49,13 +50,15 @@ public class QnaServiceImpl implements QnaService{
 	}
 
 	@Override
-	public Paging getPaging(int curPage) {
-		
-		
-		int totalCount = qnaDao.selectCntAll();
-		
-		Paging paging = new Paging(totalCount, curPage);
-				
+	public Paging getPaging(Paging param) {
+
+		int totalCount = qnaDao.selectCntAll(param);
+
+		Paging paging = new Paging(totalCount, param.getCurPage());
+
+		paging.setCategoryNo(param.getCategoryNo());
+		paging.setSearch(param.getSearch());
+
 		return paging;
 	}
 
@@ -71,27 +74,18 @@ public class QnaServiceImpl implements QnaService{
 	}
 
 	@Override
-	public void writeAnswer() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
 	public void modify(Qna qna) {
-		
 		qnaDao.update(qna);
-		
 	}
 
 	@Override
 	public void delete(Qna qna) {
-		
 		qnaDao.delete(qna);
 	}
 
 	@Override
 	public Qna view(Qna qna) {
-		
+
 		return qnaDao.selectQnaByQnaNo(qna);
 	}
 
