@@ -37,4 +37,11 @@
 		VALUES (#{user_name}, #{user_gender}, #{user_birth}, #{user_tel}, #{user_id}, #{user_pw}, #{user_email})
 	</insert>
 
+	<insert id="insertIntoManager" parameterType="int">
+		INSERT INTO manager VALUES (#{user_no})
+	</insert>
+
+	<delete id="deleteFromManager" parameterType="int">
+		DELETE FROM manager WHERE user_no = #{user_no}
+	</delete>
 </mapper>

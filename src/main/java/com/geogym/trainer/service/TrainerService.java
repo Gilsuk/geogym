@@ -118,7 +118,7 @@ public interface TrainerService {
 	 * @param file 
 	 * @return Trainer - 트레이너 DTO 를 불러온다
 	 */
-	void deleteTraner(Trainer trainer, MultipartFile file);
+	void deleteTrainer(Trainer trainer, MultipartFile file);
 	
 	
 	/**

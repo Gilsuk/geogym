@@ -105,4 +105,15 @@ public class UserServiceImpl implements UserService {
 
 	}
 
+	@Override
+	public void setUserToManager(User user) {
+		if (!isManager(user))
+			dao.insertIntoManager(user.getUser_no());
+	}
+
+	@Override
+	public void degradeUserFromManager(User user) {
+		dao.deleteFromManager(user.getUser_no());
+	}
+
 }

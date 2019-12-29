@@ -1,8 +1,6 @@
 package com.geogym.user.service;
 
-import com.geogym.common.exception.DuplicatedException;
 import com.geogym.common.exception.ParamIncorrectException;
-import com.geogym.schedule.exception.InvalidParamException;
 import com.geogym.user.dto.LoginInfo;
 import com.geogym.user.dto.User;
 import com.geogym.user.exception.UserNotFoundException;
@@ -30,6 +28,10 @@ public interface UserService {
 	 * @return
 	 */
 	boolean isManager(User user);
+	
+	void setUserToManager(User user);
+	
+	void degradeUserFromManager(User user);
 	
 	void login(LoginInfo info) throws UserNotFoundException;
 	

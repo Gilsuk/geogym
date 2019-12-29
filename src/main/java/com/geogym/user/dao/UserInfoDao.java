@@ -15,4 +15,8 @@ public interface UserInfoDao {
 
 	void insertUser(User user);
 
+	void insertIntoManager(int user_no);
+
+	void deleteFromManager(int user_no);
+
 }

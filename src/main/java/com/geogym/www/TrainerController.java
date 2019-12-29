@@ -114,7 +114,7 @@ public class TrainerController {
 		// 테스트용, RequestMethod 를 GET 으로 바꿔야함
 		trainer.setTrainer_no(1);
 
-		trainerService.deleteTraner(trainer, file);
+		trainerService.deleteTrainer(trainer, file);
 
 	}
 
