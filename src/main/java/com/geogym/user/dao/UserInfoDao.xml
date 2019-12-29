@@ -3,19 +3,38 @@
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-  
+
 <mapper namespace="com.geogym.user.dao.UserInfoDao">
 
-	<select id="selectUserByUserno"
-		parameterType="int"
+	<select id="selectUserByUserno" parameterType="int"
 		resultType="com.geogym.user.dto.User">
 		SELECT * FROM user
 		WHERE user_no = #{user_no}
 	</select>
-	
-	<select id="selectCntTrainerByUserno" parameterType="int" resultType="int">
+
+	<select id="selectCntTrainerByUserno" parameterType="int"
+		resultType="int">
 		SELECT count(*) FROM user
 		INNER JOIN trainer USING (user_no)
 	</select>
+
+	<select id="selectCntManagerByUserno" parameterType="int"
+		resultType="int">
+		SELECT count(*) FROM user
+		INNER JOIN manager USING (user_no)
+	</select>
+
+	<select id="selectUserByIdAndPw"
+		parameterType="com.geogym.user.dto.LoginInfo"
+		resultType="com.geogym.user.dto.User">
+		SELECT * FROM user
+		WHERE user_id = #{user_id}
+		AND user_pw = #{user_pw}
+	</select>
+
+	<insert id="insertUser" parameterType="com.geogym.user.dto.User">
+		INSERT INTO user (user_name, user_gender, user_birth, user_tel, user_id, user_pw, user_email)
+		VALUES (#{user_name}, #{user_gender}, #{user_birth}, #{user_tel}, #{user_id}, #{user_pw}, #{user_email})
+	</insert>
 
 </mapper>
