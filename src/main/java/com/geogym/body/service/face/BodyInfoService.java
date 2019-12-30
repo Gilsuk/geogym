@@ -2,7 +2,7 @@ package com.geogym.body.service.face;
 
 import java.util.List;
 
-import com.geogym.body.dto.BodyCommentary;
+import com.geogym.body.dto.BodyComment;
 import com.geogym.body.dto.BodyInfo;
 import com.geogym.common.exception.ParamIncorrectException;
 import com.geogym.schedule.dto.PeriodDate;
@@ -44,24 +44,23 @@ public interface BodyInfoService {
 	/**
 	 * 월말 기준으로 한 건씩 조회 한다.
 	 */
-	List<BodyInfo> getBodyInfosByMonth(User user, PeriodDate period)
-			throws TooLongPeriodException;
+	List<BodyInfo> getBodyInfosByMonth(User user);
 
 	/**
 	 * 신체정보에 달린 트레이너의 코멘터리를 조회
 	 * @param bodyinfo - bodyinfo_no 를 포함해야함
 	 * @return
 	 */
-	BodyCommentary getCommentary(BodyInfo bodyinfo);
+	BodyComment getCommentary(User user);
 	
 	/**
 	 * 개인 코멘트는 굳이 필요 없는듯 하여
-	 * 민주주의트레이너만 작성 가능하도록 메소드를 정의함
+	 * 트레이너만 작성 가능하도록 메소드를 정의함
 	 * @throws ParamIncorrectException 필드가 비어있는 경우
 	 */
-	void setBodyCommentary(BodyCommentary commentary)
+	void setBodyCommentary(BodyComment commentary)
 			throws ParamIncorrectException;
 	
-	void deleteBodyCommentary(BodyCommentary commentary);
+	void deleteBodyCommentary(BodyInfo bodyinfo);
 	
 }

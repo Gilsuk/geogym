@@ -1,6 +1,7 @@
 package com.geogym.body.service.impl;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -9,7 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.geogym.body.dao.face.BodyInfoDao;
-import com.geogym.body.dto.BodyCommentary;
+import com.geogym.body.dto.BodyComment;
 import com.geogym.body.dto.BodyInfo;
 import com.geogym.body.service.face.BodyInfoService;
 import com.geogym.common.enumeration.Table;
@@ -23,7 +24,7 @@ import com.google.gson.Gson;
 @Service
 public class BodyInfoServiceImpl implements BodyInfoService{
 
-	@Autowired SequenceService sequencService;
+	@Autowired SequenceService sequenceService;
 	@Autowired BodyInfoDao bodyInfoDao;
 	
 	@Override
@@ -37,7 +38,7 @@ public class BodyInfoServiceImpl implements BodyInfoService{
 	@Override
 	public void setBodyInfo(BodyInfo bodyInfo) throws ParamIncorrectException {
 		
-		int nextVal = sequencService.getNextVal(Table.BODYINFO);
+		int nextVal = sequenceService.getNextVal(Table.BODYINFO);
 		bodyInfo.setBodyinfo_no(nextVal);
 		
 		bodyInfo.setBodyinfo_date(LocalDate.now());
@@ -48,7 +49,8 @@ public class BodyInfoServiceImpl implements BodyInfoService{
 
 	@Override
 	public void deleteBodyInfo(BodyInfo bodyinfo) {
-		// TODO Auto-generated method stub
+		
+		bodyInfoDao.deleteBodyInfo(bodyinfo);
 		
 	}
 
@@ -102,26 +104,72 @@ public class BodyInfoServiceImpl implements BodyInfoService{
 	}
 
 	@Override
-	public List<BodyInfo> getBodyInfosByMonth(User user, PeriodDate period) throws TooLongPeriodException {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public BodyCommentary getCommentary(BodyInfo bodyinfo) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public void setBodyCommentary(BodyCommentary commentary) throws ParamIncorrectException {
-		// TODO Auto-generated method stub
+	public List<BodyInfo> getBodyInfosByMonth(User user) {
 		
+		List<BodyInfo> list = new ArrayList<BodyInfo>();
+		
+		for (int i = 0; i < 54; i++) {
+			LocalDate localDate = LocalDate.now().minusMonths(i);
+			BodyInfo bodyInfo = getBodyInfosByMonth(user, localDate);
+			if(bodyInfo!=null) 
+			list.add(bodyInfo);
+		}
+		
+		Gson gson = new Gson();
+		
+//		차트에 데이터 넣기 (2차원 배열 사용)
+		ArrayList arr = new ArrayList();
+		ArrayList tmp = new ArrayList();
+
+		for(BodyInfo b : list) {
+			ArrayList a = new ArrayList();
+			
+			a.add("new Date(" + b.getBodyinfo_date().getYear()
+					+ "," + b.getBodyinfo_date().getMonthValue()
+					+ "," + b.getBodyinfo_date().getDayOfMonth()
+					+ ")");
+			a.add(b.getBodyinfo_weight());
+			a.add(b.getBodyinfo_muscle());
+			a.add(b.getBodyinfo_fat());
+			
+			arr.add(a);
+		}
+		return arr;
+	}
+	
+	private BodyInfo getBodyInfosByMonth(User user, LocalDate localDate) {
+		
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("user_no", user.getUser_no());
+		map.put("date", localDate.toString());
+		
+		return bodyInfoDao.selectBodyInfoByMonth(map);
 	}
 
 	@Override
-	public void deleteBodyCommentary(BodyCommentary commentary) {
-		// TODO Auto-generated method stub
+	public BodyComment getCommentary(User user) {
+
+		return bodyInfoDao.selectBodyCommentary(user);
+	}
+
+	@Override
+	public void setBodyCommentary(BodyComment commentary) throws ParamIncorrectException {
+		
+		int bodyInfo_nextVal = sequenceService.getNextVal(Table.BODYINFO);
+		int bodyComment_nextVal = sequenceService.getNextVal(Table.BODY_COMMENT);
+		
+		commentary.setBodyinfo_no(bodyInfo_nextVal);
+		commentary.setBody_comment_no(bodyComment_nextVal);
+		
+		commentary.setBody_comment_date(LocalDateTime.now());	
+		
+		bodyInfoDao.insertBodyCommentary(commentary);
+	}
+
+	@Override
+	public void deleteBodyCommentary(BodyInfo bodyinfo) {
+		bodyInfoDao.deleteBodyCommentary(bodyinfo);
+
 		
 	}
 	
