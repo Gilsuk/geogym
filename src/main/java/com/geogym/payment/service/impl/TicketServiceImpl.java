@@ -8,14 +8,13 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.geogym.common.dto.Paging;
-import com.geogym.common.service.SequenceService;
 import com.geogym.payment.dao.TicketDao;
 import com.geogym.payment.dto.PTTicket;
 import com.geogym.payment.dto.Ticket;
 import com.geogym.payment.dto.TicketChangesInfo;
 import com.geogym.payment.exception.TicketNotEnoughException;
 import com.geogym.payment.service.TicketService;
+import com.geogym.qna.dto.Paging;
 import com.geogym.schedule.exception.InvalidParamException;
 import com.geogym.trainer.dto.Trainer;
 import com.geogym.user.dto.User;
