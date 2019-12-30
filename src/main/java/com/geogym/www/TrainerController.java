@@ -125,9 +125,17 @@ public class TrainerController {
 
 		// 테스트용 구문
 		trainer.setTrainer_no(1);
+			
 
-//		model.addAttribute("average", trainerService.getReputation());
-		model.addAttribute("reputation", trainerService.getReputation(trainer));
+		double getAllReputation = trainerService.getAllReputation();
+		double getReputation = trainerService.getReputation(trainer);
+		
+		model.addAttribute("average", getAllReputation);
+		model.addAttribute("reputation", getReputation);
+		
+		System.out.println("all :" + getAllReputation);
+		System.out.println("reputation :" + getReputation);
+		
 
 	}
 

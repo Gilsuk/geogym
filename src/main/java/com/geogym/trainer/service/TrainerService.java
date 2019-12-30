@@ -5,22 +5,15 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.Map;
 
-import javax.servlet.http.HttpSession;
-
 import org.springframework.web.multipart.MultipartFile;
 
-import com.geogym.body.dto.BodyInfo;
 import com.geogym.memo.dto.CalendarMemo;
 import com.geogym.schedule.dto.PeriodDate;
 import com.geogym.schedule.dto.PeriodDateTime;
 import com.geogym.schedule.dto.Schedule;
-import com.geogym.trainer.dto.PtTicket;
 import com.geogym.trainer.dto.T_reputation;
 import com.geogym.trainer.dto.Trainer;
-import com.geogym.trainer.dto.User_issue;
-import com.geogym.trainer.exception.UserNotTrainerException;
 import com.geogym.user.dto.User;
-import com.geogym.user.dto.UserEvaluation;
 
 /**
  * 트레이너 관리 서비스
