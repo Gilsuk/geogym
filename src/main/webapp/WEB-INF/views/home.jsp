@@ -4,13 +4,21 @@
 <%@ page session="false" %>
 <html>
 <head>
-	<title>Home</title>
+	<title>geogym</title>
 </head>
 <body>
 <h1>
-	Hello world!  
+	메인페이지
 </h1>
+<c:if test="${not empty user }">
+<p>${user.user_name } is logged in</p>
+</c:if>
+<div class="container">
+	<ul>
+		<li><a href="/user/login">로그인</a></li>
+		<li><a href="/user/join">회원가입</a></li>
+	</ul>
+</div>
 
-<P>  The time on the server is ${serverTime}. </P>
 </body>
 </html>

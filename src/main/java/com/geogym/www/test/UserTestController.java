@@ -40,7 +40,7 @@ public class UserTestController {
 
 	}
 
-	@RequestMapping(value = "/user/join", method = RequestMethod.POST)
+	@RequestMapping(value = "/test/user/join", method = RequestMethod.POST)
 	public void join(User user) {
 		
 		System.out.println(user);
