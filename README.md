@@ -6,7 +6,7 @@
 - [스토리보드](https://ovenapp.io/project/f28kVDQLFJSxNXLXcZzFyj9ZzKC0QJ8u#WBJpP)
 
 ## 설계
-- [ERD](https://www.erdcloud.com/d/oLiEbuWh8fsdyLshp)
+- [ERD](https://www.erdcloud.com/d/ACZq3iFGuSYPtMQXG)
 - [diagrams](https://drive.google.com/file/d/1ixzUVQxiDwiCICyOU21Yq87QP80Lt4xd/view?usp=sharing)
 
 ## db

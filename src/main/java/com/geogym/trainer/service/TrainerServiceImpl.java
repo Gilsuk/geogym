@@ -1,3 +1,4 @@
+
 package com.geogym.trainer.service;
 
 import java.time.LocalDate;
@@ -18,12 +19,9 @@ import com.geogym.schedule.dto.PeriodDate;
 import com.geogym.schedule.dto.PeriodDateTime;
 import com.geogym.schedule.dto.Schedule;
 import com.geogym.trainer.dao.TrainerDao;
-import com.geogym.trainer.dto.PtTicket;
 import com.geogym.trainer.dto.T_reputation;
 import com.geogym.trainer.dto.Trainer;
-import com.geogym.trainer.exception.UserNotTrainerException;
 import com.geogym.user.dto.User;
-import com.geogym.user.dto.UserEvaluation;
 
 
 @Service
@@ -74,15 +72,17 @@ public class TrainerServiceImpl implements TrainerService {
 //	}
 
 	@Override
-	public void updateTrainer(Trainer trainer) {
+	public void updateTrainer(Trainer trainer, MultipartFile file) {
 		// TODO Auto-generated method stub
 		// 트레이너 테이블 수정
 		
 		Trainer trainer2 = getTrainer(trainer);
 		
 		
-		if (trainer.getAttachment() == null) {
+		if (file == null) {
 			trainer.setAttachment(trainer2.getAttachment());
+		}else {
+			trainer.setAttachment(attachmentService.upload(file));
 		}
 		if (trainer.getTrainer_address() == null) {
 			trainer.setTrainer_address(trainer2.getTrainer_address());
@@ -115,7 +115,7 @@ public class TrainerServiceImpl implements TrainerService {
 
 
 	@Override
-	public void deleteTraner(Trainer trainer, MultipartFile file) {
+	public void deleteTrainer(Trainer trainer, MultipartFile file) {
 		// TODO Auto-generated method stub
 		// 트레이너 제거하기
 		
@@ -126,7 +126,7 @@ public class TrainerServiceImpl implements TrainerService {
 		
 		attachmentService.removeAttachment(trainer);
 		
-		updateTrainer(trainer);
+		updateTrainer(trainer, file);
 		
 	}
 
@@ -190,7 +190,16 @@ public class TrainerServiceImpl implements TrainerService {
 		
 		
 		return trainerDao.getReputation(trainer);
+
 	}
+	
+	@Override
+	public double getAllReputation() {
+		// TODO Auto-generated method stub
+		return trainerDao.getAllReputation();
+	}
+
+
 
 	@Override
 	public void reputate(T_reputation reputation) {
@@ -199,7 +208,6 @@ public class TrainerServiceImpl implements TrainerService {
 		if (trainerDao.countReputate(reputation) >= 1) {
 			System.out.println(reputation);
 			trainerDao.updateReputate(reputation);
-			return;
 		}else {
 			trainerDao.insertReputate(reputation);
 		}
@@ -208,10 +216,16 @@ public class TrainerServiceImpl implements TrainerService {
 	}
 
 	@Override
-	public int countReferrer(Trainer trainer) {
+	public boolean checkTrainer(Trainer trainer) {
 		// TODO Auto-generated method stub
-		return 0;
+		if (trainerDao.countUserNo(trainer) >= 1) {
+			
+			return true;
+		}
+		
+		return false;
 	}
+
 
 
 

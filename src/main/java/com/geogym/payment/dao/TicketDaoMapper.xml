@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="com.geogym.payment.dao.TicketDao">
+
+<select id="selectPTTicket" 
+parameterType="com.geogym.payment.dto.PTTicket" 
+resultType="com.geogym.payment.dto.PTTicket">
+	SELECT user_no AS `user.user_no`, trainer_no AS `trainer.trainer_no`,
+	pt_ticket_expire, pt_ticket_amount FROM pt_ticket
+	WHERE 1=1
+	AND user_no = #{user.user_no}
+	AND trainer_no = #{trainer.trainer_no}
+	ORDER BY pt_ticket_expire DESC
+	LIMIT 1
+</select>
+
+<select id="selectCountUser" parameterType="hashmap" resultType="int">
+	SELECT COUNT(*) FROM pt_ticket
+	WHERE 1=1
+	AND trainer_no = #{trainer_no}
+	AND pt_ticket_expire > #{pt_ticket_expire}
+	AND pt_ticket_amount > 0
+</select>
+
+<select id="selectPTTicketInList" parameterType="com.geogym.user.dto.User" resultType="com.geogym.payment.dto.PTTicket">
+	SELECT user_no AS `user.user_no`, trainer_no AS `trainer.trainer_no`,
+	pt_ticket_expire, pt_ticket_amount FROM pt_ticket
+	WHERE user_no = #{user.user_no}
+</select>
+
+<update id="updatePTTicket" parameterType="com.geogym.payment.dto.PTTicket">
+	UPDATE pt_ticket
+	SET pt_ticket_expire = #{pt_ticket_expire}, pt_ticket_amount = #{pt_ticket_amount}
+	WHERE 1=1
+	AND user_no = #{user.user_no}
+	AND trainer_no = #{trainer.trainer_no}
+</update>
+
+<insert id="insertPTTicket">
+	INSERT INTO pt_ticket (user_no, trainer_no, pt_ticket_expire, pt_ticket_amount)
+	VALUES (#{user.user_no}, #{trainer.trainer_no}, #{pt_ticket_expire}, #{pt_ticket_amount})
+</insert>
+
+</mapper>

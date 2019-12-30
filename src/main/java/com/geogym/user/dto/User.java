@@ -5,7 +5,6 @@ import java.time.LocalDate;
 import com.geogym.common.encrypt.HashConverter;
 
 public class User {
-	
 	private int user_no;
 	private String user_name;
 	private char user_gender;
@@ -14,14 +13,15 @@ public class User {
 	private String user_id;
 	private String user_pw;
 	private String user_email;
-	
+	private boolean user_email_verified;
+	private boolean user_tel_verified;
 	@Override
 	public String toString() {
 		return "User [user_no=" + user_no + ", user_name=" + user_name + ", user_gender=" + user_gender
 				+ ", user_birth=" + user_birth + ", user_tel=" + user_tel + ", user_id=" + user_id + ", user_pw="
-				+ user_pw + ", user_email=" + user_email + "]";
+				+ user_pw + ", user_email=" + user_email + ", user_email_verified=" + user_email_verified
+				+ ", user_tel_verified=" + user_tel_verified + "]";
 	}
-	
 	public int getUser_no() {
 		return user_no;
 	}
@@ -69,5 +69,17 @@ public class User {
 	}
 	public void setUser_email(String user_email) {
 		this.user_email = user_email;
+	}
+	public boolean isUser_email_verified() {
+		return user_email_verified;
+	}
+	public void setUser_email_verified(boolean user_email_verified) {
+		this.user_email_verified = user_email_verified;
+	}
+	public boolean isUser_tel_verified() {
+		return user_tel_verified;
+	}
+	public void setUser_tel_verified(boolean user_tel_verified) {
+		this.user_tel_verified = user_tel_verified;
 	}
 }

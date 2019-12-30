@@ -7,18 +7,13 @@ import java.util.Map;
 
 import org.springframework.web.multipart.MultipartFile;
 
-import com.geogym.body.dto.BodyInfo;
 import com.geogym.memo.dto.CalendarMemo;
 import com.geogym.schedule.dto.PeriodDate;
 import com.geogym.schedule.dto.PeriodDateTime;
 import com.geogym.schedule.dto.Schedule;
-import com.geogym.trainer.dto.PtTicket;
 import com.geogym.trainer.dto.T_reputation;
 import com.geogym.trainer.dto.Trainer;
-import com.geogym.trainer.dto.User_issue;
-import com.geogym.trainer.exception.UserNotTrainerException;
 import com.geogym.user.dto.User;
-import com.geogym.user.dto.UserEvaluation;
 
 /**
  * 트레이너 관리 서비스
@@ -72,8 +67,9 @@ public interface TrainerService {
 	 * 업데이트 하고 싶은 부분만 바꿔서 업데이트한다.
 	 * 
 	 * @param trainer - 트레이너 정보 수정
+	 * @param file 
 	 */
-	void updateTrainer(Trainer trainer);
+	void updateTrainer(Trainer trainer, MultipartFile file);
 	
 	/**
 	 * 트레이너 생성
@@ -115,9 +111,35 @@ public interface TrainerService {
 	 * @param file 
 	 * @return Trainer - 트레이너 DTO 를 불러온다
 	 */
-	void deleteTraner(Trainer trainer, MultipartFile file);
+	void deleteTrainer(Trainer trainer, MultipartFile file);
 	
 	
+	/**
+	 * 트레이너 평가(별점) 조회
+	 *     
+	 *     
+	 * @param trainer -  PK를 기준으로 한다
+	 * @return int - 별점 수치를 반환한다
+	 */
+	double getReputation(Trainer trainer);
+	
+	/**
+	 * 트레이너 평가(별점) 등록
+	 * 한 사람이 두 번 등록하지 못하도록 한다
+	 * 게시판의 추천 기능을 응용
+	 * 
+	 * @param T_reputation - 유저번호와 트레이너번호를 기준으로 한다
+	 */
+	void reputate(T_reputation reputation);
+	
+	/**
+	 * 이 유저아이디와 같은 유저넘버를 가지는 트레이너 테이블이 있는지 조회
+	 * 
+	 * @param trainer - user_no 를 받아온다
+	 */
+	boolean checkTrainer(Trainer trainer);
+
+
 	/**
 	 * 트레이너 한달 단위 근무일정 맵 받아오는 서비스
 	 * 이 서비스에서 관련 서비스들을 호출한다
@@ -200,34 +222,10 @@ public interface TrainerService {
 	 * @param periodDateTime - 해달 일,시 정보를 받아온다
 	 */
 	void removeSchedule(Schedule schedule);
-	
-	
-	
-	
-	/**
-	 * 트레이너 평가(별점) 조회
-	 *     
-	 *     
-	 * @param trainer -  PK를 기준으로 한다
-	 * @return int - 별점 수치를 반환한다
-	 */
-	double getReputation(Trainer trainer);
-	
-	/**
-	 * 트레이너 평가(별점) 등록
-	 * 한 사람이 두 번 등록하지 못하도록 한다
-	 * 게시판의 추천 기능을 응용
-	 * 
-	 * @param T_reputation - 유저번호와 트레이너번호를 기준으로 한다
-	 */
-	void reputate(T_reputation reputation);
-	
-	/**
-	 * 이용권 등록한 추천인 수 조회 
-	 * 
-	 * @param trainer - PK를 기준으로 한다
-	 * @return - 추천인 수 반환
-	 */
-	int countReferrer(Trainer trainer);
+
+
+	double getAllReputation();
+
+
 }
 

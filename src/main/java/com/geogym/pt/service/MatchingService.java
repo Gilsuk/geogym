@@ -1,8 +1,9 @@
 package com.geogym.pt.service;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.util.List;
 
+import com.geogym.pt.dto.PT;
 import com.geogym.pt.exception.LessThanOneHourException;
 import com.geogym.pt.exception.MatchingNotAvailable;
 import com.geogym.schedule.dto.Schedule;
@@ -46,20 +47,8 @@ public interface MatchingService {
 	 * @param user
 	 * @return
 	 */
-	List<Schedule> getPTInfos(User user, LocalDateTime today);
+	List<PT> getPTInfos(User user, LocalDate today);
 	
-	
-	
-	
-	/**
-	 * 담당 회원 등록
-	 * 
-	 * 해당 트레이너에게 PT 매칭시 등록하기
-	 * 
-	 * @param trainer-트레이너 PK를 기준으로 한다
-	 * @param member-회원 PK 를 기준으로 한다
-	 */
-	void ptJoin(Trainer trainer, User user);
 
 	/**
 	 * 회원 수 조회
@@ -70,14 +59,15 @@ public interface MatchingService {
 	 * @param trainer -트레이너 PK를 기준으로 한다
 	 * @return int - 회원수
 	 */
-	int ptMemberWithTraner(Trainer trainer);
+	int ptMemberWithTrainer(Trainer trainer);
 	
 	/**
-	 * PT 매칭시 변동된 근 집계
+	 * 단위 기간 내에 진행한 PT 횟수
 	 * 
-	 * @param trainer - 트레이너 PK를 기준으로 한다
-	 * @param i - 변동시킬 근 수치
-	 * @return int - 변동된 근 수치
+	 * @param trainer
+	 * @param month - 개월 수
+	 * @return
 	 */
-	int updateCoinTraner(Trainer trainer, int i);
+	int getPTcount(Trainer trainer, LocalDate month);
+	
 }

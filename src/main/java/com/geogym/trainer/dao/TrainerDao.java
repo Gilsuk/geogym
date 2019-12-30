@@ -2,7 +2,7 @@ package com.geogym.trainer.dao;
 
 import java.util.List;
 
-import com.geogym.trainer.dto.PtTicket;
+import com.geogym.payment.dto.PTTicket;
 import com.geogym.trainer.dto.T_reputation;
 import com.geogym.trainer.dto.Trainer;
 import com.geogym.user.dto.User;
@@ -17,7 +17,7 @@ public interface TrainerDao {
 	 * @param ptTicket - 트레이너 번호를 추출한다
 	 * @return Trainer - 트레이너 정보를 받아온다
 	 */
-	Trainer getTrainerToPtTicket(PtTicket ptTicket);
+	Trainer getTrainerToPtTicket(PTTicket ptTicket);
 	
 	/**
 	 * 해당 트레이너의 PT 회원들을 조회
@@ -99,8 +99,21 @@ public interface TrainerDao {
 	 * @param trainer - 트레이너 타입을 받아서 그대로 생성한다
 	 */
 	void insertTrainer(Trainer trainer);
-	
 
+	/**
+	 * 트레이너 테이블의 user_no 를 받아서 
+	 * 같은 user_no 를 가지는 테이블이 있는지 센다
+	 * 
+	 * @param trainer - user_no 를 받아서 사용한다
+	 * @return - int 를 반환한다
+	 */
+	int countUserNo(Trainer trainer);
 
+	/**
+	 * 전체 인원의 평점 평균을 구한다
+	 * 
+	 * @return - double
+	 */
+	double getAllReputation();
 
 }

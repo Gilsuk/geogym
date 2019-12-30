@@ -5,6 +5,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,6 +19,8 @@ import com.geogym.user.dto.User;
 @Service
 public class MessageServiceImpl implements MessageService {
 
+	private static final Logger logger = LoggerFactory.getLogger(MessageServiceImpl.class);
+	
 	@Autowired MessageDao messageDao;
 	
 	@Override
@@ -43,6 +47,8 @@ public class MessageServiceImpl implements MessageService {
 		message.setMessage_date(LocalDateTime.now());
 		message.setMessage_expire_date(LocalDateTime.now().plusDays(expire_date));
 
+		logger.info(message.toString());
+		
 		try {
 			messageDao.insertMessage(message);
 		} catch (Exception e) {}

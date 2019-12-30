@@ -6,6 +6,17 @@
   
 <mapper namespace="com.geogym.pt.dao.MatchingDao">
 
+<select id="selectSchedule" parameterType="com.geogym.schedule.dto.Schedule" resultType="com.geogym.schedule.dto.Schedule">
+	SELECT schedule_no, trainer_no AS `trainer.trainer_no`, schedule_date, schedule_from, schedule_to, schedule_msg FROM schedule
+	WHERE schedule_no = #{schedule_no}
+</select>
 
+<select id="selectCountPT" parameterType="hashmap" resultType="int">
+	SELECT COUNT(*) FROM schedule
+	INNER JOIN pt USING (schedule_no)
+	WHERE 1=1
+	AND trainer_no = #{trainer_no}
+	AND schedule_date BETWEEN #{start} AND #{end}
+</select>
 
 </mapper>

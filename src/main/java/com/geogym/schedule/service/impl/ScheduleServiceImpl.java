@@ -15,6 +15,8 @@ import org.springframework.stereotype.Service;
 
 import com.geogym.common.enumeration.Table;
 import com.geogym.common.service.SequenceService;
+import com.geogym.message.dto.Message;
+import com.geogym.message.service.MessageService;
 import com.geogym.pt.dto.PT;
 import com.geogym.schedule.dao.ScheduleDao;
 import com.geogym.schedule.dto.Schedule;
@@ -28,11 +30,9 @@ public class ScheduleServiceImpl implements ScheduleService {
 
 	private static final Logger logger = LoggerFactory.getLogger(ScheduleServiceImpl.class);
 
-	@Autowired
-	ScheduleDao scheduleDao;
-
-	@Autowired
-	SequenceService sequenceService;
+	@Autowired ScheduleDao scheduleDao;
+	@Autowired SequenceService sequenceService;
+	@Autowired MessageService messageService;
 
 	@Override
 	public List<LocalTime> getAvilableTime(Trainer trainer, LocalDate workingDate) throws InvalidParamException {
@@ -73,7 +73,6 @@ public class ScheduleServiceImpl implements ScheduleService {
 						isAvailable = false;
 
 						break;
-
 					}
 				}
 
@@ -115,6 +114,13 @@ public class ScheduleServiceImpl implements ScheduleService {
 		pt.setPt_type_no(2);
 
 		scheduleDao.insertPTSchedule(pt);
+		
+		Message message = new Message();
+		
+		message.setUser_no(user.getUser_no());
+		message.setMessage_content(schedule.getSchedule_date()+"일 "+schedule.getSchedule_from()+"시에 PT 일정이 잡혔습니다.");
+		
+		messageService.sendMessage(message, 30);
 
 	}
 
@@ -132,6 +138,13 @@ public class ScheduleServiceImpl implements ScheduleService {
 
 		scheduleDao.deletePT(map);
 		scheduleDao.deleteSchedule(map);
+		
+		Message message = new Message();
+		
+		message.setUser_no(user.getUser_no());
+		message.setMessage_content(localDateTime+"에 잡혀있던 PT 일정이 취소되었습니다.");
+		
+		messageService.sendMessage(message, 30);
 	}
 
 	@Override
@@ -193,8 +206,6 @@ public class ScheduleServiceImpl implements ScheduleService {
 
 		list = scheduleDao.selectSchedule(schedule);
 
-		logger.info(list.toString());
-
 		return list;
 	}
 
@@ -203,8 +214,6 @@ public class ScheduleServiceImpl implements ScheduleService {
 
 		List<LocalTime> list = new ArrayList<LocalTime>();
 		List<Schedule> scheduleList = getSchedule(trainer, localDate);
-
-		logger.info(list.toString());
 
 		try {
 			list = getAvilableTime(trainer, localDate);
