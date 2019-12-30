@@ -46,7 +46,7 @@ public interface TicketService {
 	 * @param user
 	 * @param trainer
 	 */
-	void payByTicket(User user, Trainer trainer) throws TicketNotEnoughException;
+	void payByTicket(User user, Trainer trainer);
 
 	/**
 	 * 

@@ -5,6 +5,7 @@ import java.time.LocalDate;
 import com.geogym.common.encrypt.HashConverter;
 
 public class User {
+	
 	private int user_no;
 	private String user_name;
 	private char user_gender;
@@ -15,6 +16,7 @@ public class User {
 	private String user_email;
 	private boolean user_email_verified;
 	private boolean user_tel_verified;
+	
 	@Override
 	public String toString() {
 		return "User [user_no=" + user_no + ", user_name=" + user_name + ", user_gender=" + user_gender
