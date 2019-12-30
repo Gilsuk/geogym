@@ -10,7 +10,9 @@ import java.net.URL;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -19,6 +21,8 @@ import javax.xml.xpath.XPathConstants;
 import javax.xml.xpath.XPathExpression;
 import javax.xml.xpath.XPathFactory;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.w3c.dom.Document;
@@ -27,13 +31,15 @@ import org.w3c.dom.NodeList;
 import org.xml.sax.InputSource;
 
 import com.geogym.calendar.dao.CalendarDao;
+import com.geogym.calendar.dto.Day;
 import com.geogym.calendar.dto.Holiday;
 import com.geogym.calendar.service.CalendarService;
+import com.geogym.www.CalendarController;
 @Service
 public class CalendarServiceImpl implements CalendarService {
 	
 	@Autowired CalendarDao calendarDao;
-	
+	private static final Logger logger = LoggerFactory.getLogger(CalendarServiceImpl.class);
 	@Override
 	public void insertholiday(String url) {
 		// TODO Auto-generated method stub
@@ -55,7 +61,7 @@ public class CalendarServiceImpl implements CalendarService {
             XPathFactory xpathFactory = XPathFactory.newInstance();
             XPath xpath = xpathFactory.newXPath();
             // XPathExpression expr = xpath.compile("/response/body/items/item");
-            XPathExpression expr = xpath.compile("//items/item");
+            XPathExpression expr = xpath.compile("/items/item");
             NodeList nodeList = (NodeList) expr.evaluate(doc, XPathConstants.NODESET);
             for (int i = 0; i < nodeList.getLength(); i++) {
                 NodeList child = nodeList.item(i).getChildNodes();
@@ -155,6 +161,71 @@ public class CalendarServiceImpl implements CalendarService {
 		
 	}
 	
-	
+	@Override
+	public List<Holiday> selectholiday() {
+		// TODO Auto-generated method stub
+		return calendarDao.selectholiday();
+	}
+
+	@Override
+	public List<Day> getDayList(LocalDate month) {
+		
+		int curmonth = month.getMonthValue();
+		int curyear = month.getYear();
+		List<Day> list = new ArrayList<>();
+		for(int j = curyear; j<=curyear+1; j++) {
+			
+			
+			for(int z = curmonth; z<13 ; z++) {
+				
+				for (int i = 0; i < month.lengthOfMonth(); i++) {
+					Day day = new Day();
+					LocalDate tmp = LocalDate.of(month.getYear(), month.getMonthValue(), i+1);
+					day.setDay(tmp.getDayOfWeek().toString());
+					day.setDate(tmp);
+					
+				
+					list.add(day);		
+				}
+				month=month.plusMonths(1);
+				
+			}
+			curmonth= month.getMonthValue();
+			
+				
+		}
+		
+		
+		
+		
+		
+		
+		//시영이형이 해주신거
+//		for (int i = 0; i < month.lengthOfMonth(); i++) {
+//			Day day = new Day();
+//			LocalDate tmp = LocalDate.of(month.getYear(), month.getMonthValue(), i+1);
+//			day.setDay(tmp.getDayOfWeek().toString());
+//			day.setDate(tmp);
+//			
+//		
+//			list.add(day);		
+//		}
+		
+		List<Holiday> holidayList = calendarDao.selectholiday();
+		
+		
+		for (int i = 0; i < list.size(); i++) {
+			for (int j = 0; j < holidayList.size(); j++) {
+				if(list.get(i).getDate().isEqual(holidayList.get(j).getHoliday_date())) {
+					list.get(i).setHoliday(true);
+					list.get(i).setName(holidayList.get(j).getHoliday_name());
+				}
+				
+				
+			}
+		}
+		
+		return list;
+	}
 
 }
