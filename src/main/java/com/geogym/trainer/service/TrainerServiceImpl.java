@@ -208,7 +208,6 @@ public class TrainerServiceImpl implements TrainerService {
 		if (trainerDao.countReputate(reputation) >= 1) {
 			System.out.println(reputation);
 			trainerDao.updateReputate(reputation);
-			return;
 		}else {
 			trainerDao.insertReputate(reputation);
 		}
