@@ -1,8 +1,6 @@
 package com.geogym.www;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -17,7 +15,6 @@ import com.geogym.calendar.dto.CalendarDto;
 import com.geogym.calendar.dto.Day;
 import com.geogym.calendar.dto.Holiday;
 import com.geogym.calendar.service.CalendarService;
-import com.geogym.schedule.dto.BusinessDay;
 import com.geogym.schedule.service.BusinessDayService;
 import com.google.gson.Gson;
 

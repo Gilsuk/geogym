@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import com.geogym.payment.exception.CoinNotEnoughException;
 import com.geogym.payment.service.CoinService;
+import com.geogym.payment.service.PaymentLogService;
 import com.geogym.payment.service.TicketService;
 import com.geogym.pt.dao.MatchingDao;
 import com.geogym.pt.dto.PT;
@@ -32,6 +33,7 @@ public class MatchingServiceImpl implements MatchingService {
 	@Autowired CoinService coinService;
 	@Autowired TicketService tickectService;
 	@Autowired TrainerService trainerService;
+	@Autowired PaymentLogService paymentLogService;
 	
 	@Override
 	public void match(User user, Schedule schedule) throws MatchingNotAvailable, CoinNotEnoughException {
@@ -42,7 +44,7 @@ public class MatchingServiceImpl implements MatchingService {
 			} else {
 				schedule.setTrainer(trainerService.getTrainer(schedule.getTrainer()));
 				
-				
+				//로그 입력 필요
 				
 				coinService.payByCoin(schedule.getTrainer().getTrainer_price(), user);
 			}
@@ -70,12 +72,17 @@ public class MatchingServiceImpl implements MatchingService {
 				pt.getUser(), 
 				LocalDateTime.of(scheduleInfo.getSchedule_date(),scheduleInfo.getSchedule_from()));
 		
-//		if(tickectService.hasPTTicket(user, schedule.getTrainer())) {
-//			tickectService.payByTicket(user, schedule.getTrainer());
-//		} else {
-//			schedule.setTrainer(trainerService.getTrainer(schedule.getTrainer()));
-//			coinService.payByCoin(schedule.getTrainer().getTrainer_price(), user);
-//		}
+		if(pt.getPt_type_no() == 2) {
+
+			tickectService.refundPTTicket(pt.getUser(), schedule.getTrainer());
+		} else if(pt.getPt_type_no() == 3){
+			
+			//로그 입력 필요
+			
+			Trainer trainer = trainerService.getTrainer(schedule.getTrainer());
+			
+			coinService.refundCoin(trainer.getTrainer_price(), pt.getUser());
+		}
 	}
 
 	@Override

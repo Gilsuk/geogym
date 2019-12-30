@@ -104,7 +104,7 @@ public class TicketServiceImpl implements TicketService {
 	}
 
 	@Override
-	public void refundTicket(User user, Trainer trainer) {
+	public void refundPTTicket(User user, Trainer trainer) {
 		// TODO Auto-generated method stub
 
 	}

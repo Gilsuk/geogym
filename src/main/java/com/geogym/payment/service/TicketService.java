@@ -54,7 +54,7 @@ public interface TicketService {
 	 * @param user
 	 * @param trainer
 	 */
-	void refundTicket(User user, Trainer trainer);
+	void refundPTTicket(User user, Trainer trainer);
 
 	/**
 	 * 
