@@ -3,6 +3,7 @@ package com.geogym.pt.service.impl;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -77,21 +78,20 @@ public class MatchingServiceImpl implements MatchingService {
 	}
 
 	@Override
-	public void ptJoin(Trainer trainer, User user) {
-		// TODO Auto-generated method stub
+	public int ptMemberWithTrainer(Trainer trainer) {
 		
+		return tickectService.getCountUser(trainer);
 	}
 
 	@Override
-	public int ptMemberWithTraner(Trainer trainer) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	public int updateCoinTraner(Trainer trainer, int i) {
-		// TODO Auto-generated method stub
-		return 0;
+	public int getPTcount(Trainer trainer, LocalDate month) {
+		
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("trainer_no", trainer.getTrainer_no());
+		map.put("start", LocalDate.of( month.getYear(), month.getDayOfMonth(), 1));
+		map.put("end", LocalDate.of( month.getYear(), month.getDayOfMonth(), month.lengthOfMonth()));
+		
+		return matchingDao.selectCountPT(map);
 	}
 
 }

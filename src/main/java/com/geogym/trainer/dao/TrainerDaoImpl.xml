@@ -8,9 +8,9 @@
 <mapper namespace="com.geogym.trainer.dao.TrainerDao">
 
 	<select id="getPtTicketToUser"
-		parameterType="com.geogym.trainer.dto.PtTicket"
+		parameterType="com.geogym.payment.dto.PTTicket"
 		resultType="com.geogym.trainer.dto.Trainer">
-		SELECT * FROM trainer where trainer_no = #{trainer_no}
+		SELECT * FROM trainer where trainer_no = #{trainer.trainer_no}
 	</select>
 	<select id="getPtUserToTrainer"
 		parameterType="com.geogym.trainer.dto.Trainer"

@@ -2,7 +2,10 @@ package com.geogym.payment.service.impl;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
+
 import com.geogym.common.dto.Paging;
+import com.geogym.payment.dao.CoinDao;
 import com.geogym.payment.dto.CoinChangesInfo;
 import com.geogym.payment.exception.CoinNotEnoughException;
 import com.geogym.payment.service.CoinService;
@@ -10,10 +13,12 @@ import com.geogym.user.dto.User;
 
 public class CoinServiceImpl implements CoinService {
 
+	@Autowired CoinDao coinDao;
+	
 	@Override
 	public int getCoinAmount(User user) {
-		// TODO Auto-generated method stub
-		return 0;
+		
+		return coinDao.selectCoinByUserNo(user);
 	}
 
 	@Override
