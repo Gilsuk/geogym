@@ -17,12 +17,12 @@ public enum Currency {
 		return this.currency_name;
 	}
 	
-	public int getNo() {
-		return this.currency_no;
+	public int getCurrency_no() {
+		return currency_no;
 	}
-	
-	public String getName() {
-		return this.currency_name;
+
+	public String getCurrency_name() {
+		return currency_name;
 	}
 
 }

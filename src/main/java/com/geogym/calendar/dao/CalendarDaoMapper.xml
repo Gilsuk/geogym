@@ -4,6 +4,13 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
   
  <mapper namespace="com.geogym.calendar.dao.CalendarDao">
+ 
+<!--  <resultMap type="hashmap" id="holiday"> -->
+<!--  	<result column="holiday_date" property="holiday_date"/> -->
+<!--  	<result column="holiday_name" property="holiday_name"/> -->
+<!--  </resultMap> -->
+ 
+ 
  	<insert id="insertholiday" parameterType="com.geogym.calendar.dto.Holiday">
  		insert or replace into holiday(holiday_date,holiday_name) values(#{holiday_date},#{holiday_name})
  		
@@ -15,5 +22,8 @@
  		
  	</delete>
  
+ 	<select id="selectholiday" resultType="com.geogym.calendar.dto.Holiday">
+ 		select holiday_date, holiday_name from holiday
+ 	</select>
  
  </mapper>
