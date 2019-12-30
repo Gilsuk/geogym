@@ -1,4 +1,4 @@
-package com.geogym.common.adviser;
+package com.geogym.common.component;
 
 import java.beans.PropertyEditorSupport;
 import java.time.LocalDate;

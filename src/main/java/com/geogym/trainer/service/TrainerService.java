@@ -74,8 +74,9 @@ public interface TrainerService {
 	 * 업데이트 하고 싶은 부분만 바꿔서 업데이트한다.
 	 * 
 	 * @param trainer - 트레이너 정보 수정
+	 * @param file 
 	 */
-	void updateTrainer(Trainer trainer);
+	void updateTrainer(Trainer trainer, MultipartFile file);
 	
 	/**
 	 * 트레이너 생성
@@ -117,7 +118,7 @@ public interface TrainerService {
 	 * @param file 
 	 * @return Trainer - 트레이너 DTO 를 불러온다
 	 */
-	void deleteTraner(Trainer trainer, MultipartFile file);
+	void deleteTrainer(Trainer trainer, MultipartFile file);
 	
 	
 	/**
@@ -228,9 +229,6 @@ public interface TrainerService {
 	 * @param periodDateTime - 해달 일,시 정보를 받아온다
 	 */
 	void removeSchedule(Schedule schedule);
-
-
-
 
 
 }

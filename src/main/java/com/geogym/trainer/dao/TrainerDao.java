@@ -108,6 +108,8 @@ public interface TrainerDao {
 	 * @return - int 를 반환한다
 	 */
 	int countUserNo(Trainer trainer);
+
+
 	
 
 

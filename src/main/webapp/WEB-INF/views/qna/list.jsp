@@ -3,6 +3,14 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>    
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 
+<script
+  src="https://code.jquery.com/jquery-3.4.1.min.js"
+  integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+  crossorigin="anonymous"></script>
+<!-- 합쳐지고 최소화된 최신 CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+  
+
 <script type="text/javascript">
 $(document).ready(function() {
 	$("#btnWrite").click(function() {
@@ -40,21 +48,28 @@ td:nth-child(2) {
 	<tr>
 		<th style="width: 10%">QnA번호</th>
 		<th style="width: 20%">작성자</th>
-		<th style="width: 30%">제목</th>
-		<th style="width: 30%">본문</th>
-		<th style="width: 15%">일시</th>
+		<th style="width: 50%; text-align: center;">제목</th>
+		<th style="width: 20%">일시</th>
 	</tr>
 </thead>
 <tbody>
 <c:forEach items="${list }" var="b">
 	<tr>
+	<c:if test="${b.qna_isprivate }">
 		<td>${b.qna_no }</td>
 		<td>${b.user_name }</td>
-		<td>${b.qna_title }</td>
-		<td>${b.qna_content }</td>
-		<fmt:parseDate value="${b.qna_date }" pattern="yyyy-MM-dd'T'HH:mm" var="parsedDateTime" type="both" />
-		<td><fmt:formatDate pattern="yyyy-MM-dd/HH:mm" value="${ parsedDateTime }" /></td>
+		<td><a href="/qna/view?qna_no=${b.qna_no }">${b.qna_title }</a></td>
+<%-- 		<fmt:parseDate value="${b.qna_date }" pattern="yyyy-MM-dd'T'HH:mm" var="parsedDateTime" type="both" /> --%>
+		<td>${b.qna_date }</td>
+<%-- 		<fmt:formatDate pattern="yyyy-MM-dd/HH:mm" value="${ parsedDateTime }" /> --%>
 		
+	</c:if>
+	<c:if test="${!b.qna_isprivate }">
+		<td>${b.qna_no }</td>
+		<td>${b.user_name }</td>
+		<td><span class="glyphicon glyphicon-eye-close" style="margin-right:2px;"></span>비공개</td>
+		<td>${b.qna_date }</td>
+	</c:if>
 	</tr>
 	
 </c:forEach>
@@ -68,10 +83,10 @@ td:nth-child(2) {
 <jsp:include page="/WEB-INF/views/qna/paging.jsp" />
 
 <div class="text-center">
-	<form action="/board/list" method="get">
+	<form action="/qna/list" method="get">
 	<div class="form-group">
 		<div class="form-inline">
-			<select class="form-control" name="category" >
+			<select class="form-control" name="categoryNo" >
 				<option value="1">제목</option>
 				<option value="2">내용</option>
 				<option value="3">제목  + 내용</option>
@@ -82,14 +97,6 @@ td:nth-child(2) {
 	</div>
 	</form>
 </div>
-
-<c:if test="${account.account_grade_code == 1 }">
-	<div id="btnBox" class="text-right">
-		<button id="btnWrite" class="btn btn-Warning font-gothic"
-		style="background-color: #FFD2BD">글쓰기</button>
-	</div>
-	</c:if>
-
 
 </div><!-- .container -->
 

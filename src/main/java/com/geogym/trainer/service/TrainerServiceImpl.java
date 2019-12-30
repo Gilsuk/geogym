@@ -74,15 +74,17 @@ public class TrainerServiceImpl implements TrainerService {
 //	}
 
 	@Override
-	public void updateTrainer(Trainer trainer) {
+	public void updateTrainer(Trainer trainer, MultipartFile file) {
 		// TODO Auto-generated method stub
 		// 트레이너 테이블 수정
 		
 		Trainer trainer2 = getTrainer(trainer);
 		
 		
-		if (trainer.getAttachment() == null) {
+		if (file == null) {
 			trainer.setAttachment(trainer2.getAttachment());
+		}else {
+			trainer.setAttachment(attachmentService.upload(file));
 		}
 		if (trainer.getTrainer_address() == null) {
 			trainer.setTrainer_address(trainer2.getTrainer_address());
@@ -115,7 +117,7 @@ public class TrainerServiceImpl implements TrainerService {
 
 
 	@Override
-	public void deleteTraner(Trainer trainer, MultipartFile file) {
+	public void deleteTrainer(Trainer trainer, MultipartFile file) {
 		// TODO Auto-generated method stub
 		// 트레이너 제거하기
 		
@@ -126,7 +128,7 @@ public class TrainerServiceImpl implements TrainerService {
 		
 		attachmentService.removeAttachment(trainer);
 		
-		updateTrainer(trainer);
+		updateTrainer(trainer, file);
 		
 	}
 

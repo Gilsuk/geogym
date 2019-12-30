@@ -43,7 +43,7 @@ public class MatchingServiceImpl implements MatchingService {
 		Schedule scheduleInfo = matchingDao.selectSchedule(schedule);
 		
 		if(scheduleInfo.getSchedule_from().isAfter(LocalTime.now().minusHours(1))) {
-			return;
+			throw new LessThanOneHourException();
 		}
 		
 		PT pt = matchingDao.selectUserByscheduleNo(scheduleInfo);

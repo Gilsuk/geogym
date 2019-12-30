@@ -3,14 +3,14 @@ package com.geogym.qna.dto;
 import java.time.LocalDate;
 
 public class QnaAnswer {
-	
-	private int qna_answer_no; //답글 번호
-	private int trainer_no; //트레이너 번호
-	private String trainer_name; //트레이너 이름
-	private int qna_no; //qna 번호
-	private String qna_answer_content; //본문내용
-	private LocalDate qna_answer_date; //등록일시 
-	
+
+	private int qna_answer_no; // 답글 번호
+	private int trainer_no; // 트레이너 번호
+	private String trainer_name; // 트레이너 이름
+	private int qna_no; // qna 번호
+	private String qna_answer_content; // 본문내용
+	private String qna_answer_date; // 등록일시
+
 	@Override
 	public String toString() {
 		return "QnaAnswer [qna_answer_no=" + qna_answer_no + ", trainer_no=" + trainer_no + ", trainer_name="
@@ -58,13 +58,12 @@ public class QnaAnswer {
 		this.qna_answer_content = qna_answer_content;
 	}
 
-	public LocalDate getQna_answer_date() {
+	public String getQna_answer_date() {
 		return qna_answer_date;
 	}
 
-	public void setQna_answer_date(LocalDate qna_answer_date) {
+	public void setQna_answer_date(String qna_answer_date) {
 		this.qna_answer_date = qna_answer_date;
 	}
-	
-	
+
 }

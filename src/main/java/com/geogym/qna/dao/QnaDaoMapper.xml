@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="com.geogym.qna.dao.QnaDao">
+	<select id="selectCntAll" parameterType="com.geogym.common.dto.Paging" resultType="int">
+	SELECT count(*) FROM qna WHERE 1 = 1
+	<if test="search != null and search != ''">
+	<choose>
+		<when test="categoryNo == 2">
+		AND qna_content LIKE '%' || #{search} || '%'
+		</when>
+		<when test="categoryNo == 3">
+		AND qna_title LIKE '%' || #{search} || '%'
+		OR qna_content LIKE '%' || #{search} || '%'
+		</when>
+		<otherwise>
+		AND qna_title LIKE '%' || #{search} || '%'
+		</otherwise>
+	</choose>
+	</if>
+	</select>
+	
+	<select id="selectAll" parameterType="com.geogym.common.dto.Paging" resultType="com.geogym.qna.dto.Qna">
+	SELECT qna.*, (SELECT user_name FROM user WHERE qna.user_no = user_no) AS user_name FROM qna WHERE 1 = 1
+	<if test="search != null and search != ''">
+	<choose>
+		<when test="categoryNo == 2">
+		AND qna_content LIKE '%' || #{search} || '%'
+		</when>
+		<when test="categoryNo == 3">
+		AND qna_title LIKE '%' || #{search} || '%'
+		OR qna_content LIKE '%' || #{search} || '%'
+		</when>
+		<otherwise>
+		AND qna_title LIKE '%' || #{search} || '%'
+		</otherwise>
+	</choose>
+	</if>
+	Order by qna_no DESC limit 10 offset #{startNo } - 1
+	</select>
+	
+	<select id="selectQnaByQnaNo" parameterType="com.geogym.qna.dto.Qna" resultType="com.geogym.qna.dto.Qna">
+	SELECT qna.*, (SELECT user_name FROM user WHERE qna.user_no = user_no) AS user_name FROM qna WHERE qna_no = #{qna_no}
+	</select>
+	
+	<update id="update" parameterType="com.geogym.qna.dto.Qna">
+	UPDATE qna SET qna_title = #{qna_title}, qna_content = #{qna_content} WHERE qna_no = #{qna_no}
+	</update>
+	
+	<delete id="delete" parameterType="com.geogym.qna.dto.Qna">
+	DELETE FROM qna WHERE qna_no = #{qna_no}
+	</delete>
+	
+	<insert id="write" parameterType="com.geogym.qna.dto.Qna">
+	INSERT INTO qna VALUES (#{qna_no}, 1, #{qna_title}, #{qna_content}, datetime('now','localtime'), #{qna_isprivate})
+	</insert>
+
+</mapper>

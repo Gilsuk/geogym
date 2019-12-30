@@ -1,19 +1,18 @@
-package com.geogym.qna.dao.face;
+package com.geogym.qna.dao;
 
 import java.util.List;
 
-import com.geogym.common.dto.Paging;
+import com.geogym.qna.dto.Paging;
 import com.geogym.qna.dto.Qna;
+import com.geogym.qna.dto.QnaAnswer;
 
 public interface QnaDao {
 	
-	public int selectCntAll();
+	public int selectCntAll(Paging param);
 
 	public List<Qna> selectAll(Paging paging);
 
 	public Qna selectQnaByQnaNo(Qna qna);
-
-	public void updateHit(Qna qna);
 
 	public void delete(Qna qna);
 
