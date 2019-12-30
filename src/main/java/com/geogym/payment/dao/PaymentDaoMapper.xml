@@ -11,10 +11,11 @@
 	</select>
 	<select id="selectPayLogByUserno" parameterType="hashmap" resultType="com.geogym.payment.dto.Payment">
 		SELECT * FROM pay WHERE user_no = ${user_no}
-		LIMIT 15 OFFSET ${startno}
+		LIMIT 15 OFFSET ${startno} - 1
 	</select>
 	<insert id="insert" parameterType="com.geogym.payment.dto.Payment">
-		INSERT INTO pay (user_no, pay_date, pay_amount, currency_no)
+		INSERT INTO pay (user_no, pay_date, pay_amount, currency_no, product_no)
+		VALUES (#{user_no}, {#{pay_date}, #{pay_amount}, #{currency.currency_no}, #{product.product_no})
 	</insert>
 
 </mapper>
