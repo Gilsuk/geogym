@@ -85,6 +85,9 @@ public class BodyController {
 		User user1 = new User();
 		user1.setUser_no(1);
 		
+		BodyComment bodyComment = bodyInfoService.getCommentary(user1);
+		
+		model.addAttribute("bodyComment", bodyComment);
 		try {
 			User user = userService.getUserByUserno(user1);
 			logger.info(user.toString());
@@ -114,8 +117,10 @@ public class BodyController {
 	
 	@RequestMapping(value="/info/delete")
 	public String deleteInfo(BodyInfo bodyInfo) {
-//		logger.info("데이터삭제접근");
-//		logger.info(bodyInfo.toString());
+		
+		logger.info("데이터삭제접근");
+		logger.info(bodyInfo.toString());
+		
 		bodyInfoService.deleteBodyInfo(bodyInfo);
 		bodyInfoService.deleteBodyCommentary(bodyInfo);
 		

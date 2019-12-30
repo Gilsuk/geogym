@@ -55,7 +55,7 @@
   			#{bodyinfo_no} ,
   			#{trainer_no} , 
   			#{body_comment_date} , 
-  			#{body_comment_msg} )
+  			#{body_comment_msg} ) 
   	</insert>
   	
   	<select id="selectBodyCommentary" parameterType="com.geogym.user.dto.User" resultType="com.geogym.body.dto.BodyComment">
@@ -63,11 +63,11 @@
   	</select>
   	
   	<delete id="deleteBodyInfo" parameterType="com.geogym.body.dto.BodyInfo">
-  		DELETE FROM bodyinfo WHERE #{bodyinfo_no} in ( SELECT bodyinfo_no FROM Bodyinfo ORDER BY bodyinfo_no DESC limit 1 )
+  		DELETE FROM Bodyinfo WHERE bodyinfo_no = #{bodyinfo_no}
   	</delete>
   	
   	<delete id="deleteBodyCommentary" parameterType="com.geogym.body.dto.BodyInfo">
-  		DELETE FROM Body_comment WHERE #{bodyinfo_no} in ( SELECT bodyinfo_no FROM Body_comment ORDER BY bodyinfo_no DESC limit 1 )
+  		DELETE FROM Body_comment WHERE bodyinfo_no = #{bodyinfo_no}
   	</delete>
   	
   	

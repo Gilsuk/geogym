@@ -40,7 +40,7 @@
 	</table>
 	
 	
-	<textarea rows="10" cols="50" name="body_comment_msg"></textarea>
+	<textarea rows="10" cols="50" name="body_comment_msg">${bodyComment.body_comment_msg }</textarea>
 
 	<button>입력하기</button>
 

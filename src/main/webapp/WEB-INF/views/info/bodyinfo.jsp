@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+    <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -32,21 +33,13 @@ function deleteInfo(){
 	}
 </script>
 
-<script type="text/javascript">
-$(document).ready(function() {
-
-	$("#deleteInfo").click(function() {
-		location.href="/info/delete?bodyInfo_no="+${bodyInfo.bodyinfo_no}.val();
-	});
-	
-});
-</script>
 
 <script type="text/javascript">
 
 google.charts.load('current', {packages: ['corechart', 'line']});
 google.charts.setOnLoadCallback(drawLineColors);
 
+console.log(${list});
 function drawLineColors() {
       var data = new google.visualization.DataTable();
       data.addColumn('date', '측정일');
@@ -85,7 +78,15 @@ function drawLineColors() {
 <body>
 
 <h1>body info</h1>
+<hr>
+<div style="width:500px;height:200px">
+<div id="circle" style="border-radius:50%;background-color:white; border: 2px solid gray; width: 200px;height: 200px;float: left;" >
+	<button>프로필사진등록</button>
+</div>
+
+
 >> ${user.user_name } 회원님
+</div>
 <br>
 
 <button id="inputBodyInfo">데이터입력</button>
@@ -113,7 +114,8 @@ function drawLineColors() {
 
 <fieldset style="width:300px">
 <legend>특이사항</legend>
-<textarea rows="10" cols="40" readonly="readonly">${bodycomment.body_comment_msg }</textarea>
+<textarea rows="10" cols="40" readonly="readonly" disabled>${bodycomment.body_comment_msg }</textarea>
+<small style="color:grey">마지막입력 : ${bodycomment.body_comment_date }</small>
 </fieldset><br>
 
 	
