@@ -124,8 +124,10 @@ public class TrainerController {
 		logger.info("reputation");
 
 		// 테스트용 구문
-		trainer.setTrainer_no(1);
-			
+//		trainer.setTrainer_no(1);
+		
+		// 차후 정식 버전에서는
+		// 트레이너 넘버를 jsp 에서 받아와야 함
 
 		double getAllReputation = trainerService.getAllReputation();
 		double getReputation = trainerService.getReputation(trainer);
@@ -139,21 +141,34 @@ public class TrainerController {
 
 	}
 
+	@RequestMapping(value = "/trainer/reputate", method = RequestMethod.GET)
+	private void TrainerReputate() {
+		
+	}
+	
 	// 트레이너 평점 등록
 	@RequestMapping(value = "/trainer/reputate", method = RequestMethod.POST)
-	private void TrainerReputate(T_reputation reputation) {
+	private void TrainerReputate(T_reputation reputation
+//			, HttpSession session 
+			) {
 
 		logger.info("reputate");
 		// 테스트용 구문
-		T_reputation reputation2 = new T_reputation();
-		reputation2.setTrainer_no(1);
-		reputation2.setUser_no(2);
-		reputation2.setTrainer_reputation_score(7);
-		reputation2.setTrainer_reputation_msg("ㅌㅅㅌ");
+//		T_reputation reputation2 = new T_reputation();
+//		reputation2.setTrainer_no(1);
+//		reputation2.setUser_no(2);
+//		reputation2.setTrainer_reputation_score(7);
+//		reputation2.setTrainer_reputation_msg("ㅌㅅㅌ");
+		
+		// 차후 정식 버전에서는 
+		// 유저 넘버 : 세션 이용
+		// 트레이너넘버 : jsp 의 form 내부에 hidden 을 이용해서 얻어올 예정
 
-		System.out.println(reputation2);
+		System.out.println(reputation);
 
-		trainerService.reputate(reputation2);
+		trainerService.reputate(reputation
+//				, session
+				);
 
 	}
 

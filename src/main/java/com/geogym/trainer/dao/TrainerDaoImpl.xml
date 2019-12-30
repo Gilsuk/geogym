@@ -80,9 +80,9 @@
 	<insert id="insertReputate"
 		parameterType="com.geogym.trainer.dto.T_reputation">
 		INSERT INTO trainer_reputation
-		(user_no,trainer_no,trainer_reputation_date,trainer_reputation_score,trainer_reputation_msg)
+		(user_no, trainer_no, trainer_reputation_date, trainer_reputation_score, trainer_reputation_msg)
 		VALUES (#{user_no}, #{trainer_no}, datetime('now','localtime'),
-		#{trainer_reputation_score} #{trainer_reputation_msg})
+		#{trainer_reputation_score}, #{trainer_reputation_msg})
 	</insert>
 	<insert id="insertTrainer"
 		parameterType="com.geogym.trainer.dto.Trainer">
