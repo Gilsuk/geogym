@@ -2,12 +2,15 @@ package com.geogym.payment.service.impl;
 
 import java.util.List;
 
-import com.geogym.common.dto.Paging;
+import org.springframework.stereotype.Service;
+
 import com.geogym.payment.dto.CoinChangesInfo;
 import com.geogym.payment.exception.CoinNotEnoughException;
 import com.geogym.payment.service.CoinService;
+import com.geogym.qna.dto.Paging;
 import com.geogym.user.dto.User;
 
+@Service
 public class CoinServiceImpl implements CoinService {
 
 	@Override

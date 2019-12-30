@@ -3,10 +3,10 @@ package com.geogym.payment.service;
 import java.util.List;
 import java.util.Map;
 
-import com.geogym.common.dto.Paging;
 import com.geogym.payment.dto.Ticket;
 import com.geogym.payment.dto.TicketChangesInfo;
 import com.geogym.payment.exception.TicketNotEnoughException;
+import com.geogym.qna.dto.Paging;
 import com.geogym.schedule.exception.InvalidParamException;
 import com.geogym.trainer.dto.Trainer;
 import com.geogym.user.dto.User;

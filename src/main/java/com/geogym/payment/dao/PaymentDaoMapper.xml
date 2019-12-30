@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="com.geogym.payment.dao.PaymentDao">
+
+	<select id="selectCnt" parameterType="com.geogym.user.dto.User">
+		SELECT count(*) FROM pay WHERE user_no = #{user_no}
+	</select>
+	<select id="selectPayLogByUserno" parameterType="hashmap" resultType="com.geogym.payment.dto.Payment">
+		SELECT * FROM pay WHERE user_no = ${user_no}
+		LIMIT 15 OFFSET ${startno}
+	</select>
+	<insert id="insert" parameterType="com.geogym.payment.dto.Payment">
+		INSERT INTO pay (user_no, pay_date, pay_amount, currency_no)
+	</insert>
+
+</mapper>

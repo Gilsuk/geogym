@@ -2,9 +2,9 @@ package com.geogym.payment.service;
 
 import java.util.List;
 
-import com.geogym.common.dto.Paging;
 import com.geogym.payment.dto.CoinChangesInfo;
 import com.geogym.payment.exception.CoinNotEnoughException;
+import com.geogym.qna.dto.Paging;
 import com.geogym.user.dto.User;
 
 public interface CoinService {
