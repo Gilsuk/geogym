@@ -17,6 +17,8 @@ import com.geogym.calendar.dto.CalendarDto;
 import com.geogym.calendar.dto.Day;
 import com.geogym.calendar.dto.Holiday;
 import com.geogym.calendar.service.CalendarService;
+import com.geogym.schedule.dto.BusinessDay;
+import com.geogym.schedule.service.BusinessDayService;
 import com.google.gson.Gson;
 
 @Controller
@@ -24,6 +26,7 @@ public class CalendarController {
 
 	private static final Logger logger = LoggerFactory.getLogger(CalendarController.class);
 	@Autowired CalendarService calendarService;
+	@Autowired BusinessDayService businessDayService;
 	
 	@RequestMapping(value = "/calendar/set", method = RequestMethod.GET)
 	public void  getSpecialDate(Model model) {
@@ -68,9 +71,16 @@ public class CalendarController {
 		
 		model.addAttribute("listDay", new Gson().toJson(listDay));
 		
+		//영업시간 
+//		List<BusinessDay> listWorking = businessDayService.getWorkingTimeInfos(date);
+		
 		
 		
 
 	}
+	
+	
+	
+	
 	
 }
