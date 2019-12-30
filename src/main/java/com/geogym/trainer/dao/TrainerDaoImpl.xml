@@ -48,13 +48,15 @@
 		'attachment.mime_no' FROM trainer t, attachment a where
 		t.attachment_no = a.attachment_no and trainer_no = #{trainer_no}
 	</select>
+	
 	<select id="getReputation"
 		parameterType="com.geogym.trainer.dto.Trainer" resultType="double">
 		SELECT
 		avg(trainer_reputation_score) FROM trainer_reputation where trainer_no
 		= #{trainer_no}
 	</select>
-	<select id="getReputation" resultType="double">
+	
+	<select id="getAllReputation" resultType="double">
 		SELECT
 		avg(trainer_reputation_score) FROM trainer_reputation
 	</select>

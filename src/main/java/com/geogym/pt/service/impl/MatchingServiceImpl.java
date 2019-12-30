@@ -8,6 +8,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.geogym.payment.service.TicketService;
 import com.geogym.pt.dao.MatchingDao;
 import com.geogym.pt.dto.PT;
 import com.geogym.pt.exception.LessThanOneHourException;
@@ -25,7 +26,7 @@ public class MatchingServiceImpl implements MatchingService {
 	@Autowired MatchingDao matchingDao;
 	@Autowired ScheduleService scheduleService;
 //	@Autowired CoinService coinService;
-//	@Autowired TicketService tickectService;
+	@Autowired TicketService tickectService;
 	
 	@Override
 	public void match(User user, Schedule schedule) throws MatchingNotAvailable {
@@ -64,8 +65,15 @@ public class MatchingServiceImpl implements MatchingService {
 	//-----------------------------------------------------------------
 	@Override
 	public boolean isSubscribedTrainer(User user, Trainer trainer) {
-		// TODO Auto-generated method stub
-		return false;
+		
+		boolean hasPTTicket;
+		try {
+			hasPTTicket = tickectService.hasPTTicket(user, trainer);
+		} catch (InvalidParamException e) {
+			return false;
+		}
+		
+		return hasPTTicket;
 	}
 
 	@Override

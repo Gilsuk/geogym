@@ -8,6 +8,7 @@ public class CoinChangesInfo {
 	private int changes; // 코인 변동량 (음수 값을 가질 수 있다)
 	private int amount; // 변동 후 보유 코인
 	private String msg; // 변동 사유
+	
 	public LocalDateTime getDate() {
 		return date;
 	}
