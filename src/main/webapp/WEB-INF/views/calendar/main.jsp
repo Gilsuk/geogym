@@ -73,7 +73,7 @@ table.calendar td{
     var $tdDay = null;
     var $tdSche = null;
     var list;
- 	var Working_Hours;
+ 	var Working_Hours = "영업시간:";
     $(document).ready(function() {
     	list = JSON.parse($("#dayText").text());
     	
@@ -124,8 +124,9 @@ table.calendar td{
         $("#cal_top_month").text(month);
         for(var i=firstDay.getDay();i<firstDay.getDay()+lastDay.getDate();i++){
             $tdDay.eq(i).text(++dayCount);
-//             $taDay.eq(i).append("<div>"+ "이용시간:" +"</div>");
-
+            
+			
+            //====================================================================================
             for(var j=0;j<list.length;j++){
 	            // 휴일인 경우
 	            if (list[j].isHoliday) {
@@ -142,14 +143,16 @@ table.calendar td{
 	            	}
 	            }
 	            	
-	            	
+	   
 	            }
 	            
     		}
-            
+            //=========================================================================================
+            $tdDay.eq(i).append($("<div>" + Working_Hours + "</div>"));
         }
         for(var i=0;i<42;i+=7){
             $tdDay.eq(i).css("color","red");
+            
         }
         for(var i=6;i<42;i+=7){
             $tdDay.eq(i).css("color","blue");
