@@ -1,16 +1,13 @@
 package com.geogym.www;
 
-import java.io.IOException;
-
-import javax.servlet.http.HttpServletResponse;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.geogym.common.service.AjaxService;
+import com.geogym.common.exception.ParamIncorrectException;
 import com.geogym.user.dto.LoginInfo;
+import com.geogym.user.dto.User;
 import com.geogym.user.exception.UserNotFoundException;
 import com.geogym.user.service.UserService;
 
@@ -18,26 +15,42 @@ import com.geogym.user.service.UserService;
 public class UserController {
 	
 	@Autowired private UserService userServ;
-	@Autowired private AjaxService ajaxServ;
 	
-	@RequestMapping(value = "/user/login", method = RequestMethod.GET)
+	@RequestMapping(value = "/user/login")
 	public void loginForm() {
 	}
 
-	@RequestMapping(value = "/ajax/login", method = RequestMethod.POST)
-	public void login(LoginInfo info) {
+	@ResponseBody
+	@RequestMapping(value = "/ajax/user/login")
+	public boolean login(LoginInfo info) {
 		try {
 			userServ.login(info);
-			ajaxServ.sendSuccess();
+			return true;
 		} catch (UserNotFoundException e) {
-			ajaxServ.sendFail();
+			return false;
 		}
-		return;
 	}
 
-	@RequestMapping(value = "/user/logout")
-	public String logout() {
+	@ResponseBody
+	@RequestMapping(value = "/ajax/user/logout")
+	public boolean logout() {
 		userServ.logout();
-		return "/test/user/login";
+		return true;
 	}
+	
+	@RequestMapping(value = "/user/join")
+	public void joinForm() {
+	}
+
+	@ResponseBody
+	@RequestMapping(value = "/ajax/user/join")
+	public boolean join(User user) {
+		try {
+			userServ.join(user);
+			return true;
+		} catch (ParamIncorrectException e) {
+			return false;
+		}
+	}
+
 }
