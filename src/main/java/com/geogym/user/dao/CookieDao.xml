@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.geogym.user.dao.CookieDao">
+
+	<select id="selectUserByCookie" parameterType="com.geogym.user.dto.LoginCookie"
+		resultType="com.geogym.user.dto.User">
+		SELECT * FROM user
+		INNER JOIN cookie USING (user_no)
+		WHERE cookie_ip = #{cookie_ip}
+		AND cookie_id = #{cookie_id}
+		AND date(cookie_date) >= date(#{cookie_date}, '-1 month')
+	</select>
+	
+	<delete id="delete" parameterType="com.geogym.user.dto.LoginCookie" >
+		DELETE FROM cookie
+		WHERE cookie_ip = #{cookie_ip}
+		AND cookie_id = #{cookie_id}
+	</delete>
+
+	<insert id="insert" parameterType="com.geogym.user.dto.LoginCookie" >
+		INSERT INTO cookie (cookie_ip, cookie_id, user_no, cookie_date)
+		VALUES (#{cookie_ip}, #{cookie_id}, #{user_no}, #{cookie_date} )
+	</insert>
+	
+	<update id="update" parameterType="com.geogym.user.dto.LoginCookie" >
+		UPDATE cookie SET cookie_date = #{cookie_date}
+		WHERE cookie_ip = #{cookie_ip}
+		AND cookie_id = #{cookie_id}
+	</update>
+
+</mapper>

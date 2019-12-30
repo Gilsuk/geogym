@@ -115,8 +115,5 @@ public interface TrainerDao {
 	 * @return - double
 	 */
 	double getAllReputation();
-	
-
-
 
 }

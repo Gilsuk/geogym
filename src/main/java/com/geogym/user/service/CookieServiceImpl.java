@@ -1,5 +1,6 @@
 package com.geogym.user.service;
 
+import java.time.LocalDate;
 import java.util.UUID;
 
 import javax.servlet.http.Cookie;
@@ -20,6 +21,7 @@ public class CookieServiceImpl implements CookieService {
 	@Autowired private HttpServletRequest req;
 	@Autowired private HttpServletResponse resp;
 	@Autowired private CookieDao dao;
+	@Autowired private UserService serv;
 	
 	@Override
 	public void restoreSessionAccount() throws CookieNotFoundException {
@@ -33,7 +35,7 @@ public class CookieServiceImpl implements CookieService {
 		LoginCookie cookie = getCookieWithPrimaryKeys(cookie_id);
 
 		// 클라이언트에서 얻은 정보와 서버의 DB를 매칭하여 유효성을 검증한다.
-		// 유효한 쿠키라면 Account 객체가 반환되며, SelectResultException 에러를 던진다.
+		// 유효한 쿠키라면 User 객체가 반환된다.
 		User user = dao.selectUserByCookie(cookie);
 
 		// 유효한 객체가 반환되면, DB의 마지막 접속 기록을 갱신한다.
@@ -41,13 +43,14 @@ public class CookieServiceImpl implements CookieService {
 		dao.update(cookie);
 
 		// 세션에 로그인 정보(Account)를 전달한다.
-		req.getSession().setAttribute("loggedInUser", user);
+		serv.setUserToSession(user);
 	}
 
 	private LoginCookie getCookieWithPrimaryKeys(String cookie_id) {
 		LoginCookie cookie = new LoginCookie();
 		cookie.setCookie_id(cookie_id);
 		cookie.setCookie_ip(req.getRemoteAddr());
+		cookie.setCookie_date(LocalDate.now());
 
 		return cookie;
 	}
@@ -66,9 +69,10 @@ public class CookieServiceImpl implements CookieService {
 	public void setNewCookie(User user) {
 		String cookie_id = getRandomCookieId();
 		LoginCookie cookie = getCookieWithPrimaryKeys(cookie_id);
+		dao.delete(cookie);
 
 		cookie.setUser_no(user.getUser_no());
-		dao.update(cookie);
+		dao.insert(cookie);
 
 		sendCookieToClient("cookie_id", cookie.getCookie_id(), 86400);
 	}

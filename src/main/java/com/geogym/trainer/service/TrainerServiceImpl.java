@@ -115,7 +115,7 @@ public class TrainerServiceImpl implements TrainerService {
 
 
 	@Override
-	public void deleteTraner(Trainer trainer, MultipartFile file) {
+	public void deleteTrainer(Trainer trainer, MultipartFile file) {
 		// TODO Auto-generated method stub
 		// 트레이너 제거하기
 		
@@ -190,12 +190,13 @@ public class TrainerServiceImpl implements TrainerService {
 		
 		
 		return trainerDao.getReputation(trainer);
+
 	}
 	
 	@Override
-	public double getReputation() {
+	public double getAllReputation() {
 		// TODO Auto-generated method stub
-		return trainerDao.getReputation();
+		return trainerDao.getAllReputation();
 	}
 
 

@@ -55,11 +55,13 @@
 		avg(trainer_reputation_score) FROM trainer_reputation where trainer_no
 		= #{trainer_no}
 	</select>
+
 	
 	<select id="getAllReputation" resultType="double">
 		SELECT
 		avg(trainer_reputation_score) FROM trainer_reputation
 	</select>
+
 	
 	<select id="countReputate"
 		parameterType="com.geogym.trainer.dto.T_reputation" resultType="int">

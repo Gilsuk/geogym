@@ -118,7 +118,7 @@ public interface TrainerService {
 	 * @param file 
 	 * @return Trainer - 트레이너 DTO 를 불러온다
 	 */
-	void deleteTraner(Trainer trainer, MultipartFile file);
+	void deleteTrainer(Trainer trainer, MultipartFile file);
 	
 	
 	/**
@@ -231,15 +231,7 @@ public interface TrainerService {
 	void removeSchedule(Schedule schedule);
 
 
-	/**
-	 * 전체 인원의 평점 평균을 구한다
-	 * 
-	 * @return - double
-	 */
-	double getReputation();
-
-
-
+	double getAllReputation();
 
 
 }
