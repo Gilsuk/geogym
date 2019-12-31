@@ -1,15 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+     pageEncoding="UTF-8"%>
     <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
     <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
+<!-- <!DOCTYPE html> -->
+<!-- <html> -->
+<!-- <head> -->
+<!-- <meta charset="UTF-8"> -->
+<!-- <title>Insert title here</title> -->
 
-<script type="text/javascript"
-src="http://code.jquery.com/jquery-2.2.4.min.js"></script>
+<jsp:include page="/WEB-INF/views/layouts/header.jsp" />
 
 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 <script type="text/javascript">
@@ -148,20 +147,21 @@ function drawLineColors() {
 </head>
 <body>
 
-<h1>body info</h1>
+<h1 style="text-align:center">GEOGYM</h1>
 <hr>
-<div style="width:500px;height:200px">
-<div id="circle" style="border-radius:50%;background-color:white; border: 2px solid gray; width: 200px;height: 200px;float: left;" >
-	<button style="margin-top:145px;margin-left:45px">프로필사진등록</button>
-</div>
-
-
+<div class="container">
+<br>
+<br>
+<div style="float:left;width:33%">
+<div id="circle" style="border-radius:50%; background-color:white; border:2px solid gray; width:200px; height:200px; float:left" >
+	<button style="margin-top:140px"class="btn">프로필사진등록</button>
+</div>	
+<div class="center">
+<p style="font-size:15px">회원</p>
 >> ${user.user_name } 회원님
 </div>
 <br>
-
-<button id="inputBodyInfo">데이터입력</button>
-<button id="deleteInfo" onclick="deleteInfo();location.href='/info/delete?bodyinfo_no=${bodyInfo.bodyinfo_no}'" >데이터삭제</button>
+<br>
 
 
 	<table style="text-align:center">
@@ -191,22 +191,25 @@ function drawLineColors() {
 <fmt:parseDate value="${bodycomment.body_comment_date }" pattern="yyyy-MM-dd'T'HH:mm" var="parsedDateTime" type="both" />
 <small style="color:grey">마지막입력 : <fmt:formatDate pattern="yyyy-MM-dd HH:mm" value="${ parsedDateTime }" /></small>
 </fieldset><br>
-
+<button id="inputBodyInfo">데이터입력</button>
+<button id="deleteInfo" onclick="deleteInfo();location.href='/info/delete?bodyinfo_no=${bodyInfo.bodyinfo_no}'" >데이터삭제</button>
+</div>
 	
 
-
+<div style="float:right;width:66%">
 <form action="/info/bodyinfo" method="GET">
-	<select id="selectCondition" Style="float:left;height:24px;" name="select">
+	<button id="btnSelect" class="btn" style="float:right">조회</button>
+	<select id="selectCondition" Style="float:right;height:24px;" name="select">
 		<option value="week">7일단위</option>
 		<option value="month">30일단위</option>
 	</select>
-	<button id="btnSelect" class="btn">조회</button>
 </form>
-	<button id="heightInfo">키 정보 보기</button>
-
-  <div id="chart_div_height" style="display:none"></div>
-  <div id="chart_div_weight"></div>
-  <div id="chart_div_etc"></div>
-
+	<button id="heightInfo" style="float:right">키 정보 보기</button>
+  <div id="chart_div_height" style="display:none;float:right"></div>
+  <div id="chart_div_weight" style="float:right"></div>
+  <div id="chart_div_etc" style="float:right"></div>
+  
+  </div>
+ </div>
 </body>
 </html>
