@@ -25,5 +25,44 @@
  	<select id="selectholiday" resultType="com.geogym.calendar.dto.Holiday">
  		select holiday_date, holiday_name from holiday
  	</select>
- 
+ 	
+ 	<select id= "selectbusiness" resultType="com.geogym.schedule.dto.BusinessDay">
+ 	
+ 		select * from business_day
+ 	
+ 	</select>
+	
+	<select id="selectmemo" resultType="com.geogym.calendar.dto.Calendar_Memo">
+		select * from calendar_memo
+	 	
+	</select>	
+	
+	
+	<delete id="deletememo" parameterType="com.geogym.calendar.dto.Calendar_Memo">
+		delete from calendar_memo where user_no = #{user_no} and calendar_memo_date = date('now')
+	</delete>
+	
+	
+	
+	 
+ 	<insert id="insertmemo" parameterType="com.geogym.calendar.dto.Calendar_Memo">
+ 	
+ 		insert into calendar_memo(user_no,calendar_memo_date,calendar_memo_content) values(#{user_no},date('now'),#{calendar_memo_content})
+ 	
+ 	</insert>
+ 	
+ 	
+ 	
+ 	
+ 	<!-- 업데이트를 위한 해당 메모번호의 상세정보 가저오기 -->
+ 	<select id="memoview" parameterType="com.geogym.calendar.dto.Calendar_Memo" resultType="com.geogym.calendar.dto.Calendar_Memo">
+ 		select * from calendar_memo where calendar_memo_no = #{calendar_memo_no}
+ 		
+ 	
+ 	</select>
+ 	
+ 	<update id="updatememo" parameterType="com.geogym.calendar.dto.Calendar_Memo">
+ 		update calendar_memo set calendar_memo_content = #{calendar_memo_content} calendar_memo_date = date('now') where calendar_memo_no = #{calendar_memo_no}
+ 	</update>
+ 	
  </mapper>

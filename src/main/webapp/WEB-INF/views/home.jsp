@@ -10,8 +10,16 @@
 </c:if>
 <div class="container">
 	<ul>
-		<li><a href="/user/login">로그인</a></li>
+		<li><a class="btn-geogym" href="/user/login">로그인</a></li>
 		<li><a href="/user/join">회원가입</a></li>
 	</ul>
 </div>
+
+
+<P>  The time on the server is ${serverTime}. </P>
+<a href="/calendar/memo">달력메모</a>
+</body>
+</html>
+
 <%@ include file="/WEB-INF/views/layouts/footer.jsp" %>
+

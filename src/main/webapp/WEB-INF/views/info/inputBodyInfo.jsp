@@ -14,6 +14,7 @@
 <body>
 
 <h1>신체정보입력</h1>
+>>${user.user_name } 회원님
 <hr>
 <form action="/info/inputBodyInfo" method="POST">
 
@@ -38,8 +39,10 @@
 		</tr>
 	</table>
 	
-	<button>입력하기</button>
+	
+	<textarea rows="10" cols="50" name="body_comment_msg">${bodyComment.body_comment_msg }</textarea>
 
+	<button>입력하기</button>
 
 </form>
 
