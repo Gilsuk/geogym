@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.geogym.payment.exception.CoinNotEnoughException;
 import com.geogym.pt.exception.LessThanOneHourException;
 import com.geogym.pt.exception.MatchingNotAvailable;
 import com.geogym.pt.service.MatchingService;
@@ -42,7 +43,9 @@ public class PTController {
 		try {
 			matchingService.match(user, schedule);
 		} catch (MatchingNotAvailable e) {
-			e.printStackTrace();
+			// 매칭 실패
+		} catch (CoinNotEnoughException e) {
+			// 캐시 부족
 		}
 	}
 

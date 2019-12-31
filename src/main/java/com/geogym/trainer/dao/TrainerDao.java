@@ -2,7 +2,7 @@ package com.geogym.trainer.dao;
 
 import java.util.List;
 
-import com.geogym.trainer.dto.PtTicket;
+import com.geogym.payment.dto.PTTicket;
 import com.geogym.trainer.dto.T_reputation;
 import com.geogym.trainer.dto.Trainer;
 import com.geogym.user.dto.User;
@@ -17,7 +17,7 @@ public interface TrainerDao {
 	 * @param ptTicket - 트레이너 번호를 추출한다
 	 * @return Trainer - 트레이너 정보를 받아온다
 	 */
-	Trainer getTrainerToPtTicket(PtTicket ptTicket);
+	Trainer getTrainerToPtTicket(PTTicket ptTicket);
 	
 	/**
 	 * 해당 트레이너의 PT 회원들을 조회

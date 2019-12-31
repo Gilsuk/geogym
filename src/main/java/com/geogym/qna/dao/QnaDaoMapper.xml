@@ -5,7 +5,7 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
   
 <mapper namespace="com.geogym.qna.dao.QnaDao">
-	<select id="selectCntAll" parameterType="com.geogym.common.dto.Paging" resultType="int">
+	<select id="selectCntAll" parameterType="com.geogym.qna.dto.Paging" resultType="int">
 	SELECT count(*) FROM qna WHERE 1 = 1
 	<if test="search != null and search != ''">
 	<choose>
@@ -23,7 +23,7 @@
 	</if>
 	</select>
 	
-	<select id="selectAll" parameterType="com.geogym.common.dto.Paging" resultType="com.geogym.qna.dto.Qna">
+	<select id="selectAll" parameterType="com.geogym.qna.dto.Paging" resultType="com.geogym.qna.dto.Qna">
 	SELECT qna.*, (SELECT user_name FROM user WHERE qna.user_no = user_no) AS user_name FROM qna WHERE 1 = 1
 	<if test="search != null and search != ''">
 	<choose>

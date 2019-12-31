@@ -16,13 +16,21 @@ public enum Product {
 	public String toString() {
 		return this.product_name;
 	}
-	
-	public int getNo() {
-		return this.product_no;
+
+	public int getProduct_no() {
+		return product_no;
 	}
-	
-	public String getName() {
-		return this.product_name;
+
+	public void setProduct_no(int product_no) {
+		this.product_no = product_no;
+	}
+
+	public String getProduct_name() {
+		return product_name;
+	}
+
+	public void setProduct_name(String product_name) {
+		this.product_name = product_name;
 	}
 	
 }
