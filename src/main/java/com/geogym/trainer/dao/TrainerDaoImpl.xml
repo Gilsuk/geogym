@@ -8,9 +8,9 @@
 <mapper namespace="com.geogym.trainer.dao.TrainerDao">
 
 	<select id="getPtTicketToUser"
-		parameterType="com.geogym.trainer.dto.PtTicket"
+		parameterType="com.geogym.payment.dto.PTTicket"
 		resultType="com.geogym.trainer.dto.Trainer">
-		SELECT * FROM trainer where trainer_no = #{trainer_no}
+		SELECT * FROM trainer where trainer_no = #{trainer.trainer_no}
 	</select>
 	<select id="getPtUserToTrainer"
 		parameterType="com.geogym.trainer.dto.Trainer"
@@ -48,12 +48,20 @@
 		'attachment.mime_no' FROM trainer t, attachment a where
 		t.attachment_no = a.attachment_no and trainer_no = #{trainer_no}
 	</select>
+	
 	<select id="getReputation"
 		parameterType="com.geogym.trainer.dto.Trainer" resultType="double">
 		SELECT
 		avg(trainer_reputation_score) FROM trainer_reputation where trainer_no
 		= #{trainer_no}
 	</select>
+
+	
+	<select id="getAllReputation" resultType="double">
+		SELECT
+		avg(trainer_reputation_score) FROM trainer_reputation
+	</select>
+
 	
 	<select id="countReputate"
 		parameterType="com.geogym.trainer.dto.T_reputation" resultType="int">
@@ -72,19 +80,19 @@
 	<insert id="insertReputate"
 		parameterType="com.geogym.trainer.dto.T_reputation">
 		INSERT INTO trainer_reputation
-		(user_no,trainer_no,trainer_reputation_date,trainer_reputation_score,trainer_reputation_msg)
+		(user_no, trainer_no, trainer_reputation_date, trainer_reputation_score, trainer_reputation_msg)
 		VALUES (#{user_no}, #{trainer_no}, datetime('now','localtime'),
-		#{trainer_reputation_score} #{trainer_reputation_msg})
+		#{trainer_reputation_score}, #{trainer_reputation_msg})
 	</insert>
 	<insert id="insertTrainer"
 		parameterType="com.geogym.trainer.dto.Trainer">
 		INSERT INTO trainer
 		(user_no,trainer_address,trainer_price,trainer_profile,attachment_no)
-		VALUES (#{user_no}, #{trainer_address}, #{trainer_price}
-		#{trainer_profile}, #{attachment.getAttachment_no})
+		VALUES (#{user_no}, #{trainer_address}, #{trainer_price},
+		#{trainer_profile}, #{attachment.attachment_no})
 	</insert>
-	<select id="countUserNo" parameterType="com.geogym.trainer.dto.Trainer" resultType="int">
-		select count(*) from trainer where user_no = #{user_no}
-	</select>
+<!-- 	<select id="countUserNo" parameterType="com.geogym.trainer.dto.Trainer" resultType="int"> -->
+<!-- 		select count(*) from trainer where user_no = #{user_no} -->
+<!-- 	</select> -->
 
 </mapper>

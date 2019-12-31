@@ -2,17 +2,20 @@ package com.geogym.payment.dto;
 
 import java.time.LocalDateTime;
 
+import com.geogym.payment.enumeration.Currency;
+import com.geogym.payment.enumeration.Product;
+
 public class Payment {
 	private int pay_no;
 	private int user_no;
 	private LocalDateTime pay_date;
 	private int pay_amount;
-	private String curreny_name;
-	private String product_name;
+	private Currency currency;
+	private Product product;
 	@Override
 	public String toString() {
 		return "Payment [pay_no=" + pay_no + ", user_no=" + user_no + ", pay_date=" + pay_date + ", pay_amount="
-				+ pay_amount + ", curreny_name=" + curreny_name + ", product_name=" + product_name + "]";
+				+ pay_amount + ", currency=" + currency + ", product=" + product + "]";
 	}
 	public int getPay_no() {
 		return pay_no;
@@ -38,16 +41,16 @@ public class Payment {
 	public void setPay_amount(int pay_amount) {
 		this.pay_amount = pay_amount;
 	}
-	public String getCurreny_name() {
-		return curreny_name;
+	public Currency getCurrency() {
+		return currency;
 	}
-	public void setCurreny_name(String curreny_name) {
-		this.curreny_name = curreny_name;
+	public void setCurrency(Currency currency) {
+		this.currency = currency;
 	}
-	public String getProduct_name() {
-		return product_name;
+	public Product getProduct() {
+		return product;
 	}
-	public void setProduct_name(String product_name) {
-		this.product_name = product_name;
+	public void setProduct(Product product) {
+		this.product = product;
 	}
 }

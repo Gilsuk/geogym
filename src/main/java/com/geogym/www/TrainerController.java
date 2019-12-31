@@ -14,15 +14,21 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.geogym.trainer.dto.Trainer;
+import com.geogym.attachment.service.AttachmentService;
 import com.geogym.trainer.dto.T_reputation;
 import com.geogym.trainer.service.TrainerService;
 import com.geogym.user.dto.User;
+import com.geogym.user.exception.UserNotFoundException;
+import com.geogym.user.service.UserService;
 
 @Controller
 public class TrainerController {
 
 	@Autowired
 	TrainerService trainerService;
+	
+	@Autowired UserService userService;
+	@Autowired AttachmentService attachmentService;
 
 	private static final Logger logger = LoggerFactory.getLogger(TrainerController.class);
 
@@ -53,36 +59,66 @@ public class TrainerController {
 
 	// 트레이너 생성
 	@RequestMapping(value = "/trainer/insert", method = RequestMethod.GET)
-	private String insertTrainer(Trainer trainer) {
+	private String insertTrainer() {
 		logger.info("insertTrainer");
-
-		if (trainerService.checkTrainer(trainer)) {
-			return "redirect:/user/main";
-		}
+		
+//		try {
+//			User loggedInUser = userService.getLoggedInUser();
+//			if (userService.isTrainer(loggedInUser)) {
+//				return "redirect:/user/main";
+//			}else {
+//				return null;
+//			}
+//		} catch (UserNotFoundException e) {
+//			// TODO Auto-generated catch block
+//			return "redirect:/user/main";
+//		}
 		return null;
 
 	}
 
 	// 트레이너 생성
 	@RequestMapping(value = "/trainer/insert", method = RequestMethod.POST)
-	private void insertTrainer(Trainer trainer, MultipartFile multipartFile) {
-		logger.info("insertTrainer");
+	private void insertTrainer(Trainer trainer, MultipartFile file) {
+		logger.info("insertTrainer2");
+		
+		
+		trainer.setAttachment(attachmentService.upload(file));		
+		
+//		System.out.println(trainer);
+//		try {
+//			User loggedInUser = userService.getLoggedInUser();			
+//			trainer.setUser_no(loggedInUser.getUser_no());
+//			
+//			
+//			trainerService.insertTrainer(trainer, multipartFile);
+//		} catch (UserNotFoundException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+		
+		
+		trainerService.insertTrainer(trainer, file);
 
-		trainerService.insertTrainer(trainer, multipartFile);
+
 
 	}
 
 	// 트레이너 테이블 수정
 	@RequestMapping(value = "/trainer/update", method = RequestMethod.GET)
-		private String updateTrainer(HttpSession session) {
+		private String updateTrainer() {
 		
-		Trainer trainer = new Trainer();
-		trainer.setUser_no((int)session.getAttribute("user_no"));
-		
-		if (trainerService.checkTrainer(trainer)) {
-			return null;
+		try {
+			User loggedInUser = userService.getLoggedInUser();
+			if (userService.isTrainer(loggedInUser)) {
+				return null;
+			}else {
+				return "redirect:/user/main";
+			}
+		} catch (UserNotFoundException e) {
+			// TODO Auto-generated catch block
+			return "redirect:/user/main";
 		}
-		return "redirect:/user/main";
 		
 	}
 
@@ -124,28 +160,51 @@ public class TrainerController {
 		logger.info("reputation");
 
 		// 테스트용 구문
-		trainer.setTrainer_no(1);
+//		trainer.setTrainer_no(1);
+		
+		// 차후 정식 버전에서는
+		// 트레이너 넘버를 jsp 에서 받아와야 함
 
-//		model.addAttribute("average", trainerService.getReputation());
-		model.addAttribute("reputation", trainerService.getReputation(trainer));
+		double getAllReputation = trainerService.getAllReputation();
+		double getReputation = trainerService.getReputation(trainer);
+		
+		model.addAttribute("average", getAllReputation);
+		model.addAttribute("reputation", getReputation);
+		
+		System.out.println("average :" + getAllReputation);
+		System.out.println("reputation :" + getReputation);
+		
 
 	}
 
+	@RequestMapping(value = "/trainer/reputate", method = RequestMethod.GET)
+	private void TrainerReputate() {
+		
+	}
+	
 	// 트레이너 평점 등록
 	@RequestMapping(value = "/trainer/reputate", method = RequestMethod.POST)
-	private void TrainerReputate(T_reputation reputation) {
+	private void TrainerReputate(T_reputation reputation
+//			, HttpSession session 
+			) {
 
 		logger.info("reputate");
 		// 테스트용 구문
-		T_reputation reputation2 = new T_reputation();
-		reputation2.setTrainer_no(1);
-		reputation2.setUser_no(2);
-		reputation2.setTrainer_reputation_score(7);
-		reputation2.setTrainer_reputation_msg("ㅌㅅㅌ");
+//		T_reputation reputation2 = new T_reputation();
+//		reputation2.setTrainer_no(1);
+//		reputation2.setUser_no(2);
+//		reputation2.setTrainer_reputation_score(7);
+//		reputation2.setTrainer_reputation_msg("ㅌㅅㅌ");
+		
+		// 차후 정식 버전에서는 
+		// 유저 넘버 : 세션 이용
+		// 트레이너넘버 : jsp 의 form 내부에 hidden 을 이용해서 얻어올 예정
 
-		System.out.println(reputation2);
+		System.out.println(reputation);
 
-		trainerService.reputate(reputation2);
+		trainerService.reputate(reputation
+//				, session
+				);
 
 	}
 

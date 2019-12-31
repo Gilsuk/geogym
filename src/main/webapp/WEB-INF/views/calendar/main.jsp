@@ -59,6 +59,7 @@ table.calendar td{
         <span id="cal_top_month"></span>
         <a href="#" id="moveNextMonth"><span id="nextMonth" class="cal_tit">&gt;</span></a>
     </div>
+    
     <div id="cal_tab" class="cal">
     </div>
  
@@ -71,8 +72,11 @@ table.calendar td{
     var lastDay = null;
     var $tdDay = null;
     var $tdSche = null;
- 
+    var list;
+ 	var Working_Hours = "영업시간:";
     $(document).ready(function() {
+    	list = JSON.parse($("#dayText").text());
+    	
         drawCalendar();
         initDate();
         drawDays();
@@ -113,17 +117,47 @@ table.calendar td{
     
     //calendar 날짜표시
     function drawDays(){
+    	// 색 지우기
+    	$tdDay.css("color", "");
+    	
         $("#cal_top_year").text(year);
         $("#cal_top_month").text(month);
         for(var i=firstDay.getDay();i<firstDay.getDay()+lastDay.getDate();i++){
             $tdDay.eq(i).text(++dayCount);
+            
+			
+            //====================================================================================
+            for(var j=0;j<list.length;j++){
+	            // 휴일인 경우
+	            if (list[j].isHoliday) {
+	            	// 리스트의 달이랑 현재 달이랑 같은 경우
+	            	if(year==list[j].date.year){
+	            	if (month == list[j].date.month) {
+	            		// 날짜가 같은 경우
+	            		if (dayCount == list[j].date.day) {
+	            			// 휴일 색 칠하기
+				            $tdDay.eq(i).css("color","red");
+	            			// div 태그로 휴일이름 적기
+				            $tdDay.eq(i).append($("<div>" + list[j].name + "</div>"));
+	            		}
+	            	}
+	            }
+	            	
+	   
+	            }
+	            
+    		}
+            //=========================================================================================
+            $tdDay.eq(i).append($("<div>" + Working_Hours + "</div>"));
         }
         for(var i=0;i<42;i+=7){
             $tdDay.eq(i).css("color","red");
+            
         }
         for(var i=6;i<42;i+=7){
             $tdDay.eq(i).css("color","blue");
         }
+        
     }
  
     //calendar 월 이동
@@ -164,6 +198,6 @@ table.calendar td{
     }
 </script>
 
-
+<div style="display: none;" id="dayText">${listDay }</div>
 </body>
 </html>

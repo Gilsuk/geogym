@@ -7,11 +7,13 @@ import java.util.List;
 import java.util.UUID;
 
 import javax.servlet.ServletContext;
+import javax.servlet.http.HttpServletRequest;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.context.ServletContextAware;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.geogym.attachment.dao.AttachmentDao;
@@ -26,11 +28,12 @@ import com.geogym.trainer.dto.Trainer;
 
 
 @Service
-public class AttachmentServiceImpl implements AttachmentService {
+public class AttachmentServiceImpl implements AttachmentService, ServletContextAware {
 	
 	private static final Logger logger = LoggerFactory.getLogger(AttachmentServiceImpl.class);
 
-	@Autowired ServletContext context;
+	ServletContext context;
+	@Autowired HttpServletRequest req;
 	@Autowired SequenceService seqService;
 	@Autowired AttachmentDao attachmentDao;
 
@@ -41,7 +44,8 @@ public class AttachmentServiceImpl implements AttachmentService {
 		// TODO Auto-generated method stub
 		Attachment attachment = new Attachment();
 		
-		logger.info(context.getRealPath("upload"));
+		logger.info("context " + context);
+		logger.info("context.getRealPath(\"upload\") : "+ context.getRealPath("upload"));
 		
 //		파일이 저장될 경로
 		String storedPath = context.getRealPath("upload");
@@ -92,6 +96,9 @@ public class AttachmentServiceImpl implements AttachmentService {
 			attachmentDao.upload(attachment);
 		}else if (filname.substring(filname.indexOf(".")+1).equals("mp4")) {
 			attachment.setMime_no(8);		
+			attachmentDao.upload(attachment);
+		}else if (filname.substring(filname.indexOf(".")+1).equals("jpg")) {
+			attachment.setMime_no(9);
 			attachmentDao.upload(attachment);
 		}else {
 			logger.info("확장자 없음");
@@ -202,12 +209,18 @@ public class AttachmentServiceImpl implements AttachmentService {
 	@Override
 	public void removeAttachment(Trainer trainer) {
 		// TODO Auto-generated method stub
-		
+		attachmentDao.removeAttachment(trainer);
 	}
 
 	@Override
 	public void removeAttachment(TrainingMemo trainingMemo) {
 		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void setServletContext(ServletContext servletContext) {
+		this.context = servletContext;
 		
 	}
 

@@ -1,16 +1,17 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ page session="false" %>
-<html>
-<head>
-	<title>Home</title>
-</head>
-<body>
+<%@ include file="/WEB-INF/views/layouts/header.jsp" %>
 <h1>
-	Hello world!  
+	메인페이지
 </h1>
-
-<P>  The time on the server is ${serverTime}. </P>
-</body>
-</html>
+<c:if test="${not empty user }">
+<p>${user.user_name } is logged in</p>
+</c:if>
+<div class="container">
+	<ul>
+		<li><a href="/user/login">로그인</a></li>
+		<li><a href="/user/join">회원가입</a></li>
+	</ul>
+</div>
+<%@ include file="/WEB-INF/views/layouts/footer.jsp" %>

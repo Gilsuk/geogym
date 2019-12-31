@@ -1,9 +1,21 @@
 package com.geogym.payment.dao;
 
-import com.geogym.payment.dto.Ticket;
+import java.util.HashMap;
+import java.util.List;
+
+import com.geogym.payment.dto.PTTicket;
+import com.geogym.user.dto.User;
 
 public interface TicketDao {
 
-	Ticket selectTicket(Ticket ticket);
+	PTTicket selectPTTicket(PTTicket ticket);
+
+	int selectCountUser(HashMap<String, Object> map);
+
+	List<PTTicket> selectPTTicketInList(User user);
+
+	void updatePTTicket(PTTicket upDateptTicket);
+
+	void insertPTTicket(PTTicket ptTicket);
 	
 }

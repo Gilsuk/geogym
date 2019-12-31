@@ -5,22 +5,15 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.Map;
 
-import javax.servlet.http.HttpSession;
-
 import org.springframework.web.multipart.MultipartFile;
 
-import com.geogym.body.dto.BodyInfo;
 import com.geogym.memo.dto.CalendarMemo;
 import com.geogym.schedule.dto.PeriodDate;
 import com.geogym.schedule.dto.PeriodDateTime;
 import com.geogym.schedule.dto.Schedule;
-import com.geogym.trainer.dto.PtTicket;
 import com.geogym.trainer.dto.T_reputation;
 import com.geogym.trainer.dto.Trainer;
-import com.geogym.trainer.dto.User_issue;
-import com.geogym.trainer.exception.UserNotTrainerException;
 import com.geogym.user.dto.User;
-import com.geogym.user.dto.UserEvaluation;
 
 /**
  * 트레이너 관리 서비스
@@ -82,9 +75,10 @@ public interface TrainerService {
 	 * 트레이너 생성
 	 * 
 	 * @param trainer - 트레이너 정보를 생성한다
+	 * @param file 
 	 * @param multipartFile 
 	 */
-	void insertTrainer(Trainer trainer, MultipartFile multipartFile);
+	void insertTrainer(Trainer trainer, MultipartFile file);
 	
 	/**
 	 * 
@@ -142,9 +136,10 @@ public interface TrainerService {
 	/**
 	 * 이 유저아이디와 같은 유저넘버를 가지는 트레이너 테이블이 있는지 조회
 	 * 
+	 * 이전 버전용
 	 * @param trainer - user_no 를 받아온다
 	 */
-	boolean checkTrainer(Trainer trainer);
+//	boolean checkTrainer(Trainer trainer);
 
 
 	/**
@@ -229,6 +224,9 @@ public interface TrainerService {
 	 * @param periodDateTime - 해달 일,시 정보를 받아온다
 	 */
 	void removeSchedule(Schedule schedule);
+
+
+	double getAllReputation();
 
 
 }
