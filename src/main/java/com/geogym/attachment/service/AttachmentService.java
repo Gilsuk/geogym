@@ -29,6 +29,37 @@ public interface AttachmentService {
 	 */
 	Attachment upload(MultipartFile multipartFile);
 	
+	/**
+	 * 
+	 * qna 전용 파일업로드
+	 * 
+	 * 반드시 이것을 사용할것
+	 * 
+	 * @param files - 배열로 입력해야 한다
+	 * @param qna - qna 번호가 포함되어야 한다
+	 * @return List<Attachment> 를 리턴한다
+	 */
+	List<Attachment> fileUpload(MultipartFile[] files, Qna qna);
+	
+	/**
+	 * qnaAnswer 전용 파일업로드 
+	 * 반드시 이것을 사용할것
+	 * 
+	 * @param files - 배열로 입력해야 한다
+	 * @param qnaAnswer 번호가 포함되어야 한다
+	 * @return List<Attachment> 를 리턴한다
+	 */
+	List<Attachment> fileUpload(MultipartFile[] files, QnaAnswer qnaAnswer);
+	
+	/**
+	 * bodyInfo 전용 파일업로드 
+	 * 반드시 이것을 사용할것
+	 * 
+	 * @param files - 배열로 입력해야 한다
+	 * @param bodyInfo 번호가 포함되어야 한다
+	 * @return List<Attachment> 를 리턴한다
+	 */
+	List<Attachment> fileUpload(MultipartFile[] files, BodyInfo bodyInfo);
 	
 	
 	/**
@@ -125,7 +156,8 @@ public interface AttachmentService {
 	/**
 	 * 파일 다중 업로드
 	 * 
-	 * 한개만 올렸으면 좋겠다
+	 * 그냥 사용해서는 안됨.
+	 * 반드시 각각의 전용 업로드 서비스를 이용해야 한다. 
 	 * 
 	 * @param files - 멀티파트파일 여러개
 	 * @return List<Attachment> 를 리턴한다

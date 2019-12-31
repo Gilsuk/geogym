@@ -57,6 +57,23 @@
 		mime_no from attachment a, bodyinfo_attachment q where q.bodyinfo_no = #{bodyinfo_no}
 		and q.attachment_no = a.attachment_no order by q.attachment_no
 	</select>
+	<delete id="removeQna_attachment" parameterType="com.geogym.qna.dto.Qna">
+		delete from qna_attachment where qna_no = #{qna_no}
+	</delete>
+	<delete id="removeQna" parameterType="com.geogym.qna.dto.Qna">
+		delete from attachment where attachment_no = #{attachment_no}
+	</delete>
+	
+	<insert id="setQna_attachment" parameterType="com.geogym.attachment.dto.Qna_answer_attachment">
+		insert into qna_attachment (qna_no, attachment_no) VALUES (#{qna_no}, #{attachment_no})
+	</insert>
+	<insert id="setQna_answer_attachment" parameterType="com.geogym.attachment.dto.Qna_answer_attachment">
+		insert into qna_answer_attachment (qna_answer_no, attachment_no) VALUES (#{qna_answer_no}, #{attachment_no})
+	</insert>
+	<insert id="setBodyinfo_attachment" parameterType="com.geogym.attachment.dto.Bodyinfo_attachment">
+		insert into bodyinfo_attachment (qna_no, attachment_no) VALUES (#{bodyinfo_no}, #{attachment_no})
+	</insert>
+
 
 
 

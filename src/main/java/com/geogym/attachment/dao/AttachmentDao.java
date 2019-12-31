@@ -3,6 +3,9 @@ package com.geogym.attachment.dao;
 import java.util.List;
 
 import com.geogym.attachment.dto.Attachment;
+import com.geogym.attachment.dto.Bodyinfo_attachment;
+import com.geogym.attachment.dto.Qna_answer_attachment;
+import com.geogym.attachment.dto.Qna_attachment;
 import com.geogym.body.dto.BodyInfo;
 import com.geogym.memo.dto.TrainingMemo;
 import com.geogym.qna.dto.Qna;
@@ -68,7 +71,13 @@ public interface AttachmentDao {
 	 * @return 업로드 파일 리스트 반환. 조회 결과가 없다면, 비어있는 리스트를 반환한다.
 	 */
 	List<Attachment> getBodyInfo_attachment(BodyInfo bodyinfo);
-
+	
+	/**
+	 * 연결된 removeQna_attachment 모두 삭제 
+	 * @param qna 번호 사용 
+	 */
+	void removeQna_attachment(Qna qna);
+	
 	/**
 	 * 연결된 파일 모두 삭제
 	 * 게시글이 삭제될 때 호출할 메소드
@@ -77,6 +86,33 @@ public interface AttachmentDao {
 	 * @param 게시글 번호가 포함된 qna dto
 	 */
 	void removeQna(Qna qna);
+
+
+	/**
+	 * Qna_attachment 작성
+	 * @param qna_attachment 를 입력하여 작성한다
+	 */
+	void setQna_attachment(Qna_attachment qna_attachment);
+	
+	/**
+	 * Qna_answer_attachment 작성
+	 * @param answer_attachment 를 입력하여 작성한다
+	 */
+	void setQna_answer_attachment(Qna_answer_attachment answer_attachment);
+	
+	/**
+	 * Bodyinfo_attachment 작성 
+	 * @param bodyinfo_attachment를 입력하여 작성한다
+	 */
+	void setBodyinfo_attachment(Bodyinfo_attachment bodyinfo_attachment);
+
+	/**
+	 * Attachment 삭제
+	 * 
+	 * @param attachment_no 를 사용한다
+	 */
+	void removeAttachment(Attachment attachment);
+
 
 
 
