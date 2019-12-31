@@ -6,15 +6,58 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.geogym.attachment.dao.AttachmentDao">
- 	<insert id="upload" parameterType="com.geogym.attachment.dto.Attachment">
-			INSERT INTO attachment(
-			attachment_no, attachment_origin_name,	attachment_stored_name, attachment_size, mime_no
-			) VALUES (#{attachment_no}, #{attachment_origin_name}, #{attachment_stored_name}, #{attachment_size}, #{mime_no})
+	<insert id="upload"
+		parameterType="com.geogym.attachment.dto.Attachment">
+		INSERT INTO attachment(
+		attachment_no,
+		attachment_origin_name, attachment_stored_name, attachment_size,
+		mime_no
+		) VALUES (#{attachment_no}, #{attachment_origin_name},
+		#{attachment_stored_name}, #{attachment_size}, #{mime_no})
 	</insert>
-	<update id="removeAttachment" parameterType="com.geogym.trainer.dto.Trainer">
-		update attachment set attachment_origin_name = '삭제됨', attachment_stored_name = '삭제됨', attachment_size = '0' where attachment_no = #{attachment.attachment_no}
+	<update id="removeTrainer"
+		parameterType="com.geogym.trainer.dto.Trainer">
+		update attachment set attachment_origin_name = '삭제됨',
+		attachment_stored_name = '삭제됨', attachment_size = '0' where
+		attachment_no = #{attachment.attachment_no}
 	</update>
+	<select id="getTrainer"
+		parameterType="com.geogym.trainer.dto.Trainer"
+		resultType="com.geogym.attachment.dto.Attachment">
+		select * from attachment where attachment_no =
+		#{attachment.attachment_no}
+	</select>
+	<select id="getTrainingMemo"
+		parameterType="com.geogym.memo.dto.TrainingMemo"
+		resultType="com.geogym.attachment.dto.Attachment">
+		select * from attachment where attachment_no =
+		#{attachment.attachment_no}
+	</select>
+	<select id="getQna_attachment"
+		parameterType="com.geogym.qna.dto.Qna"
+		resultType="com.geogym.attachment.dto.Attachment">
+		select a.attachment_no as 'attachment_no',
+		attachment_origin_name, attachment_stored_name, attachment_size,
+		mime_no from attachment a, qna_attachment q where q.qna_no = #{qna_no}
+		and q.attachment_no = a.attachment_no order by q.attachment_no
+	</select>
+	<select id="getQnaAnswer_attachment"
+		parameterType="com.geogym.qna.dto.QnaAnswer"
+		resultType="com.geogym.attachment.dto.Attachment">
+		select a.attachment_no as 'attachment_no',
+		attachment_origin_name, attachment_stored_name, attachment_size,
+		mime_no from attachment a, qna_answer_attachment q where q.qna_answer_no = #{qna_answer_no}
+		and q.attachment_no = a.attachment_no order by q.attachment_no
+	</select>
+	<select id="getBodyInfo_attachment"
+		parameterType="com.geogym.body.dto.BodyInfo"
+		resultType="com.geogym.attachment.dto.Attachment">
+		select a.attachment_no as 'attachment_no',
+		attachment_origin_name, attachment_stored_name, attachment_size,
+		mime_no from attachment a, bodyinfo_attachment q where q.bodyinfo_no = #{bodyinfo_no}
+		and q.attachment_no = a.attachment_no order by q.attachment_no
+	</select>
 
 
-	
+
 </mapper>

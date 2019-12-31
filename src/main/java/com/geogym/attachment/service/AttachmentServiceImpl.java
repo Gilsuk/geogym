@@ -15,7 +15,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.context.ServletContextAware;
 import org.springframework.web.multipart.MultipartFile;
-
 import com.geogym.attachment.dao.AttachmentDao;
 import com.geogym.attachment.dto.Attachment;
 import com.geogym.body.dto.BodyInfo;
@@ -39,13 +38,21 @@ public class AttachmentServiceImpl implements AttachmentService, ServletContextA
 
 
 
+	/**
+	 * 파일을 업로드 한다.
+	 * 
+	 *  
+	 * @param multipartFile - multipartFile 타입의 파일을 업로드하고 attachment 형식으로 DB에 저장한다
+	 * attachment_no는 시퀀스를 통해 얻어온다
+	 * @return - 저장한 attachment 를 리턴한다
+	 */
 	@Override
 	public Attachment upload(MultipartFile file) {
 		// TODO Auto-generated method stub
 		Attachment attachment = new Attachment();
 		
-		logger.info("context " + context);
-		logger.info("context.getRealPath(\"upload\") : "+ context.getRealPath("upload"));
+//		logger.info("context " + context);
+//		logger.info("context.getRealPath(\"upload\") : "+ context.getRealPath("upload"));
 		
 //		파일이 저장될 경로
 		String storedPath = context.getRealPath("upload");
@@ -65,7 +72,7 @@ public class AttachmentServiceImpl implements AttachmentService, ServletContextA
 		
 		// DB 에 저장
 		
-		attachment.setAttachment_no(seqService.getNextVal(Table.ATTACHMENT));
+		attachment.setAttachment_no(getNextAttachmentNo());
 		attachment.setAttachment_origin_name(file.getOriginalFilename());
 		attachment.setAttachment_stored_name(filname);
 		attachment.setAttachment_size(file.getSize());
@@ -105,7 +112,7 @@ public class AttachmentServiceImpl implements AttachmentService, ServletContextA
 			return null;
 		}
 		
-		System.out.println(filname.substring(filname.indexOf(".")+1));
+//		System.out.println(filname.substring(filname.indexOf(".")+1));
 		
 		
 		try {
@@ -118,9 +125,9 @@ public class AttachmentServiceImpl implements AttachmentService, ServletContextA
 			e.printStackTrace();
 		}
 		
-		logger.info("업로드성공");
-		logger.info(Integer.toString(attachment.getAttachment_no()));
-		System.out.println(attachment);
+//		logger.info("업로드성공");
+//		logger.info(Integer.toString(attachment.getAttachment_no()));
+//		System.out.println(attachment);
 
 		return attachment;
 	}
@@ -128,46 +135,62 @@ public class AttachmentServiceImpl implements AttachmentService, ServletContextA
 	@Override
 	public int getNextAttachmentNo() {
 		// TODO Auto-generated method stub
-		return 0;
+		return seqService.getNextVal(Table.ATTACHMENT);
 	}
 
-	@Override
-	public List<Attachment> getAttachments(Qna qna) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+//	@Override
+//	public List<Attachment> getAttachments(Qna qna) {
+//		// TODO Auto-generated method stub
+//		return null;
+//	}
+//
+//	@Override
+//	public List<Attachment> getAttachments(QnaAnswer qnaAnswer) {
+//		// TODO Auto-generated method stub
+//		return null;
+//	}
+//
+//	@Override
+//	public List<Attachment> getAttachments(BodyInfo bodyinfo) {
+//		// TODO Auto-generated method stub
+//		return null;
+//	}
 
-	@Override
-	public List<Attachment> getAttachments(QnaAnswer qnaAnswer) {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
-	@Override
-	public List<Attachment> getAttachments(BodyInfo bodyinfo) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-
+	/**
+	 * 트레이너의 프로필 사진을 반환
+	 * @param trainer trainer_no를 포함하는 객체
+	 */
 	@Override
 	public Attachment getAttachment(Trainer trainer) {
 		// TODO Auto-generated method stub
 		
 		
-		return null;
+		return attachmentDao.getTrainer(trainer);
 	}
 
+	/**
+	 * 트레이닝 메모의 첨부자료 조회
+	 * @param trainingMemo - training_memo_no를 포함하는 객체
+	 * @return
+	 */
 	@Override
 	public Attachment getAttachment(TrainingMemo trainingMemo) {
 		// TODO Auto-generated method stub
-		return null;
+		return attachmentDao.getTrainingMemo(trainingMemo);
 	}
 
+	/**
+	 * 연결된 파일 모두 삭제
+	 * 게시글이 삭제될 때 호출할 메소드
+	 * 즉, qna 게시글이 삭제될 때 그 게시글이 포함하고 있던 모든 attachment가 삭제되길 원함
+	 * Qna_no를 기준으로 조회
+	 * @param 게시글 번호가 포함된 qna dto
+	 */
 	@Override
 	public void removeAllAttachments(Qna qna) {
 		// TODO Auto-generated method stub
-		
+		attachmentDao.removeQna(qna);
 	}
 
 	@Override
@@ -206,10 +229,15 @@ public class AttachmentServiceImpl implements AttachmentService, ServletContextA
 		
 	}
 
+	/**
+	 * 트레이너의 프로필 사진을 삭제
+	 * 단, 해당컬럼은 NOT NULL 이므로 파일만 삭제하고, 컬럼에는 기본값 사진 주소로 업데이트 한다.
+	 * @param trainer trainer_no를 포함하는 객체
+	 */
 	@Override
 	public void removeAttachment(Trainer trainer) {
 		// TODO Auto-generated method stub
-		attachmentDao.removeAttachment(trainer);
+		attachmentDao.removeTrainer(trainer);
 	}
 
 	@Override
@@ -222,6 +250,55 @@ public class AttachmentServiceImpl implements AttachmentService, ServletContextA
 	public void setServletContext(ServletContext servletContext) {
 		this.context = servletContext;
 		
+	}
+
+	/**
+	 * 연결된 업로드 파일 조회
+	 * Qna_no를 기준으로 조회
+	 * 
+	 * @param 게시글 번호가 포함된 qna dto
+	 * @return 업로드 파일 리스트 반환. 조회 결과가 없다면, 비어있는 리스트를 반환한다.
+	 */
+	@Override
+	public List<Attachment> getAttachments(Qna qna) {
+		// TODO Auto-generated method stub
+		
+		return attachmentDao.getQna_attachment(qna);
+	}
+
+	/**
+	 * 연결된 업로드 파일 조회
+	 * QnaAnswer_no를 기준으로 조회
+	 * 
+	 * @param 게시글 번호가 포함된 qnaAnswer dto
+	 * @return 업로드 파일 리스트 반환. 조회 결과가 없다면, 비어있는 리스트를 반환한다.
+	 */
+	@Override
+	public List<Attachment> getAttachments(QnaAnswer qnaAnswer) {
+		// TODO Auto-generated method stub
+		return attachmentDao.getQnaAnswer_attachment(qnaAnswer);
+	}
+
+	/**
+	 * 연결된 업로드 파일 조회
+	 * bodyinfo_no를 기준으로 조회
+
+	 * 
+	 * @param 고유 번호가 포함된 BodyInfo dto
+	 * @return 업로드 파일 리스트 반환. 조회 결과가 없다면, 비어있는 리스트를 반환한다.
+	 */
+	@Override
+	public List<Attachment> getAttachments(BodyInfo bodyinfo) {
+		// TODO Auto-generated method stub
+		return attachmentDao.getBodyInfo_attachment(bodyinfo);
+	}
+
+
+
+	@Override
+	public List<Attachment> upload2(List<MultipartFile> files) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 	
