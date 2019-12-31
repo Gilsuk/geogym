@@ -119,11 +119,11 @@ public class CalendarController {
 		
 	}
 	
-	
+	@RequestMapping(value="/calendar/update",method = RequestMethod.POST)
 	public String calendarmemoupdateProc(Calendar_Memo calendar_Memo) {
 			calendarService.updatememo(calendar_Memo);
 			
 		
-		return "";
+		return "redirect:/calendar/list";
 	}
 }
