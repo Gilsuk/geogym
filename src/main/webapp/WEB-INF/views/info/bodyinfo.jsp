@@ -152,8 +152,8 @@ function drawLineColors() {
 <div class="container">
 <br>
 <br>
-<div style="float:left;width:33%">
-<div id="circle" style="border-radius:50%; background-color:white; border:2px solid gray; width:200px; height:200px; float:left" >
+<div class="col-md-12 col-xl-4">
+<div id="circle" style="border-radius:50%; background-color:white; border:2px solid gray;" >
 	<button style="margin-top:140px"class="btn">프로필사진등록</button>
 </div>	
 <div class="center">
@@ -196,7 +196,7 @@ function drawLineColors() {
 </div>
 	
 
-<div style="float:right;width:66%">
+<div class="col-md-12 col-xl-8">
 <form action="/info/bodyinfo" method="GET">
 	<button id="btnSelect" class="btn" style="float:right">조회</button>
 	<select id="selectCondition" Style="float:right;height:24px;" name="select">
