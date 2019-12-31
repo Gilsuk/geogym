@@ -3,6 +3,7 @@ package com.geogym.attachment.service;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -51,8 +52,8 @@ public class AttachmentServiceImpl implements AttachmentService, ServletContextA
 		// TODO Auto-generated method stub
 		Attachment attachment = new Attachment();
 		
-//		logger.info("context " + context);
-//		logger.info("context.getRealPath(\"upload\") : "+ context.getRealPath("upload"));
+		logger.info("context " + context);
+		logger.info("context.getRealPath(\"upload\") : "+ context.getRealPath("upload"));
 		
 //		파일이 저장될 경로
 		String storedPath = context.getRealPath("upload");
@@ -130,6 +131,117 @@ public class AttachmentServiceImpl implements AttachmentService, ServletContextA
 //		System.out.println(attachment);
 
 		return attachment;
+	}
+	
+	
+	/**
+	 * 파일 다중 업로드
+	 * 
+	 * 한개만 올렸으면 좋겠다
+	 * 
+	 * @param files - 멀티파트파일 여러개
+	 * @return List<Attachment> 를 리턴한다
+	 */
+	@Override
+	public List<Attachment> upload2(MultipartFile[] files) {
+		// TODO Auto-generated method stub
+		
+		System.out.println(2);
+		
+		List<Attachment> list = new ArrayList<>();
+		
+		logger.info("context " + context);
+		logger.info("context.getRealPath(\"upload\") : "+ context.getRealPath("upload"));
+		
+		
+//		파일이 저장될 경로
+		String storedPath = context.getRealPath("upload");
+		
+		// 랜덤 UID 생성
+		UUID uuid = UUID.randomUUID(); 
+
+		// 12자리 uid 얻기
+		String u = uuid.toString().split("-")[4];
+		
+		System.out.println(3);
+		
+		for (MultipartFile file : files) {
+			
+			System.out.println(4);
+			Attachment attachment = new Attachment();
+
+			
+			// 저장될 파일 이름 
+			String filname = u+"_"+file.getOriginalFilename();
+			
+			// 저장될 파일 객체
+			File dest = new File(storedPath, filname);
+			
+			
+			// DB 에 저장
+			
+			attachment.setAttachment_no(getNextAttachmentNo());
+			attachment.setAttachment_origin_name(file.getOriginalFilename());
+			attachment.setAttachment_stored_name(filname);
+			attachment.setAttachment_size(file.getSize());
+
+			
+
+			if (filname.substring(filname.indexOf(".")+1).equals("zip")) {
+				attachment.setMime_no(1);
+				attachmentDao.upload(attachment);
+			}else if (filname.substring(filname.indexOf(".")+1).equals("mpeg")) {
+				attachment.setMime_no(2);		
+				attachmentDao.upload(attachment);
+			}else if (filname.substring(filname.indexOf(".")+1).equals("x-wav")) {
+				attachment.setMime_no(3);		
+				attachmentDao.upload(attachment);
+			}else if (filname.substring(filname.indexOf(".")+1).equals("gif")) {
+				attachment.setMime_no(4);		
+				attachmentDao.upload(attachment);
+			}else if (filname.substring(filname.indexOf(".")+1).equals("jpeg")) {
+				attachment.setMime_no(5);		
+				attachmentDao.upload(attachment);
+			}else if (filname.substring(filname.indexOf(".")+1).equals("png")) {
+				System.out.println(attachment);
+				attachment.setMime_no(6);
+				attachmentDao.upload(attachment);
+			}else if (filname.substring(filname.indexOf(".")+1).equals("mpg")) {
+				attachment.setMime_no(7);		
+				attachmentDao.upload(attachment);
+			}else if (filname.substring(filname.indexOf(".")+1).equals("mp4")) {
+				attachment.setMime_no(8);		
+				attachmentDao.upload(attachment);
+			}else if (filname.substring(filname.indexOf(".")+1).equals("jpg")) {
+				attachment.setMime_no(9);
+				attachmentDao.upload(attachment);
+			}else {
+				logger.info("확장자 없음");
+				return null;
+			}
+			
+//			System.out.println(filname.substring(filname.indexOf(".")+1));
+			
+			
+			try {
+				file.transferTo(dest);
+			} catch (IllegalStateException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+//			logger.info("업로드성공");
+//			logger.info(Integer.toString(attachment.getAttachment_no()));
+//			System.out.println(attachment);
+			
+			list.add(attachment);
+			
+		}
+		
+		return list;
 	}
 
 	@Override
@@ -295,11 +407,7 @@ public class AttachmentServiceImpl implements AttachmentService, ServletContextA
 
 
 
-	@Override
-	public List<Attachment> upload2(List<MultipartFile> files) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+
 
 	
 

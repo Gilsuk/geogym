@@ -122,8 +122,15 @@ public interface AttachmentService {
 	void removeAttachment(TrainingMemo trainingMemo);
 
 
-
-	List<Attachment> upload2(List<MultipartFile> files);
+	/**
+	 * 파일 다중 업로드
+	 * 
+	 * 한개만 올렸으면 좋겠다
+	 * 
+	 * @param files - 멀티파트파일 여러개
+	 * @return List<Attachment> 를 리턴한다
+	 */
+	List<Attachment> upload2(MultipartFile[] files);
 
 
 
