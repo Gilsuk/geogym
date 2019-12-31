@@ -14,15 +14,21 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.geogym.trainer.dto.Trainer;
+import com.geogym.attachment.service.AttachmentService;
 import com.geogym.trainer.dto.T_reputation;
 import com.geogym.trainer.service.TrainerService;
 import com.geogym.user.dto.User;
+import com.geogym.user.exception.UserNotFoundException;
+import com.geogym.user.service.UserService;
 
 @Controller
 public class TrainerController {
 
 	@Autowired
 	TrainerService trainerService;
+	
+	@Autowired UserService userService;
+	@Autowired AttachmentService attachmentService;
 
 	private static final Logger logger = LoggerFactory.getLogger(TrainerController.class);
 
@@ -53,36 +59,66 @@ public class TrainerController {
 
 	// 트레이너 생성
 	@RequestMapping(value = "/trainer/insert", method = RequestMethod.GET)
-	private String insertTrainer(Trainer trainer) {
+	private String insertTrainer() {
 		logger.info("insertTrainer");
-
-		if (trainerService.checkTrainer(trainer)) {
-			return "redirect:/user/main";
-		}
+		
+//		try {
+//			User loggedInUser = userService.getLoggedInUser();
+//			if (userService.isTrainer(loggedInUser)) {
+//				return "redirect:/user/main";
+//			}else {
+//				return null;
+//			}
+//		} catch (UserNotFoundException e) {
+//			// TODO Auto-generated catch block
+//			return "redirect:/user/main";
+//		}
 		return null;
 
 	}
 
 	// 트레이너 생성
 	@RequestMapping(value = "/trainer/insert", method = RequestMethod.POST)
-	private void insertTrainer(Trainer trainer, MultipartFile multipartFile) {
-		logger.info("insertTrainer");
+	private void insertTrainer(Trainer trainer, MultipartFile file) {
+		logger.info("insertTrainer2");
+		
+		
+		trainer.setAttachment(attachmentService.upload(file));		
+		
+		System.out.println(trainer);
+//		try {
+//			User loggedInUser = userService.getLoggedInUser();			
+//			trainer.setUser_no(loggedInUser.getUser_no());
+//			
+//			
+//			trainerService.insertTrainer(trainer, multipartFile);
+//		} catch (UserNotFoundException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+		
+		
+		trainerService.insertTrainer(trainer, file);
 
-		trainerService.insertTrainer(trainer, multipartFile);
+
 
 	}
 
 	// 트레이너 테이블 수정
 	@RequestMapping(value = "/trainer/update", method = RequestMethod.GET)
-		private String updateTrainer(HttpSession session) {
+		private String updateTrainer() {
 		
-		Trainer trainer = new Trainer();
-		trainer.setUser_no((int)session.getAttribute("user_no"));
-		
-		if (trainerService.checkTrainer(trainer)) {
-			return null;
+		try {
+			User loggedInUser = userService.getLoggedInUser();
+			if (userService.isTrainer(loggedInUser)) {
+				return null;
+			}else {
+				return "redirect:/user/main";
+			}
+		} catch (UserNotFoundException e) {
+			// TODO Auto-generated catch block
+			return "redirect:/user/main";
 		}
-		return "redirect:/user/main";
 		
 	}
 
@@ -135,7 +171,7 @@ public class TrainerController {
 		model.addAttribute("average", getAllReputation);
 		model.addAttribute("reputation", getReputation);
 		
-		System.out.println("all :" + getAllReputation);
+		System.out.println("average :" + getAllReputation);
 		System.out.println("reputation :" + getReputation);
 		
 

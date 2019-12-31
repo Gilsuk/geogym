@@ -11,6 +11,9 @@
 			attachment_no, attachment_origin_name,	attachment_stored_name, attachment_size, mime_no
 			) VALUES (#{attachment_no}, #{attachment_origin_name}, #{attachment_stored_name}, #{attachment_size}, #{mime_no})
 	</insert>
+	<update id="removeAttachment" parameterType="com.geogym.trainer.dto.Trainer">
+		update attachment set attachment_origin_name = '삭제됨', attachment_stored_name = '삭제됨', attachment_size = '0' where attachment_no = #{attachment.attachment_no}
+	</update>
 
 
 	

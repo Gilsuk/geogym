@@ -88,11 +88,11 @@
 		parameterType="com.geogym.trainer.dto.Trainer">
 		INSERT INTO trainer
 		(user_no,trainer_address,trainer_price,trainer_profile,attachment_no)
-		VALUES (#{user_no}, #{trainer_address}, #{trainer_price}
-		#{trainer_profile}, #{attachment.getAttachment_no})
+		VALUES (#{user_no}, #{trainer_address}, #{trainer_price},
+		#{trainer_profile}, #{attachment.attachment_no})
 	</insert>
-	<select id="countUserNo" parameterType="com.geogym.trainer.dto.Trainer" resultType="int">
-		select count(*) from trainer where user_no = #{user_no}
-	</select>
+<!-- 	<select id="countUserNo" parameterType="com.geogym.trainer.dto.Trainer" resultType="int"> -->
+<!-- 		select count(*) from trainer where user_no = #{user_no} -->
+<!-- 	</select> -->
 
 </mapper>

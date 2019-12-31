@@ -7,6 +7,8 @@ public interface AttachmentDao {
 
 	void upload(Attachment attachment);
 
+	void removeAttachment(Trainer trainer);
+
 
 
 }
