@@ -148,7 +148,7 @@ table.calendar td{
 	            
     		}
             //=========================================================================================
-            $tdDay.eq(i).append($("<div>" + Working_Hours + "</div>"));
+//             $tdDay.eq(i).append($("<div>" + Working_Hours + "</div>"));
         }
         for(var i=0;i<42;i+=7){
             $tdDay.eq(i).css("color","red");

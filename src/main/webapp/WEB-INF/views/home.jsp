@@ -15,4 +15,11 @@
 	</ul>
 </div>
 
+
+<P>  The time on the server is ${serverTime}. </P>
+<a href="/calendar/memo">달력메모</a>
+</body>
+</html>
+
 <%@ include file="/WEB-INF/views/layouts/footer.jsp" %>
+
