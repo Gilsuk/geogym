@@ -1,45 +1,41 @@
 package com.geogym.payment.dto;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
-import com.geogym.trainer.dto.Trainer;
 import com.geogym.user.dto.User;
 
 public class Ticket {
-	
 	private User user;
-	private Trainer trainer;
-	private LocalDateTime pt_ticket_expire;
-	private int pt_ticket_amount;
-	
+	private LocalDate ticket_active_date;
+	private int ticket_duration;
+	private boolean ticket_isactive;
 	@Override
 	public String toString() {
-		return "Ticket [user=" + user + ", trainer=" + trainer + ", pt_ticket_expire=" + pt_ticket_expire
-				+ ", pt_ticket_amount=" + pt_ticket_amount + "]";
+		return "Ticket [user=" + user + ", ticket_active_date=" + ticket_active_date + ", ticket_duration="
+				+ ticket_duration + ", ticket_isactive=" + ticket_isactive + "]";
 	}
-	
 	public User getUser() {
 		return user;
 	}
 	public void setUser(User user) {
 		this.user = user;
 	}
-	public Trainer getTrainer() {
-		return trainer;
+	public LocalDate getTicket_active_date() {
+		return ticket_active_date;
 	}
-	public void setTrainer(Trainer trainer) {
-		this.trainer = trainer;
+	public void setTicket_active_date(LocalDate ticket_active_date) {
+		this.ticket_active_date = ticket_active_date;
 	}
-	public LocalDateTime getPt_ticket_expire() {
-		return pt_ticket_expire;
+	public int getTicket_duration() {
+		return ticket_duration;
 	}
-	public void setPt_ticket_expire(LocalDateTime pt_ticket_expire) {
-		this.pt_ticket_expire = pt_ticket_expire;
+	public void setTicket_duration(int ticket_duration) {
+		this.ticket_duration = ticket_duration;
 	}
-	public int getPt_ticket_amount() {
-		return pt_ticket_amount;
+	public boolean isTicket_isactive() {
+		return ticket_isactive;
 	}
-	public void setPt_ticket_amount(int pt_ticket_amount) {
-		this.pt_ticket_amount = pt_ticket_amount;
+	public void setTicket_isactive(boolean ticket_isactive) {
+		this.ticket_isactive = ticket_isactive;
 	}
 }

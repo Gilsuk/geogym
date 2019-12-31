@@ -9,7 +9,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.geogym.payment.exception.CoinNotEnoughException;
+import com.geogym.payment.exception.CashNotEnoughException;
 import com.geogym.payment.service.CoinService;
 import com.geogym.payment.service.PaymentLogService;
 import com.geogym.payment.service.TicketService;
@@ -36,7 +36,7 @@ public class MatchingServiceImpl implements MatchingService {
 	@Autowired PaymentLogService paymentLogService;
 	
 	@Override
-	public void match(User user, Schedule schedule) throws MatchingNotAvailable, CoinNotEnoughException {
+	public void match(User user, Schedule schedule) throws MatchingNotAvailable, CashNotEnoughException {
 		
 		try {
 			if(tickectService.hasPTTicket(user, schedule.getTrainer())) {

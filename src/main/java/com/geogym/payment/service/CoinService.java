@@ -3,7 +3,7 @@ package com.geogym.payment.service;
 import java.util.List;
 
 import com.geogym.payment.dto.CoinChangesInfo;
-import com.geogym.payment.exception.CoinNotEnoughException;
+import com.geogym.payment.exception.CashNotEnoughException;
 import com.geogym.qna.dto.Paging;
 import com.geogym.user.dto.User;
 
@@ -26,7 +26,7 @@ public interface CoinService {
 	 * @param amount - 소비될 코인의 양
 	 * @param user - 코인을 소비할 유저 객체
 	 */
-	void payByCoin(int amount, User user) throws CoinNotEnoughException;
+	void payByCoin(int amount, User user) throws CashNotEnoughException;
 	
 	// 충전
 	// 환불

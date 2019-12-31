@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.geogym.payment.dao.CoinDao;
 import com.geogym.payment.dto.CoinChangesInfo;
-import com.geogym.payment.exception.CoinNotEnoughException;
+import com.geogym.payment.exception.CashNotEnoughException;
 import com.geogym.payment.service.CoinService;
 import com.geogym.qna.dto.Paging;
 import com.geogym.user.dto.User;
@@ -30,7 +30,7 @@ public class CoinServiceImpl implements CoinService {
 	}
 
 	@Override
-	public void payByCoin(int amount, User user) throws CoinNotEnoughException {
+	public void payByCoin(int amount, User user) throws CashNotEnoughException {
 		// TODO Auto-generated method stub
 
 	}
