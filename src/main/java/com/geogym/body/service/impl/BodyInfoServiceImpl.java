@@ -55,9 +55,34 @@ public class BodyInfoServiceImpl implements BodyInfoService{
 	}
 
 	@Override
-	public List<BodyInfo> getBodyInfosByPeriod(User user, PeriodDate period) throws TooLongPeriodException {
-		// TODO Auto-generated method stub
-		return null;
+	public List<BodyInfo> getWeightByWeek(User user) {
+		List<BodyInfo> list = new ArrayList<BodyInfo>();
+		
+		for (int i = 0; i < 54; i++) {
+			LocalDate localDate = LocalDate.now().minusWeeks(i);
+			BodyInfo bodyInfo = getBodyInfosByWeek(user, localDate);
+			if(bodyInfo!=null) 
+			list.add(bodyInfo);
+		}
+		
+		Gson gson = new Gson();
+		
+//		차트에 데이터 넣기 (2차원 배열 사용)
+		ArrayList arr = new ArrayList();
+		ArrayList tmp = new ArrayList();
+
+		for(BodyInfo b : list) {
+			ArrayList a = new ArrayList();
+			
+			a.add("new Date(" + b.getBodyinfo_date().getYear()
+					+ "," + b.getBodyinfo_date().getMonthValue()
+					+ "," + b.getBodyinfo_date().getDayOfMonth()
+					+ ")");
+			a.add(b.getBodyinfo_weight());
+			
+			arr.add(a);
+		}
+		return arr;
 	}
 
 	@Override
@@ -85,7 +110,6 @@ public class BodyInfoServiceImpl implements BodyInfoService{
 					+ "," + b.getBodyinfo_date().getMonthValue()
 					+ "," + b.getBodyinfo_date().getDayOfMonth()
 					+ ")");
-			a.add(b.getBodyinfo_weight());
 			a.add(b.getBodyinfo_muscle());
 			a.add(b.getBodyinfo_fat());
 			
@@ -101,6 +125,38 @@ public class BodyInfoServiceImpl implements BodyInfoService{
 		map.put("date", localDate.toString());
 		
 		return bodyInfoDao.selectBodyInfoByWeek(map);
+	}
+	
+	@Override
+	public List<BodyInfo> getWeightByMonth(User user) {
+		List<BodyInfo> list = new ArrayList<BodyInfo>();
+		
+		for (int i = 0; i < 54; i++) {
+			LocalDate localDate = LocalDate.now().minusMonths(i);
+			BodyInfo bodyInfo = getBodyInfosByMonth(user, localDate);
+			if(bodyInfo!=null) 
+			list.add(bodyInfo);
+		}
+		
+		Gson gson = new Gson();
+		
+//		차트에 데이터 넣기 (2차원 배열 사용)
+		ArrayList arr = new ArrayList();
+		ArrayList tmp = new ArrayList();
+
+		for(BodyInfo b : list) {
+			ArrayList a = new ArrayList();
+			
+			a.add("new Date(" + b.getBodyinfo_date().getYear()
+					+ "," + b.getBodyinfo_date().getMonthValue()
+					+ "," + b.getBodyinfo_date().getDayOfMonth()
+					+ ")");
+			a.add(b.getBodyinfo_weight());
+
+			
+			arr.add(a);
+		}
+		return arr;
 	}
 
 	@Override
@@ -128,7 +184,6 @@ public class BodyInfoServiceImpl implements BodyInfoService{
 					+ "," + b.getBodyinfo_date().getMonthValue()
 					+ "," + b.getBodyinfo_date().getDayOfMonth()
 					+ ")");
-			a.add(b.getBodyinfo_weight());
 			a.add(b.getBodyinfo_muscle());
 			a.add(b.getBodyinfo_fat());
 			
@@ -171,6 +226,69 @@ public class BodyInfoServiceImpl implements BodyInfoService{
 		bodyInfoDao.deleteBodyCommentary(bodyinfo);
 
 		
+	}
+
+	@Override
+	public List<BodyInfo> getHeightByWeek(User user) {
+		List<BodyInfo> list = new ArrayList<BodyInfo>();
+		
+		for (int i = 0; i < 54; i++) {
+			LocalDate localDate = LocalDate.now().minusWeeks(i);
+			BodyInfo bodyInfo = getBodyInfosByWeek(user, localDate);
+			if(bodyInfo!=null) 
+			list.add(bodyInfo);
+		}
+		
+		Gson gson = new Gson();
+		
+//		차트에 데이터 넣기 (2차원 배열 사용)
+		ArrayList arr = new ArrayList();
+		ArrayList tmp = new ArrayList();
+
+		for(BodyInfo b : list) {
+			ArrayList a = new ArrayList();
+			
+			a.add("new Date(" + b.getBodyinfo_date().getYear()
+					+ "," + b.getBodyinfo_date().getMonthValue()
+					+ "," + b.getBodyinfo_date().getDayOfMonth()
+					+ ")");
+			a.add(b.getBodyinfo_height());
+			
+			arr.add(a);
+		}
+		return arr;
+	}
+
+	@Override
+	public List<BodyInfo> getHeightByMonth(User user) {
+		List<BodyInfo> list = new ArrayList<BodyInfo>();
+		
+		for (int i = 0; i < 54; i++) {
+			LocalDate localDate = LocalDate.now().minusMonths(i);
+			BodyInfo bodyInfo = getBodyInfosByMonth(user, localDate);
+			if(bodyInfo!=null) 
+			list.add(bodyInfo);
+		}
+		
+		Gson gson = new Gson();
+		
+//		차트에 데이터 넣기 (2차원 배열 사용)
+		ArrayList arr = new ArrayList();
+		ArrayList tmp = new ArrayList();
+
+		for(BodyInfo b : list) {
+			ArrayList a = new ArrayList();
+			
+			a.add("new Date(" + b.getBodyinfo_date().getYear()
+					+ "," + b.getBodyinfo_date().getMonthValue()
+					+ "," + b.getBodyinfo_date().getDayOfMonth()
+					+ ")");
+			a.add(b.getBodyinfo_height());
+
+			
+			arr.add(a);
+		}
+		return arr;
 	}
 	
 }

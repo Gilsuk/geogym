@@ -33,8 +33,10 @@ public interface BodyInfoService {
 	/**
 	 * Period 대신 paging으로 처리하는 것도 고려해봄직
 	 */
-	List<BodyInfo> getBodyInfosByPeriod(User user, PeriodDate period)
-			throws TooLongPeriodException;
+	List<BodyInfo> getHeightByWeek(User user);
+	List<BodyInfo> getWeightByWeek(User user);
+	List<BodyInfo> getHeightByMonth(User user);
+	List<BodyInfo> getWeightByMonth(User user);
 
 	/**
 	 * 주마다 한 건씩 조회한다.

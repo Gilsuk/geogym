@@ -13,6 +13,14 @@ src="http://code.jquery.com/jquery-2.2.4.min.js"></script>
 
 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 <script type="text/javascript">
+//키 정보 슬라이드토글
+$(document).ready(function(){
+	$('#heightInfo').click(function() {
+		$('#chart_div_height').slideToggle("slow");
+	});
+});
+</script>
+<script type="text/javascript">
 
 	$(document).on('click','#inputBodyInfo', function(){
 		window.open('http://localhost:8090/info/inputBodyInfo','window','width=400, height=500');
@@ -35,7 +43,75 @@ function deleteInfo(){
 
 
 <script type="text/javascript">
+google.charts.load('current', {packages: ['corechart', 'line']});
+google.charts.setOnLoadCallback(drawLineColors);
 
+console.log(${weightInfo});
+function drawLineColors() {
+      var data = new google.visualization.DataTable();
+      data.addColumn('date', '측정일');
+      data.addColumn('number', '키');
+
+	
+      data.addRows(
+        ${heightInfo}
+      );
+
+      var options = {
+        hAxis: {
+          title: '측정일'
+        },
+        vAxis: {
+          title: '단위: cm'
+        },
+        width: 700,
+        height: 200
+        
+      };
+      
+      var option = {
+    	colors: ['#9F81F7']
+      };
+
+      var chart = new google.visualization.LineChart(document.getElementById('chart_div_height'));
+      chart.draw(data, options);
+
+    }
+</script>
+
+<script type="text/javascript">
+google.charts.load('current', {packages: ['corechart', 'line']});
+google.charts.setOnLoadCallback(drawLineColors);
+
+console.log(${weightInfo});
+function drawLineColors() {
+      var data = new google.visualization.DataTable();
+      data.addColumn('date', '측정일');
+      data.addColumn('number', '몸무게');
+
+	
+      data.addRows(
+        ${weightInfo}
+      );
+
+      var options = {
+        hAxis: {
+          title: '측정일'
+        },
+        vAxis: {
+          title: '단위: kg'
+        },
+        width: 700,
+        height: 200
+        
+      };
+
+      var chart = new google.visualization.LineChart(document.getElementById('chart_div_weight'));
+      chart.draw(data, options);
+
+    }
+</script>
+<script type="text/javascript">
 google.charts.load('current', {packages: ['corechart', 'line']});
 google.charts.setOnLoadCallback(drawLineColors);
 
@@ -43,7 +119,6 @@ console.log(${list});
 function drawLineColors() {
       var data = new google.visualization.DataTable();
       data.addColumn('date', '측정일');
-      data.addColumn('number', '몸무게');
       data.addColumn('number', '골격근');
       data.addColumn('number', '체지방');
 	
@@ -59,18 +134,14 @@ function drawLineColors() {
           title: '단위: kg'
         },
         width: 700,
-        height: 500
+        height: 200
         
-//         colors: ['#a52714', '#097138', '#8000FF']
       };
 
-      var chart = new google.visualization.LineChart(document.getElementById('chart_div'));
+      var chart = new google.visualization.LineChart(document.getElementById('chart_div_etc'));
       chart.draw(data, options);
 
     }
-    
-// google.charts.load('current', {packages: ['corechart', 'line']});
-// google.charts.setOnLoadCallback(drawBackgroundColor);
 </script>
 
 
@@ -81,7 +152,7 @@ function drawLineColors() {
 <hr>
 <div style="width:500px;height:200px">
 <div id="circle" style="border-radius:50%;background-color:white; border: 2px solid gray; width: 200px;height: 200px;float: left;" >
-	<button>프로필사진등록</button>
+	<button style="margin-top:145px;margin-left:45px">프로필사진등록</button>
 </div>
 
 
@@ -95,27 +166,30 @@ function drawLineColors() {
 
 	<table style="text-align:center">
 		<tr>
-			<th>키</th>
-			<td>${bodyInfo.bodyinfo_height }</td>
+			<th style="font-size:22px">키</th>
+			<th style="font-size:22px">몸무게</th>
 		</tr>
 		<tr>
-			<th>몸무게</th>
-			<td>${bodyInfo.bodyinfo_weight }</td>
+			<td>${bodyInfo.bodyinfo_height }cm</td>
+			<td>${bodyInfo.bodyinfo_weight }kg</td>
+		</tr>
+
+		<tr>
+			<th style="font-size:22px">골격근량</th>
+			<th style="font-size:22px">체지방량</th>
 		</tr>
 		<tr>
-			<th>골격근량</th>
-			<td>${bodyInfo.bodyinfo_muscle }</td>
+			<td>${bodyInfo.bodyinfo_muscle }kg</td>
+			<td>${bodyInfo.bodyinfo_fat }kg</td>
 		</tr>
-		<tr>
-			<th>체지방량</th>
-			<td>${bodyInfo.bodyinfo_fat }</td>
-		</tr>
+
 	</table><br>
 
 <fieldset style="width:300px">
 <legend>특이사항</legend>
 <textarea rows="10" cols="40" readonly="readonly" disabled>${bodycomment.body_comment_msg }</textarea>
-<small style="color:grey">마지막입력 : ${bodycomment.body_comment_date }</small>
+<fmt:parseDate value="${bodycomment.body_comment_date }" pattern="yyyy-MM-dd'T'HH:mm" var="parsedDateTime" type="both" />
+<small style="color:grey">마지막입력 : <fmt:formatDate pattern="yyyy-MM-dd HH:mm" value="${ parsedDateTime }" /></small>
 </fieldset><br>
 
 	
@@ -128,8 +202,11 @@ function drawLineColors() {
 	</select>
 	<button id="btnSelect" class="btn">조회</button>
 </form>
+	<button id="heightInfo">키 정보 보기</button>
 
-  <div id="chart_div"></div>
+  <div id="chart_div_height" style="display:none"></div>
+  <div id="chart_div_weight"></div>
+  <div id="chart_div_etc"></div>
 
 </body>
 </html>

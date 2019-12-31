@@ -58,9 +58,14 @@ public class BodyController {
 //		1주일 단위로 불러오기
 		if(select.equals("week")) {
 			List<BodyInfo> bodyInfoByWeek = bodyInfoService.getBodyInfosByWeek(user1);
+			List<BodyInfo> weightInfoByWeek = bodyInfoService.getWeightByWeek(user1);
+			List<BodyInfo> heightInfoByWeek = bodyInfoService.getHeightByWeek(user1);
+
 //			logger.info(bodyInfoByWeek.toString());
 			
 			model.addAttribute("list",bodyInfoByWeek);
+			model.addAttribute("weightInfo", weightInfoByWeek);
+			model.addAttribute("heightInfo", heightInfoByWeek);
 			return;
 		}
 		
@@ -68,9 +73,13 @@ public class BodyController {
 		if(select.equals("month")) {
 			
 			List<BodyInfo> bodyInfoByMonth = bodyInfoService.getBodyInfosByMonth(user1);
+			List<BodyInfo> weightInfoByMonth = bodyInfoService.getWeightByMonth(user1);
+			List<BodyInfo> heightInfoByMonth = bodyInfoService.getHeightByMonth(user1);
 //			logger.info(bodyInfoByMonth.toString());
 			
 			model.addAttribute("list", bodyInfoByMonth);
+			model.addAttribute("weightInfo", weightInfoByMonth);
+			model.addAttribute("heightInfo", heightInfoByMonth);
 			return;
 		}		
 		
