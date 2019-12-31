@@ -3,7 +3,6 @@ package com.geogym.attachment.service;
 import java.util.List;
 
 import org.springframework.web.multipart.MultipartFile;
-
 import com.geogym.attachment.dto.Attachment;
 import com.geogym.body.dto.BodyInfo;
 import com.geogym.memo.dto.TrainingMemo;
@@ -21,12 +20,47 @@ public interface AttachmentService {
 	/**
 	 * 파일을 업로드 한다.
 	 * 
+	 * 그냥 사용해서는 안됨.
+	 * 반드시 각각의 전용 업로드 서비스를 이용해야 한다. 
 	 *  
 	 * @param multipartFile - multipartFile 타입의 파일을 업로드하고 attachment 형식으로 DB에 저장한다
 	 * attachment_no는 시퀀스를 통해 얻어온다
 	 * @return - 저장한 attachment 를 리턴한다
 	 */
 	Attachment upload(MultipartFile multipartFile);
+	
+	/**
+	 * 
+	 * qna 전용 파일업로드
+	 * 
+	 * 반드시 이것을 사용할것
+	 * 
+	 * @param files - 배열로 입력해야 한다
+	 * @param qna - qna 번호가 포함되어야 한다
+	 * @return List<Attachment> 를 리턴한다
+	 */
+	List<Attachment> fileUpload(MultipartFile[] files, Qna qna);
+	
+	/**
+	 * qnaAnswer 전용 파일업로드 
+	 * 반드시 이것을 사용할것
+	 * 
+	 * @param files - 배열로 입력해야 한다
+	 * @param qnaAnswer 번호가 포함되어야 한다
+	 * @return List<Attachment> 를 리턴한다
+	 */
+	List<Attachment> fileUpload(MultipartFile[] files, QnaAnswer qnaAnswer);
+	
+	/**
+	 * bodyInfo 전용 파일업로드 
+	 * 반드시 이것을 사용할것
+	 * 
+	 * @param files - 배열로 입력해야 한다
+	 * @param bodyInfo 번호가 포함되어야 한다
+	 * @return List<Attachment> 를 리턴한다
+	 */
+	List<Attachment> fileUpload(MultipartFile[] files, BodyInfo bodyInfo);
+	
 	
 	/**
 	 * 시퀀스 nextval
@@ -36,6 +70,7 @@ public interface AttachmentService {
 	/**
 	 * 연결된 업로드 파일 조회
 	 * Qna_no를 기준으로 조회
+	 * 
 	 * @param 게시글 번호가 포함된 qna dto
 	 * @return 업로드 파일 리스트 반환. 조회 결과가 없다면, 비어있는 리스트를 반환한다.
 	 */
@@ -44,6 +79,7 @@ public interface AttachmentService {
 	/**
 	 * 연결된 업로드 파일 조회
 	 * QnaAnswer_no를 기준으로 조회
+	 * 
 	 * @param 게시글 번호가 포함된 qnaAnswer dto
 	 * @return 업로드 파일 리스트 반환. 조회 결과가 없다면, 비어있는 리스트를 반환한다.
 	 */
@@ -52,6 +88,8 @@ public interface AttachmentService {
 	/**
 	 * 연결된 업로드 파일 조회
 	 * bodyinfo_no를 기준으로 조회
+
+	 * 
 	 * @param 고유 번호가 포함된 BodyInfo dto
 	 * @return 업로드 파일 리스트 반환. 조회 결과가 없다면, 비어있는 리스트를 반환한다.
 	 */
@@ -113,5 +151,22 @@ public interface AttachmentService {
 	 * 상동
 	 */
 	void removeAttachment(TrainingMemo trainingMemo);
+
+
+	/**
+	 * 파일 다중 업로드
+	 * 
+	 * 그냥 사용해서는 안됨.
+	 * 반드시 각각의 전용 업로드 서비스를 이용해야 한다. 
+	 * 
+	 * @param files - 멀티파트파일 여러개
+	 * @return List<Attachment> 를 리턴한다
+	 */
+	List<Attachment> upload2(MultipartFile[] files);
+
+
+
+
+
 	
 }

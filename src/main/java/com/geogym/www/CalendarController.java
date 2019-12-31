@@ -1,8 +1,6 @@
 package com.geogym.www;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -18,9 +16,13 @@ import com.geogym.calendar.dto.Calendar_Memo;
 import com.geogym.calendar.dto.Day;
 import com.geogym.calendar.dto.Holiday;
 import com.geogym.calendar.service.CalendarService;
+
 import com.geogym.user.dto.User;
 import com.geogym.user.exception.UserNotFoundException;
 import com.geogym.user.service.UserService;
+
+import com.geogym.schedule.service.BusinessDayService;
+
 import com.google.gson.Gson;
 
 @Controller

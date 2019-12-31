@@ -3,6 +3,7 @@ package com.geogym.pt.service;
 import java.time.LocalDate;
 import java.util.List;
 
+import com.geogym.payment.exception.CoinNotEnoughException;
 import com.geogym.pt.dto.PT;
 import com.geogym.pt.exception.LessThanOneHourException;
 import com.geogym.pt.exception.MatchingNotAvailable;
@@ -18,7 +19,7 @@ public interface MatchingService {
 	 * @param schedule
 	 * @throws MatchingNotAvailable 시간차로 먼저 예약이 잡힌 경우
 	 */
-	void match(User user, Schedule schedule) throws MatchingNotAvailable;
+	void match(User user, Schedule schedule) throws MatchingNotAvailable, CoinNotEnoughException;
 	
 	/**
 	 * 회원과 트레이너 일정에서 각각 삭제

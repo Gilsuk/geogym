@@ -29,7 +29,7 @@ resultType="com.geogym.payment.dto.PTTicket">
 <select id="selectPTTicketInList" parameterType="com.geogym.user.dto.User" resultType="com.geogym.payment.dto.PTTicket">
 	SELECT user_no AS `user.user_no`, trainer_no AS `trainer.trainer_no`,
 	pt_ticket_expire, pt_ticket_amount FROM pt_ticket
-	WHERE user_no = #{user.user_no}
+	WHERE user_no = #{user_no}
 </select>
 
 <update id="updatePTTicket" parameterType="com.geogym.payment.dto.PTTicket">
@@ -40,7 +40,7 @@ resultType="com.geogym.payment.dto.PTTicket">
 	AND trainer_no = #{trainer.trainer_no}
 </update>
 
-<insert id="insertPTTicket">
+<insert id="insertPTTicket" parameterType="com.geogym.payment.dto.PTTicket">
 	INSERT INTO pt_ticket (user_no, trainer_no, pt_ticket_expire, pt_ticket_amount)
 	VALUES (#{user.user_no}, #{trainer.trainer_no}, #{pt_ticket_expire}, #{pt_ticket_amount})
 </insert>

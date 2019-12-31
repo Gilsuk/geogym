@@ -4,12 +4,11 @@ import java.util.HashMap;
 import java.util.List;
 
 import com.geogym.payment.dto.PTTicket;
-import com.geogym.payment.dto.Ticket;
 import com.geogym.user.dto.User;
 
 public interface TicketDao {
 
-	Ticket selectPTTicket(Ticket ticket);
+	PTTicket selectPTTicket(PTTicket ticket);
 
 	int selectCountUser(HashMap<String, Object> map);
 

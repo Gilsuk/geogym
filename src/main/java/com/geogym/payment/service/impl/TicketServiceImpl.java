@@ -10,9 +10,7 @@ import org.springframework.stereotype.Service;
 
 import com.geogym.payment.dao.TicketDao;
 import com.geogym.payment.dto.PTTicket;
-import com.geogym.payment.dto.Ticket;
 import com.geogym.payment.dto.TicketChangesInfo;
-import com.geogym.payment.exception.TicketNotEnoughException;
 import com.geogym.payment.service.TicketService;
 import com.geogym.qna.dto.Paging;
 import com.geogym.schedule.exception.InvalidParamException;
@@ -28,7 +26,7 @@ public class TicketServiceImpl implements TicketService {
 	@Override
 	public boolean hasPTTicket(User user, Trainer trainer) throws InvalidParamException {
 
-		Ticket ticket = new Ticket();
+		PTTicket ticket = new PTTicket();
 		ticket.setUser(user);
 		ticket.setTrainer(trainer);
 
@@ -37,12 +35,10 @@ public class TicketServiceImpl implements TicketService {
 		try {
 			if (ticket.getPt_ticket_expire().isAfter(LocalDateTime.now()) && ticket.getPt_ticket_amount() > 0) {
 	
-				System.out.println(ticket);
-	
 				return true;
 			}
 		} catch (NullPointerException e) {
-			throw new InvalidParamException();
+			return false;
 		}
 		return false;
 
@@ -52,24 +48,6 @@ public class TicketServiceImpl implements TicketService {
 	public List<PTTicket> getTicketList(User user) {
 		
 		return ticketDao.selectPTTicketInList(user);
-	}
-
-	@Override
-	public List<TicketChangesInfo> getListTicketChangesInfo(User user, Paging paging) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public void payByTicket(User user, Trainer trainer) throws TicketNotEnoughException {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void refundTicket(User user, Trainer trainer) {
-		// TODO Auto-generated method stub
-
 	}
 
 	@Override
@@ -112,5 +90,22 @@ public class TicketServiceImpl implements TicketService {
 		ticketDao.insertPTTicket(ptTicket);
 		
 		return;
+	}
+	
+	@Override
+	public List<TicketChangesInfo> getListTicketChangesInfo(User user, Paging paging) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void payByTicket(User user, Trainer trainer){
+		// TODO Auto-generated method stub
+	}
+
+	@Override
+	public void refundPTTicket(User user, Trainer trainer) {
+		// TODO Auto-generated method stub
+
 	}
 }

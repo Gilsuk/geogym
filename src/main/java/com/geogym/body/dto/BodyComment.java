@@ -2,7 +2,7 @@ package com.geogym.body.dto;
 
 import java.time.LocalDateTime;
 
-public class BodyCommentary {
+public class BodyComment {
 	
 	private int body_comment_no;
 	private int bodyinfo_no;

@@ -22,6 +22,8 @@ import com.geogym.trainer.dao.TrainerDao;
 import com.geogym.trainer.dto.T_reputation;
 import com.geogym.trainer.dto.Trainer;
 import com.geogym.user.dto.User;
+import com.geogym.user.exception.UserNotFoundException;
+import com.geogym.user.service.UserService;
 
 
 @Service
@@ -29,10 +31,10 @@ public class TrainerServiceImpl implements TrainerService {
 	
 	private static final Logger logger = LoggerFactory.getLogger(TrainerServiceImpl.class);
 
-	
+	@Autowired UserService userService;
 	@Autowired TrainerDao trainerDao;
 	@Autowired SequenceService seqService;
-	AttachmentService attachmentService = new AttachmentServiceImpl();
+	@Autowired AttachmentService attachmentService;
 
 
 	@Override
@@ -49,15 +51,18 @@ public class TrainerServiceImpl implements TrainerService {
 	/**
 	 * 트레이너 생성
 	 * 
+	 * 서비스에서 서비스를 가져다 사용할 수 없는 문제있음.
+	 *  
+	 * 
 	 * @param trainer - 트레이너 정보를 생성한다
 	 * @param multipartFile - 트레이너 사진
 	 */
 	@Override
-	public void insertTrainer(Trainer trainer, MultipartFile multipartFile) {
+	public void insertTrainer(Trainer trainer, MultipartFile file) {
 		// TODO Auto-generated method stub
 		
 		
-		trainer.setAttachment(attachmentService.upload(multipartFile));
+		trainer.setAttachment(attachmentService.upload(file));
 		
 		trainerDao.insertTrainer(trainer);
 		
@@ -82,6 +87,7 @@ public class TrainerServiceImpl implements TrainerService {
 		if (file == null) {
 			trainer.setAttachment(trainer2.getAttachment());
 		}else {
+			attachmentService.removeAttachment(trainer);
 			trainer.setAttachment(attachmentService.upload(file));
 		}
 		if (trainer.getTrainer_address() == null) {
@@ -215,16 +221,29 @@ public class TrainerServiceImpl implements TrainerService {
 		
 	}
 
-	@Override
-	public boolean checkTrainer(Trainer trainer) {
-		// TODO Auto-generated method stub
-		if (trainerDao.countUserNo(trainer) >= 1) {
-			
-			return true;
-		}
-		
-		return false;
-	}
+//	@Override
+//	public boolean checkTrainer(Trainer trainer) {
+//		// TODO Auto-generated method stub
+//		User user = new User();
+//		
+//		user.setUser_no(trainer.getUser_no());
+//		try {
+//			if (userService.getUserByUserno(user) != null) {
+//				if (trainerDao.countUserNo(trainer) >= 1) {
+//					
+//					return true;
+//				}
+//				
+//			}
+//		} catch (UserNotFoundException e) {
+//			// TODO Auto-generated catch block
+//			return true;
+//		}
+//		
+//		
+//		return false;
+//	구버전용
+//	}
 
 
 
