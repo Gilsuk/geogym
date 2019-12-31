@@ -1,10 +1,13 @@
 package com.geogym.memo.service.impl;
 
 import java.time.LocalDate;
+import java.util.HashMap;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.geogym.memo.dao.CalendarMemoDao;
 import com.geogym.memo.dto.CalendarMemo;
 import com.geogym.memo.service.CalendarMemoService;
 import com.geogym.message.dto.Message;
@@ -17,10 +20,14 @@ import com.geogym.user.dto.User;
 @Service
 public class CalendarMemoServiceImpl implements CalendarMemoService{
 
+	@Autowired CalendarMemoDao calendarMemoDao;
+	
 	@Override
 	public void addMemo(User user, CalendarMemo memo) throws MemoAlreadyExistException {
-		// TODO Auto-generated method stub
 		
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		
+		calendarMemoDao.insertMemo(map);
 	}
 
 	@Override

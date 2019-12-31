@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="com.geogym.memo.dao.CalendarMemoDao">
+
+<insert id="insertMemo" parameterType="hashmap">
+	INSERT INTO calendar_memo ( user_no, calendar_memo_date, calendar_memo_content )
+	VALUES ( #{user.user_no}, #{calendar_memo_date}, #{calendar_memo_content} )
+</insert>
+
+
+</mapper>

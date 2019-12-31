@@ -112,7 +112,7 @@ public class ScheduleServiceImpl implements ScheduleService {
 		pt.setUser(user);
 		pt.setSchedule_no(nextVal);
 		pt.setPt_type_no(2);
-
+		
 		scheduleDao.insertPTSchedule(pt);
 		
 		Message message = new Message();

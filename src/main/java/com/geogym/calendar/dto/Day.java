@@ -7,9 +7,19 @@ public class Day {
 	private boolean isHoliday;
 	private String name;
 	private String day;
+	private String content;
+
 	@Override
 	public String toString() {
-		return "Day [date=" + date + ", isHoliday=" + isHoliday + ", name=" + name + ", day=" + day + "]";
+		return "Day [date=" + date + ", isHoliday=" + isHoliday + ", name=" + name + ", day=" + day + ", content="
+				+ content + "]";
+	}
+	
+	public String getContent() {
+		return content;
+	}
+	public void setContent(String content) {
+		this.content = content;
 	}
 	public LocalDate getDate() {
 		return date;
