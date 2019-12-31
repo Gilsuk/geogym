@@ -1,0 +1,12 @@
+@charset "UTF-8";
+
+.btn {
+	border-radius: 0;
+}
+
+.btn-primary {
+	background-color: red;
+	background-image: none;
+	
+}
+

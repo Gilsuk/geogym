@@ -10,9 +10,7 @@ import java.net.URL;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -31,10 +29,11 @@ import org.w3c.dom.NodeList;
 import org.xml.sax.InputSource;
 
 import com.geogym.calendar.dao.CalendarDao;
+import com.geogym.calendar.dto.Calendar_Memo;
 import com.geogym.calendar.dto.Day;
 import com.geogym.calendar.dto.Holiday;
 import com.geogym.calendar.service.CalendarService;
-import com.geogym.www.CalendarController;
+import com.geogym.schedule.dto.BusinessDay;
 @Service
 public class CalendarServiceImpl implements CalendarService {
 	
@@ -208,6 +207,9 @@ public class CalendarServiceImpl implements CalendarService {
 		
 		List<Holiday> holidayList = calendarDao.selectholiday();
 		
+		//business_day 조회 
+		List<BusinessDay> businessDayList = calendarDao.selectbusiness();
+		
 		
 		for (int i = 0; i < list.size(); i++) {
 			for (int j = 0; j < holidayList.size(); j++) {
@@ -216,11 +218,58 @@ public class CalendarServiceImpl implements CalendarService {
 					list.get(i).setName(holidayList.get(j).getHoliday_name());
 				}
 				
-				
+			
 			}
 		}
+		
+		
+		
+		
+//		for (int i = 0; i < list.size(); i++) {
+//			for (int j = 0; j < businessDayList.size(); j++) {
+//				if(!(list.get(i).getDate().isEqual(businessDayList.get(j).getBusiness_day_date()))) {
+//					
+//					list.get(i).setContent("break");
+//					i++;
+//				}
+//	
+//			}
+//		}
+		
+		
+		
+		
 		
 		return list;
 	}
 
+	
+	@Override
+	public void insertMemo(Calendar_Memo calendar_Memo) {
+		
+		calendarDao.deletememo(calendar_Memo);
+		calendarDao.insertmemo(calendar_Memo);
+		
+	}
+	
+	@Override
+	public List<Calendar_Memo> memoList() {
+		// TODO Auto-generated method stub
+		return calendarDao.selectmemo();
+	}
+	
+	
+	
+	@Override
+	public Calendar_Memo memoview(Calendar_Memo calendar_Memo) {
+		// TODO Auto-generated method stub
+		return calendarDao.memoview(calendar_Memo);
+	}
+	
+	@Override
+	public void updatememo(Calendar_Memo calendar_Memo) {
+		// TODO Auto-generated method stub
+		calendarDao.updatememo(calendar_Memo);
+	}
+	
 }

@@ -12,10 +12,17 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.geogym.calendar.dto.CalendarDto;
+import com.geogym.calendar.dto.Calendar_Memo;
 import com.geogym.calendar.dto.Day;
 import com.geogym.calendar.dto.Holiday;
 import com.geogym.calendar.service.CalendarService;
+
+import com.geogym.user.dto.User;
+import com.geogym.user.exception.UserNotFoundException;
+import com.geogym.user.service.UserService;
+
 import com.geogym.schedule.service.BusinessDayService;
+
 import com.google.gson.Gson;
 
 @Controller
@@ -23,7 +30,8 @@ public class CalendarController {
 
 	private static final Logger logger = LoggerFactory.getLogger(CalendarController.class);
 	@Autowired CalendarService calendarService;
-	@Autowired BusinessDayService businessDayService;
+	@Autowired private UserService userServ;
+
 	
 	@RequestMapping(value = "/calendar/set", method = RequestMethod.GET)
 	public void  getSpecialDate(Model model) {
@@ -68,16 +76,56 @@ public class CalendarController {
 		
 		model.addAttribute("listDay", new Gson().toJson(listDay));
 		
-		//영업시간 
-//		List<BusinessDay> listWorking = businessDayService.getWorkingTimeInfos(date);
-		
-		
 		
 
 	}
 	
 	
+	@RequestMapping(value="/calendar/memo",method = RequestMethod.GET)
+	public void calendarmemo() {
+		
+	}
 	
 	
+	@RequestMapping(value="/calendar/memo",method = RequestMethod.POST)
+	public String calendarmemoProc(Calendar_Memo calendar_Memo) {
+		User loggedInUser=null;
+		try {
+			loggedInUser = userServ.getLoggedInUser();
+		} catch (UserNotFoundException e) {
+			// TODO Auto-generated catch block
+//			e.printStackTrace();
+			return "redirect:/test/user/login";
+		}
+		int user_no =loggedInUser.getUser_no();
+		calendar_Memo.setUser_no(user_no);
+		calendarService.insertMemo(calendar_Memo);
+		
+		return "redirect:/calendar/memo";
+		
+	}
 	
+	@RequestMapping(value="/calendar/list",method = RequestMethod.GET)
+	public void calendarmemolist(Model model) {
+		List<Calendar_Memo> memolist = calendarService.memoList();
+		logger.info(memolist.toString());
+	}
+	
+	
+	@RequestMapping(value="/calendar/update",method = RequestMethod.GET)
+	public void calendarmemoupdate(Calendar_Memo calendar_Memo,Model model) {
+		
+		calendar_Memo = calendarService.memoview(calendar_Memo);
+		model.addAttribute("calendar_Memo", calendar_Memo);
+		
+		
+	}
+	
+	@RequestMapping(value="/calendar/update",method = RequestMethod.POST)
+	public String calendarmemoupdateProc(Calendar_Memo calendar_Memo) {
+			calendarService.updatememo(calendar_Memo);
+			
+		
+		return "redirect:/calendar/list";
+	}
 }
