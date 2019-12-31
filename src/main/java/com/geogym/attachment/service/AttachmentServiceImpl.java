@@ -97,6 +97,9 @@ public class AttachmentServiceImpl implements AttachmentService, ServletContextA
 		}else if (filname.substring(filname.indexOf(".")+1).equals("mp4")) {
 			attachment.setMime_no(8);		
 			attachmentDao.upload(attachment);
+		}else if (filname.substring(filname.indexOf(".")+1).equals("jpg")) {
+			attachment.setMime_no(9);
+			attachmentDao.upload(attachment);
 		}else {
 			logger.info("확장자 없음");
 			return null;

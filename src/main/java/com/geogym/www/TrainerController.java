@@ -85,7 +85,7 @@ public class TrainerController {
 		
 		trainer.setAttachment(attachmentService.upload(file));		
 		
-		System.out.println(trainer);
+//		System.out.println(trainer);
 //		try {
 //			User loggedInUser = userService.getLoggedInUser();			
 //			trainer.setUser_no(loggedInUser.getUser_no());
