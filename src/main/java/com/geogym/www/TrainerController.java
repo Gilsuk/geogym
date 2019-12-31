@@ -108,17 +108,17 @@ public class TrainerController {
 	@RequestMapping(value = "/trainer/update", method = RequestMethod.GET)
 		private String updateTrainer() {
 		
-		try {
-			User loggedInUser = userService.getLoggedInUser();
-			if (userService.isTrainer(loggedInUser)) {
+//		try {
+//			User loggedInUser = userService.getLoggedInUser();
+//			if (userService.isTrainer(loggedInUser)) {
 				return null;
-			}else {
-				return "redirect:/user/main";
-			}
-		} catch (UserNotFoundException e) {
-			// TODO Auto-generated catch block
-			return "redirect:/user/main";
-		}
+//			}else {
+//				return "redirect:/user/main";
+//			}
+//		} catch (UserNotFoundException e) {
+//			// TODO Auto-generated catch block
+//			return "redirect:/user/main";
+//		}
 		
 	}
 
@@ -128,16 +128,16 @@ public class TrainerController {
 		logger.info("updateTrainer");
 
 		// 이부분은 테스트용
-		Trainer trainer2 = new Trainer();
-		trainer2.setTrainer_no(2);
-		trainer2.setUser_no(2);
-		trainer2.setTrainer_address("addredd");
-		trainer2.setTrainer_price(1);
-		trainer2.setTrainer_profile("profile");
+//		Trainer trainer2 = new Trainer();
+//		trainer2.setTrainer_no(2);
+//		trainer2.setUser_no(2);
+//		trainer2.setTrainer_address("addredd");
+//		trainer2.setTrainer_price(1);
+//		trainer2.setTrainer_profile("profile");
 
-		trainerService.updateTrainer(trainer2, file);
+		trainerService.updateTrainer(trainer, file);
 
-		System.out.println(trainer2);
+//		System.out.println(trainer2);
 		logger.info("성공");
 
 	}

@@ -10,7 +10,7 @@
 <h1>insert trainer </h1>
 
 
-<form action="/trainer/insert" method="post" enctype="multipart/form-data">
+<form action="/trainer/update" method="post" enctype="multipart/form-data">
 <label>setTrainer_no :</label> <input type="number" name="trainer_no" id="trainer_no" required="required" /><br>
 <label>setUser_no :</label> <input type="number" name="user_no" id="user_no" required="required" /><br>
 <label>setTrainer_address :</label> <input type="text" name="trainer_address" id="trainer_address" required="required" /><br>

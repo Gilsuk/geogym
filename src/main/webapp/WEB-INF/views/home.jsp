@@ -10,8 +10,9 @@
 </c:if>
 <div class="container">
 	<ul>
-		<li><a href="/user/login">로그인</a></li>
+		<li><a class="btn-geogym" href="/user/login">로그인</a></li>
 		<li><a href="/user/join">회원가입</a></li>
 	</ul>
 </div>
+
 <%@ include file="/WEB-INF/views/layouts/footer.jsp" %>
