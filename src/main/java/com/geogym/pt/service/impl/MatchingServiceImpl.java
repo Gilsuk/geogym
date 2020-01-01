@@ -96,12 +96,7 @@ public class MatchingServiceImpl implements MatchingService {
 	@Override
 	public boolean isSubscribedTrainer(User user, Trainer trainer) {
 		
-		boolean hasPTTicket;
-		try {
-			hasPTTicket = tickectService.hasPTTicket(user, trainer);
-		} catch (InvalidParamException e) {
-			return false;
-		}
+		boolean hasPTTicket = tickectService.hasPTTicket(user, trainer);
 		
 		return hasPTTicket;
 	}

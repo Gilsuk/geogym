@@ -20,6 +20,13 @@
 		LIMIT 1
 	</select>
 
+	<delete id="deletePTTicket"
+		parameterType="com.geogym.payment.dto.PTTicket">
+		DELETE FROM pt_ticket
+		WHERE user_no = #{user.user_no}
+		AND trainer_no = #{trainer.trainer_no}
+	</delete>
+
 	<select id="selectCountUser" parameterType="hashmap"
 		resultType="int">
 		SELECT COUNT(*) FROM pt_ticket

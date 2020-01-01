@@ -17,7 +17,6 @@ import com.geogym.payment.enumeration.Currency;
 import com.geogym.payment.enumeration.Product;
 import com.geogym.payment.service.PaymentLogService;
 import com.geogym.payment.service.TicketService;
-import com.geogym.schedule.exception.InvalidParamException;
 import com.geogym.trainer.dto.Trainer;
 import com.geogym.user.dto.User;
 
@@ -29,7 +28,7 @@ public class TicketServiceImpl implements TicketService {
 
 	
 	@Override
-	public boolean hasPTTicket(User user, Trainer trainer) throws InvalidParamException {
+	public boolean hasPTTicket(User user, Trainer trainer) {
 
 		PTTicket ticket = new PTTicket();
 		ticket.setUser(user);
@@ -38,7 +37,7 @@ public class TicketServiceImpl implements TicketService {
 		ticket = dao.selectPTTicket(ticket);
 
 		try {
-			if (ticket.getPt_ticket_expire().isAfter(LocalDateTime.now()) && ticket.getPt_ticket_amount() > 0) {
+			if (ticket.getPt_ticket_expire().isAfter(LocalDate.now()) && ticket.getPt_ticket_amount() > 0) {
 	
 				return true;
 			}
@@ -69,7 +68,7 @@ public class TicketServiceImpl implements TicketService {
 	}
 
 	@Override
-	public void issuePTTicket(PTTicket ptTicket) throws InvalidParamException {
+	public void issuePTTicket(PTTicket ptTicket) {
 		
 		if(hasPTTicket(ptTicket.getUser(), ptTicket.getTrainer())) {
 			
@@ -98,6 +97,51 @@ public class TicketServiceImpl implements TicketService {
 	}
 	
 	@Override
+	public void issuePTTicket(
+			User user, Trainer trainer, int price, Currency currency, int amount, LocalDate expiredDate) {
+		
+		
+		if (hasPTTicket(user, trainer)) {
+			renewPTTicket(user, trainer, price, currency, amount, expiredDate);
+			return;
+		}
+		
+		PTTicket ticket = new PTTicket();
+		ticket.setUser(user);
+		ticket.setPt_ticket_amount(amount);
+		ticket.setTrainer(trainer);
+		ticket.setPt_ticket_expire(expiredDate);
+		
+		try {
+			dao.deletePTTIcket(ticket);
+			dao.insertPTTicket(ticket);
+			logPay(user, price, currency);
+		} catch (Exception e) { }
+		
+	}
+	
+	@Override
+	public void renewPTTicket(User user, Trainer trainer, int price, Currency currency, int amount,
+			LocalDate expiredDate) {
+
+		PTTicket ticket = new PTTicket();
+		ticket.setUser(user);
+		ticket.setTrainer(trainer);
+
+		ticket = dao.selectPTTicket(ticket);
+		
+		int stock = ticket.getPt_ticket_amount();
+		ticket.setPt_ticket_amount(stock + amount);
+		ticket.setPt_ticket_expire(expiredDate);
+		
+		try {
+			dao.deletePTTIcket(ticket);
+			dao.insertPTTicket(ticket);
+			logPay(user, price, currency);
+		} catch (Exception e) { }
+	}
+
+	@Override
 	public void payByTicket(User user, Trainer trainer){
 		// TODO Auto-generated method stub
 	}
@@ -111,13 +155,6 @@ public class TicketServiceImpl implements TicketService {
 	@Override
 	public void issueTicket(User user, int monthLength, int price, Currency currency) {
 		LocalDate now = LocalDate.now();
-		Payment payment = new Payment();
-		payment.setCurrency(currency);
-		payment.setPay_amount(price);
-		payment.setPay_date(LocalDateTime.now());
-		payment.setProduct(Product.TICKET);
-		payment.setUser(user);
-		payLogServ.logPayment(payment);
 		
 		Ticket ticket = new Ticket();
 		ticket.setTicket_active_date(now);
@@ -125,7 +162,20 @@ public class TicketServiceImpl implements TicketService {
 		ticket.setTicket_isactive(true);
 		ticket.setUser(user);
 
-		dao.insertTicket(ticket);
+		try {
+			dao.insertTicket(ticket);
+			logPay(user, price, currency);
+		} catch (Exception e) { }
+	}
+
+	private void logPay(User user, int price, Currency currency) {
+		Payment payment = new Payment();
+		payment.setCurrency(currency);
+		payment.setPay_amount(price);
+		payment.setPay_date(LocalDateTime.now());
+		payment.setProduct(Product.TICKET);
+		payment.setUser(user);
+		payLogServ.logPayment(payment);
 	}
 	
 	@Override
@@ -168,19 +218,15 @@ public class TicketServiceImpl implements TicketService {
 		Ticket ticket = getTicket(user);
 
 		LocalDate now = LocalDate.now();
-		Payment payment = new Payment();
-		payment.setCurrency(currency);
-		payment.setPay_amount(price);
-		payment.setPay_date(LocalDateTime.now());
-		payment.setProduct(Product.TICKET);
-		payment.setUser(user);
-		payLogServ.logPayment(payment);
 		
 		int duration = ticket.getTicket_duration();
 		int days = betweenDays(now, now.plusMonths(monthLength));
 
 		ticket.setTicket_duration(duration + days);
-		dao.updateTicket(ticket);
+		try {
+			dao.updateTicket(ticket);
+			logPay(user, price, currency);
+		} catch (Exception e) { }
 
 	}
 	

@@ -28,5 +28,7 @@ public interface TicketDao {
 	Ticket selectTicketByUser(User user);
 
 	void updateTicket(Ticket ticket);
+
+	void deletePTTIcket(PTTicket ticket);
 	
 }

@@ -1,5 +1,6 @@
 package com.geogym.payment.service;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import com.geogym.payment.dto.PTTicket;
@@ -18,7 +19,7 @@ public interface TicketService {
 	 * @param ptTicket
 	 * @throws InvalidParamException
 	 */
-	void issuePTTicket(PTTicket ptTicket) throws InvalidParamException;
+	void issuePTTicket(PTTicket ptTicket);
 	
 	
 	/**
@@ -28,7 +29,7 @@ public interface TicketService {
 	 * @return
 	 * @throws InvalidParamException 
 	 */
-	boolean hasPTTicket(User user, Trainer trainer) throws InvalidParamException;
+	boolean hasPTTicket(User user, Trainer trainer);
 	
 	/**
 	 * 유저가 보유한 티켓을 반환한다.
@@ -72,5 +73,11 @@ public interface TicketService {
 	void renewTicket(User user, int monthLength, int price, Currency currency);
 
 	Ticket setExpiredDateByDuration(Ticket ticket);
+
+
+	void issuePTTicket(User user, Trainer trainer, int price, Currency currency, int amount, LocalDate expiredDate);
+
+
+	void renewPTTicket(User user, Trainer trainer, int price, Currency currency, int amount, LocalDate expiredDate);
 
 }
