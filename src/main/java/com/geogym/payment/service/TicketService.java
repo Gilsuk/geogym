@@ -4,9 +4,7 @@ import java.util.List;
 
 import com.geogym.payment.dto.PTTicket;
 import com.geogym.payment.dto.Ticket;
-import com.geogym.payment.dto.TicketChangesInfo;
 import com.geogym.payment.enumeration.Currency;
-import com.geogym.qna.dto.Paging;
 import com.geogym.schedule.exception.InvalidParamException;
 import com.geogym.trainer.dto.Trainer;
 import com.geogym.user.dto.User;
@@ -22,16 +20,6 @@ public interface TicketService {
 	 */
 	void issuePTTicket(PTTicket ptTicket) throws InvalidParamException;
 	
-	/**
-	 * 최초 발급시
-	 */
-	void issueTicket(User user, int monthLength, int price, Currency currency);
-	
-	void pauseTicket(User user);
-	
-	void continueTicket(User user);
-	
-	void renewTicket(User user, int monthLength, int price, Currency currency);
 	
 	/**
 	 * 
@@ -47,11 +35,6 @@ public interface TicketService {
 	 */
 	List<PTTicket> getPTTicketList(User user);
 	
-	/**
-	 * 티켓 사용 내역을 반환한다.
-	 */
-	List<TicketChangesInfo> getListTicketChangesInfo(User user, Paging paging);
-
 	/**
 	 * 정기권을 이용한 PT 신청시 횟수 차감
 	 * 
@@ -76,5 +59,18 @@ public interface TicketService {
 	int getCountUser(Trainer trainer);
 
 	Ticket getTicket(User user);
+
+	/**
+	 * 최초 발급시
+	 */
+	void issueTicket(User user, int monthLength, int price, Currency currency);
+	
+	void pauseTicket(User user);
+	
+	void continueTicket(User user);
+	
+	void renewTicket(User user, int monthLength, int price, Currency currency);
+
+	Ticket setExpiredDateByDuration(Ticket ticket);
 
 }

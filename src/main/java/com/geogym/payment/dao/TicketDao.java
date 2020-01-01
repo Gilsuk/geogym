@@ -26,5 +26,7 @@ public interface TicketDao {
 	void setTicketIsActiveToFalse(Ticket ticket);
 
 	Ticket selectTicketByUser(User user);
+
+	void updateTicket(Ticket ticket);
 	
 }

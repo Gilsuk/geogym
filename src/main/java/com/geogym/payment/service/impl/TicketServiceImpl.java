@@ -13,12 +13,10 @@ import com.geogym.payment.dao.TicketDao;
 import com.geogym.payment.dto.PTTicket;
 import com.geogym.payment.dto.Payment;
 import com.geogym.payment.dto.Ticket;
-import com.geogym.payment.dto.TicketChangesInfo;
 import com.geogym.payment.enumeration.Currency;
 import com.geogym.payment.enumeration.Product;
 import com.geogym.payment.service.PaymentLogService;
 import com.geogym.payment.service.TicketService;
-import com.geogym.qna.dto.Paging;
 import com.geogym.schedule.exception.InvalidParamException;
 import com.geogym.trainer.dto.Trainer;
 import com.geogym.user.dto.User;
@@ -100,12 +98,6 @@ public class TicketServiceImpl implements TicketService {
 	}
 	
 	@Override
-	public List<TicketChangesInfo> getListTicketChangesInfo(User user, Paging paging) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
 	public void payByTicket(User user, Trainer trainer){
 		// TODO Auto-generated method stub
 	}
@@ -138,7 +130,8 @@ public class TicketServiceImpl implements TicketService {
 	
 	@Override
 	public Ticket getTicket(User user) {
-		return dao.selectTicketByUser(user);
+		Ticket ticket = dao.selectTicketByUser(user);
+		return setExpiredDateByDuration(ticket);
 	}
 
 	private int betweenDays(LocalDate from, LocalDate to) {
@@ -148,6 +141,8 @@ public class TicketServiceImpl implements TicketService {
 	@Override
 	public void pauseTicket(User user) {
 		Ticket ticket = getTicket(user);
+		if (!ticket.isTicket_isactive()) return;
+
 		LocalDate date = ticket.getTicket_active_date();
 		int duration = ticket.getTicket_duration();
 		int days = betweenDays(date, LocalDate.now());
@@ -161,11 +156,8 @@ public class TicketServiceImpl implements TicketService {
 	@Override
 	public void continueTicket(User user) {
 		Ticket ticket = getTicket(user);
-		LocalDate date = ticket.getTicket_active_date();
-		int duration = ticket.getTicket_duration();
-		int days = betweenDays(date, LocalDate.now());
+		if (ticket.isTicket_isactive()) return;
 
-		ticket.setTicket_duration(duration - days);
 		ticket.setTicket_active_date(LocalDate.now());
 		ticket.setTicket_isactive(true);
 		dao.setTicketIsActiveToTrue(ticket);
@@ -173,5 +165,35 @@ public class TicketServiceImpl implements TicketService {
 
 	@Override
 	public void renewTicket(User user, int monthLength, int price, Currency currency) {
+		Ticket ticket = getTicket(user);
+
+		LocalDate now = LocalDate.now();
+		Payment payment = new Payment();
+		payment.setCurrency(currency);
+		payment.setPay_amount(price);
+		payment.setPay_date(LocalDateTime.now());
+		payment.setProduct(Product.TICKET);
+		payment.setUser(user);
+		payLogServ.logPayment(payment);
+		
+		int duration = ticket.getTicket_duration();
+		int days = betweenDays(now, now.plusMonths(monthLength));
+
+		ticket.setTicket_duration(duration + days);
+		dao.updateTicket(ticket);
+
+	}
+	
+	@Override
+	public Ticket setExpiredDateByDuration(Ticket ticket) {
+		
+		if (!ticket.isTicket_isactive()) {
+			ticket.setExpired_date("남은 날: " +ticket.getTicket_duration() + "일");
+		} else {
+			LocalDate date = ticket.getTicket_active_date();
+			LocalDate days = date.plusDays(ticket.getTicket_duration());
+			ticket.setExpired_date(days.toString());
+		}
+		return ticket;
 	}
 }

@@ -70,7 +70,7 @@
 	</insert>
 
 	<update id="setTicketIsActiveToTrue"
-		parameterType="com.geogym.user.dto.Ticket">
+		parameterType="com.geogym.payment.dto.Ticket">
 		UPDATE ticket SET
 			ticket_isactive = 1
 			ticket_active_date = #{ticket_active_date}
@@ -79,7 +79,7 @@
 	</update>
 
 	<update id="setTicketIsActiveToFalse"
-		parameterType="com.geogym.user.dto.Ticket">
+		parameterType="com.geogym.payment.dto.Ticket">
 		UPDATE ticket SET
 			ticket_isactive = 0
 			ticket_active_date = #{ticket_active_date}
@@ -93,5 +93,11 @@
 		SELECT * FROM ticket
 		WHERE user_no = #{user_no}
 	</select>
+	
+	<update id="updateTicket" parameterType="com.geogym.payment.dto.Ticket">
+		UPDATE ticket SET
+			ticket_dutation = #{ticket_duration}
+		WHERE user_no = #{user.user_no}
+	</update>
 
 </mapper>
