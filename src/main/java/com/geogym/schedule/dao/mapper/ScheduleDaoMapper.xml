@@ -60,6 +60,7 @@
 		WHERE 1=1
 		AND user_no = #{user_no}
 		AND pt_date BETWEEN #{start} AND #{end}
+		ORDER BY pt_date
 	</select>
 
 </mapper>
