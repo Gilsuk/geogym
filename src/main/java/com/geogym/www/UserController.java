@@ -3,6 +3,7 @@ package com.geogym.www;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.geogym.common.exception.ParamIncorrectException;
@@ -16,12 +17,12 @@ public class UserController {
 	
 	@Autowired private UserService userServ;
 	
-	@RequestMapping(value = "/user/login")
+	@RequestMapping(value = "/user/login",method = RequestMethod.GET)
 	public void loginForm() {
 	}
 
 	@ResponseBody
-	@RequestMapping(value = "/ajax/user/login")
+	@RequestMapping(value = "/user/login", method = RequestMethod.POST)
 	public boolean login(LoginInfo info) {
 		try {
 			userServ.login(info);
@@ -38,12 +39,12 @@ public class UserController {
 		return true;
 	}
 	
-	@RequestMapping(value = "/user/join")
+	@RequestMapping(value = "/user/join", method = RequestMethod.GET)
 	public void joinForm() {
 	}
 
 	@ResponseBody
-	@RequestMapping(value = "/ajax/user/join")
+	@RequestMapping(value = "/user/join", method = RequestMethod.POST)
 	public boolean join(User user) {
 		try {
 			userServ.join(user);
