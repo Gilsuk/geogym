@@ -46,35 +46,60 @@
 		resultType="com.geogym.attachment.dto.Attachment">
 		select a.attachment_no as 'attachment_no',
 		attachment_origin_name, attachment_stored_name, attachment_size,
-		mime_no from attachment a, qna_answer_attachment q where q.qna_answer_no = #{qna_answer_no}
-		and q.attachment_no = a.attachment_no order by q.attachment_no
+		mime_no from attachment a, qna_answer_attachment q where
+		q.qna_answer_no = #{qna_answer_no}
+		and q.attachment_no =
+		a.attachment_no order by q.attachment_no
 	</select>
 	<select id="getBodyInfo_attachment"
 		parameterType="com.geogym.body.dto.BodyInfo"
 		resultType="com.geogym.attachment.dto.Attachment">
 		select a.attachment_no as 'attachment_no',
 		attachment_origin_name, attachment_stored_name, attachment_size,
-		mime_no from attachment a, bodyinfo_attachment q where q.bodyinfo_no = #{bodyinfo_no}
-		and q.attachment_no = a.attachment_no order by q.attachment_no
+		mime_no from attachment a, bodyinfo_attachment q where q.bodyinfo_no =
+		#{bodyinfo_no}
+		and q.attachment_no = a.attachment_no order by
+		q.attachment_no
 	</select>
-	<delete id="removeQna_attachment" parameterType="com.geogym.qna.dto.Qna">
+	<insert id="setQna_attachment"
+		parameterType="com.geogym.attachment.dto.Qna_answer_attachment">
+		insert into qna_attachment (qna_no, attachment_no)
+		VALUES (#{qna_no}, #{attachment_no})
+	</insert>
+	<insert id="setQna_answer_attachment"
+		parameterType="com.geogym.attachment.dto.Qna_answer_attachment">
+		insert into qna_answer_attachment (qna_answer_no,
+		attachment_no) VALUES (#{qna_answer_no}, #{attachment_no})
+	</insert>
+	<insert id="setBodyinfo_attachment"
+		parameterType="com.geogym.attachment.dto.Bodyinfo_attachment">
+		insert into bodyinfo_attachment (qna_no, attachment_no)
+		VALUES (#{bodyinfo_no}, #{attachment_no})
+	</insert>
+	<delete id="removeAttachment"
+		parameterType="com.geogym.attachment.dto.Attachment">
+		delete from attachment where attachment_no =
+		#{attachment_no}
+	</delete>
+	<delete id="removeQna_attachment"
+		parameterType="com.geogym.qna.dto.Qna">
 		delete from qna_attachment where qna_no = #{qna_no}
 	</delete>
-	<delete id="removeQna" parameterType="com.geogym.qna.dto.Qna">
-		delete from attachment where attachment_no = #{attachment_no}
+	<delete id="removeQnaAnswer_attachment"
+		parameterType="com.geogym.qna.dto.QnaAnswer">
+		delete from qna_answer_attachment where qna_answer_no =
+		#{qna_answer_no}
 	</delete>
-	
-	<insert id="setQna_attachment" parameterType="com.geogym.attachment.dto.Qna_answer_attachment">
-		insert into qna_attachment (qna_no, attachment_no) VALUES (#{qna_no}, #{attachment_no})
-	</insert>
-	<insert id="setQna_answer_attachment" parameterType="com.geogym.attachment.dto.Qna_answer_attachment">
-		insert into qna_answer_attachment (qna_answer_no, attachment_no) VALUES (#{qna_answer_no}, #{attachment_no})
-	</insert>
-	<insert id="setBodyinfo_attachment" parameterType="com.geogym.attachment.dto.Bodyinfo_attachment">
-		insert into bodyinfo_attachment (qna_no, attachment_no) VALUES (#{bodyinfo_no}, #{attachment_no})
-	</insert>
-
-
-
+	<delete id="removeBodyInfo_attachment"
+		parameterType="com.geogym.body.dto.BodyInfo">
+		delete from bodyinfo_attachment where bodyinfo_no =
+		#{bodyinfo_no}
+	</delete>
+	<update id="removeTrainingMemo"
+		parameterType="com.geogym.memo.dto.TrainingMemo">
+		update attachment set attachment_origin_name = '삭제됨',
+		attachment_stored_name = '삭제됨', attachment_size = '0' where
+		attachment_no = #{attachment.attachment_no}
+	</update>
 
 </mapper>

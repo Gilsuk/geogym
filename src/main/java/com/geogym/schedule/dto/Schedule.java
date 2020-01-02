@@ -3,9 +3,10 @@ package com.geogym.schedule.dto;
 import java.time.LocalDate;
 import java.time.LocalTime;
 
+import com.geogym.calendar.dto.DateContent;
 import com.geogym.trainer.dto.Trainer;
 
-public class Schedule {
+public class Schedule implements DateContent{
 	
 	private int schedule_no;
 	private Trainer trainer;
@@ -56,6 +57,18 @@ public class Schedule {
 	}
 	public void setSchedule_msg(String schedule_msg) {
 		this.schedule_msg = schedule_msg;
+	}
+
+	@Override
+	public LocalDate getDate() {
+		
+		return schedule_date;
+	}
+
+	@Override
+	public String getContent() {
+		
+		return schedule_from+"~"+schedule_to;
 	}
 
 }

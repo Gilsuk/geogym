@@ -32,7 +32,7 @@ public class ScheduleTestController {
 		Trainer trainer = new Trainer();
 		trainer.setTrainer_no(1);
 		
-		LocalDate localDate = LocalDate.of(2020, 01, 01);
+		LocalDate localDate = LocalDate.of(2019, 12, 30);
 		
 		List<LocalTime> list;
 		
@@ -94,19 +94,19 @@ public class ScheduleTestController {
 	
 	// --- PT 스케줄 추가 ------------------------------------------------------
 	@RequestMapping(value="/test/setPTshedule")
-	public void setPTSchedule() {
+	public void setPTSchedule(
+			Schedule schedule,
+			Trainer trainer,
+			User user) {
 		
-		Schedule schedule = new Schedule();
-		Trainer trainer = new Trainer();
-		trainer.setTrainer_no(1);
-		User user = new User();
-		user.setUser_no(12);
-		
-		schedule.setTrainer(trainer);
-		schedule.setSchedule_date(LocalDate.of(2019, 12, 31));
-		schedule.setSchedule_from(LocalTime.of(10, 00));
-		schedule.setSchedule_msg("아오 짜증난다2");
+		logger.info(schedule.toString());
+		logger.info(trainer.toString());
+		logger.info(user.toString());
 
+		schedule.setSchedule_msg("테스트테스트");
+
+		schedule.setTrainer(trainer);
+		
 		try {
 			scheduleService.setPTShcedule(user, schedule);
 		} catch (InvalidParamException e) {
