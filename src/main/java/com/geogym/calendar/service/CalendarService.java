@@ -11,6 +11,7 @@ import com.geogym.calendar.dto.Calendar_Memo;
 
 import com.geogym.calendar.dto.Day;
 import com.geogym.calendar.dto.Holiday;
+import com.geogym.user.dto.User;
 
 public interface CalendarService {
 
@@ -40,5 +41,8 @@ public interface CalendarService {
 	public Calendar_Memo memoview(Calendar_Memo calendar_Memo);
 	
 	public void updatememo(Calendar_Memo calendar_Memo);
+	
+	public Calendar_Memo getmemo(User user, LocalDate localdate);
+	
 	
 }
