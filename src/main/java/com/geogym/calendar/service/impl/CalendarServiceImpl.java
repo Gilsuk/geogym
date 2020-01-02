@@ -8,8 +8,10 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import javax.xml.parsers.DocumentBuilder;
@@ -36,6 +38,7 @@ import com.geogym.calendar.dto.Holiday;
 import com.geogym.calendar.service.CalendarService;
 import com.geogym.schedule.dto.BusinessDay;
 import com.geogym.schedule.service.ScheduleService;
+import com.geogym.user.dto.User;
 @Service
 public class CalendarServiceImpl implements CalendarService {
 
@@ -294,6 +297,19 @@ public class CalendarServiceImpl implements CalendarService {
 	public void updatememo(Calendar_Memo calendar_Memo) {
 		// TODO Auto-generated method stub
 		calendarDao.updatememo(calendar_Memo);
+	}
+	
+	@Override
+	public List<Calendar_Memo> getmemo(User user, LocalDate localdate) {
+		
+		HashMap<String, Object> map = new HashMap<>();
+
+		map.put("user_no", user.getUser_no());
+		map.put("start", LocalDate.of(localdate.getYear(), localdate.getMonth(), 1));
+		map.put("end", LocalDateTime.of(localdate.getYear(), localdate.getMonth(), localdate.lengthOfMonth(), 23, 59));
+
+		return calendarDao.getmemo(map);
+
 	}
 	
 }

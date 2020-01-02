@@ -19,6 +19,7 @@ import com.geogym.calendar.dto.Day;
 import com.geogym.calendar.service.CalendarService;
 import com.geogym.pt.dto.PT;
 import com.geogym.schedule.dto.Schedule;
+import com.geogym.schedule.exception.AllTimeisUnavailable;
 import com.geogym.schedule.service.BusinessDayService;
 import com.geogym.schedule.service.ScheduleService;
 import com.geogym.trainer.dto.Trainer;
@@ -82,9 +83,12 @@ public class CalendarController {
 	@RequestMapping(value = "/calendar/view", method = RequestMethod.GET)
 	public void viewcalendar(Model model, LocalDate date, User user, Trainer trainer) {
 		
-		user.setUser_no(1);
-		
-		List<LocalTime> list = scheduleService.getPTAvilableTime(trainer, date);
+		List<LocalTime> list;
+		try {
+			list = scheduleService.getPTAvilableTime(trainer, date);
+		} catch (AllTimeisUnavailable e) {
+			return;
+		}
 		
 		model.addAttribute("day", date);
 		model.addAttribute("list", list);
@@ -93,7 +97,7 @@ public class CalendarController {
 	}
 	
 	
-	@RequestMapping(value = "/calendar/PT", method = RequestMethod.GET)
+	@RequestMapping(value = "/calendar/PT/request", method = RequestMethod.GET)
 	public String ptcalendar(Model model, 
 			@RequestParam(defaultValue = "-999999999-01-01") LocalDate date
 			, User user
@@ -114,6 +118,7 @@ public class CalendarController {
 		model.addAttribute("prevMonth", "/calendar/PT?trainer_no="+trainer.getTrainer_no()+"&user_no="+user.getUser_no()+"&date="+date.minusMonths(1));
 		model.addAttribute("curMonth", date);
 		model.addAttribute("trainer_no", trainer.getTrainer_no());
+		model.addAttribute("user_no", user.getUser_no());
 		
 		logger.info(timeList.toString());
 		
@@ -187,5 +192,31 @@ public class CalendarController {
 			
 		
 		return "redirect:/calendar/list";
+	}
+	
+	@RequestMapping(value = "/calendar/PT/schedule", method = RequestMethod.GET)
+	public String ptschedulecalendar(Model model, 
+			@RequestParam(defaultValue = "-999999999-01-01") LocalDate date
+			, User user) {
+
+		if(date.equals(LocalDate.MIN)) {
+			date = LocalDate.now();
+		}
+		
+		List<Day> listDay = calendarService.getDayList(date);
+		
+		List<PT> timeList = scheduleService.getPTScheduleByMonth(user, date);
+		
+		listDay = calendarService.setPTToList(listDay, timeList);
+		
+		model.addAttribute("listDay", new Gson().toJson(listDay));
+		model.addAttribute("nextMonth", "/calendar/PT/schedule?user_no="+user.getUser_no()+"&date="+date.plusMonths(1));
+		model.addAttribute("prevMonth", "/calendar/PT/schedule?&user_no="+user.getUser_no()+"&date="+date.minusMonths(1));
+		model.addAttribute("curMonth", date);
+		model.addAttribute("user_no", user.getUser_no());
+		
+		logger.info(timeList.toString());
+		
+		return "/calendar/main";
 	}
 }
