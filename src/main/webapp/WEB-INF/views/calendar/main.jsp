@@ -130,12 +130,13 @@ table.calendar td{
         $("#cal_top_year").text(year);
         $("#cal_top_month").text(month);
         
+        var stringMonth = month < 10 ? '0'+month : month;
         
         for(var i=firstDay.getDay();i<firstDay.getDay()+lastDay.getDate();i++){
         	++dayCount
         	var stringDay = dayCount < 10 ? '0'+dayCount : dayCount;
 	        $tdDay.eq(i).html(
-	            '<a href="/calendar/view?date='+year+'-'+month+'-'+stringDay+'&trainer_no=${trainer_no}">'+stringDay+'</a>')
+	            '<a href="/calendar/view?date='+year+'-'+stringMonth+'-'+stringDay+'&trainer_no=${trainer_no}&user_no=${user_no}">'+stringDay+'</a>')
         	
 			
             //====================================================================================
