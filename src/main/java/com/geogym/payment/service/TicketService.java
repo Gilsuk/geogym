@@ -74,9 +74,7 @@ public interface TicketService {
 
 	Ticket setExpiredDateByDuration(Ticket ticket);
 
-
 	void issuePTTicket(User user, Trainer trainer, int price, Currency currency, int amount, LocalDate expiredDate);
-
 
 	void renewPTTicket(User user, Trainer trainer, int price, Currency currency, int amount, LocalDate expiredDate);
 

@@ -300,7 +300,7 @@ public class CalendarServiceImpl implements CalendarService {
 	}
 	
 	@Override
-	public Calendar_Memo getmemo(User user, LocalDate localdate) {
+	public List<Calendar_Memo> getmemo(User user, LocalDate localdate) {
 		
 		HashMap<String, Object> map = new HashMap<>();
 

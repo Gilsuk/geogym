@@ -7,6 +7,7 @@ import java.util.List;
 
 import com.geogym.pt.dto.PT;
 import com.geogym.schedule.dto.Schedule;
+import com.geogym.schedule.exception.AllTimeisUnavailable;
 import com.geogym.schedule.exception.InvalidParamException;
 import com.geogym.trainer.dto.Trainer;
 import com.geogym.user.dto.User;
@@ -23,8 +24,9 @@ public interface ScheduleService {
 	 * @param localDate - 조회를 원하는 날짜 (년-월-일)
 	 * @return
 	 * @throws InvalidParamException 
+	 * @throws AllTimeisUnavailable 
 	 */
-	List<LocalTime> getAvilableTime(Trainer trainer, LocalDate localDate) throws InvalidParamException;
+	List<LocalTime> getAvilableTime(Trainer trainer, LocalDate localDate) throws InvalidParamException, AllTimeisUnavailable;
 	
 	/**
 	 * 
@@ -33,8 +35,9 @@ public interface ScheduleService {
 	 * @param user
 	 * @param locaDatetime
 	 * @throws InvalidParamException 
+	 * @throws AllTimeisUnavailable 
 	 */
-	void setPTShcedule(User user, Schedule schedule) throws InvalidParamException;
+	void setPTShcedule(User user, Schedule schedule) throws InvalidParamException, AllTimeisUnavailable;
 	
 	/**
 	 * 
@@ -58,8 +61,9 @@ public interface ScheduleService {
 	 * 
 	 * @param schedule
 	 * @throws InvalidParamException 
+	 * @throws AllTimeisUnavailable 
 	 */
-	void setSchedule(Schedule schedule) throws InvalidParamException;
+	void setSchedule(Schedule schedule) throws InvalidParamException, AllTimeisUnavailable;
 	
 	/**
 	 * 
@@ -89,7 +93,8 @@ public interface ScheduleService {
 	 * @param trainer
 	 * @param localDate
 	 * @return
+	 * @throws AllTimeisUnavailable 
 	 */
 
-	List<LocalTime> getPTAvilableTime(Trainer trainer, LocalDate localDate);
+	List<LocalTime> getPTAvilableTime(Trainer trainer, LocalDate localDate) throws AllTimeisUnavailable;
 }

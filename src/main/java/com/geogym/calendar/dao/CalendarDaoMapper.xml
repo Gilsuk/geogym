@@ -67,7 +67,7 @@
  	
  	
  	<select id="getmemo" parameterType ="hashmap" resultType="com.geogym.calendar.dto.Calendar_Memo">
- 		select calendar_memo_content from calendar_memo where user_no = #{user_no} and calendar_memo_date between #{start} and #{end}
+ 		select calendar_memo_date, calendar_memo_content from calendar_memo where user_no = #{user_no} and calendar_memo_date between #{start} and #{end}
  	</select>
  	
  </mapper>
