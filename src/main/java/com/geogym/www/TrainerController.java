@@ -63,8 +63,8 @@ public class TrainerController {
 		logger.info("insertTrainer");
 		
 		try {
-			User loggedInUser = userService.getLoggedInUser();
-			if (userService.isTrainer(loggedInUser)) {
+			
+			if (userService.isTrainer(userService.getLoggedInUser())) {
 				return "redirect:/";
 			}else {
 				return null;
@@ -108,17 +108,16 @@ public class TrainerController {
 	@RequestMapping(value = "/trainer/update", method = RequestMethod.GET)
 		private String updateTrainer() {
 		
-//		try {
-//			User loggedInUser = userService.getLoggedInUser();
-//			if (userService.isTrainer(loggedInUser)) {
+		try {			
+			if (userService.isTrainer(userService.getLoggedInUser())) {
 				return null;
-//			}else {
-//				return "redirect:/user/main";
-//			}
-//		} catch (UserNotFoundException e) {
-//			// TODO Auto-generated catch block
-//			return "redirect:/user/main";
-//		}
+			}else {
+				return "redirect:/user/main";
+			}
+		} catch (UserNotFoundException e) {
+			// TODO Auto-generated catch block
+			return "redirect:/user/main";
+		}
 		
 	}
 

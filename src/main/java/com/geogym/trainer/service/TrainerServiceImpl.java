@@ -216,6 +216,12 @@ public class TrainerServiceImpl implements TrainerService {
 		
 	}
 
+	@Override
+	public Trainer getTrainertoUser(Trainer trainer) {
+		// TODO Auto-generated method stub
+		return trainerDao.getTrainertoUser(trainer);
+	}
+
 //	@Override
 //	public boolean checkTrainer(Trainer trainer) {
 //		// TODO Auto-generated method stub
