@@ -32,7 +32,7 @@
 </head>
 <body>
 	<header>
-		<nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+		<nav class="navbar navbar-expand-md navbar-dark bg-dark">
 			<a class="navbar-brand" href="/">GEOGYM</a>
 			<button class="navbar-toggler" type="button" data-toggle="collapse"
 				data-target="#navbarCollapse" aria-controls="navbarCollapse"
