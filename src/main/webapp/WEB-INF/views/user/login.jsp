@@ -2,32 +2,68 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ include file="/WEB-INF/views/layouts/header.jsp"%>
+<script type="text/javascript">
+	$(document).ready(function() {
+
+// 		if (typeof ajaxFunction !== 'undefined') return;
+
+// 		$(".btn-ajax").on("click", ajaxFunction);
+
+// 		$.each($(".btn-ajax").closest("form"), function(index, form) {
+// 			ajaxAction = $(form).attr("action");
+// 		});
+
+		$(".btn-ajax").on("click", function() {
+			$.ajax({
+				url: "/ajax/user/login", 
+				data: {
+					user_id: $("#user_id").val(),
+					user_pw: $("#user_pw").val()
+				},
+				method: "POST", 
+				dataType: "json"
+			}).done(function(data) {
+				if (data == true) {
+					window.location.replace(window.location.href);
+				}
+			})
+
+			return false;
+		})
+
+	});
+	
+</script>
 <div class="row">
 	<div class="col-sm-9 col-md-7 col-lg-5 mx-auto">
 		<div class="card card-signin my-5">
 			<div class="card-body">
 				<h5 class="card-title text-center">로그인</h5>
-				<form class="form-signin">
+				<form class="form-signin" action="/ajax/user/login">
 					<div class="form-label-group">
-						<input type="text" id="user_id" class="form-control" name="user_id"
-							placeholder="ID" required autofocus> <label for="user_id">아이디</label>
+						<input type="text" id="user_id" class="form-control"
+							name="user_id" placeholder="ID" required autofocus>
+						<label for="user_id">아이디</label>
 					</div>
 
 					<div class="form-label-group">
-						<input type="password" id="user_pw" class="form-control" name="user_pw"
-							placeholder="Password" required> <label for="user_pw">비밀번호</label>
+						<input type="password" id="user_pw" class="form-control"
+							name="user_pw" placeholder="Password" required>
+						<label for="user_pw">비밀번호</label>
 					</div>
 
 					<div class="custom-control custom-switch">
 						<input type="checkbox" class="custom-control-input"
-							id="shouldRemember"> <label class="custom-control-label"
+							id="shouldRemember">
+						<label class="custom-control-label" 
 							for="shouldRemember">기억하기</label>
 					</div>
-					
+
 					<hr>
 
 
-					<button class="btn btn-lg btn-submit btn-block text-uppercase"
+					<button
+						class="btn btn-ajax btn-lg btn-submit btn-block text-uppercase"
 						type="submit">로그인</button>
 					<hr class="my-4">
 					<button class="btn btn-lg btn-google btn-block text-uppercase"
@@ -37,6 +73,11 @@
 					<button class="btn btn-lg btn-kakao btn-block text-uppercase"
 						type="submit">KAKAO</button>
 				</form>
+				<form action="/ajsx/user/login2">
+					<button class="btn-ajax" type="button">button1</button>
+				</form>
+				<button class="btn-ajax">button2</button>
+				<button class="btn-ajax">button3</button>
 			</div>
 		</div>
 	</div>
