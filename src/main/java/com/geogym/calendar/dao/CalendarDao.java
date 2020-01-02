@@ -1,6 +1,7 @@
 package com.geogym.calendar.dao;
 
 
+import java.util.HashMap;
 import java.util.List;
 
 import com.geogym.calendar.dto.Calendar_Memo;
@@ -26,6 +27,8 @@ public interface CalendarDao {
 	public Calendar_Memo memoview(Calendar_Memo calendar_Memo);
 	
 	public void updatememo(Calendar_Memo calendar_Memo);
+
+	public List<Calendar_Memo> getmemo(HashMap<String, Object> map);
 	
 	
 	

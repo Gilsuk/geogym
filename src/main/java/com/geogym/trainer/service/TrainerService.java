@@ -227,6 +227,16 @@ public interface TrainerService {
 
 
 	double getAllReputation();
+	
+	/**
+	 * 유저번호가 일치하는 트레이너 조회
+	 * 
+	 * @param trainer - 유저 번호만 입력되어있음
+	 * @return
+	 */
+	Trainer getTrainertoUser(Trainer trainer);
+
+
 
 
 }

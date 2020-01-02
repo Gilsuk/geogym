@@ -48,7 +48,17 @@
 		'attachment.mime_no' FROM trainer t, attachment a where
 		t.attachment_no = a.attachment_no and trainer_no = #{trainer_no}
 	</select>
-	
+	<select id="getTrainertoUser"
+		parameterType="com.geogym.trainer.dto.Trainer"
+		resultType="com.geogym.trainer.dto.Trainer">
+		SELECT trainer_no, user_no, trainer_address, trainer_price,
+		trainer_profile, a.attachment_no as 'attachment.attachment_no',
+		attachment_origin_name as 'attachment.attachment_origin_name',
+		attachment_stored_name as 'attachment.attachment_stored_name',
+		attachment_size as 'attachment.attachment_size', mime_no as
+		'attachment.mime_no' FROM trainer t, attachment a where
+		t.attachment_no = a.attachment_no and user_no = #{user_no}
+	</select>
 	<select id="getReputation"
 		parameterType="com.geogym.trainer.dto.Trainer" resultType="double">
 		SELECT

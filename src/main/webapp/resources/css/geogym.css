@@ -4,13 +4,11 @@
 		공통
 ***********************/
 body {
-	padding-top: 3rem;
-	padding-bottom: 3rem;
 	color: #5a5a5a;
 }
 
 .bg-dark {
-	background-color: black !important;
+	background-color: #111 !important;
 }
 
 /***********************
@@ -34,6 +32,18 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 /***********************
+		폼(form)
+***********************/
+.form-control {
+	border-radius: 0;
+}
+
+.form-control:focus {
+	box-shadow: 0 0 0 0.2rem rgba(255,0,0,1);
+	border-color: red;
+}
+
+/***********************
 	네비게이션 바
 ***********************/
 .navbar-brand {
@@ -45,6 +55,64 @@ h1, h2, h3, h4, h5, h6 {
 .navbar-dark .navbar-nav .active>.nav-link {
 	font-weight: bold;
 	color: black;
+}
+.navbar-dark .navbar-nav .nav-link {
+	color: #ccc;
+}
+
+/***********************
+	footer
+***********************/
+footer {
+	background-color: #111;
+	padding-top: 4em;
+	padding-bottom: 3em;
+}
+
+footer p {
+	color: red;
+}
+
+footer a {
+	color: #ccc;
+}
+
+/***********************
+	로그인 폼
+***********************/
+.btn-google {
+  color: white;
+  background-color: #ea4335;
+}
+
+.btn-facebook {
+  color: white;
+  background-color: #3b5998;
+}
+
+/* Fallback for Edge
+-------------------------------------------------- */
+
+@supports (-ms-ime-align: auto) {
+  .form-label-group>label {
+    display: none;
+  }
+  .form-label-group input::-ms-input-placeholder {
+    color: #777;
+  }
+}
+
+/* Fallback for IE
+-------------------------------------------------- */
+
+@media all and (-ms-high-contrast: none),
+(-ms-high-contrast: active) {
+  .form-label-group>label {
+    display: none;
+  }
+  .form-label-group input:-ms-input-placeholder {
+    color: #777;
+  }
 }
 
 /***********************
