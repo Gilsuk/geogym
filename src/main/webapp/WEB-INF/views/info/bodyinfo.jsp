@@ -22,6 +22,13 @@ $(document).ready(function(){
 <script type="text/javascript">
 
 	$(document).on('click','#inputBodyInfo', function(){
+// 	    var _width = '650';
+// 	    var _height = '380';
+	 
+// 	    // 팝업을 가운데 위치시키기 위해 아래와 같이 값 구하기
+// 	    var _left = Math.ceil(( window.screen.width - _width )/2);
+// 	    var _top = Math.ceil(( window.screen.width - _height )/2); 
+
 		window.open('http://localhost:8090/info/inputBodyInfo','window','width=400, height=500');
 		
 		self.close();
@@ -64,7 +71,7 @@ function drawLineColors() {
           title: '단위: cm'
         },
         width: 700,
-        height: 200
+        height: 230
         
       };
       
@@ -101,7 +108,7 @@ function drawLineColors() {
           title: '단위: kg'
         },
         width: 700,
-        height: 200
+        height: 230
         
       };
 
@@ -133,7 +140,7 @@ function drawLineColors() {
           title: '단위: kg'
         },
         width: 700,
-        height: 200
+        height: 230
         
       };
 
@@ -147,24 +154,46 @@ function drawLineColors() {
 </head>
 <body>
 
-<h1 style="text-align:center">GEOGYM</h1>
-<hr>
+
 <div class="container">
 <br>
 <br>
-<div class="col-md-12 col-xl-4">
-<div id="circle" style="border-radius:50%; background-color:white; border:2px solid gray;" >
-	<button style="margin-top:140px"class="btn">프로필사진등록</button>
+<div style="width: 380px;float:left">
+<div>
+<div id="profile" style="background-color:white; border:2px solid gray;width:180px;height:180px;float:left" >
+	<img src="/upload/${asd.asd }"/>
 </div>	
-<div class="center">
-<p style="font-size:15px">회원</p>
->> ${user.user_name } 회원님
+<div style="height:180px;width:360px;">
+<table>
+	<tr>
+		<th style="font-size:15px">&nbsp;회원</th>
+	</tr>
+	<tr>
+		<td style="text-align:right"><strong style="font-size:25px">${user.user_name }</strong> 회원님 (${user.user_gender })<br></td>
+	<tr>
+	<tr>
+		<td style="height:10px"></td>
+	</tr>
+	<tr>
+		<td><strong>&nbsp;생년월일</strong> : ${user.user_birth }</td>
+	</tr>
+	<tr>
+		<td><strong>&nbsp;연락처</strong> : ${user.user_tel }</td>
+	</tr>
+	<tr>
+		<td style="text-align:center">
+		<form action="/info/fileUpload" method="GET"><input type="file" id="selectedFile" style="display: none;" />
+		<input class="btn btn-primary" type="submit" value="프로필사진등록" onclick="document.getElementById('selectedFile').click();" />
+		<input type="hidden" name="bodyinfo_no" value="${bodyInfo.bodyinfo_no }" /></form></td>
+	</tr>
+</table>
+</div>
 </div>
 <br>
 <br>
 
 
-	<table style="text-align:center">
+	<table style="text-align:center;width:380px">
 		<tr>
 			<th style="font-size:22px">키</th>
 			<th style="font-size:22px">몸무게</th>
@@ -187,24 +216,26 @@ function drawLineColors() {
 
 <fieldset style="width:300px">
 <legend>특이사항</legend>
-<textarea rows="10" cols="40" readonly="readonly" disabled>${bodycomment.body_comment_msg }</textarea>
+<textarea rows="10" cols="50" readonly="readonly" disabled>${bodycomment.body_comment_msg }</textarea>
 <fmt:parseDate value="${bodycomment.body_comment_date }" pattern="yyyy-MM-dd'T'HH:mm" var="parsedDateTime" type="both" />
 <small style="color:grey">마지막입력 : <fmt:formatDate pattern="yyyy-MM-dd HH:mm" value="${ parsedDateTime }" /></small>
 </fieldset><br>
-<button id="inputBodyInfo">데이터입력</button>
-<button id="deleteInfo" onclick="deleteInfo();location.href='/info/delete?bodyinfo_no=${bodyInfo.bodyinfo_no}'" >데이터삭제</button>
+<button id="inputBodyInfo" class="btn btn-primary">데이터입력</button>
+<button id="deleteInfo" onclick="deleteInfo();location.href='/info/delete?bodyinfo_no=${bodyInfo.bodyinfo_no}'" class="btn btn-primary" >데이터삭제</button>
 </div>
 	
 
-<div class="col-md-12 col-xl-8">
+<div style="width: 730px;float:right">
 <form action="/info/bodyinfo" method="GET">
-	<button id="btnSelect" class="btn" style="float:right">조회</button>
-	<select id="selectCondition" Style="float:right;height:24px;" name="select">
+	<button id="btnSelect" class="btn btn-primary" style="float:right">조회</button>
+	<select id="selectCondition" Style="float:right;height:38px;" name="select">
 		<option value="week">7일단위</option>
 		<option value="month">30일단위</option>
 	</select>
 </form>
-	<button id="heightInfo" style="float:right">키 정보 보기</button>
+<br>
+<br>
+	<button id="heightInfo" class="btn btn-primary" style="float:right">키 정보 보기</button>
   <div id="chart_div_height" style="display:none;float:right"></div>
   <div id="chart_div_weight" style="float:right"></div>
   <div id="chart_div_etc" style="float:right"></div>
