@@ -71,22 +71,6 @@ public interface AttachmentDao {
 	 * @return 업로드 파일 리스트 반환. 조회 결과가 없다면, 비어있는 리스트를 반환한다.
 	 */
 	List<Attachment> getBodyInfo_attachment(BodyInfo bodyinfo);
-	
-	/**
-	 * 연결된 removeQna_attachment 모두 삭제 
-	 * @param qna 번호 사용 
-	 */
-	void removeQna_attachment(Qna qna);
-	
-	/**
-	 * 연결된 파일 모두 삭제
-	 * 게시글이 삭제될 때 호출할 메소드
-	 * 즉, qna 게시글이 삭제될 때 그 게시글이 포함하고 있던 모든 attachment가 삭제되길 원함
-	 * Qna_no를 기준으로 조회
-	 * @param 게시글 번호가 포함된 qna dto
-	 */
-	void removeQna(Qna qna);
-
 
 	/**
 	 * Qna_attachment 작성
@@ -112,7 +96,36 @@ public interface AttachmentDao {
 	 * @param attachment_no 를 사용한다
 	 */
 	void removeAttachment(Attachment attachment);
+	
+	/**
+	 * 연결된 removeQna_attachment 모두 삭제 
+	 * @param qna 번호 사용 
+	 */
+	void removeQna_attachment(Qna qna);
 
+	/**
+	 * 연결된 QnaAnswer_attachment 모두 삭제
+	 * 
+	 * @param qnaAnswer_no 를 사용한다
+	 */
+	void removeQnaAnswer_attachment(QnaAnswer qnaAnswer);
+
+	/**
+	 * 연결된 BodyInfo_attachment 를 전부 삭제
+	 * 
+	 * @param bodyinfo_no 를 사용한다
+	 */
+	void removeBodyInfo_attachment(BodyInfo bodyinfo);
+
+	/**
+	 * 트레이너메모의 파일 삭제
+	 * 단, 해당컬럼은 NOT NULL 이므로 파일만 삭제하고, 컬럼에는 기본값 사진 주소로 업데이트 한다.
+	 * 
+	 * @param trainingMemo
+	 */
+	void removeTrainingMemo(TrainingMemo trainingMemo);
+	
+	
 
 
 

@@ -1,10 +1,13 @@
 package com.geogym.pt.dto;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 
+import com.geogym.calendar.dto.DateContent;
 import com.geogym.user.dto.User;
 
-public class PT {
+public class PT implements DateContent {
 	
 	private int schedule_no;
 	private int pt_type_no;
@@ -47,6 +50,15 @@ public class PT {
 	}
 	public void setPt_date(LocalDateTime pt_date) {
 		this.pt_date = pt_date;
+	}
+
+	@Override
+	public LocalDate getDate() {
+		return LocalDate.ofYearDay(pt_date.getYear(), pt_date.getDayOfYear());
+	}
+	@Override
+	public String getContent() {
+		return LocalTime.of(pt_date.getHour(), 0).toString();
 	}
 
 }

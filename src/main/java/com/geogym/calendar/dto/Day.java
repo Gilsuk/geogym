@@ -9,6 +9,7 @@ public class Day {
 	private String name;
 	private String day;
 	private String content;
+
 	public LocalDate getDate() {
 		return date;
 	}
@@ -44,9 +45,5 @@ public class Day {
 		return "Day [date=" + date + ", isHoliday=" + isHoliday + ", name=" + name + ", day=" + day + ", content="
 				+ content + "]";
 	}
-	
-	
 
-	
-	
 }

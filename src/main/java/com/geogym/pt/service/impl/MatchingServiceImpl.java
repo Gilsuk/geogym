@@ -9,8 +9,8 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.geogym.payment.exception.CoinNotEnoughException;
-import com.geogym.payment.service.CoinService;
+import com.geogym.payment.exception.CashNotEnoughException;
+import com.geogym.payment.service.CashService;
 import com.geogym.payment.service.PaymentLogService;
 import com.geogym.payment.service.TicketService;
 import com.geogym.pt.dao.MatchingDao;
@@ -30,13 +30,13 @@ public class MatchingServiceImpl implements MatchingService {
 
 	@Autowired MatchingDao matchingDao;
 	@Autowired ScheduleService scheduleService;
-	@Autowired CoinService coinService;
+	@Autowired CashService coinService;
 	@Autowired TicketService tickectService;
 	@Autowired TrainerService trainerService;
 	@Autowired PaymentLogService paymentLogService;
 	
 	@Override
-	public void match(User user, Schedule schedule) throws MatchingNotAvailable, CoinNotEnoughException {
+	public void match(User user, Schedule schedule) throws MatchingNotAvailable, CashNotEnoughException {
 		
 		try {
 			if(tickectService.hasPTTicket(user, schedule.getTrainer())) {
@@ -46,7 +46,7 @@ public class MatchingServiceImpl implements MatchingService {
 				
 				//로그 입력 필요
 				
-				coinService.payByCoin(schedule.getTrainer().getTrainer_price(), user);
+				coinService.payByCash(schedule.getTrainer().getTrainer_price(), user);
 			}
 			
 			scheduleService.setPTShcedule(user, schedule);
@@ -81,7 +81,7 @@ public class MatchingServiceImpl implements MatchingService {
 			
 			Trainer trainer = trainerService.getTrainer(schedule.getTrainer());
 			
-			coinService.refundCoin(trainer.getTrainer_price(), pt.getUser());
+			coinService.refundCash(trainer.getTrainer_price(), pt.getUser());
 		}
 	}
 
@@ -96,12 +96,7 @@ public class MatchingServiceImpl implements MatchingService {
 	@Override
 	public boolean isSubscribedTrainer(User user, Trainer trainer) {
 		
-		boolean hasPTTicket;
-		try {
-			hasPTTicket = tickectService.hasPTTicket(user, trainer);
-		} catch (InvalidParamException e) {
-			return false;
-		}
+		boolean hasPTTicket = tickectService.hasPTTicket(user, trainer);
 		
 		return hasPTTicket;
 	}

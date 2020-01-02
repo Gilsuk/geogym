@@ -48,16 +48,23 @@ table.calendar td{
     border: 1px solid skyblue;
     width: 100px;
 }
+.sunday{
+	color: red;
+}
+.saturday{
+	color: blue;
+}
+
 </style>
 
 
 </head>
 <body>
    <div class="cal_top">
-        <a href="#" id="movePrevMonth"><span id="prevMonth" class="cal_tit">&lt;</span></a>
+        <a href="${prevMonth }" id="movePrevMonth"><span id="prevMonth" class="cal_tit">&lt;</span></a>
         <span id="cal_top_year"></span>
         <span id="cal_top_month"></span>
-        <a href="#" id="moveNextMonth"><span id="nextMonth" class="cal_tit">&gt;</span></a>
+        <a href="${nextMonth }" id="moveNextMonth"><span id="nextMonth" class="cal_tit">&gt;</span></a>
     </div>
     
     <div id="cal_tab" class="cal">
@@ -80,8 +87,6 @@ table.calendar td{
         drawCalendar();
         initDate();
         drawDays();
-        $("#movePrevMonth").on("click", function(){movePrevMonth();});
-        $("#moveNextMonth").on("click", function(){moveNextMonth();});
     });
     
     //calendar 그리기
@@ -108,7 +113,8 @@ table.calendar td{
         $tdDay = $("td div.cal-day")
         $tdSche = $("td div.cal-schedule")
         dayCount = 0;
-        today = new Date();
+        var curDate = '${curMonth}';
+        today = new Date(curDate);
         year = today.getFullYear();
         month = today.getMonth()+1;
         firstDay = new Date(year,month-1,1);
@@ -117,85 +123,92 @@ table.calendar td{
     
     //calendar 날짜표시
     function drawDays(){
+    	
     	// 색 지우기
     	$tdDay.css("color", "");
     	
         $("#cal_top_year").text(year);
         $("#cal_top_month").text(month);
+        
+        
         for(var i=firstDay.getDay();i<firstDay.getDay()+lastDay.getDate();i++){
-            $tdDay.eq(i).text(++dayCount);
-            
+        	++dayCount
+        	var stringDay = dayCount < 10 ? '0'+dayCount : dayCount;
+	        $tdDay.eq(i).html(
+	            '<a href="/calendar/view?date='+year+'-'+month+'-'+stringDay+'&trainer_no=${trainer_no}">'+stringDay+'</a>')
+        	
 			
             //====================================================================================
             for(var j=0;j<list.length;j++){
-	            // 휴일인 경우
-	            if (list[j].isHoliday) {
-	            	// 리스트의 달이랑 현재 달이랑 같은 경우
-	            	if(year==list[j].date.year){
-	            	if (month == list[j].date.month) {
-	            		// 날짜가 같은 경우
-	            		if (dayCount == list[j].date.day) {
-	            			// 휴일 색 칠하기
-				            $tdDay.eq(i).css("color","red");
-	            			// div 태그로 휴일이름 적기
-				            $tdDay.eq(i).append($("<div>" + list[j].name + "</div>"));
-	            		}
+			    // 날짜가 같은 경우
+		        if (dayCount == list[j].date.day) {
+		            // 휴일인 경우
+		            if (list[j].isHoliday) {
+		            	
+		            	
+			            if (month == list[j].date.month) {
+			            	// 휴일 색 칠하기
+						    $tdDay.eq(i).children('a').css("color","red");
+		            		// div 태그로 휴일이름 적기
+					        $tdDay.eq(i).append($("<div class='dayname'>" + list[j].name + "</div>"));
+						    $tdDay.eq(i).children('.dayname').css("color","red");
+		            	}
+
 	            	}
-	            }
-	            	
-	   
+	       			$tdDay.eq(i).append($("<div>" + list[j].content + "</div>"));
 	            }
 	            
     		}
             //=========================================================================================
-//             $tdDay.eq(i).append($("<div>" + Working_Hours + "</div>"));
+
         }
         for(var i=0;i<42;i+=7){
-            $tdDay.eq(i).css("color","red");
+            $tdDay.eq(i).children('a').addClass("sunday");
             
         }
         for(var i=6;i<42;i+=7){
-            $tdDay.eq(i).css("color","blue");
+            $tdDay.eq(i).children('a').addClass("saturday");
         }
         
+
     }
  
-    //calendar 월 이동
-    function movePrevMonth(){
-        month--;
-        if(month<=0){
-            month=12;
-            year--;
-        }
-        if(month<10){
-            month=String("0"+month);
-        }
-        getNewInfo();
-        }
+//     //calendar 월 이동
+//     function movePrevMonth(){
+//         month--;
+//         if(month<=0){
+//             month=12;
+//             year--;
+//         }
+//         if(month<10){
+//             month=String("0"+month);
+//         }
+//         getNewInfo();
+//         }
     
-    function moveNextMonth(){
-        month++;
-        if(month>12){
-            month=1;
-            year++;
-        }
-        if(month<10){
-            month=String("0"+month);
-        }
-        getNewInfo();
-    }
+//     function moveNextMonth(){
+//         month++;
+//         if(month>12){
+//             month=1;
+//             year++;
+//         }
+//         if(month<10){
+//             month=String("0"+month);
+//         }
+//         getNewInfo();
+//     }
 
 
     
-    function getNewInfo(){
-        for(var i=0;i<42;i++){
-            $tdDay.eq(i).text("");
-        }
-        dayCount=0;
-        firstDay = new Date(year,month-1,1);
-        lastDay = new Date(year,month,0);
-        drawDays();
-    }
+//     function getNewInfo(){
+//         for(var i=0;i<42;i++){
+//             $tdDay.eq(i).text("");
+//         }
+//         dayCount=0;
+//         firstDay = new Date(year,month-1,1);
+//         lastDay = new Date(year,month,0);
+//         drawDays();
+//     }
 </script>
 
 <div style="display: none;" id="dayText">${listDay }</div>

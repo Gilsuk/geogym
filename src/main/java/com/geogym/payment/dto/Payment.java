@@ -4,30 +4,26 @@ import java.time.LocalDateTime;
 
 import com.geogym.payment.enumeration.Currency;
 import com.geogym.payment.enumeration.Product;
+import com.geogym.user.dto.User;
 
 public class Payment {
 	private int pay_no;
-	private int user_no;
+	private User user;
 	private LocalDateTime pay_date;
 	private int pay_amount;
 	private Currency currency;
 	private Product product;
-	@Override
-	public String toString() {
-		return "Payment [pay_no=" + pay_no + ", user_no=" + user_no + ", pay_date=" + pay_date + ", pay_amount="
-				+ pay_amount + ", currency=" + currency + ", product=" + product + "]";
-	}
 	public int getPay_no() {
 		return pay_no;
 	}
 	public void setPay_no(int pay_no) {
 		this.pay_no = pay_no;
 	}
-	public int getUser_no() {
-		return user_no;
+	public User getUser() {
+		return user;
 	}
-	public void setUser_no(int user_no) {
-		this.user_no = user_no;
+	public void setUser(User user) {
+		this.user = user;
 	}
 	public LocalDateTime getPay_date() {
 		return pay_date;
@@ -52,5 +48,10 @@ public class Payment {
 	}
 	public void setProduct(Product product) {
 		this.product = product;
+	}
+	@Override
+	public String toString() {
+		return "Payment [pay_no=" + pay_no + ", user=" + user + ", pay_date=" + pay_date + ", pay_amount=" + pay_amount
+				+ ", currency=" + currency + ", product=" + product + "]";
 	}
 }

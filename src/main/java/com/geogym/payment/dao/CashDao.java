@@ -2,7 +2,7 @@ package com.geogym.payment.dao;
 
 import com.geogym.user.dto.User;
 
-public interface CoinDao {
+public interface CashDao {
 
 	int selectCoinByUserNo(User user);
 

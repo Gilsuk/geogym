@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import com.geogym.payment.dto.PTTicket;
+import com.geogym.payment.dto.Ticket;
 import com.geogym.user.dto.User;
 
 public interface TicketDao {
@@ -17,5 +18,17 @@ public interface TicketDao {
 	void updatePTTicket(PTTicket upDateptTicket);
 
 	void insertPTTicket(PTTicket ptTicket);
+
+	void insertTicket(Ticket ticket);
+
+	void setTicketIsActiveToTrue(Ticket ticket);
+
+	void setTicketIsActiveToFalse(Ticket ticket);
+
+	Ticket selectTicketByUser(User user);
+
+	void updateTicket(Ticket ticket);
+
+	void deletePTTIcket(PTTicket ticket);
 	
 }

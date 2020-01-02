@@ -1,6 +1,6 @@
 package com.geogym.www.test;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.geogym.payment.dto.PTTicket;
 import com.geogym.payment.service.TicketService;
-import com.geogym.schedule.exception.InvalidParamException;
 import com.geogym.trainer.dto.Trainer;
 import com.geogym.user.dto.User;
 
@@ -25,18 +24,11 @@ public class PaymentController {
 		Trainer trainer = new Trainer();
 		trainer.setTrainer_no(13);
 		
-		try {
-			boolean isHasTicket = ticketService.hasPTTicket(user, trainer);
+		boolean isHasTicket = ticketService.hasPTTicket(user, trainer);
 
-			if (!isHasTicket) {
-				// PT이용권이 없을 때
-				return;
-			}
-			
-			//PT 이용권이 있을 때
-			
-		} catch (InvalidParamException e) {
-			//잘못된 파라미터
+		if (!isHasTicket) {
+			// PT이용권이 없을 때
+			return;
 		}
 		
 	}
@@ -63,14 +55,10 @@ public class PaymentController {
 		
 		ptTicket.setUser(user);
 		ptTicket.setTrainer(trainer);
-		ptTicket.setPt_ticket_expire(LocalDateTime.of(2020, 12, 30, 23, 59));
+		ptTicket.setPt_ticket_expire(LocalDate.of(2020, 12, 30));
 		ptTicket.setPt_ticket_amount(5);
 		
-		try {
-			ticketService.issuePTTicket(ptTicket);
-		} catch (InvalidParamException e) {
-			return;
-		}
+		ticketService.issuePTTicket(ptTicket);
 		
 	}
 	
