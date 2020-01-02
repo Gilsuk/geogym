@@ -2,19 +2,13 @@
 <%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%-- <% List<Board> bList = (List)request.getAttribute("list"); %> --%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix = "fmt" uri = "http://java.sun.com/jsp/jstl/fmt"%>
 
 
 <jsp:include page="/WEB-INF/views/layouts/header.jsp"/>
-
-
-
-
-
-
 <br>
+
 <div class="container">
 <div class="row">
 <div class= "col-3">
@@ -26,24 +20,43 @@
 </ul>
 </div><!-- COL-3 -->
 <div class= "col-9">
+<div class="container">
+
+
+
+
 <form>
   <div class="form-group">
-    <label for="exampleInputEmail1">날짜 선택</label>
-    <input type="date" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+    <label for="formGroupExampleInput">이름</label>
+    <input type="text" class="form-control" id="formGroupExampleInput">
   </div>
   <div class="form-group">
-    <label for="exampleInputPassword1">OPEN</label>
-    <input type="time" class="form-control" id="exampleInputPassword1">
+    <label for="formGroupExampleInput">주소</label>
+    <input type="text" class="form-control" id="formGroupExampleInput">
   </div>
   <div class="form-group">
-  	<label for="exampleInputPassword1">CLOSE</label>
-    <input type="time" class="form-control" id="exampleCheck1">
+    <label for="formGroupExampleInput">가격</label>
+    <input type="text" class="form-control" id="formGroupExampleInput">
   </div>
-  <button type="submit" class="btn btn-primary">Submit</button>
+  <div class="input-group">
+  <div class="input-group-prepend">
+    <span class="input-group-text">프로필</span>
+  </div>
+  <textarea class="form-control" aria-label="With textarea"></textarea>
+</div>
+<button type="submit" class="btn btn-primary">Submit</button>
 </form>
+
+</div>
+
+
 </div><!-- COL-9 -->
 </div>
 </div>
+</from>
+
+
+
 
 
 
