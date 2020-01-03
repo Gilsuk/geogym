@@ -1,11 +1,19 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+
 <!DOCTYPE html>
 <html lang="ko">
 <head>
 <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>geogym</title>
+<link href="https://fonts.googleapis.com/css?family=Roboto|Varela+Round"
+   rel="stylesheet">
+<link rel="stylesheet"
+   href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 <!-- Bootstrap 4.4.1 CSS -->
 <link rel="stylesheet"
 	href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
@@ -29,6 +37,8 @@
 	crossorigin="anonymous"></script>
 <!-- GEOGYM Script -->
 <script src="/resources/js/geogym.js" type="text/javascript"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+<script type="text/javascript"></script>
 </head>
 <body>
 	<header>
@@ -48,8 +58,8 @@
 					<li class="nav-item"><a class="nav-link" href="/user/login">로그인</a></li>
 					<li class="nav-item"><a class="nav-link" href="/user/join">회원가입</a></li>
 					</c:if>
-					<li class="nav-item"><a class="nav-link disabled" href="#"
-						tabindex="-1" aria-disabled="true">관리자</a></li>
+					<li class="nav-item"><a class="nav-link" href="/qna/list">QnA</a></li>
+					<li class="nav-item"><a class="nav-link" href="/admin/main">관리자</a></li>
 					<c:if test="${not empty loggedInUser }">
 					<li class="nav-item"><a class="nav-link disabled" href="#"
 						tabindex="-1" aria-disabled="true">${loggedInUser.user_name } is logged in</a></li>

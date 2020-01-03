@@ -2,6 +2,8 @@
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>    
 
+<%@ include file="/WEB-INF/views/layouts/header.jsp"%>
+
 <script
   src="https://code.jquery.com/jquery-3.4.1.min.js"
   integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
@@ -62,3 +64,4 @@ $(document).ready(function() {
 
 </div><!-- .container -->
 
+<%@ include file="/WEB-INF/views/layouts/footer.jsp"%>
