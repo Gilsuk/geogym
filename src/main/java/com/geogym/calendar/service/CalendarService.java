@@ -42,7 +42,7 @@ public interface CalendarService {
 	
 	public void updatememo(Calendar_Memo calendar_Memo);
 	
-	public Calendar_Memo getmemo(User user, LocalDate localdate);
+	public List<Calendar_Memo> getmemo(User user, LocalDate localdate);
 	
 	
 }

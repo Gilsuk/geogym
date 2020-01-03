@@ -19,6 +19,7 @@ import com.geogym.pt.exception.LessThanOneHourException;
 import com.geogym.pt.exception.MatchingNotAvailable;
 import com.geogym.pt.service.MatchingService;
 import com.geogym.schedule.dto.Schedule;
+import com.geogym.schedule.exception.AllTimeisUnavailable;
 import com.geogym.schedule.exception.InvalidParamException;
 import com.geogym.schedule.service.ScheduleService;
 import com.geogym.trainer.dto.Trainer;
@@ -36,7 +37,7 @@ public class MatchingServiceImpl implements MatchingService {
 	@Autowired PaymentLogService paymentLogService;
 	
 	@Override
-	public void match(User user, Schedule schedule) throws MatchingNotAvailable, CashNotEnoughException {
+	public void match(User user, Schedule schedule) throws MatchingNotAvailable, CashNotEnoughException, AllTimeisUnavailable {
 		
 		try {
 			if(tickectService.hasPTTicket(user, schedule.getTrainer())) {

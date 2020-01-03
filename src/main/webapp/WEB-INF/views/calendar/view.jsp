@@ -14,7 +14,7 @@
 PT신청 가능 시간
 <br>
 <c:forEach items="${list }" var="list">
-	<a href="/test/setPTshedule?schedule_date=${day.date }&schedule_from=${list}&user_no=${user_no}&trainer_no=${trainer_no}"><button>${list }</button></a>&nbsp;
+	<a href="/test/setPTshedule?schedule_date=${day }&schedule_from=${list}&user_no=${user_no}&trainer_no=${trainer_no}"><button>${list }</button></a>&nbsp;
 </c:forEach>
 
 </body>

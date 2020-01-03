@@ -1,11 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-    
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
+	pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ include file="/WEB-INF/views/layouts/header.jsp"%>
 <!-- 합쳐지고 최소화된 최신 CSS -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
 
@@ -67,18 +63,13 @@
     line-height: 150%;
     text-align: left;
 }
-
-
-
 </style>
-</head>
-<body>
 
+<div class = "container">
 <div id = "mypage_info" >
 	<h2  style="font-family: 'NIXGONB-Vb';">트레이너 정보</h2>
 </div>
 
-<div class = "container">
 <%-- <div id = "photo" style = "height:200px;width:140px:">
 	<img src = "" alt = "사진을 등록해 주세요." width="98" height="98">
 
@@ -107,6 +98,4 @@
 
 <div id = "info_info"><span  style="font-family: 'NIXGONB-Vb';font-size: 15px;color: #bcbcbc"></span></div>
 </div>
-
-</body>
-</html>
+<%@ include file="/WEB-INF/views/layouts/footer.jsp"%>

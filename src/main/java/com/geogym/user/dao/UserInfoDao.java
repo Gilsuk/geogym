@@ -19,4 +19,6 @@ public interface UserInfoDao {
 
 	void deleteFromManager(int user_no);
 
+	User selectUserByUserid(String user_id);
+
 }

@@ -116,4 +116,14 @@ public class UserServiceImpl implements UserService {
 		dao.deleteFromManager(user.getUser_no());
 	}
 
+	@Override
+	public User getUserByUserid(User user) throws UserNotFoundException {
+		User selectedUser = dao.selectUserByUserid(user.getUser_id());
+		
+		if (selectedUser == null)
+			throw new UserNotFoundException();
+		
+		return selectedUser;
+	}
+
 }

@@ -12,7 +12,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.geogym.attachment.service.AttachmentService;
-import com.geogym.attachment.service.AttachmentServiceImpl;
 import com.geogym.common.service.SequenceService;
 import com.geogym.memo.dto.CalendarMemo;
 import com.geogym.schedule.dto.PeriodDate;
@@ -22,7 +21,6 @@ import com.geogym.trainer.dao.TrainerDao;
 import com.geogym.trainer.dto.T_reputation;
 import com.geogym.trainer.dto.Trainer;
 import com.geogym.user.dto.User;
-import com.geogym.user.exception.UserNotFoundException;
 import com.geogym.user.service.UserService;
 
 
@@ -50,9 +48,6 @@ public class TrainerServiceImpl implements TrainerService {
 
 	/**
 	 * 트레이너 생성
-	 * 
-	 * 서비스에서 서비스를 가져다 사용할 수 없는 문제있음.
-	 *  
 	 * 
 	 * @param trainer - 트레이너 정보를 생성한다
 	 * @param multipartFile - 트레이너 사진
@@ -219,6 +214,12 @@ public class TrainerServiceImpl implements TrainerService {
 		}
 		
 		
+	}
+
+	@Override
+	public Trainer getTrainertoUser(Trainer trainer) {
+		// TODO Auto-generated method stub
+		return trainerDao.getTrainertoUser(trainer);
 	}
 
 //	@Override

@@ -2,7 +2,7 @@ package com.geogym.calendar.dto;
 
 import java.time.LocalDate;
 
-public class Calendar_Memo {
+public class Calendar_Memo implements DateContent{
 	private int calendar_memo_no;
 	private int user_no; 
 	private LocalDate calendar_memo_date;
@@ -36,7 +36,12 @@ public class Calendar_Memo {
 	public void setCalendar_memo_content(String calendar_memo_content) {
 		this.calendar_memo_content = calendar_memo_content;
 	}
-	
-	
-	
+	@Override
+	public LocalDate getDate() {
+		return getCalendar_memo_date();
+	}
+	@Override
+	public String getContent() {
+		return null;
+	}
 }
