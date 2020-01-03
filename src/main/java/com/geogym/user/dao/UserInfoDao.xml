@@ -44,4 +44,9 @@
 	<delete id="deleteFromManager" parameterType="int">
 		DELETE FROM manager WHERE user_no = #{user_no}
 	</delete>
+
+	<select id="selectUserByUserid" parameterType="java.lang.String" resultType="com.geogym.user.dto.User">
+		SELECT * FROM user
+		WHERE user_id = #{user_id}
+	</select>
 </mapper>

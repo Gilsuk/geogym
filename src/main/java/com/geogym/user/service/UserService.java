@@ -13,6 +13,8 @@ public interface UserService {
 
 	User getUserByUserno(User user) throws UserNotFoundException;
 	
+	User getUserByUserid(User user) throws UserNotFoundException;
+
 	User getLoggedInUser() throws UserNotFoundException;
 	
 	/**
