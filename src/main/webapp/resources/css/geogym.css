@@ -4,13 +4,11 @@
 		공통
 ***********************/
 body {
-	padding-top: 3rem;
-	padding-bottom: 3rem;
 	color: #5a5a5a;
 }
 
 .bg-dark {
-	background-color: black !important;
+	background-color: #111 !important;
 }
 
 /***********************
@@ -28,9 +26,21 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .btn-primary {
-	background-color: red;
+	background-color: #f11;
 	background-image: none;
 	
+}
+
+/***********************
+		폼(form)
+***********************/
+.form-control {
+	border-radius: 0;
+}
+
+.form-control:focus {
+	box-shadow: 0 0 0 0.2rem rgba(255,0,0,1);
+	border-color: red;
 }
 
 /***********************
@@ -45,6 +55,97 @@ h1, h2, h3, h4, h5, h6 {
 .navbar-dark .navbar-nav .active>.nav-link {
 	font-weight: bold;
 	color: black;
+}
+.navbar-dark .navbar-nav .nav-link {
+	color: #ccc;
+}
+
+/***********************
+	footer
+***********************/
+footer {
+	background-color: #111;
+	padding-top: 4em;
+	padding-bottom: 3em;
+}
+
+footer p {
+	color: red;
+}
+
+footer a {
+	color: #ccc;
+}
+
+.card-body {
+	background-color: ghostwhite;
+}
+
+/***********************
+		폼
+***********************/
+.btn-submit {
+	font-weight: bold;
+	color: white;
+	background-color: #111;
+}
+
+.btn-google {
+	font-weight: bold;
+	color: white;
+	background-color: #db4437;
+}
+
+.btn-naver {
+	font-weight: bold;
+	color: white;
+	background-color: #3eaf02;
+}
+
+.btn-kakao {
+	font-weight: bold;
+	color: black;
+	background-color: #ffe812;
+}
+
+/* 슬라이드 체크박스 */
+.custom-control-input:checked~.custom-control-label::before {
+	    border-color: crimson;
+    background-color: crimson;
+}
+.custom-control-input:focus:not(:checked)~.custom-control-label::before {
+    border-color: #990000;
+}
+.custom-control-input:focus~.custom-control-label::before {
+    box-shadow: 0 0 0 0.2rem rgba(153,0,0,.25);
+}
+.custom-control-input:not(:disabled):active~.custom-control-label::before {
+    background-color: #faa;
+    border-color: #faa;
+}
+/* Fallback for Edge
+-------------------------------------------------- */
+
+@supports (-ms-ime-align: auto) {
+  .form-label-group>label {
+    display: none;
+  }
+  .form-label-group input::-ms-input-placeholder {
+    color: #777;
+  }
+}
+
+/* Fallback for IE
+-------------------------------------------------- */
+
+@media all and (-ms-high-contrast: none),
+(-ms-high-contrast: active) {
+  .form-label-group>label {
+    display: none;
+  }
+  .form-label-group input:-ms-input-placeholder {
+    color: #777;
+  }
 }
 
 /***********************

@@ -11,8 +11,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.geogym.attachment.dto.Attachment;
 import com.geogym.attachment.service.AttachmentService;
-import com.geogym.attachment.service.AttachmentServiceImpl;
 import com.geogym.common.service.SequenceService;
 import com.geogym.memo.dto.CalendarMemo;
 import com.geogym.schedule.dto.PeriodDate;
@@ -51,9 +51,6 @@ public class TrainerServiceImpl implements TrainerService {
 	/**
 	 * 트레이너 생성
 	 * 
-	 * 서비스에서 서비스를 가져다 사용할 수 없는 문제있음.
-	 *  
-	 * 
 	 * @param trainer - 트레이너 정보를 생성한다
 	 * @param multipartFile - 트레이너 사진
 	 */
@@ -61,10 +58,18 @@ public class TrainerServiceImpl implements TrainerService {
 	public void insertTrainer(Trainer trainer, MultipartFile file) {
 		// TODO Auto-generated method stub
 		
-		
-		trainer.setAttachment(attachmentService.upload(file));
-		
-		trainerDao.insertTrainer(trainer);
+		try {
+			// 현재 로그인한 유저로서의 아이디에서 유저번호를 받아온다
+			userService.getLoggedInUser();
+			// 트레이너 생성시 기본적으로 트레이너 가치를 1로 준다
+			trainer.setTrainer_price(1);
+			trainer.setAttachment(attachmentService.upload(file));
+			trainerDao.insertTrainer(trainer);
+		} catch (UserNotFoundException e) {
+			// TODO Auto-generated catch block
+			logger.info("로그인되어있지않습니다");
+			return;
+		}
 		
 		
 	}
@@ -121,7 +126,7 @@ public class TrainerServiceImpl implements TrainerService {
 
 
 	@Override
-	public void deleteTrainer(Trainer trainer, MultipartFile file) {
+	public void deleteTrainer(Trainer trainer) {
 		// TODO Auto-generated method stub
 		// 트레이너 제거하기
 		
@@ -129,8 +134,13 @@ public class TrainerServiceImpl implements TrainerService {
 		trainer.setTrainer_address("없음");
 		trainer.setTrainer_price(-1);
 		trainer.setTrainer_profile("없음");
-		
 		attachmentService.removeAttachment(trainer);
+		Attachment attachment = new Attachment();
+		attachment.setAttachment_no(1);
+		trainer.setAttachment(attachment);
+		trainer.setAttachment(attachmentService.getAttachment(trainer));
+		
+		MultipartFile file = null;
 		
 		updateTrainer(trainer, file);
 		
@@ -219,6 +229,12 @@ public class TrainerServiceImpl implements TrainerService {
 		}
 		
 		
+	}
+
+	@Override
+	public Trainer getTrainertoUser(Trainer trainer) {
+		// TODO Auto-generated method stub
+		return trainerDao.getTrainertoUser(trainer);
 	}
 
 //	@Override

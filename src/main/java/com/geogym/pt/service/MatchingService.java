@@ -8,6 +8,7 @@ import com.geogym.pt.dto.PT;
 import com.geogym.pt.exception.LessThanOneHourException;
 import com.geogym.pt.exception.MatchingNotAvailable;
 import com.geogym.schedule.dto.Schedule;
+import com.geogym.schedule.exception.AllTimeisUnavailable;
 import com.geogym.trainer.dto.Trainer;
 import com.geogym.user.dto.User;
 
@@ -18,8 +19,9 @@ public interface MatchingService {
 	 * 쿠폰 또는 캐시 차감
 	 * @param schedule
 	 * @throws MatchingNotAvailable 시간차로 먼저 예약이 잡힌 경우
+	 * @throws AllTimeisUnavailable 
 	 */
-	void match(User user, Schedule schedule) throws MatchingNotAvailable, CashNotEnoughException;
+	void match(User user, Schedule schedule) throws MatchingNotAvailable, CashNotEnoughException, AllTimeisUnavailable;
 	
 	/**
 	 * 회원과 트레이너 일정에서 각각 삭제

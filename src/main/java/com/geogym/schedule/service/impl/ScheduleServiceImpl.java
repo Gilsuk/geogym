@@ -20,6 +20,7 @@ import com.geogym.message.service.MessageService;
 import com.geogym.pt.dto.PT;
 import com.geogym.schedule.dao.ScheduleDao;
 import com.geogym.schedule.dto.Schedule;
+import com.geogym.schedule.exception.AllTimeisUnavailable;
 import com.geogym.schedule.exception.InvalidParamException;
 import com.geogym.schedule.service.ScheduleService;
 import com.geogym.trainer.dto.Trainer;
@@ -35,7 +36,7 @@ public class ScheduleServiceImpl implements ScheduleService {
 	@Autowired MessageService messageService;
 
 	@Override
-	public List<LocalTime> getAvilableTime(Trainer trainer, LocalDate workingDate) throws InvalidParamException {
+	public List<LocalTime> getAvilableTime(Trainer trainer, LocalDate workingDate) throws InvalidParamException, AllTimeisUnavailable {
 
 		Schedule schedule = new Schedule();
 
@@ -81,15 +82,19 @@ public class ScheduleServiceImpl implements ScheduleService {
 				}
 			}
 
+			if(list.size() <= 0) {
+				throw new AllTimeisUnavailable();
+			}
+			
 			return list;
 
-		} catch (NullPointerException e) {
+		} catch (NullPointerException e) {	
 			throw new InvalidParamException();
 		}
 	}
 
 	@Override
-	public void setPTShcedule(User user, Schedule schedule) throws InvalidParamException {
+	public void setPTShcedule(User user, Schedule schedule) throws InvalidParamException, AllTimeisUnavailable {
 
 		List<LocalTime> list = getPTAvilableTime(schedule.getTrainer(), schedule.getSchedule_date());
 		
@@ -160,7 +165,7 @@ public class ScheduleServiceImpl implements ScheduleService {
 	}
 
 	@Override
-	public void setSchedule(Schedule schedule) throws InvalidParamException {
+	public void setSchedule(Schedule schedule) throws InvalidParamException, AllTimeisUnavailable {
 
 		List<LocalTime> list = getAvilableTime(schedule.getTrainer(), schedule.getSchedule_date());
 
@@ -210,7 +215,7 @@ public class ScheduleServiceImpl implements ScheduleService {
 	}
 
 	@Override
-	public List<LocalTime> getPTAvilableTime(Trainer trainer, LocalDate localDate) {
+	public List<LocalTime> getPTAvilableTime(Trainer trainer, LocalDate localDate) throws AllTimeisUnavailable {
 
 		List<LocalTime> list = new ArrayList<LocalTime>();
 		List<Schedule> scheduleList = getSchedule(trainer, localDate);
@@ -218,7 +223,7 @@ public class ScheduleServiceImpl implements ScheduleService {
 		try {
 			list = getAvilableTime(trainer, localDate);
 		} catch (InvalidParamException e) {
-			e.printStackTrace();
+			throw new AllTimeisUnavailable();
 		}
 
 		for (int i = 0; i < scheduleList.size(); i++) {
@@ -228,7 +233,7 @@ public class ScheduleServiceImpl implements ScheduleService {
 		}
 
 		list.remove(list.size() - 1);
-
+		
 		return list;
 	}
 

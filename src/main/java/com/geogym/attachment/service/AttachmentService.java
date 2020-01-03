@@ -111,7 +111,7 @@ public interface AttachmentService {
 	/**
 	 * 연결된 파일 모두 삭제
 	 * 게시글이 삭제될 때 호출할 메소드
-	 * 즉, qna 게시글이 삭제될 때 그 게시글이 포함하고 있던 모든 attachment가 삭제되길 원함
+	 * 예를 들어, qna 게시글이 삭제될 때 그 게시글이 포함하고 있던 모든 attachment가 삭제되길 원함
 	 * Qna_no를 기준으로 조회
 	 * @param 게시글 번호가 포함된 qna dto
 	 */
@@ -123,22 +123,25 @@ public interface AttachmentService {
 	
 	/**
 	 * 해당 글에 포함된 하나의 업로드 파일만 삭제한다.
-	 * qna_no와 attachment_no를 활용
+	 * 예를 들어, qna 일 경우 qna_no와 attachment_no를 활용
+	 * 
+	 * 이 기능 못씀. jsp 에서 사용하기 거의 불가능
+	 * 
 	 * @param qna qna_no를 포함하는 객체
 	 * @param attachment attachment_no를 포함하는 객체
 	 */
-	void removeAttachment(Qna qna, Attachment attachment);
-	
-	void removeAttachment(QnaAnswer qnaAnswer, Attachment attachment);
-
-	void removeAttachment(BodyInfo bodyinfo, Attachment attachment);
+//	void removeAttachment(Qna qna, Attachment attachment);
+//	
+//	void removeAttachment(QnaAnswer qnaAnswer, Attachment attachment);
+//
+//	void removeAttachment(BodyInfo bodyinfo, Attachment attachment);
 	
 	/**
 	 * 업로드 파일을 교체한다.
 	 * 기존 업로드된 파일은 삭제한다.
 	 * @param attachment 교체 대상 attachment_no를 포함하는 객체
 	 */
-	void updateAttachment(Attachment attachment);
+	Attachment updateAttachment(Attachment attachment, MultipartFile file);
 
 	/**
 	 * 트레이너의 프로필 사진을 삭제
@@ -148,7 +151,8 @@ public interface AttachmentService {
 	void removeAttachment(Trainer trainer);
 
 	/**
-	 * 상동
+	 * 트레이너메모의 파일 삭제
+	 * 단, 해당컬럼은 NOT NULL 이므로 파일만 삭제하고, 컬럼에는 기본값 사진 주소로 업데이트 한다.
 	 */
 	void removeAttachment(TrainingMemo trainingMemo);
 

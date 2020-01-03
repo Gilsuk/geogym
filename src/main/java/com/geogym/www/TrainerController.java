@@ -62,18 +62,19 @@ public class TrainerController {
 	private String insertTrainer() {
 		logger.info("insertTrainer");
 		
-//		try {
-//			User loggedInUser = userService.getLoggedInUser();
-//			if (userService.isTrainer(loggedInUser)) {
-//				return "redirect:/user/main";
-//			}else {
-//				return null;
-//			}
-//		} catch (UserNotFoundException e) {
-//			// TODO Auto-generated catch block
-//			return "redirect:/user/main";
-//		}
-		return null;
+		try {
+			User user = userService.getLoggedInUser();
+			if (userService.isTrainer(user)) {
+				return "redirect:/";
+			}else {
+				System.out.println(user);
+				return null;
+			}
+		} catch (UserNotFoundException e) {
+			// TODO Auto-generated catch block
+			return "redirect:/";
+		}
+//		return null;
 
 	}
 
@@ -83,8 +84,8 @@ public class TrainerController {
 		logger.info("insertTrainer2");
 		
 		
-		trainer.setAttachment(attachmentService.upload(file));		
-		
+//		trainer.setAttachment(attachmentService.upload(file));		
+//		
 //		System.out.println(trainer);
 //		try {
 //			User loggedInUser = userService.getLoggedInUser();			
@@ -108,17 +109,16 @@ public class TrainerController {
 	@RequestMapping(value = "/trainer/update", method = RequestMethod.GET)
 		private String updateTrainer() {
 		
-//		try {
-//			User loggedInUser = userService.getLoggedInUser();
-//			if (userService.isTrainer(loggedInUser)) {
+		try {			
+			if (userService.isTrainer(userService.getLoggedInUser())) {
 				return null;
-//			}else {
-//				return "redirect:/user/main";
-//			}
-//		} catch (UserNotFoundException e) {
-//			// TODO Auto-generated catch block
-//			return "redirect:/user/main";
-//		}
+			}else {
+				return "redirect:/";
+			}
+		} catch (UserNotFoundException e) {
+			// TODO Auto-generated catch block
+			return "redirect:/";
+		}
 		
 	}
 
@@ -144,13 +144,13 @@ public class TrainerController {
 
 	// 트레이너 정보 제거하기
 	@RequestMapping(value = "/trainer/delete", method = RequestMethod.POST)
-	private void TrainerDelete(Trainer trainer, MultipartFile file) {
+	private void TrainerDelete(Trainer trainer) {
 		logger.info("Delete");
 
 		// 테스트용, RequestMethod 를 GET 으로 바꿔야함
 		trainer.setTrainer_no(1);
 
-		trainerService.deleteTrainer(trainer, file);
+		trainerService.deleteTrainer(trainer);
 
 	}
 

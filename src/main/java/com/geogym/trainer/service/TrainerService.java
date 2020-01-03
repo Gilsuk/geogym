@@ -109,10 +109,9 @@ public interface TrainerService {
 	 * 업데이트 후 selectTrainer 를 수행하여 수정된 정보를 반환한다
 	 * 
 	 * @param trainer - 트레이너 ID 혹은 트레이너 번호를 기준으로 한다
-	 * @param file 
 	 * @return Trainer - 트레이너 DTO 를 불러온다
 	 */
-	void deleteTrainer(Trainer trainer, MultipartFile file);
+	void deleteTrainer(Trainer trainer);
 	
 	
 	/**
@@ -227,6 +226,16 @@ public interface TrainerService {
 
 
 	double getAllReputation();
+	
+	/**
+	 * 유저번호가 일치하는 트레이너 조회
+	 * 
+	 * @param trainer - 유저 번호만 입력되어있음
+	 * @return
+	 */
+	Trainer getTrainertoUser(Trainer trainer);
+
+
 
 
 }

@@ -14,6 +14,7 @@ import com.geogym.pt.exception.LessThanOneHourException;
 import com.geogym.pt.exception.MatchingNotAvailable;
 import com.geogym.pt.service.MatchingService;
 import com.geogym.schedule.dto.Schedule;
+import com.geogym.schedule.exception.AllTimeisUnavailable;
 import com.geogym.trainer.dto.Trainer;
 import com.geogym.user.dto.User;
 
@@ -26,18 +27,13 @@ public class PTController {
 	MatchingService matchingService;
 
 	@RequestMapping(value = "/test/setpt")
-	public void getWorkingTime() {
+	public void getWorkingTime(
+			User user,
+			Trainer trainer,
+			Schedule schedule
+			) {
 
-		User user = new User();
-		user.setUser_no(10);
-
-		Trainer trainer = new Trainer();
-		trainer.setTrainer_no(2);
-
-		Schedule schedule = new Schedule();
 		schedule.setTrainer(trainer);
-		schedule.setSchedule_date(LocalDate.of(2019, 12, 30));
-		schedule.setSchedule_from(LocalTime.of(12, 00));
 		schedule.setSchedule_msg("PT");
 
 		try {
@@ -46,6 +42,8 @@ public class PTController {
 			// 매칭 실패
 		} catch (CashNotEnoughException e) {
 			// 캐시 부족
+		} catch (AllTimeisUnavailable e) {
+			// 빈 시간 없음
 		}
 	}
 

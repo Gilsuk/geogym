@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.geogym.pt.dto.PT;
 import com.geogym.schedule.dto.Schedule;
+import com.geogym.schedule.exception.AllTimeisUnavailable;
 import com.geogym.schedule.exception.InvalidParamException;
 import com.geogym.schedule.service.ScheduleService;
 import com.geogym.trainer.dto.Trainer;
@@ -40,6 +41,8 @@ public class ScheduleTestController {
 			list = scheduleService.getAvilableTime(trainer, localDate);
 		} catch (InvalidParamException e) {
 			return;
+		} catch (AllTimeisUnavailable e) {
+			return;
 		}
 		
 		logger.info(list.toString());
@@ -61,6 +64,8 @@ public class ScheduleTestController {
 		try {
 			list = scheduleService.getAvilableTime(trainer, localDate);
 		} catch (InvalidParamException e) {
+			return;
+		} catch (AllTimeisUnavailable e) {
 			return;
 		}
 	}
@@ -86,6 +91,8 @@ public class ScheduleTestController {
 			scheduleService.setSchedule(schedule);
 		} catch (InvalidParamException e) {
 			// 올바르지 않은 파라미터
+		} catch (AllTimeisUnavailable e) {
+			// 이용가능 시간 없음
 		}
 	}
 	
@@ -111,6 +118,8 @@ public class ScheduleTestController {
 			scheduleService.setPTShcedule(user, schedule);
 		} catch (InvalidParamException e) {
 			// 올바르지 않은 파라미터
+		} catch (AllTimeisUnavailable e) {
+			// 이용 가능 시간 없음
 		}
 	}
 	
@@ -127,7 +136,11 @@ public class ScheduleTestController {
 		
 		List<LocalTime> list;
 		
-		list = scheduleService.getPTAvilableTime(trainer, localDate);
+		try {
+			list = scheduleService.getPTAvilableTime(trainer, localDate);
+		} catch (AllTimeisUnavailable e) {
+			return;
+		}
 		
 		logger.info(list.toString());
 	}
