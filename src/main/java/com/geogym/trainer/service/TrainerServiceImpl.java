@@ -221,12 +221,22 @@ public class TrainerServiceImpl implements TrainerService {
 	public void reputate(T_reputation reputation) {
 		// TODO Auto-generated method stub
 		
-		if (trainerDao.countReputate(reputation) >= 1) {
-			System.out.println(reputation);
-			trainerDao.updateReputate(reputation);
-		}else {
-			trainerDao.insertReputate(reputation);
+		User user;
+		try {
+			user = userService.getLoggedInUser();
+			reputation.setUser_no(user.getUser_no());
+			
+			if (trainerDao.countReputate(reputation) >= 1) {
+				System.out.println(reputation);
+				trainerDao.updateReputate(reputation);
+			}else {
+				trainerDao.insertReputate(reputation);
+			}
+		} catch (UserNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
+		
 		
 		
 	}
