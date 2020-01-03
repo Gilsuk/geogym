@@ -6,6 +6,10 @@
 <head>
 <meta charset="UTF-8">
 <title>geogym</title>
+<!-- JQuery 3.4.1 -->
+<script src="https://code.jquery.com/jquery-3.4.1.min.js"
+	integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+	crossorigin="anonymous"></script>
 <!-- Bootstrap 4.4.1 CSS -->
 <link rel="stylesheet"
 	href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
@@ -13,10 +17,7 @@
 	crossorigin="anonymous">
 <!-- GEOGYM CSS -->
 <link rel="stylesheet" href="/resources/css/geogym.css">
-<!-- JQuery 3.4.1 -->
-<script src="https://code.jquery.com/jquery-3.4.1.min.js"
-	integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
-	crossorigin="anonymous"></script>
+
 <!-- Bootstrap Component -->
 <script
 	src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
