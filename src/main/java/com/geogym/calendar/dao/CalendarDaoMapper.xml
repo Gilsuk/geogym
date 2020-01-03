@@ -39,7 +39,7 @@
 	
 	
 	<delete id="deletememo" parameterType="com.geogym.calendar.dto.Calendar_Memo">
-		delete from calendar_memo where user_no = #{user_no} and calendar_memo_date = date('now')
+		delete from calendar_memo where user_no = #{user_no} and calendar_memo_date = #{calendar_memo_date}
 	</delete>
 	
 	
@@ -47,7 +47,7 @@
 	 
  	<insert id="insertmemo" parameterType="com.geogym.calendar.dto.Calendar_Memo">
  	
- 		insert into calendar_memo(user_no,calendar_memo_date,calendar_memo_content) values(#{user_no},date('now'),#{calendar_memo_content})
+ 		insert into calendar_memo(user_no,calendar_memo_date,calendar_memo_content) values(#{user_no},#{calendar_memo_date},#{calendar_memo_content})
  	
  	</insert>
  	

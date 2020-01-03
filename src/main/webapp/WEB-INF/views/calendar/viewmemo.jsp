@@ -23,9 +23,10 @@ ${memo.calendar_memo_content }
 </c:if>
 
 <c:if test="${isTrainer}">
-	<form action="/calendar/memo?calendar_memo_date=${day }" method="get">
-	<input type="text" name="calendar_memo_content"/>
-	<button>작성</button>
+	<form action="/calendar/memo" method="get">
+		<input type="hidden" name="calendar_memo_date" value="${day }"/>
+		<input type="text" name="calendar_memo_content"/>
+		<button>작성</button>
 	</form>
 </c:if>
 

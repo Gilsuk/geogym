@@ -1,9 +1,7 @@
 package com.geogym.www;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.LocalTime;
-import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -22,7 +20,6 @@ import com.geogym.calendar.service.CalendarService;
 import com.geogym.pt.dto.PT;
 import com.geogym.schedule.dto.Schedule;
 import com.geogym.schedule.exception.AllTimeisUnavailable;
-import com.geogym.schedule.service.BusinessDayService;
 import com.geogym.schedule.service.ScheduleService;
 import com.geogym.trainer.dto.Trainer;
 import com.geogym.user.dto.User;
@@ -167,7 +164,9 @@ public class CalendarController {
 		return "/calendar/shceduleview";
 	}
 
-	@RequestMapping(value = "/calendar/memo", method = RequestMethod.POST)
+	
+	
+	@RequestMapping(value = "/calendar/memo", method = RequestMethod.GET)
 	public String calendarmemoProc(Calendar_Memo calendar_Memo) {
 		User loggedInUser = null;
 		try {
@@ -179,9 +178,12 @@ public class CalendarController {
 		}
 		int user_no = loggedInUser.getUser_no();
 		calendar_Memo.setUser_no(user_no);
+		
+		logger.info(calendar_Memo.getCalendar_memo_content());
+		
 		calendarService.insertMemo(calendar_Memo);
 
-		return "redirect:/calendar/memo";
+		return "redirect:/calendar/memolist";
 
 	}
 
