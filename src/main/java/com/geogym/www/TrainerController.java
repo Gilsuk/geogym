@@ -63,10 +63,11 @@ public class TrainerController {
 		logger.info("insertTrainer");
 		
 		try {
-			
-			if (userService.isTrainer(userService.getLoggedInUser())) {
+			User user = userService.getLoggedInUser();
+			if (userService.isTrainer(user)) {
 				return "redirect:/";
 			}else {
+				System.out.println(user);
 				return null;
 			}
 		} catch (UserNotFoundException e) {
@@ -112,11 +113,11 @@ public class TrainerController {
 			if (userService.isTrainer(userService.getLoggedInUser())) {
 				return null;
 			}else {
-				return "redirect:/user/main";
+				return "redirect:/";
 			}
 		} catch (UserNotFoundException e) {
 			// TODO Auto-generated catch block
-			return "redirect:/user/main";
+			return "redirect:/";
 		}
 		
 	}
@@ -143,13 +144,13 @@ public class TrainerController {
 
 	// 트레이너 정보 제거하기
 	@RequestMapping(value = "/trainer/delete", method = RequestMethod.POST)
-	private void TrainerDelete(Trainer trainer, MultipartFile file) {
+	private void TrainerDelete(Trainer trainer) {
 		logger.info("Delete");
 
 		// 테스트용, RequestMethod 를 GET 으로 바꿔야함
 		trainer.setTrainer_no(1);
 
-		trainerService.deleteTrainer(trainer, file);
+		trainerService.deleteTrainer(trainer);
 
 	}
 
