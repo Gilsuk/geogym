@@ -167,7 +167,7 @@ public class CalendarController {
 	
 	
 	@RequestMapping(value = "/calendar/memo", method = RequestMethod.GET)
-	public String calendarmemoProc(Calendar_Memo calendar_Memo) {
+	public String calendarmemoProc(Calendar_Memo calendar_Memo, int user_no) {
 		User loggedInUser = null;
 		try {
 			loggedInUser = userServ.getLoggedInUser();
@@ -176,25 +176,20 @@ public class CalendarController {
 //			e.printStackTrace();
 			return "redirect:/test/user/login";
 		}
-		int user_no = loggedInUser.getUser_no();
-		calendar_Memo.setUser_no(user_no);
+		calendar_Memo.setUser_no(loggedInUser.getUser_no());
 		
 		logger.info(calendar_Memo.getCalendar_memo_content());
 		
 		calendarService.insertMemo(calendar_Memo);
 
-		return "redirect:/calendar/memolist";
+		return "redirect:/calendar/memolist?user_no="+user_no;
 
 	}
 
 	@RequestMapping(value = "/calendar/memolist", method = RequestMethod.GET)
 	public String calendarmemolist(Model model, @RequestParam(defaultValue = "-999999999-01-01") LocalDate date,
 			User user) {
-		
-		try {
-			user = userServ.getLoggedInUser();
-		} catch (UserNotFoundException e) {
-		}
+
 		if (date.equals(LocalDate.MIN)) {
 			date = LocalDate.now();
 		}
@@ -202,7 +197,7 @@ public class CalendarController {
 		List<Day> listDay = calendarService.getDayList(date);
 		
 		List<Calendar_Memo> memolist = calendarService.getmemo(user, date);
-
+		
 		listDay = calendarService.simplificationList(calendarService.setPTToList(listDay, memolist));
 		
 		model.addAttribute("listDay", new Gson().toJson(listDay));
@@ -238,11 +233,6 @@ public class CalendarController {
 	public String ptschedulecalendar(Model model, @RequestParam(defaultValue = "-999999999-01-01") LocalDate date,
 			User user) {
 
-		try {
-			user = userServ.getLoggedInUser();
-		} catch (UserNotFoundException e) {
-		}
-
 		if (date.equals(LocalDate.MIN)) {
 			date = LocalDate.now();
 		}
@@ -268,14 +258,24 @@ public class CalendarController {
 	}
 	
 	@RequestMapping(value = "/calendar/viewmemo", method = RequestMethod.GET)
-	public String viewMemocalendar(Model model, LocalDate date, User user) {
+	public String viewMemocalendar(Model model, LocalDate date, int user_no) {
 
+		User user = new User();
+		user.setUser_no(user_no);
+		
+		User loggedInUser = new User();
+		
+		try {
+			loggedInUser = userServ.getLoggedInUser();
+		} catch (UserNotFoundException e) {
+		}
+		
 		Calendar_Memo memo = calendarService.getOneMemo(user, date);
 		
 		model.addAttribute("day", date);
 		model.addAttribute("memo", memo);
 		model.addAttribute("user_no", user.getUser_no());
-		model.addAttribute("isTrainer", userServ.isTrainer(user));
+		model.addAttribute("isTrainer", userServ.isTrainer(loggedInUser));
 
 		return null;
 	}

@@ -63,6 +63,7 @@
 					<c:if test="${not empty loggedInUser }">
 					<li class="nav-item"><a class="nav-link disabled" href="#"
 						tabindex="-1" aria-disabled="true">${loggedInUser.user_name } is logged in</a></li>
+					<li class="nav-item"><a class="nav-link" href="/ajax/user/logout">나가기</a></li>
 					</c:if>
 				</ul>
 				<form class="form-inline mt-2 mt-md-0">
