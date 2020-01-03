@@ -70,4 +70,11 @@
  		select calendar_memo_date, calendar_memo_content from calendar_memo where user_no = #{user_no} and calendar_memo_date between #{start} and #{end}
  	</select>
  	
+ 	<select id="selectMemo" parameterType ="hashmap" resultType="com.geogym.calendar.dto.Calendar_Memo">
+ 		SELECT * FROM calendar_memo
+ 		WHERE 1=1
+ 		AND user_no = ${user_no}
+ 		AND calendar_memo_date = '${date}'
+ 	</select>
+ 	
  </mapper>
