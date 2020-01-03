@@ -20,7 +20,6 @@ import com.geogym.calendar.service.CalendarService;
 import com.geogym.pt.dto.PT;
 import com.geogym.schedule.dto.Schedule;
 import com.geogym.schedule.exception.AllTimeisUnavailable;
-import com.geogym.schedule.service.BusinessDayService;
 import com.geogym.schedule.service.ScheduleService;
 import com.geogym.trainer.dto.Trainer;
 import com.geogym.user.dto.User;
@@ -33,15 +32,12 @@ public class CalendarController {
 
 	private static final Logger logger = LoggerFactory.getLogger(CalendarController.class);
 	@Autowired
-	CalendarService calendarService;
+	private CalendarService calendarService;
 	@Autowired
-	BusinessDayService businessDayService;
+	private ScheduleService scheduleService;
 	@Autowired
-	ScheduleService scheduleService;
+	private UserService userServ;
 
-	@Autowired private UserService userServ;
-
-	
 	@RequestMapping(value = "/calendar/set", method = RequestMethod.GET)
 	public void getSpecialDate(Model model) {
 
@@ -64,97 +60,115 @@ public class CalendarController {
 	}
 
 	@RequestMapping(value = "/calendar/main", method = RequestMethod.GET)
-	public void maincalendar(Model model, 
-			@RequestParam(defaultValue = "-999999999-01-01") LocalDate date) {
+	public void maincalendar(Model model, @RequestParam(defaultValue = "-999999999-01-01") LocalDate date) {
 
-		if(date.equals(LocalDate.MIN)) {
+		if (date.equals(LocalDate.MIN)) {
 			date = LocalDate.now();
 		}
 
 		List<Day> listDay = calendarService.getDayList(date);
 
 		model.addAttribute("listDay", new Gson().toJson(listDay));
-		model.addAttribute("nextMonth", "/calendar/main?date="+date.plusMonths(1));
-		model.addAttribute("prevMonth", "/calendar/main?date="+date.minusMonths(1));
+		model.addAttribute("nextMonth", "/calendar/main?date=" + date.plusMonths(1));
+		model.addAttribute("prevMonth", "/calendar/main?date=" + date.minusMonths(1));
 		model.addAttribute("curMonth", date);
-		
+
 	}
 
-	@RequestMapping(value = "/calendar/view", method = RequestMethod.GET)
-	public void viewcalendar(Model model, LocalDate date, User user, Trainer trainer) {
-		
+	@RequestMapping(value = "/calendar/view/PTrequest", method = RequestMethod.GET)
+	public String viewcalendar(Model model, LocalDate date, User user, Trainer trainer) {
+
 		List<LocalTime> list;
 		try {
 			list = scheduleService.getPTAvilableTime(trainer, date);
 		} catch (AllTimeisUnavailable e) {
-			return;
+			return "redirect:/calendar/main";
 		}
-		
 		model.addAttribute("day", date);
 		model.addAttribute("list", list);
 		model.addAttribute("user_no", user.getUser_no());
 		model.addAttribute("trainer_no", trainer.getTrainer_no());
-	}
-	
-	
-	@RequestMapping(value = "/calendar/PT/request", method = RequestMethod.GET)
-	public String ptcalendar(Model model, 
-			@RequestParam(defaultValue = "-999999999-01-01") LocalDate date
-			, User user
-			, Trainer trainer) {
 
-		if(date.equals(LocalDate.MIN)) {
-			date = LocalDate.now();
+		return "/calendar/view";
+	}
+
+	@RequestMapping(value = "/calendar/PT/request", method = RequestMethod.GET)
+	public String ptcalendar(Model model, @RequestParam(defaultValue = "-999999999-01-01") LocalDate date, User user,
+			Trainer trainer) {
+
+		try {
+			user = userServ.getLoggedInUser();
+		} catch (UserNotFoundException e) {
 		}
 		
+		if (date.equals(LocalDate.MIN)) {
+			date = LocalDate.now();
+		}
+
 		List<Day> listDay = calendarService.getDayList(date);
-		
-		List<PT> timeList = scheduleService.getPTScheduleByMonth(user, date);
-		
-		listDay = calendarService.setPTToList(listDay, timeList);
-		
+
+//		List<PT> timeList = scheduleService.getPTScheduleByMonth(user, date);
+
+//		listDay = calendarService.setPTToList(listDay, timeList);
+
 		model.addAttribute("listDay", new Gson().toJson(listDay));
-		model.addAttribute("nextMonth", "/calendar/PT?trainer_no="+trainer.getTrainer_no()+"&user_no="+user.getUser_no()+"&date="+date.plusMonths(1));
-		model.addAttribute("prevMonth", "/calendar/PT?trainer_no="+trainer.getTrainer_no()+"&user_no="+user.getUser_no()+"&date="+date.minusMonths(1));
+		model.addAttribute("nextMonth", "/calendar/PT?trainer_no=" + trainer.getTrainer_no() + "&user_no="
+				+ user.getUser_no() + "&date=" + date.plusMonths(1));
+		model.addAttribute("prevMonth", "/calendar/PT?trainer_no=" + trainer.getTrainer_no() + "&user_no="
+				+ user.getUser_no() + "&date=" + date.minusMonths(1));
 		model.addAttribute("curMonth", date);
 		model.addAttribute("trainer_no", trainer.getTrainer_no());
 		model.addAttribute("user_no", user.getUser_no());
-		
-		logger.info(timeList.toString());
-		
+		model.addAttribute("viewLink",
+				"/calendar/view/PTrequest?trainer_no=" + trainer.getTrainer_no() + "&user_no=" + user.getUser_no());
+
 		return "/calendar/main";
 	}
-	
+
 	@RequestMapping(value = "/calendar/schedule", method = RequestMethod.GET)
-	public String schedulecalendar(Model model, 
-			@RequestParam(defaultValue = "-999999999-01-01") LocalDate date
-			, Trainer trainer) {
-		
-		if(date.equals(LocalDate.MIN)) {
+	public String schedulecalendar(Model model, @RequestParam(defaultValue = "-999999999-01-01") LocalDate date,
+			Trainer trainer) {
+
+		if (date.equals(LocalDate.MIN)) {
 			date = LocalDate.now();
 		}
-		
+
 		List<Day> listDay = calendarService.getDayList(date);
-		
-		List<Schedule> timeList = scheduleService.getSchedule(trainer, date);
-		
+
+		List<Schedule> timeList = scheduleService.getAttendance(trainer, date);
+
 		listDay = calendarService.setPTToList(listDay, timeList);
-		
+
 		model.addAttribute("listDay", new Gson().toJson(listDay));
-		model.addAttribute("nextMonth", "/calendar/PT?user_no="+trainer.getTrainer_no()+"&date="+date.plusMonths(1));
-		model.addAttribute("prevMonth", "/calendar/PT?user_no="+trainer.getTrainer_no()+"&date="+date.minusMonths(1));
+		model.addAttribute("nextMonth",
+				"/calendar/PT?user_no=" + trainer.getTrainer_no() + "&date=" + date.plusMonths(1));
+		model.addAttribute("prevMonth",
+				"/calendar/PT?user_no=" + trainer.getTrainer_no() + "&date=" + date.minusMonths(1));
 		model.addAttribute("curMonth", date);
-		
+		model.addAttribute("viewLink", "/calendar/view/schedule?trainer_no=" + trainer.getTrainer_no());
+
 		logger.info(timeList.toString());
-		
+
 		return "/calendar/main";
 	}
+	
+	@RequestMapping(value = "/calendar/view/schedule", method = RequestMethod.GET)
+	public String viewSchedulecalendar(Model model, LocalDate date, Trainer trainer) {
 
+		List<Schedule> list = scheduleService.getSchedule(trainer, date);
+		
+		model.addAttribute("day", date);
+		model.addAttribute("list", list);
+		model.addAttribute("trainer_no", trainer.getTrainer_no());
+
+		return "/calendar/shceduleview";
+	}
 
 	
-	@RequestMapping(value="/calendar/memo",method = RequestMethod.POST)
+	
+	@RequestMapping(value = "/calendar/memo", method = RequestMethod.GET)
 	public String calendarmemoProc(Calendar_Memo calendar_Memo) {
-		User loggedInUser=null;
+		User loggedInUser = null;
 		try {
 			loggedInUser = userServ.getLoggedInUser();
 		} catch (UserNotFoundException e) {
@@ -162,61 +176,107 @@ public class CalendarController {
 //			e.printStackTrace();
 			return "redirect:/test/user/login";
 		}
-		int user_no =loggedInUser.getUser_no();
+		int user_no = loggedInUser.getUser_no();
 		calendar_Memo.setUser_no(user_no);
+		
+		logger.info(calendar_Memo.getCalendar_memo_content());
+		
 		calendarService.insertMemo(calendar_Memo);
-		
-		return "redirect:/calendar/memo";
-		
-	}
-	
-	@RequestMapping(value="/calendar/list",method = RequestMethod.GET)
-	public void calendarmemolist(Model model) {
-		List<Calendar_Memo> memolist = calendarService.memoList();
-		logger.info(memolist.toString());
-	}
-	
-	
-	@RequestMapping(value="/calendar/update",method = RequestMethod.GET)
-	public void calendarmemoupdate(Calendar_Memo calendar_Memo,Model model) {
-		
-		calendar_Memo = calendarService.memoview(calendar_Memo);
-		model.addAttribute("calendar_Memo", calendar_Memo);
-		
-		
-	}
-	
-	@RequestMapping(value="/calendar/update",method = RequestMethod.POST)
-	public String calendarmemoupdateProc(Calendar_Memo calendar_Memo) {
-			calendarService.updatememo(calendar_Memo);
-			
-		
-		return "redirect:/calendar/list";
-	}
-	
-	@RequestMapping(value = "/calendar/PT/schedule", method = RequestMethod.GET)
-	public String ptschedulecalendar(Model model, 
-			@RequestParam(defaultValue = "-999999999-01-01") LocalDate date
-			, User user) {
 
-		if(date.equals(LocalDate.MIN)) {
+		return "redirect:/calendar/memolist";
+
+	}
+
+	@RequestMapping(value = "/calendar/memolist", method = RequestMethod.GET)
+	public String calendarmemolist(Model model, @RequestParam(defaultValue = "-999999999-01-01") LocalDate date,
+			User user) {
+		
+		try {
+			user = userServ.getLoggedInUser();
+		} catch (UserNotFoundException e) {
+		}
+		if (date.equals(LocalDate.MIN)) {
 			date = LocalDate.now();
 		}
 		
 		List<Day> listDay = calendarService.getDayList(date);
 		
-		List<PT> timeList = scheduleService.getPTScheduleByMonth(user, date);
-		
-		listDay = calendarService.setPTToList(listDay, timeList);
+		List<Calendar_Memo> memolist = calendarService.getmemo(user, date);
+
+		listDay = calendarService.simplificationList(calendarService.setPTToList(listDay, memolist));
 		
 		model.addAttribute("listDay", new Gson().toJson(listDay));
-		model.addAttribute("nextMonth", "/calendar/PT/schedule?user_no="+user.getUser_no()+"&date="+date.plusMonths(1));
-		model.addAttribute("prevMonth", "/calendar/PT/schedule?&user_no="+user.getUser_no()+"&date="+date.minusMonths(1));
+		model.addAttribute("nextMonth",
+				"/calendar/memolist?user_no=" + user.getUser_no() + "&date=" + date.plusMonths(1));
+		model.addAttribute("prevMonth",
+				"/calendar/memolist?&user_no=" + user.getUser_no() + "&date=" + date.minusMonths(1));
 		model.addAttribute("curMonth", date);
 		model.addAttribute("user_no", user.getUser_no());
+		model.addAttribute("viewLink", "/calendar/viewmemo?user_no=" + user.getUser_no());
 		
-		logger.info(timeList.toString());
+		logger.info(memolist.toString());
 		
 		return "/calendar/main";
+	}
+
+	@RequestMapping(value = "/calendar/update", method = RequestMethod.GET)
+	public void calendarmemoupdate(Calendar_Memo calendar_Memo, Model model) {
+
+		calendar_Memo = calendarService.memoview(calendar_Memo);
+		model.addAttribute("calendar_Memo", calendar_Memo);
+
+	}
+
+	@RequestMapping(value = "/calendar/update", method = RequestMethod.POST)
+	public String calendarmemoupdateProc(Calendar_Memo calendar_Memo) {
+		calendarService.updatememo(calendar_Memo);
+
+		return "redirect:/calendar/list";
+	}
+
+	@RequestMapping(value = "/calendar/PT/schedule", method = RequestMethod.GET)
+	public String ptschedulecalendar(Model model, @RequestParam(defaultValue = "-999999999-01-01") LocalDate date,
+			User user) {
+
+		try {
+			user = userServ.getLoggedInUser();
+		} catch (UserNotFoundException e) {
+		}
+
+		if (date.equals(LocalDate.MIN)) {
+			date = LocalDate.now();
+		}
+
+		List<Day> listDay = calendarService.getDayList(date);
+
+		List<PT> timeList = scheduleService.getPTScheduleByMonth(user, date);
+
+		listDay = calendarService.setPTToList(listDay, timeList);
+
+		model.addAttribute("listDay", new Gson().toJson(listDay));
+		model.addAttribute("nextMonth",
+				"/calendar/PT/schedule?user_no=" + user.getUser_no() + "&date=" + date.plusMonths(1));
+		model.addAttribute("prevMonth",
+				"/calendar/PT/schedule?&user_no=" + user.getUser_no() + "&date=" + date.minusMonths(1));
+		model.addAttribute("curMonth", date);
+		model.addAttribute("user_no", user.getUser_no());
+		model.addAttribute("viewLink", "/calendar/viewmemo?user_no=" + user.getUser_no());
+
+		logger.info(timeList.toString());
+
+		return "/calendar/main";
+	}
+	
+	@RequestMapping(value = "/calendar/viewmemo", method = RequestMethod.GET)
+	public String viewMemocalendar(Model model, LocalDate date, User user) {
+
+		Calendar_Memo memo = calendarService.getOneMemo(user, date);
+		
+		model.addAttribute("day", date);
+		model.addAttribute("memo", memo);
+		model.addAttribute("user_no", user.getUser_no());
+		model.addAttribute("isTrainer", userServ.isTrainer(user));
+
+		return null;
 	}
 }

@@ -97,4 +97,13 @@ public interface ScheduleService {
 	 */
 
 	List<LocalTime> getPTAvilableTime(Trainer trainer, LocalDate localDate) throws AllTimeisUnavailable;
+
+	/**
+	 * 
+	 * 
+	 * @param trainer
+	 * @param date
+	 * @return
+	 */
+	List<Schedule> getAttendance(Trainer trainer, LocalDate date);
 }

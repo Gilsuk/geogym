@@ -63,4 +63,15 @@
 		ORDER BY pt_date
 	</select>
 
+	<select id="selectAttandanceInMonth" parameterType="hashmap" resultType="com.geogym.schedule.dto.Schedule">
+		SELECT 
+		attendance_date AS schedule_date
+		, attendance_start AS schedule_from
+		, attendance_end AS schedule_to 
+		FROM
+		attendance
+		WHERE 1=1
+		AND trainer_no = #{trainer_no}
+		AND attendance_date BETWEEN #{start} AND #{end}
+	</select>
 </mapper>
