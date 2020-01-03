@@ -15,7 +15,7 @@
 	<select id="selectCntTrainerByUserno" parameterType="int"
 		resultType="int">
 		SELECT count(*) FROM user
-		INNER JOIN trainer USING (user_no)
+		INNER JOIN trainer USING (user_no) where user_no = #{user_no}
 	</select>
 
 	<select id="selectCntManagerByUserno" parameterType="int"
