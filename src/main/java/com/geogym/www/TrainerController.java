@@ -26,9 +26,11 @@ public class TrainerController {
 
 	@Autowired
 	TrainerService trainerService;
-	
-	@Autowired UserService userService;
-	@Autowired AttachmentService attachmentService;
+
+	@Autowired
+	UserService userService;
+	@Autowired
+	AttachmentService attachmentService;
 
 	private static final Logger logger = LoggerFactory.getLogger(TrainerController.class);
 
@@ -48,7 +50,7 @@ public class TrainerController {
 	@RequestMapping(value = "/trainer/select", method = RequestMethod.GET)
 	private void TrainerSelect(Model model, Trainer trainer) {
 		logger.info("TrainerSelect");
-		trainer.setTrainer_no(1);
+//		trainer.setTrainer_no(1);
 
 		trainer = trainerService.getTrainer(trainer);
 		System.out.println(trainer);
@@ -61,12 +63,13 @@ public class TrainerController {
 	@RequestMapping(value = "/trainer/insert", method = RequestMethod.GET)
 	private String insertTrainer() {
 		logger.info("insertTrainer");
-		
+
 		try {
-			
-			if (userService.isTrainer(userService.getLoggedInUser())) {
+			User user = userService.getLoggedInUser();
+			if (userService.isTrainer(user)) {
 				return "redirect:/";
-			}else {
+			} else {
+				System.out.println(user);
 				return null;
 			}
 		} catch (UserNotFoundException e) {
@@ -81,8 +84,7 @@ public class TrainerController {
 	@RequestMapping(value = "/trainer/insert", method = RequestMethod.POST)
 	private void insertTrainer(Trainer trainer, MultipartFile file) {
 		logger.info("insertTrainer2");
-		
-		
+
 //		trainer.setAttachment(attachmentService.upload(file));		
 //		
 //		System.out.println(trainer);
@@ -96,29 +98,26 @@ public class TrainerController {
 //			// TODO Auto-generated catch block
 //			e.printStackTrace();
 //		}
-		
-		
+
 		trainerService.insertTrainer(trainer, file);
-
-
 
 	}
 
 	// 트레이너 테이블 수정
 	@RequestMapping(value = "/trainer/update", method = RequestMethod.GET)
-		private String updateTrainer() {
-		
-		try {			
+	private String updateTrainer() {
+
+		try {
 			if (userService.isTrainer(userService.getLoggedInUser())) {
 				return null;
-			}else {
-				return "redirect:/user/main";
+			} else {
+				return "redirect:/";
 			}
 		} catch (UserNotFoundException e) {
 			// TODO Auto-generated catch block
-			return "redirect:/user/main";
+			return "redirect:/";
 		}
-		
+
 	}
 
 	// 트레이너 테이블 수정
@@ -143,13 +142,13 @@ public class TrainerController {
 
 	// 트레이너 정보 제거하기
 	@RequestMapping(value = "/trainer/delete", method = RequestMethod.POST)
-	private void TrainerDelete(Trainer trainer, MultipartFile file) {
+	private void TrainerDelete(Trainer trainer) {
 		logger.info("Delete");
 
 		// 테스트용, RequestMethod 를 GET 으로 바꿔야함
 		trainer.setTrainer_no(1);
 
-		trainerService.deleteTrainer(trainer, file);
+		trainerService.deleteTrainer(trainer);
 
 	}
 
@@ -160,51 +159,60 @@ public class TrainerController {
 
 		// 테스트용 구문
 //		trainer.setTrainer_no(1);
-		
+
 		// 차후 정식 버전에서는
 		// 트레이너 넘버를 jsp 에서 받아와야 함
 
 		double getAllReputation = trainerService.getAllReputation();
 		double getReputation = trainerService.getReputation(trainer);
-		
+
 		model.addAttribute("average", getAllReputation);
 		model.addAttribute("reputation", getReputation);
-		
+
 		System.out.println("average :" + getAllReputation);
 		System.out.println("reputation :" + getReputation);
-		
 
 	}
 
 	@RequestMapping(value = "/trainer/reputate", method = RequestMethod.GET)
 	private void TrainerReputate() {
-		
+
 	}
-	
+
 	// 트레이너 평점 등록
 	@RequestMapping(value = "/trainer/reputate", method = RequestMethod.POST)
-	private void TrainerReputate(T_reputation reputation
-//			, HttpSession session 
-			) {
+	private void TrainerReputate(T_reputation reputation) {
 
 		logger.info("reputate");
-		// 테스트용 구문
-//		T_reputation reputation2 = new T_reputation();
-//		reputation2.setTrainer_no(1);
-//		reputation2.setUser_no(2);
-//		reputation2.setTrainer_reputation_score(7);
-//		reputation2.setTrainer_reputation_msg("ㅌㅅㅌ");
-		
-		// 차후 정식 버전에서는 
-		// 유저 넘버 : 세션 이용
-		// 트레이너넘버 : jsp 의 form 내부에 hidden 을 이용해서 얻어올 예정
 
 		System.out.println(reputation);
 
-		trainerService.reputate(reputation
-//				, session
-				);
+		trainerService.reputate(reputation);
 
 	}
+	
+	/** 
+	 * 트레이너 페이지 컨트롤러
+	 * 
+	 * @param model을 반환한다(정상일 때)
+	 * @return 메인페이지로(로그인되지 않았을 때)
+	 */
+	@RequestMapping(value = "/trainer/page")
+	private String TrainerPage(Model model) {
+		
+		try {
+			User user = userService.getLoggedInUser();
+			Trainer trainer = new Trainer();
+			trainer.setUser_no(user.getUser_no());
+			
+			model.addAttribute("trainer", trainerService.getTrainertoUser(trainer));
+			return null;
+		} catch (UserNotFoundException e) {
+			// TODO Auto-generated catch block
+			
+			return "redirect:/";
+		}
+	}
+	
 
 }

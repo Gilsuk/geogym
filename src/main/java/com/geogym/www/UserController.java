@@ -54,4 +54,18 @@ public class UserController {
 		}
 	}
 
+	
+	@ResponseBody
+	@RequestMapping(value = "/ajax/user/searchbyid", method = RequestMethod.POST)
+	public User searchbyuserid(User user) {
+		try {
+			return userServ.getUserByUserid(user);
+			
+		} catch (UserNotFoundException e) {
+			User anonymous = new User();
+			anonymous.setUser_name("없는 사용자");
+			return anonymous;
+		}
+
+	}
 }

@@ -3,11 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>:::WOOTOL:::</title>
+<%@ include file="/WEB-INF/views/layouts/header.jsp"%>
 
 <!-- JQuery -->
 <script type="text/javascript"  src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
@@ -136,7 +132,7 @@ table.calendar td{
         	++dayCount
         	var stringDay = dayCount < 10 ? '0'+dayCount : dayCount;
 	        $tdDay.eq(i).html(
-	            '<a href="/calendar/view?date='+year+'-'+stringMonth+'-'+stringDay+'&trainer_no=${trainer_no}&user_no=${user_no}">'+stringDay+'</a>')
+	            '<a href="${viewLink}&date='+year+'-'+stringMonth+'-'+stringDay+'">'+stringDay+'</a>')
         	
 			
             //====================================================================================
@@ -173,45 +169,8 @@ table.calendar td{
         
 
     }
- 
-//     //calendar 월 이동
-//     function movePrevMonth(){
-//         month--;
-//         if(month<=0){
-//             month=12;
-//             year--;
-//         }
-//         if(month<10){
-//             month=String("0"+month);
-//         }
-//         getNewInfo();
-//         }
-    
-//     function moveNextMonth(){
-//         month++;
-//         if(month>12){
-//             month=1;
-//             year++;
-//         }
-//         if(month<10){
-//             month=String("0"+month);
-//         }
-//         getNewInfo();
-//     }
-
-
-    
-//     function getNewInfo(){
-//         for(var i=0;i<42;i++){
-//             $tdDay.eq(i).text("");
-//         }
-//         dayCount=0;
-//         firstDay = new Date(year,month-1,1);
-//         lastDay = new Date(year,month,0);
-//         drawDays();
-//     }
 </script>
 
 <div style="display: none;" id="dayText">${listDay }</div>
-</body>
-</html>
+
+<%@ include file="/WEB-INF/views/layouts/footer.jsp"%>

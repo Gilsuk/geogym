@@ -29,6 +29,8 @@ public interface CalendarDao {
 	public void updatememo(Calendar_Memo calendar_Memo);
 
 	public List<Calendar_Memo> getmemo(HashMap<String, Object> map);
+
+	public Calendar_Memo selectMemo(HashMap<String, Object> map);
 	
 	
 	

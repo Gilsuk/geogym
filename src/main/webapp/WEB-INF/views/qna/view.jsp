@@ -3,13 +3,14 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>    
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 
+<%@ include file="/WEB-INF/views/layouts/header.jsp"%>
+
 <script
   src="https://code.jquery.com/jquery-3.4.1.min.js"
   integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
   crossorigin="anonymous"></script>
 
-<!-- 합쳐지고 최소화된 최신 CSS -->
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+
 
 <script type="text/javascript">
 $(document).ready(function() {
@@ -26,6 +27,9 @@ td:not(.info) {
 </style>
 
 <div class="container">
+
+<br>
+<br>
 
 <h1 class="pull-left">질문글 상세보기</h1>
 <div class="clearfix"></div>
@@ -109,3 +113,6 @@ td:not(.info) {
 </div>	<!-- 댓글 처리 end -->
 
 </div><!-- .container -->
+
+
+<%@ include file="/WEB-INF/views/layouts/footer.jsp"%>

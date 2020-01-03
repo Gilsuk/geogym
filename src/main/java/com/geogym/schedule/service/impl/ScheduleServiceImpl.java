@@ -237,4 +237,16 @@ public class ScheduleServiceImpl implements ScheduleService {
 		return list;
 	}
 
+	@Override
+	public List<Schedule> getAttendance(Trainer trainer, LocalDate date) {
+		
+		HashMap<String, Object> map = new HashMap<>();
+
+		map.put("trainer_no", trainer.getTrainer_no());
+		map.put("start", LocalDate.of(date.getYear(), date.getMonth(), 1));
+		map.put("end", LocalDateTime.of(date.getYear(), date.getMonth(), date.lengthOfMonth(), 23, 59));
+		
+		return scheduleDao.selectAttandanceInMonth(map);
+	}
+
 }
