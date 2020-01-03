@@ -46,7 +46,7 @@
 	</delete>
 
 	<select id="selectUserByUserid" parameterType="java.lang.String" resultType="com.geogym.user.dto.User">
-		SELECT * FROM user
+		SELECT user_no,user_name,user_gender,user_birth,user_email FROM user
 		WHERE user_id = #{user_id}
 	</select>
 </mapper>
