@@ -59,8 +59,8 @@
 					<li class="nav-item"><a class="nav-link" href="/user/join">회원가입</a></li>
 					</c:if>
 					<li class="nav-item"><a class="nav-link" href="/qna/list">QnA</a></li>
-					<li class="nav-item"><a class="nav-link" href="/admin/main">관리자</a></li>
 					<c:if test="${not empty loggedInUser }">
+					<li class="nav-item"><a class="nav-link" href="/admin/main">관리자</a></li>
 					<li class="nav-item"><a class="nav-link disabled" href="#"
 						tabindex="-1" aria-disabled="true">${loggedInUser.user_name } is logged in</a></li>
 					<li class="nav-item"><a class="nav-link" href="/ajax/user/logout">나가기</a></li>

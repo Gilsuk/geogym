@@ -20,7 +20,6 @@ public class AdminController {
 
 	@Autowired
 	TrainerService trainerService;
-
 	@Autowired
 	UserService userService;
 	@Autowired
@@ -29,7 +28,7 @@ public class AdminController {
 	private static final Logger logger = LoggerFactory.getLogger(AdminController.class);
 
 	// 검사해서 트레이너라면 트레이너 메인 페이지로, 관리자면 관리자 페이지로 이동
-	@RequestMapping(value = "/admin/main", method = RequestMethod.GET)
+	@RequestMapping(value = "/admin/main")
 	private String TrainerList(Model model) {
 		logger.info("/admin/main");
 		try {
