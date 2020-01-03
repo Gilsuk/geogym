@@ -26,7 +26,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .btn-primary {
-	background-color: red;
+	background-color: #f11;
 	background-image: none;
 	
 }
@@ -77,19 +77,52 @@ footer a {
 	color: #ccc;
 }
 
+.card-body {
+	background-color: ghostwhite;
+}
+
 /***********************
-	로그인 폼
+		폼
 ***********************/
+.btn-submit {
+	font-weight: bold;
+	color: white;
+	background-color: #111;
+}
+
 .btn-google {
-  color: white;
-  background-color: #ea4335;
+	font-weight: bold;
+	color: white;
+	background-color: #db4437;
 }
 
-.btn-facebook {
-  color: white;
-  background-color: #3b5998;
+.btn-naver {
+	font-weight: bold;
+	color: white;
+	background-color: #3eaf02;
 }
 
+.btn-kakao {
+	font-weight: bold;
+	color: black;
+	background-color: #ffe812;
+}
+
+/* 슬라이드 체크박스 */
+.custom-control-input:checked~.custom-control-label::before {
+	    border-color: crimson;
+    background-color: crimson;
+}
+.custom-control-input:focus:not(:checked)~.custom-control-label::before {
+    border-color: #990000;
+}
+.custom-control-input:focus~.custom-control-label::before {
+    box-shadow: 0 0 0 0.2rem rgba(153,0,0,.25);
+}
+.custom-control-input:not(:disabled):active~.custom-control-label::before {
+    background-color: #faa;
+    border-color: #faa;
+}
 /* Fallback for Edge
 -------------------------------------------------- */
 

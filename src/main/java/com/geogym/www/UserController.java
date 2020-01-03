@@ -22,7 +22,7 @@ public class UserController {
 	}
 
 	@ResponseBody
-	@RequestMapping(value = "/user/login", method = RequestMethod.POST)
+	@RequestMapping(value = "/ajax/user/login", method = RequestMethod.POST)
 	public boolean login(LoginInfo info) {
 		try {
 			userServ.login(info);
@@ -44,7 +44,7 @@ public class UserController {
 	}
 
 	@ResponseBody
-	@RequestMapping(value = "/user/join", method = RequestMethod.POST)
+	@RequestMapping(value = "/ajax/user/join", method = RequestMethod.POST)
 	public boolean join(User user) {
 		try {
 			userServ.join(user);
