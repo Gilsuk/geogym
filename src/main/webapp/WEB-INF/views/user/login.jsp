@@ -26,10 +26,10 @@
 			}).done(function(data) {
 				if (data == true) {
 					window.location.replace(window.location.href);
+				} else {
+					alert("틀림");
 				}
 			})
-
-			return false;
 		})
 
 	});
@@ -65,7 +65,7 @@
 
 					<button
 						class="btn btn-ajax btn-lg btn-submit btn-block text-uppercase"
-						type="submit">로그인</button>
+						type="button">로그인</button>
 					<hr class="my-4">
 					<button class="btn btn-lg btn-google btn-block text-uppercase"
 						type="submit">Google</button>
@@ -74,11 +74,6 @@
 					<button class="btn btn-lg btn-kakao btn-block text-uppercase"
 						type="submit">KAKAO</button>
 				</form>
-				<form action="/ajsx/user/login2">
-					<button class="btn-ajax" type="button">button1</button>
-				</form>
-				<button class="btn-ajax">button2</button>
-				<button class="btn-ajax">button3</button>
 			</div>
 		</div>
 	</div>

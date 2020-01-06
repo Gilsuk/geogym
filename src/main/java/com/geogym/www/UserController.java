@@ -32,11 +32,10 @@ public class UserController {
 		}
 	}
 
-	@ResponseBody
-	@RequestMapping(value = "/ajax/user/logout")
-	public boolean logout() {
+	@RequestMapping(value = "/user/logout")
+	public String logout() {
 		userServ.logout();
-		return true;
+		return "/";
 	}
 	
 	@RequestMapping(value = "/user/join", method = RequestMethod.GET)
