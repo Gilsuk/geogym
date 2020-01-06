@@ -8,6 +8,21 @@
 
 <jsp:include page="/WEB-INF/views/layouts/header.jsp"/>
 <br>
+<script type="text/javascript">
+$(document).ready(function(){
+
+	
+	
+	
+	
+})
+
+
+
+
+
+</script>
+
 
 <form action = "/admin/pay" method = "get">
 <div class="container">
@@ -27,18 +42,28 @@
     <tr>
       <th scope="col">#</th>
       <th scope="col">트레이너</th>
+      <th scope="col">월</th>
       <th scope="col">PT 진행 횟수</th>
       <th scope="col">일일 PT 진행 횟수</th>
     </tr>
   </thead>
   <tbody>
-  <c:forEach var="list" items="${list }">
+  <c:forEach var="clist" items="${clist }">
     <tr>
-      <th scope="row">1</th>
-      <td>${list.trainer_no }k</td>
-      <td>3</td>
+      <th scope="row"></th>
+      
+      <td>${clist.trainer_no }</td>
+      <td>
+        <div class="form-group">
+    	<label for="exampleInputEmail1">날짜 선택</label>
+    	<input type="date" class="form-control" name="business_day_date" >
+    	<button id="#btn-search-month">검색</button>
+  		</div>
+      </td>
+      <td>${clist.count_pt }</td>
       <td>300000</td>
     </tr>
+    
    </c:forEach>
   </tbody>
 </table>

@@ -19,4 +19,18 @@
 	AND schedule_date BETWEEN #{start} AND #{end}
 </select>
 
+
+<select id ="selectCntPTBytrainer" parameterType="hashmap" resultType="int">
+<!-- 	select count(*)  -->
+<!-- 	from pt as p join schedule as s -->
+<!-- 	on p.schdule_no = s.schdule_no -->
+<!-- 	where (trainer_no = #{trainer_no}) and (p.pt_date between #{start} and #{end}) -->
+
+	SELECT count(*) FROM pt
+	NATURAL JOIN schedule
+	WHERE trainer_no = #{trainer_no}
+	AND pt_date BETWEEN #{start} AND #{end}
+
+</select>
+
 </mapper>

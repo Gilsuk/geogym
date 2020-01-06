@@ -13,4 +13,6 @@ public interface MatchingDao {
 
 	int selectCountPT(HashMap<String, Object> map);
 
+	int selectCntPTBytrainer(HashMap<String, Object> map);
+
 }

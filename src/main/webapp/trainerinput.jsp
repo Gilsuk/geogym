@@ -115,6 +115,13 @@ $(document).ready(function(){
   </div>
   <textarea class="form-control" aria-label="With textarea" name ="trainer_profile"></textarea>
 </div>
+
+
+<div class="form-group">
+    <label for="formGroupExampleInput">이미지파일</label>
+    <input type="file" class="form-control" name ="file">
+</div>
+
 <button type="submit" class="btn btn-primary">등록</button>
 </form>
 
