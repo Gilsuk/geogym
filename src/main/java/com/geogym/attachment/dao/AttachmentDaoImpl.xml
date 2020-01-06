@@ -73,7 +73,7 @@
 	</insert>
 	<insert id="setBodyinfo_attachment"
 		parameterType="com.geogym.attachment.dto.Bodyinfo_attachment">
-		insert into bodyinfo_attachment (qna_no, attachment_no)
+		insert into bodyinfo_attachment (bodyinfo_no, attachment_no)
 		VALUES (#{bodyinfo_no}, #{attachment_no})
 	</insert>
 	<delete id="removeAttachment"

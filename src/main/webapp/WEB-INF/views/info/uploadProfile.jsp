@@ -1,15 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-     pageEncoding="UTF-8"%>
-    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-    <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%><%--     pageEncoding="UTF-8"%> --%>
-<!-- <!DOCTYPE html> -->
-<!-- <html> -->
-<!-- <head> -->
-<!-- <meta charset="UTF-8"> -->
-<!-- <title>Insert title here</title> -->
-<!-- </head> -->
-<!-- <body> -->
-<!-- Bootstrap 4.4.1 CSS -->
+    pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
 <link rel="stylesheet"
 	href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
 	integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
@@ -36,41 +33,10 @@
 <script type="text/javascript">
 	document.getElementById('today').valueAsDate = new Date();
 </script>
-<h1>신체정보입력</h1>
->>${user.user_name } 회원님
+<h1>프로필 사진 업로드</h1>
 <hr>
-<form action="/info/inputBodyInfo" method="POST">
-
-<!-- <h2>입력일자 : </h2><input type="date" id="today" name="bodyinfo_date" size="10"/> -->
-
-	<table>
-		<tr>
-			<th><h3>키</h3></th>
-			<td><input type="text" name="bodyinfo_height">cm</td>
-		</tr>
-		<tr>
-			<th><h3>몸무게</h3></th>
-			<td><input type="text" name="bodyinfo_weight">kg</td>
-		</tr>
-		<tr>
-			<th><h3>골격근량</h3></th>
-			<td><input type="text" name="bodyinfo_fat">kg</td>
-		</tr>
-		<tr>
-			<th><h3>체지방량</h3></th>
-			<td><input type="text" name="bodyinfo_muscle">kg</td>
-		</tr>
-	</table>
-	
-	
-	<textarea rows="10" cols="50" name="body_comment_msg">${bodyComment.body_comment_msg }</textarea>
-
-	<button>입력하기</button>
-
+<form action="/info/fileUploadProc" method="GET">
+<input type="file" name>
 </form>
-
-
-
-
-
+</body>
 </html>

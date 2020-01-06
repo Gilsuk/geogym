@@ -42,6 +42,6 @@ public class Calendar_Memo implements DateContent{
 	}
 	@Override
 	public String getContent() {
-		return null;
+		return getCalendar_memo_content();
 	}
 }

@@ -303,13 +303,37 @@ public class CalendarServiceImpl implements CalendarService {
 	public List<Calendar_Memo> getmemo(User user, LocalDate localdate) {
 		
 		HashMap<String, Object> map = new HashMap<>();
-
+		
 		map.put("user_no", user.getUser_no());
 		map.put("start", LocalDate.of(localdate.getYear(), localdate.getMonth(), 1));
 		map.put("end", LocalDateTime.of(localdate.getYear(), localdate.getMonth(), localdate.lengthOfMonth(), 23, 59));
-
+		
 		return calendarDao.getmemo(map);
 
+	}
+
+	@Override
+	public List<Day> simplificationList(List<Day> listDay) {
+		
+		for(int i = 0 ; i < listDay.size(); i++) {
+			if(!listDay.get(i).getContent().equals("") && listDay.get(i).getContent() != null) {
+				listDay.get(i).setContent("메모 있음");
+			}else {
+				listDay.get(i).setContent("");
+			}
+		}
+		return listDay;
+	}
+
+	@Override
+	public Calendar_Memo getOneMemo(User user, LocalDate date) {
+		
+		HashMap<String, Object> map = new HashMap<>();
+		
+		map.put("user_no", user.getUser_no());
+		map.put("date", date);
+		
+		return calendarDao.selectMemo(map);
 	}
 	
 }

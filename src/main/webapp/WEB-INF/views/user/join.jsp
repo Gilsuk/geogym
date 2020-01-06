@@ -9,7 +9,44 @@
 <title>Insert title here</title>
 </head>
 <body>
-<form action="/user/join" method="post">
+<script type="text/javascript">
+	$(document).ready(function() {
+
+// 		if (typeof ajaxFunction !== 'undefined') return;
+
+// 		$(".btn-ajax").on("click", ajaxFunction);
+
+// 		$.each($(".btn-ajax").closest("form"), function(index, form) {
+// 			ajaxAction = $(form).attr("action");
+// 		});
+
+		$(".btn-ajax").on("click", function() {
+			$.ajax({
+				url: "/ajax/user/join", 
+				data: {
+					user_id: $("#user_id").val(),
+					user_pw: $("#user_pw").val(),
+					user_name: $("#user_name").val(),
+					user_gender: $("#user_gender").val(),
+					user_birth: $("#user_birth").val(),
+					user_tel: $("#user_tel").val(),
+					user_email: $("#user_email").val(),
+				},
+				method: "POST", 
+				dataType: "json"
+			}).done(function(data) {
+				if (data == true) {
+					window.location.replace(window.location.href);
+				}
+			})
+
+			return false;
+		})
+
+	});
+	
+</script>
+<form action="/ajax/user/join" method="post">
 	<label for="user_id">ID : </label>
 	<input type="text" id="user_id" name="user_id" /><br>
 	<label for="user_pw">PW : </label>
@@ -26,7 +63,7 @@
 	<input type="tel" id="user_tel" name="user_tel" /><br>
 	<label for="user_email">EMAIL : </label>
 	<input type="email" id="user_email" name="user_email" /><br>
-	<input type="submit" />
+	<input class="btn-ajax" type="submit" />
 </form>
 
 </body>

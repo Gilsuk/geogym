@@ -10,6 +10,10 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>geogym</title>
+<!-- JQuery 3.4.1 -->
+<script src="https://code.jquery.com/jquery-3.4.1.min.js"
+	integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+	crossorigin="anonymous"></script>
 <link href="https://fonts.googleapis.com/css?family=Roboto|Varela+Round"
    rel="stylesheet">
 <link rel="stylesheet"
@@ -21,10 +25,7 @@
 	crossorigin="anonymous">
 <!-- GEOGYM CSS -->
 <link rel="stylesheet" href="/resources/css/geogym.css">
-<!-- JQuery 3.4.1 -->
-<script src="https://code.jquery.com/jquery-3.4.1.min.js"
-	integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
-	crossorigin="anonymous"></script>
+
 <!-- Bootstrap Component -->
 <script
 	src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
@@ -59,11 +60,12 @@
 					<li class="nav-item"><a class="nav-link" href="/user/join">회원가입</a></li>
 					</c:if>
 					<li class="nav-item"><a class="nav-link" href="/qna/list">QnA</a></li>
-					<li class="nav-item"><a class="nav-link disabled" href="#"
-						tabindex="-1" aria-disabled="true">관리자</a></li>
 					<c:if test="${not empty loggedInUser }">
+					<li class="nav-item"><a class="nav-link" href="/admin/main">관리자</a></li>
 					<li class="nav-item"><a class="nav-link disabled" href="#"
 						tabindex="-1" aria-disabled="true">${loggedInUser.user_name } is logged in</a></li>
+					<li class="nav-item"><a class="nav-link" href="/mypage/main">마이 페이지</a></li>
+					<li class="nav-item"><a class="nav-link" href="/user/logout">나가기</a></li>
 					</c:if>
 				</ul>
 				<form class="form-inline mt-2 mt-md-0">

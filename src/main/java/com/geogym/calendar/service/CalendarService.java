@@ -43,6 +43,12 @@ public interface CalendarService {
 	public void updatememo(Calendar_Memo calendar_Memo);
 	
 	public List<Calendar_Memo> getmemo(User user, LocalDate localdate);
+
+
+	public List<Day> simplificationList(List<Day> listDay);
+
+
+	public Calendar_Memo getOneMemo(User user, LocalDate date);
 	
 	
 }

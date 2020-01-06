@@ -10,7 +10,9 @@ import org.springframework.core.io.support.ResourcePropertySource;
 
 public enum Property {
 	
-	SENDGRID_API_KEY("sendgrid.api_key");
+	SENDGRID_API_KEY("sendgrid.api_key"),
+	IAMPORT_API_KEY("iamport.api_key"),
+	IAMPORT_API_SECRET("iamport.api_secret");
 	
 	private String value;
 

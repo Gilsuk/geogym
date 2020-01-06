@@ -5,31 +5,29 @@
 <script type="text/javascript">
 	$(document).ready(function() {
 
-// 		if (typeof ajaxFunction !== 'undefined') return;
-
-// 		$(".btn-ajax").on("click", ajaxFunction);
-
-// 		$.each($(".btn-ajax").closest("form"), function(index, form) {
-// 			ajaxAction = $(form).attr("action");
-// 		});
-
+		$(".form-signin").on("submit", function(){
+			$(".btn-ajax").click();
+   			return false;
+ 		});
+ 		
 		$(".btn-ajax").on("click", function() {
 			$.ajax({
 				url: "/ajax/user/login", 
 				data: {
 					user_id: $("#user_id").val(),
-					user_pw: $("#user_pw").val()
+					user_pw: $("#user_pw").val(),
+					shouldRemember: $("#shouldRemember").val()
 				},
 				method: "POST", 
 				dataType: "json"
 			}).done(function(data) {
 				if (data == true) {
 					window.location.replace(window.location.href);
+				} else {
+					alert("틀림");
 				}
 			})
-
-			return false;
-		})
+		});
 
 	});
 	
@@ -39,7 +37,7 @@
 		<div class="card card-signin my-5">
 			<div class="card-body">
 				<h5 class="card-title text-center">로그인</h5>
-				<form class="form-signin" action="/ajax/user/login">
+				<form class="form-signin">
 					<div class="form-label-group">
 						<input type="text" id="user_id" class="form-control"
 							name="user_id" placeholder="ID" required autofocus>
@@ -64,7 +62,7 @@
 
 					<button
 						class="btn btn-ajax btn-lg btn-submit btn-block text-uppercase"
-						type="submit">로그인</button>
+						type="button">로그인</button>
 					<hr class="my-4">
 					<button class="btn btn-lg btn-google btn-block text-uppercase"
 						type="submit">Google</button>
@@ -73,11 +71,6 @@
 					<button class="btn btn-lg btn-kakao btn-block text-uppercase"
 						type="submit">KAKAO</button>
 				</form>
-				<form action="/ajsx/user/login2">
-					<button class="btn-ajax" type="button">button1</button>
-				</form>
-				<button class="btn-ajax">button2</button>
-				<button class="btn-ajax">button3</button>
 			</div>
 		</div>
 	</div>

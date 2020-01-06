@@ -23,4 +23,6 @@ public interface ScheduleDao {
 
 	List<PT> selectPTList(HashMap<String, Object> map);
 
+	List<Schedule> selectAttandanceInMonth(HashMap<String, Object> map);
+
 }
