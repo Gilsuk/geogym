@@ -113,9 +113,7 @@ public class MessageController {
 	@RequestMapping(value="/test/message/list")
 	public void viewMessage(User user) { 
 		
-		user.setUser_no(1);
-		
-		List<Message> list = messageService.getMessages(user, 2);
+		List<Message> list = messageService.getMessages(user, 5);
 		
 		logger.info(list.toString());
 	}

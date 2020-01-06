@@ -15,6 +15,7 @@ import com.geogym.pt.exception.MatchingNotAvailable;
 import com.geogym.pt.service.MatchingService;
 import com.geogym.schedule.dto.Schedule;
 import com.geogym.schedule.exception.AllTimeisUnavailable;
+import com.geogym.schedule.exception.NotWorkinDayException;
 import com.geogym.trainer.dto.Trainer;
 import com.geogym.user.dto.User;
 
@@ -44,6 +45,9 @@ public class PTController {
 			// 캐시 부족
 		} catch (AllTimeisUnavailable e) {
 			// 빈 시간 없음
+		} catch (NotWorkinDayException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 	}
 

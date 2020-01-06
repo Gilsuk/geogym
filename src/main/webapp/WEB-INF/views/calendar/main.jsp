@@ -5,57 +5,41 @@
 
 <%@ include file="/WEB-INF/views/layouts/header.jsp"%>
 
-<!-- JQuery -->
-<script type="text/javascript"  src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
-<!-- bootstrap -->
-<!-- 합쳐지고 최소화된 최신 CSS -->
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+<div class="container">
+<div class="row">
+<div class="col-12">
+<br>
+<h1>마이 페이지</h1>
+<hr>
+</div>
+<div class="col-sm-12 col-md-12 col-lg-3 col-xl-3">
+<div class="list-group">
+	<a class="list-group-item list-group-item-action" href="/mypage/main">내 정보</a>
+	<a class="list-group-item list-group-item-action active" href="/calendar/PT/schedule">내 PT 일정 보기</a>
+	<a class="list-group-item list-group-item-action" href="/calendar/memolist?user_no=${user_no }">트레이너 메모 보기</a>
+	
+	<c:if test="${isTrainer }">
+		<a class="list-group-item list-group-item-action" href="/info/bodyinfo">바디 인포</a>
+	</c:if>
+	<c:if test="${isTrainer ne true}">
+	<a class="list-group-item list-group-item-action" href="/info/bodyinfo_user">바디 인포</a>
+	</c:if>
+	
+	<a class="list-group-item list-group-item-action" href="/test/message/list?user_no=${user_no }">메세지 확인</a>
 
-<!-- 부가적인 테마 -->
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
+<c:if test="${isTrainer }">
+	<a class="list-group-item list-group-item-action" href="#">트레이너 페이지</a>
+</c:if>
 
-<!-- 합쳐지고 최소화된 최신 자바스크립트 -->
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+<c:if test="${isManager }">
+	<a class="list-group-item list-group-item-action" href="#">관리자 페이지</a>
+</c:if>
 
+</div>
+</div>
 
-<!-- add styles -->
-<link href="/resources/css/jquery-ui.min.css" rel="stylesheet"
-   type="text/css" />
-<!-- add scripts -->
-<script src="/resources/js/jquery-ui.min.js"></script>
+<div class="col-sm-12 col-md-12 col-lg-9 col-xl-9">
 
-
-
-<style type="text/css">
-.cal_top{
-    text-align: center;
-    font-size: 30px;
-}
-.cal{
-    text-align: center;    
-}
-table.calendar{
-    border: 1px solid black;
-    display: inline-table;
-    text-align: left;
-}
-table.calendar td{
-    vertical-align: top;
-    border: 1px solid skyblue;
-    width: 100px;
-}
-.sunday{
-	color: red;
-}
-.saturday{
-	color: blue;
-}
-
-</style>
-
-
-</head>
-<body>
    <div class="cal_top">
         <a href="${prevMonth }" id="movePrevMonth"><span id="prevMonth" class="cal_tit">&lt;</span></a>
         <span id="cal_top_year"></span>
@@ -172,5 +156,11 @@ table.calendar td{
 </script>
 
 <div style="display: none;" id="dayText">${listDay }</div>
+
+</div>
+
+</div>
+</div>
+<br>
 
 <%@ include file="/WEB-INF/views/layouts/footer.jsp"%>

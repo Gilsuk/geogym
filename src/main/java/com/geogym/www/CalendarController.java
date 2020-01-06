@@ -2,6 +2,7 @@ package com.geogym.www;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -20,6 +21,7 @@ import com.geogym.calendar.service.CalendarService;
 import com.geogym.pt.dto.PT;
 import com.geogym.schedule.dto.Schedule;
 import com.geogym.schedule.exception.AllTimeisUnavailable;
+import com.geogym.schedule.exception.NotWorkinDayException;
 import com.geogym.schedule.service.ScheduleService;
 import com.geogym.trainer.dto.Trainer;
 import com.geogym.user.dto.User;
@@ -78,12 +80,15 @@ public class CalendarController {
 	@RequestMapping(value = "/calendar/view/PTrequest", method = RequestMethod.GET)
 	public String viewcalendar(Model model, LocalDate date, User user, Trainer trainer) {
 
-		List<LocalTime> list;
+		List<LocalTime> list = new ArrayList<LocalTime>();
 		try {
 			list = scheduleService.getPTAvilableTime(trainer, date);
 		} catch (AllTimeisUnavailable e) {
-			return "redirect:/calendar/main";
+			return "redirect:/calendar/PT/request?trainer_no="+trainer.getTrainer_no();
+		} catch (NotWorkinDayException e) {
+			
 		}
+		
 		model.addAttribute("day", date);
 		model.addAttribute("list", list);
 		model.addAttribute("user_no", user.getUser_no());
@@ -106,15 +111,15 @@ public class CalendarController {
 		}
 
 		List<Day> listDay = calendarService.getDayList(date);
+		
+		List<Schedule> timeList = scheduleService.getAttendance(trainer, date);
 
-//		List<PT> timeList = scheduleService.getPTScheduleByMonth(user, date);
-
-//		listDay = calendarService.setPTToList(listDay, timeList);
+		listDay = calendarService.setPTToList(listDay, timeList);
 
 		model.addAttribute("listDay", new Gson().toJson(listDay));
-		model.addAttribute("nextMonth", "/calendar/PT?trainer_no=" + trainer.getTrainer_no() + "&user_no="
+		model.addAttribute("nextMonth", "/calendar/PT/request?trainer_no=" + trainer.getTrainer_no() + "&user_no="
 				+ user.getUser_no() + "&date=" + date.plusMonths(1));
-		model.addAttribute("prevMonth", "/calendar/PT?trainer_no=" + trainer.getTrainer_no() + "&user_no="
+		model.addAttribute("prevMonth", "/calendar/PT/request?trainer_no=" + trainer.getTrainer_no() + "&user_no="
 				+ user.getUser_no() + "&date=" + date.minusMonths(1));
 		model.addAttribute("curMonth", date);
 		model.addAttribute("trainer_no", trainer.getTrainer_no());
