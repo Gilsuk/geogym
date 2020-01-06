@@ -18,7 +18,8 @@
 				url: "/ajax/user/login", 
 				data: {
 					user_id: $("#user_id").val(),
-					user_pw: $("#user_pw").val()
+					user_pw: $("#user_pw").val(),
+					shouldRemember: $("#shouldRemember").val()
 				},
 				method: "POST", 
 				dataType: "json"
