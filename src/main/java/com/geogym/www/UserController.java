@@ -53,7 +53,6 @@ public class UserController {
 		}
 	}
 
-	
 	@ResponseBody
 	@RequestMapping(value = "/ajax/user/searchbyid", method = RequestMethod.POST)
 	public User searchbyuserid(User user) {

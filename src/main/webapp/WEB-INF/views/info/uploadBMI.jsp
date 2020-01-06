@@ -11,7 +11,7 @@
 <h1>BMI사진 업로드</h1>
 <hr>
 
-<form action="/info/uploadBMIProc" method="GET" enctype="multipart/form-data">
+<form action="/info/uploadBMIProc" method="POST" enctype="multipart/form-data">
 <input type="file" name="file"/>
 <input type="hidden" name="bodyinfo_no" value="${bodyinfo_no }"/>
 <button>등록</button>

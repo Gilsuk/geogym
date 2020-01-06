@@ -5,14 +5,11 @@
 <script type="text/javascript">
 	$(document).ready(function() {
 
-// 		if (typeof ajaxFunction !== 'undefined') return;
-
-// 		$(".btn-ajax").on("click", ajaxFunction);
-
-// 		$.each($(".btn-ajax").closest("form"), function(index, form) {
-// 			ajaxAction = $(form).attr("action");
-// 		});
-
+		$(".form-signin").on("submit", function(){
+			$(".btn-ajax").click();
+   			return false;
+ 		});
+ 		
 		$(".btn-ajax").on("click", function() {
 			$.ajax({
 				url: "/ajax/user/login", 
@@ -30,8 +27,7 @@
 					alert("틀림");
 				}
 			})
-		})
-
+		});
 	});
 	
 </script>
@@ -40,7 +36,7 @@
 		<div class="card card-signin my-5">
 			<div class="card-body">
 				<h5 class="card-title text-center">로그인</h5>
-				<form class="form-signin" action="/ajax/user/login">
+				<form class="form-signin">
 					<div class="form-label-group">
 						<input type="text" id="user_id" class="form-control"
 							name="user_id" placeholder="ID" required autofocus>
@@ -78,15 +74,4 @@
 		</div>
 	</div>
 </div>
-<!-- <div class="container"> -->
-<!-- <form action="/ajax/user/login" method="post"> -->
-<!-- 	<label for="user_id">ID : </label> -->
-<!-- 	<input type="text" id="user_id" name="user_id" /><br> -->
-<!-- 	<label for="user_pw">PW : </label> -->
-<!-- 	<input type="password" id="user_pw" name="user_pw" /><br> -->
-<!-- 	<label for="shouldRemember">로그인 유지 : </label> -->
-<!-- 	<input type="checkbox" id="shouldRemember" name="shouldRemember" /><br> -->
-<!-- 	<input type="submit" /> -->
-<!-- </form> -->
-<!-- </div> -->
 <%@ include file="/WEB-INF/views/layouts/footer.jsp"%>

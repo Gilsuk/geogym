@@ -2,6 +2,7 @@ package com.geogym.www;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -20,6 +21,7 @@ import com.geogym.calendar.service.CalendarService;
 import com.geogym.pt.dto.PT;
 import com.geogym.schedule.dto.Schedule;
 import com.geogym.schedule.exception.AllTimeisUnavailable;
+import com.geogym.schedule.exception.NotWorkinDayException;
 import com.geogym.schedule.service.ScheduleService;
 import com.geogym.trainer.dto.Trainer;
 import com.geogym.user.dto.User;
@@ -78,12 +80,15 @@ public class CalendarController {
 	@RequestMapping(value = "/calendar/view/PTrequest", method = RequestMethod.GET)
 	public String viewcalendar(Model model, LocalDate date, User user, Trainer trainer) {
 
-		List<LocalTime> list;
+		List<LocalTime> list = new ArrayList<LocalTime>();
 		try {
 			list = scheduleService.getPTAvilableTime(trainer, date);
 		} catch (AllTimeisUnavailable e) {
-			return "redirect:/calendar/main";
+			return "redirect:/calendar/PT/request?trainer_no="+trainer.getTrainer_no();
+		} catch (NotWorkinDayException e) {
+			
 		}
+		
 		model.addAttribute("day", date);
 		model.addAttribute("list", list);
 		model.addAttribute("user_no", user.getUser_no());
@@ -106,15 +111,15 @@ public class CalendarController {
 		}
 
 		List<Day> listDay = calendarService.getDayList(date);
+		
+		List<Schedule> timeList = scheduleService.getAttendance(trainer, date);
 
-//		List<PT> timeList = scheduleService.getPTScheduleByMonth(user, date);
-
-//		listDay = calendarService.setPTToList(listDay, timeList);
+		listDay = calendarService.setPTToList(listDay, timeList);
 
 		model.addAttribute("listDay", new Gson().toJson(listDay));
-		model.addAttribute("nextMonth", "/calendar/PT?trainer_no=" + trainer.getTrainer_no() + "&user_no="
+		model.addAttribute("nextMonth", "/calendar/PT/request?trainer_no=" + trainer.getTrainer_no() + "&user_no="
 				+ user.getUser_no() + "&date=" + date.plusMonths(1));
-		model.addAttribute("prevMonth", "/calendar/PT?trainer_no=" + trainer.getTrainer_no() + "&user_no="
+		model.addAttribute("prevMonth", "/calendar/PT/request?trainer_no=" + trainer.getTrainer_no() + "&user_no="
 				+ user.getUser_no() + "&date=" + date.minusMonths(1));
 		model.addAttribute("curMonth", date);
 		model.addAttribute("trainer_no", trainer.getTrainer_no());
@@ -166,17 +171,10 @@ public class CalendarController {
 
 	
 	
-	@RequestMapping(value = "/calendar/memo", method = RequestMethod.GET)
+	@RequestMapping(value = "/calendar/memo", method = RequestMethod.POST)
 	public String calendarmemoProc(Calendar_Memo calendar_Memo, int user_no) {
-		User loggedInUser = null;
-		try {
-			loggedInUser = userServ.getLoggedInUser();
-		} catch (UserNotFoundException e) {
-			// TODO Auto-generated catch block
-//			e.printStackTrace();
-			return "redirect:/test/user/login";
-		}
-		calendar_Memo.setUser_no(loggedInUser.getUser_no());
+		
+		calendar_Memo.setUser_no(user_no);
 		
 		logger.info(calendar_Memo.getCalendar_memo_content());
 		
@@ -189,7 +187,7 @@ public class CalendarController {
 	@RequestMapping(value = "/calendar/memolist", method = RequestMethod.GET)
 	public String calendarmemolist(Model model, @RequestParam(defaultValue = "-999999999-01-01") LocalDate date,
 			User user) {
-
+		
 		if (date.equals(LocalDate.MIN)) {
 			date = LocalDate.now();
 		}
@@ -233,6 +231,11 @@ public class CalendarController {
 	public String ptschedulecalendar(Model model, @RequestParam(defaultValue = "-999999999-01-01") LocalDate date,
 			User user) {
 
+		try {
+			user = userServ.getLoggedInUser();
+		} catch (UserNotFoundException e) {
+		}
+		
 		if (date.equals(LocalDate.MIN)) {
 			date = LocalDate.now();
 		}

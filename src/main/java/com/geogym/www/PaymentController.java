@@ -9,6 +9,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Enumeration;
 
+import javax.net.ssl.HttpsURLConnection;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,19 +22,23 @@ import com.geogym.common.enumeration.Property;
 import com.geogym.user.dto.User;
 import com.geogym.user.exception.UserNotFoundException;
 import com.geogym.user.service.UserService;
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
 
 @Controller
 public class PaymentController {
 	
 	@Autowired
 	private UserService userSrv;
-	
+
 	@RequestMapping(value = "/payment/form", method = RequestMethod.GET)
 	public String paymentForm(Model model, HttpServletRequest req) {
 		try {
 			User user = userSrv.getLoggedInUser();
 			model.addAttribute("user", user);
 			model.addAttribute("domain_url", "http://" + req.getHeader("Host"));
+
+			System.out.println(getAccessKey());
 			
 			return "/payment/form";
 		} catch (UserNotFoundException e) {
@@ -51,24 +56,42 @@ public class PaymentController {
 			
 			return "/payment/form";
 	}
-
+	
 	private String getAccessKey() {
+		String jsonString = getAccessResponseJson();
 
+		JsonObject jo = new JsonObject();
+		
+		jo.addProperty("code", 0);
+		jo.add("message", null);
+		
+		JsonObject response = new JsonObject();
+		response.addProperty("access_token", "e0bc4ce87cd7553c2a122b3b886202a49806e1db");
+		response.addProperty("now", 1578290495);
+		response.addProperty("expired_at", 1578291402);
+		
+		jo.add("response", response);
+
+		Gson gson = new Gson();
+		JsonObject jjj = gson.fromJson(jsonString, jo.getClass());
+
+		return jjj.getAsJsonObject("response").get("access_token").getAsString();
+	}
+
+	private String getAccessResponseJson() {
 		String url = "https://api.iamport.kr/users/getToken"; 
-		String parameters = "imp_key=" + Property.IAMPORT_API_KEY
-				+ "&imp_secret=" + Property.IAMPORT_API_SECRET;
-
+		String parameters = "imp_key=" + Property.IAMPORT_API_KEY.toString()
+				+ "&imp_secret=" + Property.IAMPORT_API_SECRET.toString();
+		
 		URL link = null;
 		try {
 			link = new URL(url);
-		} catch (MalformedURLException e) {
-			e.printStackTrace();
-		}
+		} catch (MalformedURLException e) { }
+
 		try {
-			HttpURLConnection con = (HttpURLConnection) link.openConnection();
+			HttpsURLConnection con = (HttpsURLConnection) link.openConnection();
 			con.setRequestMethod("POST");
-			con.setRequestProperty("accept-language", "ko-KR");
-			con.setRequestProperty("Content-Type", "application/json");
+			con.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
 			con.setDoOutput(true);
 
 			// Send post request 
@@ -88,13 +111,11 @@ public class PaymentController {
 			} else {
 				System.out.println(con.getResponseMessage());
 			}
+			
 			return sb.toString();
 
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-
-		return "";
+		} catch (IOException e) { return ""; }
 
 	}
+	
 }
