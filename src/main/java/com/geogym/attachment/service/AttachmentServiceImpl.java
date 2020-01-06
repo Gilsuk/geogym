@@ -716,9 +716,9 @@ public class AttachmentServiceImpl implements AttachmentService, ServletContextA
 		String u = uuid.toString().split("-")[4];
 
 		System.out.println(3);
-
+		
 		for (MultipartFile file : files) {
-
+			
 			System.out.println(4);
 			Attachment attachment = new Attachment();
 
