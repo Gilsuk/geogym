@@ -3,6 +3,7 @@ package com.geogym.www.test;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -15,6 +16,7 @@ import com.geogym.pt.dto.PT;
 import com.geogym.schedule.dto.Schedule;
 import com.geogym.schedule.exception.AllTimeisUnavailable;
 import com.geogym.schedule.exception.InvalidParamException;
+import com.geogym.schedule.exception.NotWorkinDayException;
 import com.geogym.schedule.service.ScheduleService;
 import com.geogym.trainer.dto.Trainer;
 import com.geogym.user.dto.User;
@@ -35,7 +37,7 @@ public class ScheduleTestController {
 		
 		LocalDate localDate = LocalDate.of(2019, 12, 30);
 		
-		List<LocalTime> list;
+		List<LocalTime> list = new ArrayList<LocalTime>();;
 		
 		try {
 			list = scheduleService.getAvilableTime(trainer, localDate);
@@ -43,6 +45,9 @@ public class ScheduleTestController {
 			return;
 		} catch (AllTimeisUnavailable e) {
 			return;
+		} catch (NotWorkinDayException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 		
 		logger.info(list.toString());
@@ -67,6 +72,9 @@ public class ScheduleTestController {
 			return;
 		} catch (AllTimeisUnavailable e) {
 			return;
+		} catch (NotWorkinDayException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 	}
 	
@@ -93,6 +101,9 @@ public class ScheduleTestController {
 			// 올바르지 않은 파라미터
 		} catch (AllTimeisUnavailable e) {
 			// 이용가능 시간 없음
+		} catch (NotWorkinDayException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 	}
 	
@@ -120,6 +131,9 @@ public class ScheduleTestController {
 			// 올바르지 않은 파라미터
 		} catch (AllTimeisUnavailable e) {
 			// 이용 가능 시간 없음
+		} catch (NotWorkinDayException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 	}
 	
@@ -134,12 +148,15 @@ public class ScheduleTestController {
 		
 		LocalDate localDate = LocalDate.of(2020, 01, 02);
 		
-		List<LocalTime> list;
+		List<LocalTime> list = new ArrayList<LocalTime>();;
 		
 		try {
 			list = scheduleService.getPTAvilableTime(trainer, localDate);
 		} catch (AllTimeisUnavailable e) {
 			return;
+		} catch (NotWorkinDayException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 		
 		logger.info(list.toString());

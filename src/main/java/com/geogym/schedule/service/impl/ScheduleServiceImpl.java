@@ -22,6 +22,7 @@ import com.geogym.schedule.dao.ScheduleDao;
 import com.geogym.schedule.dto.Schedule;
 import com.geogym.schedule.exception.AllTimeisUnavailable;
 import com.geogym.schedule.exception.InvalidParamException;
+import com.geogym.schedule.exception.NotWorkinDayException;
 import com.geogym.schedule.service.ScheduleService;
 import com.geogym.trainer.dto.Trainer;
 import com.geogym.user.dto.User;
@@ -36,7 +37,7 @@ public class ScheduleServiceImpl implements ScheduleService {
 	@Autowired MessageService messageService;
 
 	@Override
-	public List<LocalTime> getAvilableTime(Trainer trainer, LocalDate workingDate) throws InvalidParamException, AllTimeisUnavailable {
+	public List<LocalTime> getAvilableTime(Trainer trainer, LocalDate workingDate) throws InvalidParamException, AllTimeisUnavailable, NotWorkinDayException {
 
 		Schedule schedule = new Schedule();
 
@@ -88,13 +89,13 @@ public class ScheduleServiceImpl implements ScheduleService {
 			
 			return list;
 
-		} catch (NullPointerException e) {	
-			throw new InvalidParamException();
+		} catch (NullPointerException e) {
+			throw new NotWorkinDayException();
 		}
 	}
 
 	@Override
-	public void setPTShcedule(User user, Schedule schedule) throws InvalidParamException, AllTimeisUnavailable {
+	public void setPTShcedule(User user, Schedule schedule) throws InvalidParamException, AllTimeisUnavailable, NotWorkinDayException {
 
 		List<LocalTime> list = getPTAvilableTime(schedule.getTrainer(), schedule.getSchedule_date());
 		
@@ -165,7 +166,7 @@ public class ScheduleServiceImpl implements ScheduleService {
 	}
 
 	@Override
-	public void setSchedule(Schedule schedule) throws InvalidParamException, AllTimeisUnavailable {
+	public void setSchedule(Schedule schedule) throws InvalidParamException, AllTimeisUnavailable, NotWorkinDayException {
 
 		List<LocalTime> list = getAvilableTime(schedule.getTrainer(), schedule.getSchedule_date());
 
@@ -215,7 +216,7 @@ public class ScheduleServiceImpl implements ScheduleService {
 	}
 
 	@Override
-	public List<LocalTime> getPTAvilableTime(Trainer trainer, LocalDate localDate) throws AllTimeisUnavailable {
+	public List<LocalTime> getPTAvilableTime(Trainer trainer, LocalDate localDate) throws AllTimeisUnavailable, NotWorkinDayException {
 
 		List<LocalTime> list = new ArrayList<LocalTime>();
 		List<Schedule> scheduleList = getSchedule(trainer, localDate);

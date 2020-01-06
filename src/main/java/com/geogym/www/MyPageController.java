@@ -24,7 +24,12 @@ public class MyPageController {
 		} catch (UserNotFoundException e) {
 		}
 		
+		boolean isTrainer = userservice.isTrainer(user);
+		boolean isManager = userservice.isManager(user);
+		
 		model.addAttribute("user_no", user.getUser_no());
+		model.addAttribute("isTrainer", isTrainer);
+		model.addAttribute("isManager", isManager);
 	}
 	
 }
