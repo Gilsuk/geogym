@@ -10,14 +10,15 @@ body {
 .bg-dark {
 	background-color: #111 !important;
 }
-
 /***********************
 	타이포그래피
 ***********************/
 h1, h2, h3, h4, h5, h6 {
 	font-weight: bold;
 }
-
+a:hover {
+    color: #b30056;
+}
 /***********************
 		ul,ol,li List
 ***********************/

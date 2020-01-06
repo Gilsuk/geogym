@@ -41,10 +41,16 @@
 	<select id="selectPTTicketInList"
 		parameterType="com.geogym.user.dto.User"
 		resultType="com.geogym.payment.dto.PTTicket">
-		SELECT user_no AS `user.user_no`, trainer_no AS
-		`trainer.trainer_no`,
-		pt_ticket_expire, pt_ticket_amount FROM pt_ticket
-		WHERE user_no = #{user_no}
+		SELECT 
+		PT.user_no AS `user.user_no`
+		, PT.trainer_no AS `trainer.trainer_no`
+		, PT.pt_ticket_expire
+		, PT.pt_ticket_amount 
+		, U.user_name AS trainer_name
+		FROM pt_ticket PT, trainer T, user U
+		WHERE PT.trainer_no = T.trainer_no
+		AND T.user_no = U.user_no
+		AND PT.user_no = #{user_no};
 	</select>
 
 	<update id="updatePTTicket"
