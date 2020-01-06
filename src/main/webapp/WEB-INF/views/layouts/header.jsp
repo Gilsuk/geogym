@@ -9,7 +9,7 @@
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>geogym</title>
+<title>GEOGYM</title>
 <link href="https://fonts.googleapis.com/css?family=Roboto|Varela+Round"
    rel="stylesheet">
 <link rel="stylesheet"
@@ -67,8 +67,8 @@
 				</ul>
 				<form class="form-inline mt-2 mt-md-0">
 					<input class="form-control mr-sm-2" type="text"
-						placeholder="Search" aria-label="Search">
-					<button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+						placeholder="종합검색" aria-label="Search">
+					<button class="btn btn-outline-success my-2 my-sm-0" type="submit">검색</button>
 				</form>
 			</div>
 		</nav>

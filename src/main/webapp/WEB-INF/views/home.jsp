@@ -17,13 +17,12 @@
 				<rect width="100%" height="100%" fill="#777" /></svg>
 			<div class="container">
 				<div class="carousel-caption text-left">
-					<h1>Example headline.</h1>
-					<p>Cras justo odio, dapibus ac facilisis in, egestas eget quam.
-						Donec id elit non mi porta gravida at eget metus. Nullam id dolor
-						id nibh ultricies vehicula ut id elit.</p>
+					<h1>ONLINE QUALIFIER</h1>
+					<p>The Online Qualifier is where individuals can earn their spot to compete at the 
+					GEOGYM Invitational on January 10-20, 2020 through the GEOGYM Online Qualifier.</p>
 					<p>
-						<a class="btn btn-lg btn-primary" href="#" role="button">Sign
-							up today</a>
+						<a class="btn btn-lg btn-primary" href="/page/participation" role="button">지원하기</a>
+						
 					</p>
 				</div>
 			</div>
