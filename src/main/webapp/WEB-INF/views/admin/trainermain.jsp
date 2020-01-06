@@ -5,7 +5,7 @@
 
 
 트레이너 ${user.user_name} 님 어서오십시오 
-<a href="/trainer/page"> 트레이너 페이지 </a>
+<a href="/trainer/page"> 트레이너 마이페이지 </a>
 
 
 <%@ include file="/WEB-INF/views/layouts/footer.jsp"%>
