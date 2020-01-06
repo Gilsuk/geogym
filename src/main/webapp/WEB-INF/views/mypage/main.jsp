@@ -18,7 +18,7 @@
 <a href="/test/message/list?user_no=${user_no }"><button class="btn btn-primary">메세지 확인</button></a><br>
 
 <c:if test="${isTrainer }">
-	<a href="#"><button class="btn btn-primary">트레이너 페이지</button></a><br>
+	<a href="/trainer/page"><button class="btn btn-primary">트레이너 페이지</button></a><br>
 </c:if>
 <c:if test="${isManager }">
 	<a href="#"><button class="btn btn-primary">관리자 페이지</button></a><br>

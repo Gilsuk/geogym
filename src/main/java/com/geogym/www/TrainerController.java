@@ -190,8 +190,8 @@ public class TrainerController {
 		trainerService.reputate(reputation);
 
 	}
-	
-	/** 
+
+	/**
 	 * 트레이너 페이지 컨트롤러
 	 * 
 	 * @param model을 반환한다(정상일 때)
@@ -199,20 +199,70 @@ public class TrainerController {
 	 */
 	@RequestMapping(value = "/trainer/page")
 	private String TrainerPage(Model model) {
-		
+
 		try {
 			User user = userService.getLoggedInUser();
 			Trainer trainer = new Trainer();
 			trainer.setUser_no(user.getUser_no());
-			
+
 			model.addAttribute("trainer", trainerService.getTrainertoUser(trainer));
 			return null;
 		} catch (UserNotFoundException e) {
 			// TODO Auto-generated catch block
-			
+
 			return "redirect:/";
 		}
 	}
+
+	/**
+	 * 트레이너 프로필 보기
+	 * 
+	 * @param model
+	 */
+	@RequestMapping(value = "/trainer/profile")
+	private String TrainerProfile(Model model) {
+		
+		Trainer trainer = new Trainer();
+		try {
+			trainer.setUser_no(userService.getLoggedInUser().getUser_no());
+			trainer = trainerService.getTrainertoUser(trainer);
+			System.out.println(trainer);
+
+			model.addAttribute("trainer", trainer);
+			
+			return null;
+
+		} catch (UserNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return "redirect:/user/login";
+		}
+	}
 	
+	@RequestMapping(value = "/trainer/clients")
+	private String TrainerClients(Model model) {
+		
+		Trainer trainer = new Trainer();
+
+		try {
+			trainer.setUser_no(userService.getLoggedInUser().getUser_no());
+			trainer = trainerService.getTrainertoUser(trainer);
+			System.out.println(trainer);
+			
+			List<User> list = trainerService.getClients(trainer);
+
+			model.addAttribute("trainer", trainer);
+			model.addAttribute("list", list);
+			
+			return null;
+
+		} catch (UserNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return "redirect:/user/login";
+		}
+	}
+	
+
 
 }
