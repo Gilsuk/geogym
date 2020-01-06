@@ -30,6 +30,22 @@ h1, h2, h3, h4, h5, h6 {
 	background-image: none;
 	
 }
+.btn-primary:not(:disabled):not(.disabled).active, .btn-primary:not(:disabled):not(.disabled):active, .show>.btn-primary.dropdown-toggle {
+    color: #fff;
+    background-color: #cc0062;
+    border-color: #gf005c;
+}
+.btn-primary:hover {
+    color: #fff;
+    background-color: #d90069;
+    border-color: #cc0062;
+}
+.btn-primary.focus, .btn-primary:focus {
+    color: #fff;
+    background-color: #d90069;
+    border-color: #cc0062;
+    box-shadow: 0 0 0 0.2rem rgba(255,38,143,.5);
+}
 
 /***********************
 		폼(form)

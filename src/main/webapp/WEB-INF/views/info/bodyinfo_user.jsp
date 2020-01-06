@@ -229,14 +229,14 @@ function drawLineColors() {
 		<td style="height:10px"></td>
 	</tr>
 	<tr>
-		<td><strong>&nbsp;생년월일</strong> : ${user.user_birth }</td>
+		<td><strong>&nbsp;담당 tr</strong> : </td>
 	</tr>
 	<tr>
-		<td><strong>&nbsp;연락처</strong> : ${user.user_tel }</td>
+		<td><strong>&nbsp;연락처</strong> : </td>
 	</tr>
 	<tr>
 		<td style="text-align:center">
-<!-- 			<button id="uploadProfile">프로필사진수정</button> -->
+			<button id="uploadProfile">프로필사진수정</button>
 <%-- 			<form action="/info/fileUpload?bodyinfo_no=${bodyInfo.bodyinfo_no }" method="GET"> --%>
 <!-- 				<label for="uploadProfile" style="cursor:pointer">프로필사진수정</label> -->
 <!-- 				<input type="file" id="uploadProfile" style="display:none"/> -->
@@ -280,10 +280,9 @@ function drawLineColors() {
 	</table><br>
 
 <fieldset style="width:300px">
-<legend>특이사항</legend>
-<textarea rows="10" cols="45" readonly="readonly" disabled>${bodycomment.body_comment_msg }</textarea>
-<fmt:parseDate value="${bodycomment.body_comment_date }" pattern="yyyy-MM-dd'T'HH:mm" var="parsedDateTime" type="both" />
-<small style="color:grey">마지막입력 : <fmt:formatDate pattern="yyyy-MM-dd HH:mm" value="${ parsedDateTime }" /></small>
+<legend>나의 PT 스케쥴</legend>
+	<div style="border:2px solid grey;height: 235px">
+	</div>
 </fieldset><br>
 <button id="inputBodyInfo" class="btn btn-primary" style="margin-left: 60px">데이터입력</button>
 <button id="deleteInfo" onclick="deleteInfo();location.href='/info/delete?bodyinfo_no=${bodyInfo.bodyinfo_no}'" class="btn btn-primary" >데이터삭제</button>
