@@ -199,4 +199,76 @@ public class BodyController {
 		
 		return "redirect:/info/bodyinfo";
 	}
+	
+	@RequestMapping(value="/info/bodyinfo_user", method=RequestMethod.GET)
+	public void bodyinf_user(
+			@RequestParam(defaultValue = "week") String select,
+			Model model) {
+		
+		logger.info("바디인포유저");
+		
+		User loggedInUser = null;
+		try {
+			loggedInUser = userService.getLoggedInUser();
+
+		} catch (UserNotFoundException e1) {
+			e1.printStackTrace();
+			logger.info("와우 널포인트 익셉션 로그인이 안됨");
+		}
+		
+
+		
+
+		//userno 임의 지정 ( 추후 삭제 예정 )
+//		User user1 = new User();
+//		user1.setUser_no(1);
+		
+		//가장 최근에 입력한 신체정보 불러오기
+		BodyInfo bodyInfo = bodyInfoService.getRecentBodyInfo(loggedInUser);
+		
+		//가장 최근에 입력한 특이사항 불러오기
+		BodyComment bodyComment = bodyInfoService.getCommentary(loggedInUser);
+		
+		//user_no로 user_name 불러오기
+		try {
+			User user = userService.getUserByUserno(loggedInUser);
+			model.addAttribute("user", user);
+		} catch (UserNotFoundException e) {
+			e.printStackTrace();
+		}
+		
+//		logger.info(bodyComment.toString());
+		
+		model.addAttribute("bodyInfo", bodyInfo);
+		model.addAttribute("bodycomment", bodyComment);
+		
+//		1주일 단위로 불러오기
+		if(select.equals("week")) {
+			List<BodyInfo> bodyInfoByWeek = bodyInfoService.getBodyInfosByWeek(loggedInUser);
+			List<BodyInfo> weightInfoByWeek = bodyInfoService.getWeightByWeek(loggedInUser);
+			List<BodyInfo> heightInfoByWeek = bodyInfoService.getHeightByWeek(loggedInUser);
+
+//			logger.info(bodyInfoByWeek.toString());
+			
+			model.addAttribute("list",bodyInfoByWeek);
+			model.addAttribute("weightInfo", weightInfoByWeek);
+			model.addAttribute("heightInfo", heightInfoByWeek);
+			return;
+		}
+		
+//		30일 단위로 불러오기
+		if(select.equals("month")) {
+			
+			List<BodyInfo> bodyInfoByMonth = bodyInfoService.getBodyInfosByMonth(loggedInUser);
+			List<BodyInfo> weightInfoByMonth = bodyInfoService.getWeightByMonth(loggedInUser);
+			List<BodyInfo> heightInfoByMonth = bodyInfoService.getHeightByMonth(loggedInUser);
+//			logger.info(bodyInfoByMonth.toString());
+			
+			model.addAttribute("list", bodyInfoByMonth);
+			model.addAttribute("weightInfo", weightInfoByMonth);
+			model.addAttribute("heightInfo", heightInfoByMonth);
+			return;
+		}
+		
+	}
 }
