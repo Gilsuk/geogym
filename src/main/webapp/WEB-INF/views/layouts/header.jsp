@@ -64,6 +64,7 @@
 					<li class="nav-item"><a class="nav-link" href="/admin/main">관리자</a></li>
 					<li class="nav-item"><a class="nav-link disabled" href="#"
 						tabindex="-1" aria-disabled="true">${loggedInUser.user_name } is logged in</a></li>
+					<li class="nav-item"><a class="nav-link" href="/mypage/main">마이 페이지</a></li>
 					<li class="nav-item"><a class="nav-link" href="/ajax/user/logout">나가기</a></li>
 					</c:if>
 				</ul>

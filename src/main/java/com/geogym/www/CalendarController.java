@@ -166,17 +166,10 @@ public class CalendarController {
 
 	
 	
-	@RequestMapping(value = "/calendar/memo", method = RequestMethod.GET)
+	@RequestMapping(value = "/calendar/memo", method = RequestMethod.POST)
 	public String calendarmemoProc(Calendar_Memo calendar_Memo, int user_no) {
-		User loggedInUser = null;
-		try {
-			loggedInUser = userServ.getLoggedInUser();
-		} catch (UserNotFoundException e) {
-			// TODO Auto-generated catch block
-//			e.printStackTrace();
-			return "redirect:/test/user/login";
-		}
-		calendar_Memo.setUser_no(loggedInUser.getUser_no());
+		
+		calendar_Memo.setUser_no(user_no);
 		
 		logger.info(calendar_Memo.getCalendar_memo_content());
 		
@@ -189,7 +182,7 @@ public class CalendarController {
 	@RequestMapping(value = "/calendar/memolist", method = RequestMethod.GET)
 	public String calendarmemolist(Model model, @RequestParam(defaultValue = "-999999999-01-01") LocalDate date,
 			User user) {
-
+		
 		if (date.equals(LocalDate.MIN)) {
 			date = LocalDate.now();
 		}
@@ -233,6 +226,11 @@ public class CalendarController {
 	public String ptschedulecalendar(Model model, @RequestParam(defaultValue = "-999999999-01-01") LocalDate date,
 			User user) {
 
+		try {
+			user = userServ.getLoggedInUser();
+		} catch (UserNotFoundException e) {
+		}
+		
 		if (date.equals(LocalDate.MIN)) {
 			date = LocalDate.now();
 		}
