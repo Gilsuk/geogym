@@ -110,13 +110,15 @@ public class CashServiceImpl implements CashService {
 	}
 
 	private int getAmountPay(String json) {
-		JSONObject obj = new JSONObject(json);
-		JSONObject response = obj.getJSONObject("response");
-		String status = response.getString("status");
-		
-		if (status.equals("paid")) {
-			return response.getInt("amount");
-		}
+		try {
+			JSONObject obj = new JSONObject(json);
+			JSONObject response = obj.getJSONObject("response");
+			String status = response.getString("status");
+
+			if (status.equals("paid")) {
+				return response.getInt("amount");
+			}
+		} catch (Exception e) { }
 		return 0;
 	}
 

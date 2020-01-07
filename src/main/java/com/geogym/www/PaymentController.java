@@ -42,9 +42,13 @@ public class PaymentController {
 			cashSrv.chargeCash();
 			return "/payment/success";
 		} catch (FailPayException e) {
-			return "/payment/fail";
+			return "redirect:/payment/fail";
 		}
 
 	}
 	
+	@RequestMapping(value = "/payment/fail")
+	public void paymentFail(String msg, Model model) {
+		model.addAttribute("msg", msg);
+	}
 }
