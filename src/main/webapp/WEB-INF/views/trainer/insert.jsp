@@ -43,7 +43,7 @@ $(document).ready(function() {
 <h3>사이드바</h3>
 <ul>
 <li><a href="/test/setbusinessday">운영시간</a></li>
- <li>매출정보</li>
+ <li><a href="/admin/pay">PT횟수정보</a></li>
  <li><a href="/trainer/insert">트레이너등록</a></li>
 </ul>
 </div><!-- COL-3 -->
