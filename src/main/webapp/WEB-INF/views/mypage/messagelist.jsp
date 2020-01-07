@@ -96,6 +96,7 @@ $(document).ready(function() {
 				<a class="list-group-item list-group-item-action active disabled"
 					href="/mypage/messagelist?user_no=${user.user_no }">메세지 확인</a>
 
+				<a class="list-group-item list-group-item-action" href="/payment/form">캐시 충전</a>
 			</div>
 		</div>
 
