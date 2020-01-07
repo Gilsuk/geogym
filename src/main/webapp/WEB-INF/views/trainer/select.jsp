@@ -74,27 +74,29 @@
 	<img src = "" alt = "사진을 등록해 주세요." width="98" height="98">
 
 </div>--%>
-<div id = "info_name"> 
+<div id = "info_no"> 
 	<label style="font-family: 'NIXGONB-Vb';font-size: 20px;color: black">트레이너 번호</label>&nbsp;&nbsp;&nbsp;
 	<label style="font-family: 'NIXGONB-Vb';font-size: 20px;color: black"><strong>${trainer.trainer_no }</strong></label>
 
 </div>
 <br>
-<div id = "info_nick">
+<div id = "info_address">
 	<label style="font-family: 'NIXGONB-Vb';font-size: 20px;color: black"> 주소  </label>&nbsp;&nbsp;&nbsp;
 	<label style="font-family: 'NIXGONB-Vb';font-size: 20px;color: black"><strong>${trainer.trainer_address }</strong> </label>
 </div>
 <br>
-<div id = "info_nick">
+<div id = "info_price">
 	<label style="font-family: 'NIXGONB-Vb';font-size: 20px;color: black"> pt 값  </label>&nbsp;&nbsp;&nbsp;
 	<label style="font-family: 'NIXGONB-Vb';font-size: 20px;color: black"><strong>${trainer.trainer_price }</strong> </label>
 </div>
 <br>
-<div id = "info_nick">
+<div id = "info_profile">
 	<label style="font-family: 'NIXGONB-Vb';font-size: 20px;color: black"> 프로필  </label>&nbsp;&nbsp;&nbsp;
 	<label style="font-family: 'NIXGONB-Vb';font-size: 20px;color: black"><strong>${trainer.trainer_profile }</strong> </label>
 </div>
 <br>
+<br>
+<a href="/calendar/PT/request?trainer_no=${trainer.trainer_no }"><button>이 트레이너 시간표 보기</button></a>
 
 <div id = "info_info"><span  style="font-family: 'NIXGONB-Vb';font-size: 15px;color: #bcbcbc"></span></div>
 </div>

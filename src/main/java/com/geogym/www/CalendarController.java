@@ -99,6 +99,12 @@ public class CalendarController {
 	@RequestMapping(value = "/calendar/PT/request", method = RequestMethod.GET)
 	public String ptcalendar(Model model, @RequestParam(defaultValue = "-999999999-01-01") LocalDate date, User user,
 			Trainer trainer) {
+		
+		/************************************************
+		 * 
+		 *  PT 신청할 빈 시간이 없을 때 java.lang.ArrayIndexOutOfBoundsException 발생 
+		 * 
+		 ************************************************/
 
 		try {
 			user = userServ.getLoggedInUser();

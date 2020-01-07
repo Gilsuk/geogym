@@ -132,7 +132,7 @@ public class ScheduleTestController {
 			e1.printStackTrace();
 		}
 
-		schedule.setSchedule_msg(user.getUser_no() + "번 유저 " + user.getUser_name() + "님 신청 PT");
+		schedule.setSchedule_msg(user.getUser_name()+ "님 PT."+user.getUser_no());
 
 		schedule.setTrainer(trainer);
 		
