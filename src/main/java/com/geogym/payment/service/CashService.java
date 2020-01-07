@@ -1,6 +1,7 @@
 package com.geogym.payment.service;
 
 import com.geogym.payment.exception.CashNotEnoughException;
+import com.geogym.payment.exception.FailPayException;
 import com.geogym.user.dto.User;
 
 public interface CashService {
@@ -23,5 +24,7 @@ public interface CashService {
 	// 환불
 	
 	void refundCash(int amount, User user);
+	
+	void chargeCash() throws FailPayException;
 	
 }
