@@ -264,19 +264,19 @@ footer a {
 .cal{
     text-align: center;    
 }
-table.calendar{
-    border: 1px solid black;
-    display: inline-table;
+.calendar{
     text-align: left;
 }
-table.calendar td{
+.calendar td{
     vertical-align: top;
-    border: 1px solid skyblue;
-    width: 100px;
+    min-width: 100px;
 }
-.sunday{
-	color: red;
+.calendar a {
+	color: #212529;
 }
-.saturday{
-	color: blue;
+a.sunday {
+	color: #ff007b;
+}
+a.saturday {
+	color: #007bff;
 }

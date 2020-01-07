@@ -72,19 +72,22 @@
     //calendar 그리기
     function drawCalendar(){
         var setTableHTML = "";
-        setTableHTML+='<table class="calendar">';
-        setTableHTML+='<tr><th>SUN</th><th>MON</th><th>TUE</th><th>WED</th><th>THU</th><th>FRI</th><th>SAT</th></tr>';
+        setTableHTML+='<div class="table-responsive"><table class="calendar table table-bordered">';
+        setTableHTML+='<thead>';
+        setTableHTML+='<tr><th scope="col">일</th><th scope="col">월</th><th scope="col">화</th><th scope="col">수</th>';
+        setTableHTML+='<th scope="col">목</th><th scope="col">금</th><th scope="col">토</th></tr>';
+        setTableHTML+='</thead><tbody>';
         for(var i=0;i<6;i++){
             setTableHTML+='<tr height="100">';
             for(var j=0;j<7;j++){
-                setTableHTML+='<td style="text-overflow:ellipsis;overflow:hidden;white-space:nowrap">';
+                setTableHTML+='<td>';
                 setTableHTML+='    <div class="cal-day"></div>';
                 setTableHTML+='    <div class="cal-schedule"></div>';
                 setTableHTML+='</td>';
             }
             setTableHTML+='</tr>';
         }
-        setTableHTML+='</table>';
+        setTableHTML+='</table>,</div>';
         $("#cal_tab").html(setTableHTML);
     }
  
