@@ -2,8 +2,6 @@ package com.geogym.www;
 
 import java.util.List;
 
-import javax.servlet.http.HttpSession;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -105,24 +103,30 @@ public class TrainerController {
 
 	// 트레이너 테이블 수정
 	@RequestMapping(value = "/trainer/update", method = RequestMethod.GET)
-	private String updateTrainer() {
+	private String updateTrainer(Model model) {
 
 		try {
 			if (userService.isTrainer(userService.getLoggedInUser())) {
+				User user = userService.getLoggedInUser();
+				Trainer trainer = trainerService.getTrainertoUser(user);
+				
+				model.addAttribute("trainer", trainer);
+				model.addAttribute("user", user);
+				
 				return null;
 			} else {
-				return "redirect:/";
+				return "redirect:/user/login";
 			}
 		} catch (UserNotFoundException e) {
 			// TODO Auto-generated catch block
-			return "redirect:/";
+			return "redirect:/user/login";
 		}
 
 	}
 
 	// 트레이너 테이블 수정
 	@RequestMapping(value = "/trainer/update", method = RequestMethod.POST)
-	private void updateTrainer(Trainer trainer, MultipartFile file) {
+	private String updateTrainer(Trainer trainer, MultipartFile file) {
 		logger.info("updateTrainer");
 
 		// 이부분은 테스트용
@@ -133,10 +137,13 @@ public class TrainerController {
 //		trainer2.setTrainer_price(1);
 //		trainer2.setTrainer_profile("profile");
 
+		System.out.println(trainer);
+		
 		trainerService.updateTrainer(trainer, file);
 
 //		System.out.println(trainer2);
 		logger.info("성공");
+		return "redirect:/trainer/page";
 
 	}
 
@@ -202,10 +209,10 @@ public class TrainerController {
 
 		try {
 			User user = userService.getLoggedInUser();
-			Trainer trainer = new Trainer();
-			trainer.setUser_no(user.getUser_no());
 
-			model.addAttribute("trainer", trainerService.getTrainertoUser(trainer));
+			model.addAttribute("trainer", trainerService.getTrainertoUser(user));
+			model.addAttribute("user", user);
+
 			return null;
 		} catch (UserNotFoundException e) {
 			// TODO Auto-generated catch block
@@ -224,8 +231,8 @@ public class TrainerController {
 		
 		Trainer trainer = new Trainer();
 		try {
-			trainer.setUser_no(userService.getLoggedInUser().getUser_no());
-			trainer = trainerService.getTrainertoUser(trainer);
+			User user = userService.getLoggedInUser();
+			trainer = trainerService.getTrainertoUser(user);
 			System.out.println(trainer);
 
 			model.addAttribute("trainer", trainer);
@@ -245,8 +252,8 @@ public class TrainerController {
 		Trainer trainer = new Trainer();
 
 		try {
-			trainer.setUser_no(userService.getLoggedInUser().getUser_no());
-			trainer = trainerService.getTrainertoUser(trainer);
+			User user = userService.getLoggedInUser();
+			trainer = trainerService.getTrainertoUser(user);
 			System.out.println(trainer);
 			
 			List<User> list = trainerService.getClients(trainer);

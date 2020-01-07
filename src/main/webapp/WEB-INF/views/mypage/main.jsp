@@ -26,7 +26,7 @@
 	<a class="list-group-item list-group-item-action" href="/test/message/list?user_no=${user.user_no }">메세지 확인</a>
 
 	<c:if test="${isTrainer }">
-	<a class="list-group-item list-group-item-action" href="#">트레이너 페이지</a>
+	<a class="list-group-item list-group-item-action" href="/trainer/page">트레이너 페이지</a>
 	</c:if>
 
 <c:if test="${isManager }">

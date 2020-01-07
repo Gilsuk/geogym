@@ -58,7 +58,6 @@ public class CalendarController {
 			calendarService.insertholiday(url);
 
 		}
-
 	}
 
 	@RequestMapping(value = "/calendar/main", method = RequestMethod.GET)
