@@ -54,14 +54,39 @@ public class CashServiceImpl implements CashService {
 	}
 
 	@Override
-	public void payByCash(int amount, User user) throws CashNotEnoughException {
-		// TODO Auto-generated method stub
+	public void payByCash(int amount, Product product) throws CashNotEnoughException, UserNotFoundException {
+		try {
+			User user = userSrv.getLoggedInUser();
+			payByCash(amount, user, product);
+		} catch (UserNotFoundException e) {
+			throw e;
+		}
+	}
+
+	@Override
+	public void payByCash(int amount, User user, Product product) throws CashNotEnoughException {
+		int userCash = dao.selectCoinByUserNo(user);
+		if (userCash < amount) throw new CashNotEnoughException();
+
+		Payment payment = new Payment();
+		payment.setCurrency(Currency.CASH);
+		payment.setPay_amount(amount);
+		payment.setPay_date(LocalDateTime.now());
+		payment.setProduct(product);
+		payment.setUser(user);
+		
+		
+		payLogSrv.logPayment(payment);
+		Map<String, String> map = new HashMap<>();
+		map.put("user_no", String.valueOf(user.getUser_no()));
+		map.put("user_cash_amount", String.valueOf(userCash - amount));
+		dao.deleteCoin(user);
+		dao.insertCoin(map);
 
 	}
 
 	@Override
 	public void refundCash(int amount, User user) {
-		// TODO Auto-generated method stub
 
 	}
 
@@ -180,5 +205,6 @@ public class CashServiceImpl implements CashService {
 
 		} catch (IOException e) { return ""; }
 	}
+
 	
 }

@@ -9,6 +9,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.geogym.payment.enumeration.Product;
 import com.geogym.payment.exception.CashNotEnoughException;
 import com.geogym.payment.service.CashService;
 import com.geogym.payment.service.PaymentLogService;
@@ -48,7 +49,7 @@ public class MatchingServiceImpl implements MatchingService {
 				
 				//로그 입력 필요
 				
-				coinService.payByCash(schedule.getTrainer().getTrainer_price(), user);
+				coinService.payByCash(schedule.getTrainer().getTrainer_price(), user, Product.DAILY);
 			}
 			
 			scheduleService.setPTShcedule(user, schedule);
