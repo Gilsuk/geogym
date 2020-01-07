@@ -95,6 +95,7 @@ public class TrainerServiceImpl implements TrainerService {
 		}else {
 			attachmentService.removeAttachment(trainer);
 			trainer.setAttachment(attachmentService.upload(file));
+			
 		}
 		if (trainer.getTrainer_address() == null) {
 			trainer.setTrainer_address(trainer2.getTrainer_address());
