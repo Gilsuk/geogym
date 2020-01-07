@@ -242,8 +242,11 @@ public class TrainerServiceImpl implements TrainerService {
 	}
 
 	@Override
-	public Trainer getTrainertoUser(Trainer trainer) {
+	public Trainer getTrainertoUser(User user) {
 		// TODO Auto-generated method stub
+		Trainer trainer = new Trainer();
+		trainer.setUser_no(user.getUser_no());
+		
 		return trainerDao.getTrainertoUser(trainer);
 	}
 

@@ -2,8 +2,6 @@ package com.geogym.www;
 
 import java.util.List;
 
-import javax.servlet.http.HttpSession;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -105,17 +103,23 @@ public class TrainerController {
 
 	// 트레이너 테이블 수정
 	@RequestMapping(value = "/trainer/update", method = RequestMethod.GET)
-	private String updateTrainer() {
+	private String updateTrainer(Model model) {
 
 		try {
 			if (userService.isTrainer(userService.getLoggedInUser())) {
+				User user = userService.getLoggedInUser();
+				Trainer trainer = trainerService.getTrainertoUser(user);
+				
+				model.addAttribute("trainer", trainer);
+				model.addAttribute("user", user);
+				
 				return null;
 			} else {
-				return "redirect:/";
+				return "redirect:/user/login";
 			}
 		} catch (UserNotFoundException e) {
 			// TODO Auto-generated catch block
-			return "redirect:/";
+			return "redirect:/user/login";
 		}
 
 	}
@@ -202,10 +206,10 @@ public class TrainerController {
 
 		try {
 			User user = userService.getLoggedInUser();
-			Trainer trainer = new Trainer();
-			trainer.setUser_no(user.getUser_no());
 
-			model.addAttribute("trainer", trainerService.getTrainertoUser(trainer));
+			model.addAttribute("trainer", trainerService.getTrainertoUser(user));
+			model.addAttribute("user", user);
+
 			return null;
 		} catch (UserNotFoundException e) {
 			// TODO Auto-generated catch block
@@ -224,8 +228,8 @@ public class TrainerController {
 		
 		Trainer trainer = new Trainer();
 		try {
-			trainer.setUser_no(userService.getLoggedInUser().getUser_no());
-			trainer = trainerService.getTrainertoUser(trainer);
+			User user = userService.getLoggedInUser();
+			trainer = trainerService.getTrainertoUser(user);
 			System.out.println(trainer);
 
 			model.addAttribute("trainer", trainer);
@@ -245,8 +249,8 @@ public class TrainerController {
 		Trainer trainer = new Trainer();
 
 		try {
-			trainer.setUser_no(userService.getLoggedInUser().getUser_no());
-			trainer = trainerService.getTrainertoUser(trainer);
+			User user = userService.getLoggedInUser();
+			trainer = trainerService.getTrainertoUser(user);
 			System.out.println(trainer);
 			
 			List<User> list = trainerService.getClients(trainer);
