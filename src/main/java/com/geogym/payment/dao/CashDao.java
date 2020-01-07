@@ -8,7 +8,7 @@ public interface CashDao {
 
 	int selectCoinByUserNo(User user);
 	
-	void insertCoin(Map<String, Integer> map);
+	void insertCoin(Map<String, String> map);
 	
 	void deleteCoin(User user);
 

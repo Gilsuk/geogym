@@ -7,6 +7,8 @@ import java.io.InputStreamReader;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.time.LocalDateTime;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.net.ssl.HttpsURLConnection;
 import javax.servlet.http.HttpServletRequest;
@@ -31,7 +33,7 @@ import com.geogym.user.service.UserService;
 @Service
 public class CashServiceImpl implements CashService {
 
-	@Autowired CashDao coinDao;
+	@Autowired CashDao dao;
 	@Autowired
 	private PaymentLogService payLogSrv;
 	@Autowired
@@ -43,7 +45,7 @@ public class CashServiceImpl implements CashService {
 	public int getCashAmount(User user) {
 		
 		try {
-			int cash = coinDao.selectCoinByUserNo(user);
+			int cash = dao.selectCoinByUserNo(user);
 			
 			return cash;
 		} catch (Exception e) {
@@ -65,6 +67,11 @@ public class CashServiceImpl implements CashService {
 
 	@Override
 	public void chargeCash() throws FailPayException {
+		User user = null;
+		try {
+			user = userSrv.getLoggedInUser();
+		} catch (UserNotFoundException e) { return; }
+
 		String uri = req.getRequestURI();
 		String imp_uid = uri.split("/")[3];
 		String completeResponse = getCompleteResponse(imp_uid);
@@ -73,6 +80,13 @@ public class CashServiceImpl implements CashService {
 		
 		if (amountPay > 0) {
 			logPayment(amountPay);
+			int cash = dao.selectCoinByUserNo(user);
+			cash += amountPay;
+			dao.deleteCoin(user);
+			Map<String, String> map = new HashMap<>();
+			map.put("user_no", String.valueOf(user.getUser_no()));
+			map.put("user_cash_amount", String.valueOf(cash));
+			dao.insertCoin(map);
 			
 		} else {
 			throw new FailPayException();
