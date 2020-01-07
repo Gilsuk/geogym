@@ -45,42 +45,82 @@
 </div>
 </div>
 
-<div class="col-2">
+<div class="col-sm-12 col-md-12 col-lg-9 col-xl-9">
 
-이름 : <br>
-성별 : <br>
-생년월일 : <br>
-연락처 : <br>
-ID : <br>
-email : <br>
-<br>
-이용권 : <br>
-<br>
+<form>
 
-PT 정기권 : <br>
+  <div class="form-group row">
+    <label class="col-sm-2 col-form-label">이름</label>
+    <div class="col-sm-10">
+      <input type="text" readonly class="form-control-plaintext" value="${user.user_name }">
+    </div>
+  </div>
+  
+  <div class="form-group row">
+    <label class="col-sm-2 col-form-label">성별</label>
+    <div class="col-sm-10">
+      <input type="text" readonly class="form-control-plaintext" value="${user.user_gender }">
+    </div>
+  </div>
+  
+  <div class="form-group row">
+    <label class="col-sm-2 col-form-label">생년월일</label>
+    <div class="col-sm-10">
+      <input type="text" readonly class="form-control-plaintext" value="${user.user_birth }">
+    </div>
+  </div>
+  
+  <div class="form-group row">
+    <label class="col-sm-2 col-form-label">연락처</label>
+    <div class="col-sm-10">
+      <input type="text" readonly class="form-control-plaintext" value="${user.user_tel }">
+    </div>
+  </div>
+  <div class="form-group row">
+    <label class="col-sm-2 col-form-label">ID</label>
+    <div class="col-sm-10">
+      <input type="text" readonly class="form-control-plaintext" value="${user.user_id }">
+    </div>
+  </div>
+  
+  <div class="form-group row">
+    <label class="col-sm-2 col-form-label">email</label>
+    <div class="col-sm-10">
+      <input type="text" readonly class="form-control-plaintext" value="${user.user_email }">
+    </div>
+  </div>
+  
+  <div class="form-group row">
+    <label class="col-sm-2 col-form-label">이용권</label>
+    <div class="col-sm-10">
+      <input type="text" readonly class="form-control-plaintext" value="${ticket.ticket_active_date }(${ticket.ticket_duration } 일)">
+    </div>
+  </div>
+  
+  <div class="form-group row">
+    <label class="col-sm-2 col-form-label">캐시</label>
+    <div class="col-sm-10">
+      <input type="text" readonly class="form-control-plaintext" value="${cash }">
+    </div>
+  </div>
+  
+  <div class="form-group row">
+    <label class="col-sm-2 col-form-label">PT 이용권</label>
+      <c:forEach items="${list }" var="list">
+    	<div class="col-sm-10">
+        	<input type="text" readonly class="form-control-plaintext" value="'${list.trainer_name }' 트레이너 : ${list.pt_ticket_expire } 까지 /${list.pt_ticket_amount }회">
+    	</div>
+      </c:forEach>
+  </div>
 
-<br>
-캐시 : <br>
+	<div class="form-group row">
+    <label class="col-sm-2 col-form-label"></label>
+    <div class="col-sm-10">
+      <a href="#"><button class="btn btn-primary">회원 탈퇴</button></a>
+    </div>
+  </div>
 
-</div>
-
-<div class="col-sm-10 col-md-10 col-lg-7 col-xl-7">
-${user.user_name }<br>
-${user.user_gender }<br>
-${user.user_birth }<br>
-${user.user_tel }<br>
-${user.user_id }<br>
-${user.user_email }<br>
-<br>
-${ticket.ticket_active_date }(${ticket.ticket_duration } 일)<br>
-<br>
-<c:forEach items="${list }" var="list">
-	"${list.trainer_name }" 트레이너 : ${list.pt_ticket_expire } 까지 /${list.pt_ticket_amount }회<br>
-</c:forEach>
-<br>
-${cash }<br><br>
-
-<a href="#"><button class="btn btn-primary">회원 탈퇴</button></a>
+</form>
 
 </div>
 
