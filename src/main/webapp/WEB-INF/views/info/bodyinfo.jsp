@@ -69,6 +69,23 @@ $(document).ready(function(){
 </script>
 
 <script type="text/javascript">
+
+	$(document).on('click','#BMI', function(){
+
+		var popupX = (window.screen.width / 2) - (1200 / 2);
+		// 만들 팝업창 좌우 크기의 1/2 만큼 보정값으로 빼주었음
+
+		var popupY= (window.screen.height /2) - (1200 / 2);
+		// 만들 팝업창 상하 크기의 1/2 만큼 보정값으로 빼주었음
+
+		window.open('http://localhost:8090/info/BMI?bodyinfo_no=${bodyInfo.bodyinfo_no}', 'window', 'status=no, height=1200, width=1200, left='+ popupX + ', top='+ popupY + ', screenX='+ popupX + ', screenY= '+ popupY);
+	
+		self.close();
+	});
+	
+</script>
+
+<script type="text/javascript">
 function deleteInfo(){
 	
 	  /* confirm(문자열, 초기값) */
@@ -256,7 +273,9 @@ function drawLineColors() {
 
 	<table style="text-align:center;width:325px">
 		<tr>
-			<td colspan="2"><button id="uploadBMI">BMI사진첨부하기</button></td>
+			<td colspan="2">
+				<button id="uploadBMI">BMI사진첨부하기</button>
+				<button id="BMI">BMI 정보 보기</button>
 			<td></td>
 		</tr>
 		<tr>

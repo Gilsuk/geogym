@@ -126,4 +126,12 @@ public interface TrainerDao {
 	 */
 	Trainer getTrainertoUser(Trainer trainer);
 
+	/****
+	 * 유저번호로 트레이너의 정보 조회
+	 * 
+	 * @param user - 현재 로그인한 회원 조회
+	 * @return - 해당 userno를 가진 트레이너 정보 반환
+	 */
+	Trainer selectTrainernoByUserno(User user);
+
 }

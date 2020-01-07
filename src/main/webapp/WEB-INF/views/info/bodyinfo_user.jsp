@@ -232,7 +232,7 @@ function drawLineColors() {
 		<td><strong>&nbsp;담당 tr</strong> : </td>
 	</tr>
 	<tr>
-		<td><strong>&nbsp;연락처</strong> : </td>
+		<td><strong>&nbsp;연락처</strong> : ${user.user_tel }</td>
 	</tr>
 	<tr>
 		<td style="text-align:center">
@@ -278,14 +278,10 @@ function drawLineColors() {
 		</tr>
 
 	</table><br>
+<fmt:parseDate value="${bodycomment.body_comment_date }" pattern="yyyy-MM-dd'T'HH:mm" var="parsedDateTime" type="both" />
+<small style="color:grey">마지막입력 : <fmt:formatDate pattern="yyyy-MM-dd HH:mm" value="${ parsedDateTime }" /></small>
 
-<fieldset style="width:300px">
-<legend>나의 PT 스케쥴</legend>
-	<div style="border:2px solid grey;height: 235px">
-	</div>
-</fieldset><br>
-<button id="inputBodyInfo" class="btn btn-primary" style="margin-left: 60px">데이터입력</button>
-<button id="deleteInfo" onclick="deleteInfo();location.href='/info/delete?bodyinfo_no=${bodyInfo.bodyinfo_no}'" class="btn btn-primary" >데이터삭제</button>
+
 <br>
 </div>
 	<br>
