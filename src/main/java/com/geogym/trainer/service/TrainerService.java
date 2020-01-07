@@ -13,6 +13,7 @@ import com.geogym.schedule.dto.PeriodDateTime;
 import com.geogym.schedule.dto.Schedule;
 import com.geogym.trainer.dto.T_reputation;
 import com.geogym.trainer.dto.Trainer;
+import com.geogym.trainer.exception.UserNotTrainerException;
 import com.geogym.user.dto.User;
 
 /**
@@ -31,7 +32,7 @@ public interface TrainerService {
 	 * @return Trainer - 유저와 pt 하는 트레이너 리턴
 	 * @throws UserNotTrainerException - 유저가 pt 하는 트레이너가 없을 때
 	 */
-//	Trainer getTrainerByUserno(User user) throws UserNotTrainerException;
+	Trainer getTrainerByUserno(User user) throws UserNotTrainerException;
 	
 	/**
 	 * 해당 트레이너의 PT 회원들을 조회

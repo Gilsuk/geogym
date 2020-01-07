@@ -5,8 +5,7 @@ import java.util.List;
 import com.geogym.body.dto.BodyComment;
 import com.geogym.body.dto.BodyInfo;
 import com.geogym.common.exception.ParamIncorrectException;
-import com.geogym.schedule.dto.PeriodDate;
-import com.geogym.schedule.exception.TooLongPeriodException;
+import com.geogym.trainer.dto.Trainer;
 import com.geogym.user.dto.User;
 
 public interface BodyInfoService {
@@ -60,7 +59,7 @@ public interface BodyInfoService {
 	 * 트레이너만 작성 가능하도록 메소드를 정의함
 	 * @throws ParamIncorrectException 필드가 비어있는 경우
 	 */
-	void setBodyCommentary(BodyComment commentary)
+	void setBodyCommentary(BodyComment commentary, Trainer trainer, BodyInfo bodyinfo)
 			throws ParamIncorrectException;
 	
 	void deleteBodyCommentary(BodyInfo bodyinfo);

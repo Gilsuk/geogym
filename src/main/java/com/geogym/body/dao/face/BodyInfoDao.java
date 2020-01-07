@@ -23,4 +23,6 @@ public interface BodyInfoDao {
 	public void deleteBodyInfo(BodyInfo bodyinfo);
 	
 	public void deleteBodyCommentary(BodyInfo bodyinfo);
+	
+	public int selectBodyinfoNo();
 }

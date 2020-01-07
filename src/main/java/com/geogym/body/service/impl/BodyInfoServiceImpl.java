@@ -16,8 +16,7 @@ import com.geogym.body.service.face.BodyInfoService;
 import com.geogym.common.enumeration.Table;
 import com.geogym.common.exception.ParamIncorrectException;
 import com.geogym.common.service.SequenceService;
-import com.geogym.schedule.dto.PeriodDate;
-import com.geogym.schedule.exception.TooLongPeriodException;
+import com.geogym.trainer.dto.Trainer;
 import com.geogym.user.dto.User;
 import com.google.gson.Gson;
 
@@ -40,7 +39,6 @@ public class BodyInfoServiceImpl implements BodyInfoService{
 		
 		int nextVal = sequenceService.getNextVal(Table.BODYINFO);
 		bodyInfo.setBodyinfo_no(nextVal);
-		
 		bodyInfo.setBodyinfo_date(LocalDate.now());
 		
 		bodyInfoDao.insertBodyInfo(bodyInfo);
@@ -208,14 +206,16 @@ public class BodyInfoServiceImpl implements BodyInfoService{
 	}
 
 	@Override
-	public void setBodyCommentary(BodyComment commentary) throws ParamIncorrectException {
+	public void setBodyCommentary(BodyComment commentary, Trainer trainer, BodyInfo bodyinfo) throws ParamIncorrectException {
 		
-		int bodyInfo_nextVal = sequenceService.getNextVal(Table.BODYINFO);
+		System.out.println("trainer : " + trainer.getTrainer_no()); 
+//		int bodyInfo_nextVal = sequenceService.getNextVal(Table.BODYINFO);
 		int bodyComment_nextVal = sequenceService.getNextVal(Table.BODY_COMMENT);
+		int Bodyinfo_no = bodyInfoDao.selectBodyinfoNo();
 		
-		commentary.setBodyinfo_no(bodyInfo_nextVal);
+		commentary.setBodyinfo_no(Bodyinfo_no);
 		commentary.setBody_comment_no(bodyComment_nextVal);
-		
+		commentary.setTrainer_no(trainer.getTrainer_no());
 		commentary.setBody_comment_date(LocalDateTime.now());	
 		
 		bodyInfoDao.insertBodyCommentary(commentary);
