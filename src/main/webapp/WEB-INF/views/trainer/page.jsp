@@ -1,7 +1,18 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<!-- 합쳐지고 최소화된 최신 CSS -->
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+<!-- 부가적인 테마 -->
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
+
+<!-- 합쳐지고 최소화된 최신 자바스크립트 -->
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 <%@ include file="/WEB-INF/views/layouts/header.jsp"%>
+
 <div class="container">
 <div class="row">
 <div class="col-12">
@@ -59,9 +70,11 @@ ${cash }<br>
 
 </div>
 <div class="col-4">
-<div id="profileDiv" class="col-12" id="profile" style="background-color:white; border:2px solid gray;width:180px;height:160px;padding-right: 0px;padding-left: 0px" >
-	<img src="/upload//upload/${trainer.attachment.attachment_stored_name }"
-						alt="${trainer.attachment.attachment_origin_name }" />
+<div id="profileDiv" class="col-12" id="profile" style="background-color:white; border:2px solid gray; width:180px;height:160px;padding-right: 0px;padding-left: 0px" >
+	<div class="thumbnail">
+	<img src="/upload/${trainer.attachment.attachment_stored_name }"
+			alt="${trainer.attachment.attachment_origin_name }" />
+	</div>
 </div>
 <div class="row">	
 <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3">

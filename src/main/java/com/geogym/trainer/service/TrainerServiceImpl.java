@@ -87,7 +87,8 @@ public class TrainerServiceImpl implements TrainerService {
 		// 트레이너 테이블 수정
 		
 		Trainer trainer2 = getTrainer(trainer);
-		
+		System.out.println("trainer : " + trainer);
+		System.out.println("trainer2 : " + trainer2);
 		
 		if (file == null) {
 			trainer.setAttachment(trainer2.getAttachment());

@@ -126,7 +126,7 @@ public class TrainerController {
 
 	// 트레이너 테이블 수정
 	@RequestMapping(value = "/trainer/update", method = RequestMethod.POST)
-	private void updateTrainer(Trainer trainer, MultipartFile file) {
+	private String updateTrainer(Trainer trainer, MultipartFile file) {
 		logger.info("updateTrainer");
 
 		// 이부분은 테스트용
@@ -137,10 +137,13 @@ public class TrainerController {
 //		trainer2.setTrainer_price(1);
 //		trainer2.setTrainer_profile("profile");
 
+		System.out.println(trainer);
+		
 		trainerService.updateTrainer(trainer, file);
 
 //		System.out.println(trainer2);
 		logger.info("성공");
+		return "redirect:/trainer/page";
 
 	}
 
