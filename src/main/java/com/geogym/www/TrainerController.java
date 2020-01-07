@@ -75,7 +75,6 @@ public class TrainerController {
 			return "/user/login";
 		}
 //		return null;
-
 	}
 
 	// 트레이너 생성
