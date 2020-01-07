@@ -15,7 +15,7 @@
 	</select>
 	<insert id="insert" parameterType="com.geogym.payment.dto.Payment">
 		INSERT INTO pay (user_no, pay_date, pay_amount, currency_no, product_no)
-		VALUES (#{user_no}, {#{pay_date}, #{pay_amount}, #{currency.currency_no}, #{product.product_no})
+		VALUES (#{user.user_no}, #{pay_date}, #{pay_amount}, #{currency.currency_no}, #{product.product_no})
 	</insert>
 
 </mapper>
