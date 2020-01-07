@@ -20,6 +20,8 @@ import com.geogym.schedule.exception.NotWorkinDayException;
 import com.geogym.schedule.service.ScheduleService;
 import com.geogym.trainer.dto.Trainer;
 import com.geogym.user.dto.User;
+import com.geogym.user.exception.UserNotFoundException;
+import com.geogym.user.service.UserService;
 
 @Controller
 public class ScheduleTestController {
@@ -27,6 +29,7 @@ public class ScheduleTestController {
 	private static final Logger logger = LoggerFactory.getLogger(ScheduleTestController.class);
 	
 	@Autowired ScheduleService scheduleService;
+	@Autowired UserService userService;
 	
 	// --- 트레이너의 비어있는 스케줄 얻어오기 -------------------------------------
 	@RequestMapping(value="/test/shedule/workingtime")
@@ -120,8 +123,16 @@ public class ScheduleTestController {
 		logger.info(schedule.toString());
 		logger.info(trainer.toString());
 		logger.info(user.toString());
+		
+		
+		try {
+			user = userService.getUserByUserno(user);
+		} catch (UserNotFoundException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 
-		schedule.setSchedule_msg("테스트테스트");
+		schedule.setSchedule_msg(user.getUser_no() + "번 유저 " + user.getUser_name() + "님 신청 PT");
 
 		schedule.setTrainer(trainer);
 		
