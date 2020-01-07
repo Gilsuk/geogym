@@ -23,8 +23,9 @@ $(document).ready(function() {
 				dataType: "json"
 			}).done(function(data) {
 				$("#user_name").val(data.user_name);
+				$("#user_no").val(data.user_no);
 				$("#user_gender").val(data.user_gender);
-				$("#user_birth").val(birth.year + "-" + birth.monthValue + "-" + birth.dayOfMonth);
+				$("#user_birth").val(data.user_birth.year + "-" + data.user_birth.monthValue + "-" + data.user_birth.dayOfMonth);
 				$("#user_email").val(data.user_email);
 				
 			})
@@ -41,9 +42,9 @@ $(document).ready(function() {
 <div class= "col-3">
 <h3>사이드바</h3>
 <ul>
- <li><a href="/user/login">운영시간</a></li>
+<li><a href="/test/setbusinessday">운영시간</a></li>
  <li>매출정보</li>
- <li>트레이너등록</li>
+ <li><a href="/trainer/insert">트레이너등록</a></li>
 </ul>
 </div><!-- COL-3 -->
 <div class= "col-9">
@@ -60,14 +61,19 @@ $(document).ready(function() {
   <button id="btn-search-user" type="submit" class="btn btn-primary">검색</button>
 
 
- <form action= "/trainer/insert" method="post">
+ <form action= "/trainer/insert" method="post" enctype="multipart/form-data">
 <!-- 검색시 결과값 도출 -->
 <div class="form-group">
-    <label for="formGroupExampleInput">이름</label>
-    
+    <label for="formGroupExampleInput">이름</label>    
     <input type="text" class="form-control" id="user_name" name = "user_name" disabled>
-    
-   
+
+</div>
+
+
+<div class="form-group">
+<!--     <label for="formGroupExampleInput">번호</label>     -->
+    <input type="hidden" class="form-control" id="user_no" name = "user_no" >
+
 </div>
   
  <div class="form-group">
@@ -108,7 +114,7 @@ $(document).ready(function() {
 <div class="form-group">
     <label for="formGroupExampleInput">이미지파일</label>
     <input type="file" class="form-control" name ="file">
-  </div>
+</div>
 
 
 <button type="submit" class="btn btn-primary">등록</button>

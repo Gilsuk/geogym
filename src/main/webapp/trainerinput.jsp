@@ -24,7 +24,7 @@ $(document).ready(function() {
 			}).done(function(data) {
 				$("#user_name").val(data.user_name);
 				$("#user_gender").val(data.user_gender);
-// 				$("#user_birth").val(birth.year + "-" + birth.monthValue + "-" + birth.dayOfMonth);
+				$("#user_birth").val(data.user_birth.year + "-" + data.user_birth.monthValue + "-" + data.user_birth.dayOfMonth);
 				$("#user_email").val(data.user_email);
 				
 			})
@@ -59,8 +59,8 @@ $(document).ready(function() {
   </div>
   <button id="btn-search-user" type="submit" class="btn btn-primary">검색</button>
 
-
  <form action= "/trainer/insert" method="post">
+
 <!-- 검색시 결과값 도출 -->
 <div class="form-group">
     <label for="formGroupExampleInput">이름</label>

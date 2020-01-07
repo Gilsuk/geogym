@@ -8,6 +8,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.geogym.schedule.dto.BusinessDay;
 import com.geogym.schedule.service.BusinessDayService;
@@ -35,15 +36,22 @@ public class BusinessDayController {
 
 		logger.info(is + "");
 	}
+	
+	
+	@RequestMapping(value = "/test/setbusinessday" ,method = RequestMethod.GET)
+	public void setBusiness() {
+		
+	}
+	
+	
+	@RequestMapping(value = "/test/setbusinessday" ,method = RequestMethod.POST)
+	public void setBusinessDay(BusinessDay businessDay) {
 
-	@RequestMapping(value = "/test/setbusinessday")
-	public void setBusinessDay() {
-
-		LocalDate date = LocalDate.of(2020, 02, 15);
+		LocalDate date = businessDay.getBusiness_day_date();
 
 		BusinessDay workingTime = new BusinessDay();
-		workingTime.setBusiness_day_starttime(LocalTime.of(06, 00));
-		workingTime.setBusiness_day_endtime(LocalTime.of(18, 00));
+		workingTime.setBusiness_day_starttime(businessDay.getBusiness_day_starttime());
+		workingTime.setBusiness_day_endtime(businessDay.getBusiness_day_endtime());
 
 		try {
 			businessDayService.setWorkingTime(date, workingTime);
