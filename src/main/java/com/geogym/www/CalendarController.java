@@ -126,7 +126,7 @@ public class CalendarController {
 		model.addAttribute("viewLink",
 				"/calendar/view/PTrequest?trainer_no=" + trainer.getTrainer_no() + "&user_no=" + user.getUser_no());
 
-		return "/calendar/main";
+		return "/calendar/viewcalendar";
 	}
 
 	@RequestMapping(value = "/calendar/schedule", method = RequestMethod.GET)
@@ -153,7 +153,7 @@ public class CalendarController {
 
 		logger.info(timeList.toString());
 
-		return "/calendar/main";
+		return "/calendar/viewcalendar";
 	}
 	
 	@RequestMapping(value = "/calendar/view/schedule", method = RequestMethod.GET)
@@ -215,7 +215,7 @@ public class CalendarController {
 		
 		logger.info(memolist.toString());
 		
-		return "/calendar/main";
+		return "/calendar/inMypage";
 	}
 
 	@RequestMapping(value = "/calendar/update", method = RequestMethod.GET)
@@ -268,7 +268,7 @@ public class CalendarController {
 		model.addAttribute("viewLink", "/calendar/viewmemo?user_no=" + user.getUser_no());
 		model.addAttribute("pageName", "PT");
 		
-		return "/calendar/main";
+		return "/calendar/inMypage";
 	}
 	
 	@RequestMapping(value = "/calendar/viewmemo", method = RequestMethod.GET)
