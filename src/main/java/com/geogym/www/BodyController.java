@@ -1,5 +1,6 @@
 package com.geogym.www;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -7,18 +8,19 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.geogym.attachment.dto.Bodyinfo_attachment;
 import com.geogym.attachment.service.AttachmentService;
 import com.geogym.body.dto.BodyComment;
 import com.geogym.body.dto.BodyInfo;
 import com.geogym.body.service.face.BodyInfoService;
 import com.geogym.common.exception.ParamIncorrectException;
+import com.geogym.pt.dto.PT;
+import com.geogym.pt.service.MatchingService;
+import com.geogym.schedule.service.ScheduleService;
 import com.geogym.user.dto.User;
 import com.geogym.user.exception.UserNotFoundException;
 import com.geogym.user.service.UserService;
@@ -29,6 +31,8 @@ public class BodyController {
 	@Autowired BodyInfoService bodyInfoService;
 	@Autowired UserService userService;
 	@Autowired AttachmentService attachmentService;
+	@Autowired MatchingService mathcingService;
+	@Autowired ScheduleService scheduleService;
 	
 	private static final Logger logger = LoggerFactory.getLogger(BodyController.class);
 
@@ -186,11 +190,11 @@ public class BodyController {
 		
 	}
 	
-	@RequestMapping(value="/info/uploadBMIProc", method=RequestMethod.GET)
+	@RequestMapping(value="/info/uploadBMIProc", method=RequestMethod.POST)
 	public String uploadBMI(BodyInfo bodyinfoAttachment, MultipartFile file) {
 		
 		logger.info("BMI 사진 첨부 절차 접근");
-		bodyinfoAttachment.getBodyinfo_no();
+		bodyinfoAttachment.setBodyinfo_no(bodyinfoAttachment.getBodyinfo_no());
 		logger.info(bodyinfoAttachment.toString());
 		
 		MultipartFile[] files = new MultipartFile[1];
@@ -201,7 +205,7 @@ public class BodyController {
 	}
 	
 	@RequestMapping(value="/info/bodyinfo_user", method=RequestMethod.GET)
-	public void bodyinf_user(
+	public void bodyinfo_user(
 			@RequestParam(defaultValue = "week") String select,
 			Model model) {
 		
@@ -216,8 +220,10 @@ public class BodyController {
 			logger.info("와우 널포인트 익셉션 로그인이 안됨");
 		}
 		
-
 		
+		logger.info("스케쥴리스트당");
+		List<PT> scheduleList = scheduleService.getPTScheduleByMonth(loggedInUser, LocalDate.now());
+		logger.info(scheduleList.toString());
 
 		//userno 임의 지정 ( 추후 삭제 예정 )
 //		User user1 = new User();

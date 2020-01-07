@@ -11,7 +11,6 @@
 
 <form action="/trainer/reputate" method="post">
 <label>tno :</label> <input type="number" name="trainer_no" id="trainer_no" required="required" /><br>
-<label>uno :</label> <input type="number" name="user_no" id="user_no" required="required" /><br>
 <label>setTrainer_reputation_score :</label> <input type="number" name="trainer_reputation_score" id="trainer_reputation_score" required="required" /><br>
 <label>setTrainer_reputation_msg :</label> <input type="text" name="trainer_reputation_msg" id="trainer_reputation_msg" required="required" /><br>
 <button>확인</button>

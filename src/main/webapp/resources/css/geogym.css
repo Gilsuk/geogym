@@ -10,14 +10,30 @@ body {
 .bg-dark {
 	background-color: #111 !important;
 }
-
 /***********************
 	타이포그래피
 ***********************/
 h1, h2, h3, h4, h5, h6 {
 	font-weight: bold;
 }
-
+a:hover {
+    color: #b30056;
+}
+/***********************
+		ul,ol,li List
+***********************/
+.list-group-item:first-child {
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+}
+.list-group-item:last-child {
+    border-bottom-right-radius: 0;
+    border-bottom-left-radius: 0;
+}
+.list-group-item.active {
+    background-color: #ff001b;
+    border-color: #ff001b;
+}
 /***********************
 		버튼
 ***********************/
@@ -28,6 +44,7 @@ h1, h2, h3, h4, h5, h6 {
 .btn-primary {
 	background-color: #f11;
 	background-image: none;
+	border-color: #ff007b;
 	
 }
 .btn-primary:not(:disabled):not(.disabled).active, .btn-primary:not(:disabled):not(.disabled):active, .show>.btn-primary.dropdown-toggle {
@@ -235,4 +252,31 @@ footer a {
 	.featurette-heading {
 		margin-top: 7rem;
 	}
+}
+
+/***********************
+		달력
+***********************/
+.cal_top{
+    text-align: center;
+    font-size: 30px;
+}
+.cal{
+    text-align: center;    
+}
+table.calendar{
+    border: 1px solid black;
+    display: inline-table;
+    text-align: left;
+}
+table.calendar td{
+    vertical-align: top;
+    border: 1px solid skyblue;
+    width: 100px;
+}
+.sunday{
+	color: red;
+}
+.saturday{
+	color: blue;
 }

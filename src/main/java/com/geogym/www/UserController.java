@@ -35,7 +35,7 @@ public class UserController {
 	@RequestMapping(value = "/user/logout")
 	public String logout() {
 		userServ.logout();
-		return "redirect:/";
+		return "/";
 	}
 	
 	@RequestMapping(value = "/user/join", method = RequestMethod.GET)

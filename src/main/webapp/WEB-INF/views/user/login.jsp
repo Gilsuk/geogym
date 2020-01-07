@@ -28,7 +28,6 @@
 				}
 			})
 		});
-
 	});
 	
 </script>
@@ -75,15 +74,4 @@
 		</div>
 	</div>
 </div>
-<!-- <div class="container"> -->
-<!-- <form action="/ajax/user/login" method="post"> -->
-<!-- 	<label for="user_id">ID : </label> -->
-<!-- 	<input type="text" id="user_id" name="user_id" /><br> -->
-<!-- 	<label for="user_pw">PW : </label> -->
-<!-- 	<input type="password" id="user_pw" name="user_pw" /><br> -->
-<!-- 	<label for="shouldRemember">로그인 유지 : </label> -->
-<!-- 	<input type="checkbox" id="shouldRemember" name="shouldRemember" /><br> -->
-<!-- 	<input type="submit" /> -->
-<!-- </form> -->
-<!-- </div> -->
 <%@ include file="/WEB-INF/views/layouts/footer.jsp"%>

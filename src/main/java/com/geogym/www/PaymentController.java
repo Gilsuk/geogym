@@ -4,24 +4,14 @@ import java.io.BufferedReader;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.Enumeration;
-import java.util.List;
 
+import javax.net.ssl.HttpsURLConnection;
 import javax.servlet.http.HttpServletRequest;
 
-import org.apache.http.NameValuePair;
-import org.apache.http.client.entity.UrlEncodedFormEntity;
-import org.apache.http.client.methods.CloseableHttpResponse;
-import org.apache.http.client.methods.HttpPost;
-import org.apache.http.impl.client.CloseableHttpClient;
-import org.apache.http.impl.client.HttpClients;
-import org.apache.http.message.BasicNameValuePair;
-import org.apache.http.util.EntityUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -33,25 +23,22 @@ import com.geogym.user.dto.User;
 import com.geogym.user.exception.UserNotFoundException;
 import com.geogym.user.service.UserService;
 import com.google.gson.Gson;
+import com.google.gson.JsonObject;
 
 @Controller
 public class PaymentController {
 	
 	@Autowired
 	private UserService userSrv;
-	
+
 	@RequestMapping(value = "/payment/form", method = RequestMethod.GET)
 	public String paymentForm(Model model, HttpServletRequest req) {
 		try {
 			User user = userSrv.getLoggedInUser();
 			model.addAttribute("user", user);
 			model.addAttribute("domain_url", "http://" + req.getHeader("Host"));
-//			try {
-//				getPostExample();
-//			} catch (IOException e) {
-//				e.printStackTrace();
-//			}
-			System.out.println(getAccessResponseJson());
+
+			System.out.println(getAccessKey());
 			
 			return "/payment/form";
 		} catch (UserNotFoundException e) {
@@ -72,27 +59,39 @@ public class PaymentController {
 	
 	private String getAccessKey() {
 		String jsonString = getAccessResponseJson();
-		Gson gson = new Gson();
+
+		JsonObject jo = new JsonObject();
 		
-		return null;
+		jo.addProperty("code", 0);
+		jo.add("message", null);
+		
+		JsonObject response = new JsonObject();
+		response.addProperty("access_token", "e0bc4ce87cd7553c2a122b3b886202a49806e1db");
+		response.addProperty("now", 1578290495);
+		response.addProperty("expired_at", 1578291402);
+		
+		jo.add("response", response);
+
+		Gson gson = new Gson();
+		JsonObject jjj = gson.fromJson(jsonString, jo.getClass());
+
+		return jjj.getAsJsonObject("response").get("access_token").getAsString();
 	}
 
 	private String getAccessResponseJson() {
-
 		String url = "https://api.iamport.kr/users/getToken"; 
 		String parameters = "imp_key=" + Property.IAMPORT_API_KEY.toString()
 				+ "&imp_secret=" + Property.IAMPORT_API_SECRET.toString();
-
+		
 		URL link = null;
 		try {
 			link = new URL(url);
-		} catch (MalformedURLException e) {
-			e.printStackTrace();
-		}
+		} catch (MalformedURLException e) { }
+
 		try {
-			HttpURLConnection con = (HttpURLConnection) link.openConnection();
+			HttpsURLConnection con = (HttpsURLConnection) link.openConnection();
 			con.setRequestMethod("POST");
-			con.setRequestProperty("Content-Type", "application/json");
+			con.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
 			con.setDoOutput(true);
 
 			// Send post request 
@@ -112,31 +111,11 @@ public class PaymentController {
 			} else {
 				System.out.println(con.getResponseMessage());
 			}
+			
 			return sb.toString();
 
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+		} catch (IOException e) { return ""; }
 
-		return "";
 	}
 	
-//	private String getPostExample() throws IOException {
-//        HttpPost post = new HttpPost("https://api.iamport.kr/users/getToken");
-//
-//        // add request parameter, form parameters
-//        List<NameValuePair> urlParameters = new ArrayList<>();
-//        urlParameters.add(new BasicNameValuePair("imp_key", Property.IAMPORT_API_KEY.toString()));
-//        urlParameters.add(new BasicNameValuePair("imp_secret", Property.IAMPORT_API_SECRET.toString()));
-//
-//        post.setEntity(new UrlEncodedFormEntity(urlParameters));
-//
-//        try (CloseableHttpClient httpClient = HttpClients.createDefault();
-//             CloseableHttpResponse response = httpClient.execute(post)) {
-//
-//            System.out.println(EntityUtils.toString(response.getEntity()));
-//        }
-//        
-//        return null;
-//	}
 }
