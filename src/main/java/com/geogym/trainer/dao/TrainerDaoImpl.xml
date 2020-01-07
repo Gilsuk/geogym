@@ -104,5 +104,5 @@
 <!-- 	<select id="countUserNo" parameterType="com.geogym.trainer.dto.Trainer" resultType="int"> -->
 <!-- 		select count(*) from trainer where user_no = #{user_no} -->
 <!-- 	</select> -->
-
+	
 </mapper>

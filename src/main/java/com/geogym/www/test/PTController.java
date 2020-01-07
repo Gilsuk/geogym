@@ -1,15 +1,19 @@
 package com.geogym.www.test;
 
 import java.time.LocalDate;
-import java.time.LocalTime;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.geogym.payment.exception.CashNotEnoughException;
+import com.geogym.pt.dto.Countpt;
 import com.geogym.pt.exception.LessThanOneHourException;
 import com.geogym.pt.exception.MatchingNotAvailable;
 import com.geogym.pt.service.MatchingService;
@@ -17,6 +21,7 @@ import com.geogym.schedule.dto.Schedule;
 import com.geogym.schedule.exception.AllTimeisUnavailable;
 import com.geogym.schedule.exception.NotWorkinDayException;
 import com.geogym.trainer.dto.Trainer;
+import com.geogym.trainer.service.TrainerService;
 import com.geogym.user.dto.User;
 
 @Controller
@@ -26,7 +31,10 @@ public class PTController {
 
 	@Autowired
 	MatchingService matchingService;
-
+	
+	@Autowired TrainerService trainerService;
+	
+	
 	@RequestMapping(value = "/test/setpt")
 	public void getWorkingTime(
 			User user,
@@ -76,4 +84,25 @@ public class PTController {
 		logger.info(matchingService.getPTInfos(user, today).toString());
 	}
 
+	
+	//관리자 매출통계
+	@RequestMapping(value="/admin/pay" )
+	public void adminpay(Model model,Trainer trainer,LocalDate month,Countpt countpt) {
+		List<Trainer> list = trainerService.viewTrainerList();
+		List<Countpt> clist= new ArrayList<Countpt>();
+		System.out.println(list.get(0));
+		
+		for(int i=0;i<list.size();i++ ) {
+			trainer.setTrainer_no(list.get(i).getTrainer_no());
+			int num = matchingService.countptpermonse(trainer, month);
+			if(num != 0) {
+				countpt.setCount_pt(num);
+				countpt.setTrainer_no(list.get(i).getTrainer_no());
+				clist.add(countpt);
+			}
+		}
+		model.addAttribute("clist", clist);
+	}
+	
+	
 }

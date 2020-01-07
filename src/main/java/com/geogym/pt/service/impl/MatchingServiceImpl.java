@@ -119,5 +119,14 @@ public class MatchingServiceImpl implements MatchingService {
 		
 		return matchingDao.selectCountPT(map);
 	}
-
+	@Override
+	public int countptpermonse(Trainer trainer, LocalDate month) {
+		
+		HashMap<String,Object> map = new HashMap<String,Object>();
+		
+		map.put("trainer_no",trainer.getTrainer_no());
+		map.put("start",LocalDate.of(month.getYear(), month.getMonthValue(), 1));
+		map.put("end",LocalDate.of(month.getYear(), month.getMonthValue(), month.lengthOfMonth()));
+		return matchingDao.selectCntPTBytrainer(map);
+	}
 }

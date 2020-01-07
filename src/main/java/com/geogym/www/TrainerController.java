@@ -66,15 +66,15 @@ public class TrainerController {
 
 		try {
 			User user = userService.getLoggedInUser();
-			if (userService.isTrainer(user)) {
-				return "redirect:/";
+			if (userService.isManager(user)) {
+				return "/trainer/insert";
 			} else {
 				System.out.println(user);
 				return null;
 			}
 		} catch (UserNotFoundException e) {
 			// TODO Auto-generated catch block
-			return "redirect:/";
+			return "/user/login";
 		}
 //		return null;
 
@@ -98,7 +98,7 @@ public class TrainerController {
 //			// TODO Auto-generated catch block
 //			e.printStackTrace();
 //		}
-
+		System.out.println("isnert 체크"+trainer);
 		trainerService.insertTrainer(trainer, file);
 
 	}
