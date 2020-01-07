@@ -197,6 +197,12 @@ public class CalendarController {
 		
 		listDay = calendarService.simplificationList(calendarService.setPTToList(listDay, memolist));
 		
+		boolean isTrainer = userServ.isTrainer(user);
+		boolean isManager = userServ.isManager(user);
+		
+		model.addAttribute("isTrainer", isTrainer);
+		model.addAttribute("isManager", isManager);
+		
 		model.addAttribute("listDay", new Gson().toJson(listDay));
 		model.addAttribute("nextMonth",
 				"/calendar/memolist?user_no=" + user.getUser_no() + "&date=" + date.plusMonths(1));
@@ -205,6 +211,7 @@ public class CalendarController {
 		model.addAttribute("curMonth", date);
 		model.addAttribute("user_no", user.getUser_no());
 		model.addAttribute("viewLink", "/calendar/viewmemo?user_no=" + user.getUser_no());
+		model.addAttribute("pageName", "memo");
 		
 		logger.info(memolist.toString());
 		
@@ -245,6 +252,12 @@ public class CalendarController {
 
 		listDay = calendarService.setPTToList(listDay, timeList);
 
+		boolean isTrainer = userServ.isTrainer(user);
+		boolean isManager = userServ.isManager(user);
+		
+		model.addAttribute("isTrainer", isTrainer);
+		model.addAttribute("isManager", isManager);
+		
 		model.addAttribute("listDay", new Gson().toJson(listDay));
 		model.addAttribute("nextMonth",
 				"/calendar/PT/schedule?user_no=" + user.getUser_no() + "&date=" + date.plusMonths(1));
@@ -253,9 +266,8 @@ public class CalendarController {
 		model.addAttribute("curMonth", date);
 		model.addAttribute("user_no", user.getUser_no());
 		model.addAttribute("viewLink", "/calendar/viewmemo?user_no=" + user.getUser_no());
-
-		logger.info(timeList.toString());
-
+		model.addAttribute("pageName", "PT");
+		
 		return "/calendar/main";
 	}
 	

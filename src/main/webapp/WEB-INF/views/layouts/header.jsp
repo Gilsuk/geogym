@@ -38,8 +38,46 @@
 	crossorigin="anonymous"></script>
 <!-- GEOGYM Script -->
 <script src="/resources/js/geogym.js" type="text/javascript"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
-<script type="text/javascript"></script>
+
+<c:if test="${not empty loggedInUser}">
+	<script type="text/javascript">
+	$(document).ready(function() {
+		
+		$.ajax({
+			url: "/message/count", 
+			data: {
+				user_no: ${loggedInUser.user_no}
+			},
+			method: "GET", 
+			dataType: "html"
+		}).done(function(data) {
+			if(data > 0){
+				$("#messageButton").addClass("btn-primary");
+				$('#messageCount').text(data);
+			} else {
+				$("#messageButton").addClass("btn-outline-primary");
+			}
+		})
+		
+		$("#messageButton").on("click", function(){
+			
+			window.location.replace("/mypage/messagelist");
+			
+// 			$.ajax({
+// 				url: "/message/list", 
+// 				data: {
+// 					user_no: ${loggedInUser.user_no}
+// 				},
+// 				method: "GET", 
+// 				dataType: "html"
+// 			}).done(function(data) {
+// 				$("#message").html(data);
+// 			})
+ 		});
+	})
+	</script>
+</c:if>
+
 </head>
 <body>
 	<header>
@@ -68,10 +106,13 @@
 					<li class="nav-item"><a class="nav-link" href="/user/logout">나가기</a></li>
 					</c:if>
 				</ul>
+				
 				<form class="form-inline mt-2 mt-md-0">
-					<input class="form-control mr-sm-2" type="text"
-						placeholder="Search" aria-label="Search">
-					<button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+					<c:if test="${not empty loggedInUser }">
+						<button id="messageButton" type="button" class="btn my-2 my-sm-0">
+							알림 <span id="messageCount" class="badge badge-light"></span>
+						</button>
+					</c:if>
 				</form>
 			</div>
 		</nav>

@@ -18,4 +18,6 @@ public interface MessageDao {
 
 	void updateToTrue(Message message);
 
+	int selectCountMessage(int user_no);
+
 }
