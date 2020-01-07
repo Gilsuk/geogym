@@ -72,4 +72,6 @@ public interface MessageService {
 	 * @param message
 	 */
 	void readMessage(Message message);
+	
+	int getMessageCount(int user_no);
 }
