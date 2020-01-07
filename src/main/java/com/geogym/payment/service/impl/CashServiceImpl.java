@@ -16,7 +16,13 @@ public class CashServiceImpl implements CashService {
 	@Override
 	public int getCashAmount(User user) {
 		
-		return coinDao.selectCoinByUserNo(user);
+		try {
+			int cash = coinDao.selectCoinByUserNo(user);
+			
+			return cash;
+		} catch (Exception e) {
+			return 0;
+		}
 	}
 
 	@Override
