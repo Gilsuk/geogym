@@ -113,7 +113,7 @@ public class MessageController {
 	@RequestMapping(value="/test/message/list")
 	public void viewMessage(User user) { 
 		
-		List<Message> list = messageService.getMessages(user, 5);
+		List<Message> list = messageService.getMessages(user, 5, 1);
 		
 		logger.info(list.toString());
 	}
@@ -127,7 +127,7 @@ public class MessageController {
 		user.setUser_no(12);
 		
 		// 불러올 메세지 갯수에 0이하의 수를 입력시 기본 3개 출력
-		List<Message> list = messageService.getMessages(user, -999);
+		List<Message> list = messageService.getMessages(user, -999, 1);
 		
 		logger.info(list.toString());
 	}

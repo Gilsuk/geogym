@@ -181,6 +181,11 @@ public class TicketServiceImpl implements TicketService {
 	@Override
 	public Ticket getTicket(User user) {
 		Ticket ticket = dao.selectTicketByUser(user);
+		
+		if(ticket == null) {
+			ticket = new Ticket();
+		}
+		
 		return setExpiredDateByDuration(ticket);
 	}
 

@@ -48,9 +48,10 @@ public interface MessageService {
 	 * 
 	 * @param user - user_no를 가지고 있는 User객체
 	 * @param count - 보여지길 원하는 갯수
+	 * @param offset 
 	 * @return
 	 */
-	List<Message> getMessages(User user, int count);
+	List<Message> getMessages(User user, int count, int offset);
 	
 	/** 
 	 * 알림을 확인했을 때, 확인한 알림을 삭제하고 그 다음번 알림을 가져와서 채워넣는 용도.
