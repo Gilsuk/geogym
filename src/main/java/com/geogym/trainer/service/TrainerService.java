@@ -231,10 +231,10 @@ public interface TrainerService {
 	/**
 	 * 유저번호가 일치하는 트레이너 조회
 	 * 
-	 * @param trainer - 유저 번호만 입력되어있음
+	 * @param user - 유저 번호만 필요
 	 * @return
 	 */
-	Trainer getTrainertoUser(Trainer trainer);
+	Trainer getTrainertoUser(User user);
 
 
 

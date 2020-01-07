@@ -24,9 +24,10 @@
 
 <select id="selectMessage" parameterType="hashmap" resultType="com.geogym.message.dto.Message">	
 	SELECT * FROM message	
-	WHERE user_no = #{user_no}	
+	WHERE user_no = #{user_no}
+	AND message_isread = false	
 	ORDER BY message_date DESC	
-	LIMIT #{count}	
+	LIMIT #{count} OFFSET #{offset}
 </select>	
 
 <select id="selectOneMessage" parameterType="hashmap" resultType="com.geogym.message.dto.Message">	
@@ -41,5 +42,12 @@
 	UPDATE message SET message_isread = true	
 	WHERE message_no = #{message_no}	
 </update>	
+
+<select id="selectCountMessage" parameterType="int" resultType="int">
+	SELECT COUNT(*) FROM message
+	WHERE 1=1
+	AND user_no = #{user_no}
+	AND message_isread = false
+</select>
 
 </mapper>

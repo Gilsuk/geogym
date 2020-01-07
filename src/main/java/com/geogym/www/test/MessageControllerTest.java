@@ -15,9 +15,9 @@ import com.geogym.message.service.MessageService;
 import com.geogym.user.dto.User;
 
 @Controller
-public class MessageController {
+public class MessageControllerTest {
 
-	private static final Logger logger = LoggerFactory.getLogger(MessageController.class);
+	private static final Logger logger = LoggerFactory.getLogger(MessageControllerTest.class);
 	
 	@Autowired MessageService messageService;
 	

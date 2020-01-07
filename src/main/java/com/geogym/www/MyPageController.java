@@ -15,6 +15,7 @@ import com.geogym.payment.dto.PTTicket;
 import com.geogym.payment.dto.Ticket;
 import com.geogym.payment.service.CashService;
 import com.geogym.payment.service.TicketService;
+import com.geogym.qna.dto.Paging;
 import com.geogym.user.dto.User;
 import com.geogym.user.exception.UserNotFoundException;
 import com.geogym.user.service.UserService;
@@ -60,11 +61,25 @@ public class MyPageController {
 	
 	@RequestMapping(value = "/mypage/messagelist")
 	public void messagelist(Model model, User user, 
-			@RequestParam(defaultValue = "1") int offset) {
-
-		List<Message> list = messageService.getMessages(user, 10, offset);
+			@RequestParam(defaultValue = "0") int offset) {
 		
+		try {
+			user = userservice.getLoggedInUser();
+		} catch (UserNotFoundException e) {
+		}
 		
+		int totalCount = messageService.getMessageCount(user.getUser_no());
 		
+		Paging paging = new Paging(totalCount, offset+1);
+		
+		List<Message> list = messageService.getMessages(user, 30, offset);
+		
+		boolean isTrainer = userservice.isTrainer(user);
+		boolean isManager = userservice.isManager(user);
+		
+		model.addAttribute("isTrainer", isTrainer);
+		model.addAttribute("isManager", isManager);
+		
+		model.addAttribute("list", list);
 	}
 }

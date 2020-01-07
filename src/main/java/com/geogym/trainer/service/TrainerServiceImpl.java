@@ -88,13 +88,15 @@ public class TrainerServiceImpl implements TrainerService {
 		// 트레이너 테이블 수정
 		
 		Trainer trainer2 = getTrainer(trainer);
-		
+		System.out.println("trainer : " + trainer);
+		System.out.println("trainer2 : " + trainer2);
 		
 		if (file == null) {
 			trainer.setAttachment(trainer2.getAttachment());
 		}else {
 			attachmentService.removeAttachment(trainer);
 			trainer.setAttachment(attachmentService.upload(file));
+			
 		}
 		if (trainer.getTrainer_address() == null) {
 			trainer.setTrainer_address(trainer2.getTrainer_address());
@@ -243,8 +245,11 @@ public class TrainerServiceImpl implements TrainerService {
 	}
 
 	@Override
-	public Trainer getTrainertoUser(Trainer trainer) {
+	public Trainer getTrainertoUser(User user) {
 		// TODO Auto-generated method stub
+		Trainer trainer = new Trainer();
+		trainer.setUser_no(user.getUser_no());
+		
 		return trainerDao.getTrainertoUser(trainer);
 	}
 

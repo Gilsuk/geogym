@@ -114,4 +114,17 @@ public class MessageServiceImpl implements MessageService {
 		messageDao.updateToTrue(message);
 	}
 
+
+	@Override
+	public int getMessageCount(int user_no) {
+		
+		try {
+			int count = messageDao.selectCountMessage(user_no);
+			
+			return count;
+		} catch (Exception e) {
+			return 0;
+		}
+		
+	}
 }

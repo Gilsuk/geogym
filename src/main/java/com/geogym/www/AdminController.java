@@ -35,10 +35,8 @@ public class AdminController {
 			User user = userService.getLoggedInUser();
 
 			if (userService.isTrainer(user)) {
-				Trainer trainer = new Trainer();
-				trainer.setUser_no(user.getUser_no());
-				Trainer trainer2 = trainerService.getTrainertoUser(trainer);
-				model.addAttribute("trainer", trainer2);
+				Trainer trainer = trainerService.getTrainertoUser(user);
+				model.addAttribute("trainer", trainer);
 				model.addAttribute("user", user);
 				return "/admin/trainermain";
 			} else if (userService.isManager(user)) {				
