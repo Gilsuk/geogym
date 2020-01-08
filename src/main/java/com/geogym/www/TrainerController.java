@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.geogym.trainer.dto.Trainer;
+import com.geogym.trainer.dto.Trainer2;
 import com.geogym.attachment.service.AttachmentService;
 import com.geogym.trainer.dto.T_reputation;
 import com.geogym.trainer.service.TrainerService;
@@ -37,9 +38,10 @@ public class TrainerController {
 	private void TrainerList(Model model) {
 		logger.info("TrainerList");
 
-		List<Trainer> list = trainerService.viewTrainerList();
+		List<Trainer2> list = trainerService.viewTrainerList();
 		System.out.println(list);
 
+		
 		model.addAttribute("list", list);
 
 	}
@@ -75,7 +77,6 @@ public class TrainerController {
 			return "/user/login";
 		}
 //		return null;
-
 	}
 
 	// 트레이너 생성

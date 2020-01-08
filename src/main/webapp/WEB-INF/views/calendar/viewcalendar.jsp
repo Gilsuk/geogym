@@ -3,66 +3,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
-<%@ include file="/WEB-INF/views/layouts/header.jsp"%>
-
-<div class="container">
-<div class="row">
-<div class="col-12">
-<br>
-
-<ul class="nav nav-tabs">
-  <li class="nav-item">
-    <a class="nav-link active" href="/mypage/main">마이 페이지</a>
-  </li>
-  <c:if test="${isTrainer }">
-	  <li class="nav-item">
-	    <a class="nav-link" href="/trainer/page">트레이너 페이지</a>
-	  </li>
-  </c:if>
-  <c:if test="${isManager }">
-	  <li class="nav-item">
-	    <a class="nav-link" href="#">관리자</a>
-	  </li>
-  </c:if>
-</ul>
-
-<br>
-
-</div>
-<div class="col-sm-12 col-md-12 col-lg-3 col-xl-3">
-<div class="list-group">
-
-	<a class="list-group-item list-group-item-action" href="/mypage/main">내 정보</a>
-	
-	<c:choose>
-		<c:when test="${pageName eq 'PT'}">
-			<a class="list-group-item list-group-item-action active" href="/calendar/PT/schedule">내 PT 일정 보기</a>
-			<a class="list-group-item list-group-item-action" href="/calendar/memolist?user_no=${user.user_no }">트레이너 메모 보기</a>
-		</c:when>
-		<c:when test="${pageName eq 'memo'}">
-			<a class="list-group-item list-group-item-action" href="/calendar/PT/schedule">내 PT 일정 보기</a>
-			<a class="list-group-item list-group-item-action active" href="/calendar/memolist?user_no=${user.user_no }">트레이너 메모 보기</a>
-		</c:when>
-		<c:otherwise>
-			<a class="list-group-item list-group-item-action" href="/calendar/PT/schedule">내 PT 일정 보기</a>
-			<a class="list-group-item list-group-item-action active" href="/calendar/memolist?user_no=${user.user_no }">트레이너 메모 보기</a>
-		</c:otherwise>
-	</c:choose>
-	
-	<c:if test="${isTrainer }">
-		<a class="list-group-item list-group-item-action" href="/info/bodyinfo">바디 인포</a>
-	</c:if>
-	<c:if test="${isTrainer ne true}">
-		<a class="list-group-item list-group-item-action" href="/info/bodyinfo_user">바디 인포</a>
-	</c:if>
-	
-	<a class="list-group-item list-group-item-action" href="/mypage/messagelist">메세지 확인</a>
-
-</div>
-</div>
-
-<div class="col-sm-12 col-md-12 col-lg-9 col-xl-9">
-
    <div class="cal_top">
         <a href="${prevMonth }" id="movePrevMonth"><span id="prevMonth" class="cal_tit">&lt;</span></a>
         <span id="cal_top_year"></span>
@@ -96,7 +36,7 @@
     function drawCalendar(){
         var setTableHTML = "";
         setTableHTML+='<div class="table-responsive"><table class="calendar table table-bordered">';
-        setTableHTML+='<thead>';
+        setTableHTML+='<thead class="thead-dark">';
         setTableHTML+='<tr><th scope="col">일</th><th scope="col">월</th><th scope="col">화</th><th scope="col">수</th>';
         setTableHTML+='<th scope="col">목</th><th scope="col">금</th><th scope="col">토</th></tr>';
         setTableHTML+='</thead><tbody>';
@@ -155,10 +95,10 @@
 		            	
 			            if (month == list[j].date.month) {
 			            	// 휴일 색 칠하기
-						    $tdDay.eq(i).children('a').css("color","red");
+						    $tdDay.eq(i).children('a').css("color","#ff007b");
 		            		// div 태그로 휴일이름 적기
 					        $tdDay.eq(i).append($("<div class='dayname'>" + list[j].name + "</div>"));
-						    $tdDay.eq(i).children('.dayname').css("color","red");
+						    $tdDay.eq(i).children('.dayname').css("color","#ff007b");
 		            	}
 
 	            	}
@@ -183,10 +123,4 @@
 
 <div style="display: none;" id="dayText">${listDay }</div>
 
-</div>
-
-</div>
-</div>
 <br>
-
-<%@ include file="/WEB-INF/views/layouts/footer.jsp"%>

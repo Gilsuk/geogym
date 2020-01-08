@@ -100,6 +100,12 @@ public class CalendarController {
 	@RequestMapping(value = "/calendar/PT/request", method = RequestMethod.GET)
 	public String ptcalendar(Model model, @RequestParam(defaultValue = "-999999999-01-01") LocalDate date, User user,
 			Trainer trainer) {
+		
+		/************************************************
+		 * 
+		 *  PT 신청할 빈 시간이 없을 때 java.lang.ArrayIndexOutOfBoundsException 발생 
+		 * 
+		 ************************************************/
 
 		try {
 			user = userServ.getLoggedInUser();
@@ -127,7 +133,7 @@ public class CalendarController {
 		model.addAttribute("viewLink",
 				"/calendar/view/PTrequest?trainer_no=" + trainer.getTrainer_no() + "&user_no=" + user.getUser_no());
 
-		return "/calendar/main";
+		return "/calendar/viewcalendar";
 	}
 
 	@RequestMapping(value = "/calendar/schedule", method = RequestMethod.GET)
@@ -154,7 +160,7 @@ public class CalendarController {
 
 		logger.info(timeList.toString());
 
-		return "/calendar/main";
+		return "/calendar/viewcalendar";
 	}
 	
 	@RequestMapping(value = "/calendar/view/schedule", method = RequestMethod.GET)
@@ -198,6 +204,12 @@ public class CalendarController {
 		
 		listDay = calendarService.simplificationList(calendarService.setPTToList(listDay, memolist));
 		
+		boolean isTrainer = userServ.isTrainer(user);
+		boolean isManager = userServ.isManager(user);
+		
+		model.addAttribute("isTrainer", isTrainer);
+		model.addAttribute("isManager", isManager);
+		
 		model.addAttribute("listDay", new Gson().toJson(listDay));
 		model.addAttribute("nextMonth",
 				"/calendar/memolist?user_no=" + user.getUser_no() + "&date=" + date.plusMonths(1));
@@ -206,10 +218,11 @@ public class CalendarController {
 		model.addAttribute("curMonth", date);
 		model.addAttribute("user_no", user.getUser_no());
 		model.addAttribute("viewLink", "/calendar/viewmemo?user_no=" + user.getUser_no());
+		model.addAttribute("pageName", "memo");
 		
 		logger.info(memolist.toString());
 		
-		return "/calendar/main";
+		return "/calendar/inMypage";
 	}
 
 	@RequestMapping(value = "/calendar/update", method = RequestMethod.GET)
@@ -246,6 +259,12 @@ public class CalendarController {
 
 		listDay = calendarService.setPTToList(listDay, timeList);
 
+		boolean isTrainer = userServ.isTrainer(user);
+		boolean isManager = userServ.isManager(user);
+		
+		model.addAttribute("isTrainer", isTrainer);
+		model.addAttribute("isManager", isManager);
+		
 		model.addAttribute("listDay", new Gson().toJson(listDay));
 		model.addAttribute("nextMonth",
 				"/calendar/PT/schedule?user_no=" + user.getUser_no() + "&date=" + date.plusMonths(1));
@@ -254,10 +273,9 @@ public class CalendarController {
 		model.addAttribute("curMonth", date);
 		model.addAttribute("user_no", user.getUser_no());
 		model.addAttribute("viewLink", "/calendar/viewmemo?user_no=" + user.getUser_no());
-
-		logger.info(timeList.toString());
-
-		return "/calendar/main";
+		model.addAttribute("pageName", "PT");
+		
+		return "/calendar/inMypage";
 	}
 	
 	@RequestMapping(value = "/calendar/viewmemo", method = RequestMethod.GET)

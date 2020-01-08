@@ -14,6 +14,7 @@ import com.geogym.memo.service.CalendarMemoService;
 import com.geogym.schedule.dto.PeriodDate;
 
 import com.geogym.trainer.dto.Trainer;
+import com.geogym.trainer.dto.Trainer2;
 import com.geogym.trainer.service.TrainerService;
 
 @Controller
@@ -34,7 +35,7 @@ public class ScheduleController {
 	public void user_scheduleview(Trainer trainer,PeriodDate periodDate,Map<LocalDate,String> map,Model model) {
 		
 		//트레이너 리스트 받아오기
-		List<Trainer> trainerlist=trainerService.viewTrainerList();
+		List<Trainer2> trainerlist=trainerService.viewTrainerList();
 		
 		model.addAttribute("trainerlist",trainerlist);
 		

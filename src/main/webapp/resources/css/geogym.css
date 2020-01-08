@@ -1,5 +1,17 @@
 @charset "UTF-8";
 
+:root {
+	--color-main: #ff007b;
+	--color-main-hover: #d90069;
+	--color-main-active: #d90069;
+	--color-main-faint: #d90069;
+	
+	--color-sub: #ff007b;
+	--color-sub-hover: #d90069;
+	--color-sub-active: #d90069;
+	--color-sub-faint: #d90069;
+}
+
 /***********************
 		공통
 ***********************/
@@ -7,9 +19,11 @@ body {
 	color: #5a5a5a;
 }
 
+
 main {
 	min-height: 80vh;
 }
+
 
 .bg-dark {
 	background-color: #111 !important;
@@ -19,6 +33,9 @@ main {
 ***********************/
 h1, h2, h3, h4, h5, h6 {
 	font-weight: bold;
+}
+a {
+    color: var(--color-main);
 }
 a:hover {
     color: #b30056;
@@ -35,8 +52,8 @@ a:hover {
     border-bottom-left-radius: 0;
 }
 .list-group-item.active {
-    background-color: #ff001b;
-    border-color: #ff001b;
+    background-color: #ff007b;
+    border-color: #ff007b;
 }
 /***********************
 		버튼
@@ -46,10 +63,9 @@ a:hover {
 }
 
 .btn-primary {
-	background-color: #f11;
+	background-color: var(--color-main);
 	background-image: none;
 	border-color: #ff007b;
-	
 }
 .btn-primary:not(:disabled):not(.disabled).active, .btn-primary:not(:disabled):not(.disabled):active, .show>.btn-primary.dropdown-toggle {
     color: #fff;
@@ -68,6 +84,23 @@ a:hover {
     box-shadow: 0 0 0 0.2rem rgba(255,38,143,.5);
 }
 
+.btn-outline-primary{
+	color: #ff007b;
+    border-color: #ff007b;
+}
+.btn-outline-primary:hover {
+    color: #fff;
+    background-color: #ff007b;
+    border-color: #ff007b;
+}
+.btn-outline-primary:not(:disabled):not(.disabled).active, .btn-outline-primary:not(:disabled):not(.disabled):active, .show>.btn-outline-primary.dropdown-toggle {
+    color: #fff;
+    background-color: #ff007b;
+    border-color: #ff007b;
+}
+.btn-outline-primary.focus, .btn-outline-primary:focus {
+    box-shadow: 0 0 0 0.2rem rgba(255,0,123,.5);
+}
 /***********************
 		폼(form)
 ***********************/
@@ -96,6 +129,15 @@ a:hover {
 .navbar-dark .navbar-nav .nav-link {
 	color: #ccc;
 }
+
+/***********************
+		Nav
+***********************/
+.nav-tabs .nav-link {
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+}
+
 
 /***********************
 	footer
@@ -268,19 +310,19 @@ footer a {
 .cal{
     text-align: center;    
 }
-table.calendar{
-    border: 1px solid black;
-    display: inline-table;
+.calendar{
     text-align: left;
 }
-table.calendar td{
+.calendar td{
     vertical-align: top;
-    border: 1px solid skyblue;
-    width: 100px;
+    min-width: 100px;
 }
-.sunday{
-	color: red;
+.calendar a {
+	color: #212529;
 }
-.saturday{
-	color: blue;
+a.sunday {
+	color: #ff007b;
+}
+a.saturday {
+	color: #007bff;
 }

@@ -21,6 +21,7 @@ import com.geogym.schedule.dto.Schedule;
 import com.geogym.schedule.exception.AllTimeisUnavailable;
 import com.geogym.schedule.exception.NotWorkinDayException;
 import com.geogym.trainer.dto.Trainer;
+import com.geogym.trainer.dto.Trainer2;
 import com.geogym.trainer.service.TrainerService;
 import com.geogym.user.dto.User;
 import com.geogym.user.exception.UserNotFoundException;
@@ -98,7 +99,7 @@ public class PTController {
 	//관리자 매출통계
 	@RequestMapping(value="/admin/pay", method = RequestMethod.POST )
 	public String adminpay(Model model,Trainer trainer,LocalDate month,Countpt countpt,String mon,String year,User user) {
-		List<Trainer> list = trainerService.viewTrainerList();
+		List<Trainer2> list = trainerService.viewTrainerList();
 		List<Countpt> clist= new ArrayList<Countpt>();
 		List<User> ulist= new ArrayList<User>();
 		

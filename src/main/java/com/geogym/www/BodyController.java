@@ -1,6 +1,5 @@
 package com.geogym.www;
 
-import java.time.LocalDate;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -13,14 +12,18 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.geogym.attachment.dto.Attachment;
+import com.geogym.attachment.dto.Bodyinfo_attachment;
 import com.geogym.attachment.service.AttachmentService;
 import com.geogym.body.dto.BodyComment;
 import com.geogym.body.dto.BodyInfo;
 import com.geogym.body.service.face.BodyInfoService;
 import com.geogym.common.exception.ParamIncorrectException;
-import com.geogym.pt.dto.PT;
 import com.geogym.pt.service.MatchingService;
 import com.geogym.schedule.service.ScheduleService;
+import com.geogym.trainer.dto.Trainer;
+import com.geogym.trainer.exception.UserNotTrainerException;
+import com.geogym.trainer.service.TrainerService;
 import com.geogym.user.dto.User;
 import com.geogym.user.exception.UserNotFoundException;
 import com.geogym.user.service.UserService;
@@ -33,6 +36,7 @@ public class BodyController {
 	@Autowired AttachmentService attachmentService;
 	@Autowired MatchingService mathcingService;
 	@Autowired ScheduleService scheduleService;
+	@Autowired TrainerService trainerService;
 	
 	private static final Logger logger = LoggerFactory.getLogger(BodyController.class);
 
@@ -121,8 +125,16 @@ public class BodyController {
 		}
 		
 		BodyComment bodyComment = bodyInfoService.getCommentary(loggedInUser);
-		
 		model.addAttribute("bodyComment", bodyComment);
+		
+		try {
+			Trainer trainer = trainerService.getTrainerByUserno(loggedInUser);
+			logger.info(trainer.toString());
+			model.addAttribute("trainer", trainer);
+		} catch (UserNotTrainerException e1) {
+			e1.printStackTrace();
+		}
+		
 		try {
 			User user = userService.getUserByUserno(loggedInUser);
 			logger.info(user.toString());
@@ -131,18 +143,20 @@ public class BodyController {
 			e.printStackTrace();
 		}
 		
+		
+		
 	}
 	
 	@RequestMapping(value="/info/inputBodyInfo", method=RequestMethod.POST)
-	public String inputBodyInfoProc(BodyInfo bodyinfo, BodyComment commentary) {
+	public String inputBodyInfoProc(BodyInfo bodyinfo, BodyComment commentary, Trainer trainer, User user) {
 		
 //		logger.info("신체정보입력 절차 접근");
+		logger.info(user.toString());
 		
-
-		
+		logger.info("여기기");
 		try {
 			bodyInfoService.setBodyInfo(bodyinfo);
-			bodyInfoService.setBodyCommentary(commentary);
+			bodyInfoService.setBodyCommentary(commentary, trainer, bodyinfo);
 		} catch (ParamIncorrectException e) {
 			e.printStackTrace();
 		}
@@ -221,10 +235,6 @@ public class BodyController {
 		}
 		
 		
-		logger.info("스케쥴리스트당");
-		List<PT> scheduleList = scheduleService.getPTScheduleByMonth(loggedInUser, LocalDate.now());
-		logger.info(scheduleList.toString());
-
 		//userno 임의 지정 ( 추후 삭제 예정 )
 //		User user1 = new User();
 //		user1.setUser_no(1);
@@ -275,6 +285,19 @@ public class BodyController {
 			model.addAttribute("heightInfo", heightInfoByMonth);
 			return;
 		}
+		
+	}
+	
+	@RequestMapping(value="/info/BMI", method=RequestMethod.GET)
+	public void BMI(BodyInfo bodyinfo, Model model) {
+		
+		logger.info("BMI 정보 보기");
+		logger.info(bodyinfo.toString());
+		
+		List<Attachment> BMI = attachmentService.getAttachments(bodyinfo);
+		logger.info(BMI.toString());
+		
+		model.addAttribute("BMI", BMI);
 		
 	}
 }

@@ -27,6 +27,17 @@ $(document).ready(function() {
 		    buyer_name : buyer_name,
 		    buyer_tel : buyer_tel,
 		    m_redirect_url : domain + '/payment/complete'
+		}, function(rsp) {
+		    if ( rsp.success ) {
+		    	window.location.href = '/payment/complete/' + rsp.ump_uid;
+		    } else {
+		        var url = '/payment/fail/';
+		        var form = $('<form action="' + url + '" method="post">' +
+		          '<input type="text" name="msg" value="' + rsp.error_msg + '" />' +
+		          '</form>');
+		        $('body').append(form);
+		        form.submit();
+		    }
 		});
 		
 	});
