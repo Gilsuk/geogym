@@ -39,6 +39,7 @@
 <!-- GEOGYM Script -->
 <script src="/resources/js/geogym.js" type="text/javascript"></script>
 
+
 <c:if test="${not empty loggedInUser}">
 	<script type="text/javascript">
 	$(document).ready(function() {
@@ -77,6 +78,7 @@
 	})
 	</script>
 </c:if>
+
 
 </head>
 <body>

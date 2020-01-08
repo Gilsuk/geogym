@@ -21,8 +21,11 @@ import com.geogym.schedule.dto.Schedule;
 import com.geogym.schedule.exception.AllTimeisUnavailable;
 import com.geogym.schedule.exception.NotWorkinDayException;
 import com.geogym.trainer.dto.Trainer;
+import com.geogym.trainer.dto.Trainer2;
 import com.geogym.trainer.service.TrainerService;
 import com.geogym.user.dto.User;
+import com.geogym.user.exception.UserNotFoundException;
+import com.geogym.user.service.UserService;
 
 @Controller
 public class PTController {
@@ -33,7 +36,7 @@ public class PTController {
 	MatchingService matchingService;
 	
 	@Autowired TrainerService trainerService;
-	
+	@Autowired UserService userService;
 	
 	@RequestMapping(value = "/test/setpt")
 	public void getWorkingTime(
@@ -85,23 +88,48 @@ public class PTController {
 	}
 
 	
-	//관리자 매출통계
-	@RequestMapping(value="/admin/pay" )
-	public void adminpay(Model model,Trainer trainer,LocalDate month,Countpt countpt) {
-		List<Trainer> list = trainerService.viewTrainerList();
-		List<Countpt> clist= new ArrayList<Countpt>();
-		System.out.println(list.get(0));
+	
+	@RequestMapping(value="/admin/pay", method = RequestMethod.GET )
+	public void adminPay() {
 		
+	}
+	
+	
+	
+	//관리자 매출통계
+	@RequestMapping(value="/admin/pay", method = RequestMethod.POST )
+	public String adminpay(Model model,Trainer trainer,LocalDate month,Countpt countpt,String mon,String year,User user) {
+		List<Trainer2> list = trainerService.viewTrainerList();
+		List<Countpt> clist= new ArrayList<Countpt>();
+		List<User> ulist= new ArrayList<User>();
+		
+		
+		System.out.println("달 스트링"+mon);
+		month=LocalDate.parse(year+mon+"-01");
+	
+		
+		System.out.println(list.get(0));
+		System.out.println("월:"+month.getMonthValue());
 		for(int i=0;i<list.size();i++ ) {
 			trainer.setTrainer_no(list.get(i).getTrainer_no());
 			int num = matchingService.countptpermonse(trainer, month);
 			if(num != 0) {
 				countpt.setCount_pt(num);
 				countpt.setTrainer_no(list.get(i).getTrainer_no());
+				user.setUser_no(countpt.getTrainer_no());
+				try {
+					user= userService.getUserByUserno(user);
+				} catch (UserNotFoundException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				countpt.setUser_name(user.getUser_name());
 				clist.add(countpt);
 			}
 		}
 		model.addAttribute("clist", clist);
+		System.out.println(clist);
+		return "/payment/list";
 	}
 	
 	

@@ -6,6 +6,7 @@ import java.time.LocalTime;
 import java.util.List;
 
 import com.geogym.pt.dto.PT;
+import com.geogym.schedule.dto.Attendance;
 import com.geogym.schedule.dto.Schedule;
 import com.geogym.schedule.exception.AllTimeisUnavailable;
 import com.geogym.schedule.exception.InvalidParamException;
@@ -110,4 +111,6 @@ public interface ScheduleService {
 	 * @return
 	 */
 	List<Schedule> getAttendance(Trainer trainer, LocalDate date);
+
+	void insertWorkHour(Attendance attendance);
 }

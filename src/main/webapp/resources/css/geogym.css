@@ -18,6 +18,13 @@
 body {
 	color: #5a5a5a;
 }
+
+
+main {
+	min-height: 80vh;
+}
+
+
 .bg-dark {
 	background-color: #111 !important;
 }

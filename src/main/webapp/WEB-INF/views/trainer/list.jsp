@@ -18,7 +18,7 @@
 		</c:if>
 		
 		<div class="card-body">
-			<h5 class="card-title">트레이너 이름!</h5>
+			<h5 class="card-title">${al.user.user_name }</h5>
 			<p class="card-text">${al.trainer_profile }</p>
 			<a href="/trainer/select?trainer_no=${al.trainer_no }" class="btn btn-primary">프로필 보기</a>
 		</div>
@@ -33,7 +33,7 @@
 <%-- 				<c:if test="${not empty al.attachment.attachment_stored_name }"> --%>
 <%-- 					<img src="/upload/${al.attachment.attachment_stored_name }" --%>
 <%-- 						alt="${al.attachment.attachment_origin_name }" /> --%>
-<!-- <!-- 					      //로고부분 넣는 실제로 들어가야함 --> -->
+<!-- 					      //로고부분 넣는 실제로 들어가야함 -->
 <%-- 				</c:if> --%>
 <%-- 				<c:if test="${empty al.attachment.attachment_stored_name }"> --%>
 <!-- 					<img src="/upload/489921e0b979_test2.jpg" -->

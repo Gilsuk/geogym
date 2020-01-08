@@ -21,8 +21,10 @@ import com.geogym.schedule.dto.Schedule;
 import com.geogym.trainer.dao.TrainerDao;
 import com.geogym.trainer.dto.T_reputation;
 import com.geogym.trainer.dto.Trainer;
+import com.geogym.trainer.dto.Trainer2;
 import com.geogym.trainer.exception.UserNotTrainerException;
 import com.geogym.user.dto.User;
+import com.geogym.user.exception.TrainerNotFoundException;
 import com.geogym.user.exception.UserNotFoundException;
 import com.geogym.user.service.UserService;
 
@@ -113,7 +115,7 @@ public class TrainerServiceImpl implements TrainerService {
 	}
 
 	@Override
-	public List<Trainer> viewTrainerList() {
+	public List<Trainer2> viewTrainerList() {
 		// TODO Auto-generated method stub
 		// 트레이너 리스트 받아오기
 		return trainerDao.viewTrainerList();
@@ -292,5 +294,21 @@ public class TrainerServiceImpl implements TrainerService {
 //
 //		
 //	}
-
+	
+	@Override
+	public User selectbyuser_no(User user){
+		User uuser = trainerDao.selectbyuser_no(user);
+		
+		return uuser;
+	}
+	
+	@Override
+	public User selectbytrain_no(User uuser) throws TrainerNotFoundException {
+		
+		User ser = trainerDao.selectbytrain_no(uuser);
+		System.out.println("service user 확인 :"+ser);
+		if(ser == null) 
+			throw new TrainerNotFoundException();
+		return ser;
+	}
 }

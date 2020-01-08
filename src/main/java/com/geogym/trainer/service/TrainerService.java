@@ -13,8 +13,10 @@ import com.geogym.schedule.dto.PeriodDateTime;
 import com.geogym.schedule.dto.Schedule;
 import com.geogym.trainer.dto.T_reputation;
 import com.geogym.trainer.dto.Trainer;
+import com.geogym.trainer.dto.Trainer2;
 import com.geogym.trainer.exception.UserNotTrainerException;
 import com.geogym.user.dto.User;
+import com.geogym.user.exception.TrainerNotFoundException;
 
 /**
  * 트레이너 관리 서비스
@@ -88,7 +90,7 @@ public interface TrainerService {
 	 *  
 	 * @return List<Trainer> - 리스트를 이용해 트레이너 정보를 받아온다
 	 */
-	List<Trainer> viewTrainerList();
+	List<Trainer2> viewTrainerList();
 	
 	/**
 	 * 트레이너 정보 조회
@@ -235,6 +237,12 @@ public interface TrainerService {
 	 * @return
 	 */
 	Trainer getTrainertoUser(User user);
+
+
+	User selectbyuser_no(User user);
+
+
+	User selectbytrain_no(User uuser) throws TrainerNotFoundException;
 
 
 

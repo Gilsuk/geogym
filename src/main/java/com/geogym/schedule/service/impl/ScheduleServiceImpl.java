@@ -19,6 +19,7 @@ import com.geogym.message.dto.Message;
 import com.geogym.message.service.MessageService;
 import com.geogym.pt.dto.PT;
 import com.geogym.schedule.dao.ScheduleDao;
+import com.geogym.schedule.dto.Attendance;
 import com.geogym.schedule.dto.Schedule;
 import com.geogym.schedule.exception.AllTimeisUnavailable;
 import com.geogym.schedule.exception.InvalidParamException;
@@ -248,6 +249,13 @@ public class ScheduleServiceImpl implements ScheduleService {
 		map.put("end", LocalDateTime.of(date.getYear(), date.getMonth(), date.lengthOfMonth(), 23, 59));
 		
 		return scheduleDao.selectAttandanceInMonth(map);
+	}
+	
+	
+	@Override
+	public void insertWorkHour(Attendance attendance) {
+		// TODO Auto-generated method stub
+		scheduleDao.insertWorkHour(attendance);
 	}
 
 }
