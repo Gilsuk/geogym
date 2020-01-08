@@ -17,15 +17,23 @@
 <br>
 <div class="container">
 <div class="row">
-<div class= "col-3">
-<h3>사이드바</h3>
-<ul>
- <li><a href="/test/setbusinessday">운영시간</a></li>
- <li><a href="/admin/pay">PT횟수정보</a></li>
- <li><a href="/trainer/insert">트레이너등록</a></li>
+<div class="col-12">
+<br>
+<h1>관리자페이지</h1>
+<hr>
+</div>
 
-</ul>
-</div><!-- COL-3 -->
+<div class="col-sm-12 col-md-12 col-lg-3 col-xl-3">
+<div class="list-group">
+	
+	<a class="list-group-item list-group-item-action active disabled" aria-disabled="true" href="/test/setbusinessday">운영시간</a>
+	<a class="list-group-item list-group-item-action" href="/admin/pay">PT횟수정보</a>
+	<a class="list-group-item list-group-item-action" href="/trainer/insert">트레이너등록</a>
+
+</div>
+</div>
+
+
 <div class= "col-9">
 <form action = "/test/setbusinessday" method="post">
   <div class="form-group">
@@ -42,6 +50,11 @@
   </div>
   <button type="submit" class="btn btn-primary">전송</button>
 </form>
+	<br>
+	<form action="/calendar/set" method ="post">
+		
+		<button class="btn btn-primary">공휴일 등록</button>		
+	</form>
 </div><!-- COL-9 -->
 </div>
 </div>

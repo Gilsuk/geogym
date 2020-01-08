@@ -104,5 +104,12 @@
 <!-- 	<select id="countUserNo" parameterType="com.geogym.trainer.dto.Trainer" resultType="int"> -->
 <!-- 		select count(*) from trainer where user_no = #{user_no} -->
 <!-- 	</select> -->
+	<select id="selectbyuser_no" parameterType="com.geogym.user.dto.User" resultType="com.geogym.user.dto.User">
+		select * from user where user.user_id = #{user_id}
+	</select>
+	
+	<select id ="selectbytrain_no" parameterType="com.geogym.user.dto.User" resultType="com.geogym.user.dto.User">
+		select user.user_no,user.user_name from trainer , user where (trainer.user_no = user.user_no) and trainer.user_no = #{user_no}
+	</select>
 	
 </mapper>

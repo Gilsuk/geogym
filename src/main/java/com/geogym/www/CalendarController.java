@@ -46,7 +46,7 @@ public class CalendarController {
 	}
 
 	@RequestMapping(value = "/calendar/set", method = RequestMethod.POST)
-	public void postSpecialDate(CalendarDto calendarDto) {
+	public String postSpecialDate(CalendarDto calendarDto) {
 
 		for (int i = 0; i < 12; i++) {
 			String month = String.valueOf(LocalDate.now().plusMonths(i).getMonthValue());
@@ -58,6 +58,7 @@ public class CalendarController {
 			calendarService.insertholiday(url);
 
 		}
+		return "/test/setbusinessday";
 	}
 
 	@RequestMapping(value = "/calendar/main", method = RequestMethod.GET)

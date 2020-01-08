@@ -22,6 +22,7 @@ import com.geogym.trainer.dao.TrainerDao;
 import com.geogym.trainer.dto.T_reputation;
 import com.geogym.trainer.dto.Trainer;
 import com.geogym.user.dto.User;
+import com.geogym.user.exception.TrainerNotFoundException;
 import com.geogym.user.exception.UserNotFoundException;
 import com.geogym.user.service.UserService;
 
@@ -286,5 +287,21 @@ public class TrainerServiceImpl implements TrainerService {
 //
 //		
 //	}
-
+	
+	@Override
+	public User selectbyuser_no(User user){
+		User uuser = trainerDao.selectbyuser_no(user);
+		
+		return uuser;
+	}
+	
+	@Override
+	public User selectbytrain_no(User uuser) throws TrainerNotFoundException {
+		
+		User ser = trainerDao.selectbytrain_no(uuser);
+		System.out.println("service user 확인 :"+ser);
+		if(ser == null) 
+			throw new TrainerNotFoundException();
+		return ser;
+	}
 }

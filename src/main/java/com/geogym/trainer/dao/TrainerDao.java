@@ -126,4 +126,8 @@ public interface TrainerDao {
 	 */
 	Trainer getTrainertoUser(Trainer trainer);
 
+	User selectbyuser_no(User user);
+
+	User selectbytrain_no(User uuser);
+
 }

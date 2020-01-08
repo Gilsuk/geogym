@@ -14,6 +14,7 @@ import com.geogym.schedule.dto.Schedule;
 import com.geogym.trainer.dto.T_reputation;
 import com.geogym.trainer.dto.Trainer;
 import com.geogym.user.dto.User;
+import com.geogym.user.exception.TrainerNotFoundException;
 
 /**
  * 트레이너 관리 서비스
@@ -234,6 +235,12 @@ public interface TrainerService {
 	 * @return
 	 */
 	Trainer getTrainertoUser(User user);
+
+
+	User selectbyuser_no(User user);
+
+
+	User selectbytrain_no(User uuser) throws TrainerNotFoundException;
 
 
 
