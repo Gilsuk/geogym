@@ -12,7 +12,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.geogym.payment.exception.CashNotEnoughException;
 import com.geogym.pt.dto.PT;
+import com.geogym.pt.exception.MatchingNotAvailable;
+import com.geogym.pt.service.MatchingService;
 import com.geogym.schedule.dto.Schedule;
 import com.geogym.schedule.exception.AllTimeisUnavailable;
 import com.geogym.schedule.exception.InvalidParamException;
@@ -30,6 +33,7 @@ public class ScheduleTestController {
 	
 	@Autowired ScheduleService scheduleService;
 	@Autowired UserService userService;
+	@Autowired MatchingService matchingService;
 	
 	// --- 트레이너의 비어있는 스케줄 얻어오기 -------------------------------------
 	@RequestMapping(value="/test/shedule/workingtime")
@@ -137,15 +141,31 @@ public class ScheduleTestController {
 		schedule.setTrainer(trainer);
 		
 		try {
-			scheduleService.setPTShcedule(user, schedule);
-		} catch (InvalidParamException e) {
-			// 올바르지 않은 파라미터
-		} catch (AllTimeisUnavailable e) {
-			// 이용 가능 시간 없음
-		} catch (NotWorkinDayException e) {
+			matchingService.match(user, schedule);
+		} catch (MatchingNotAvailable e1) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			e1.printStackTrace();
+		} catch (CashNotEnoughException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		} catch (AllTimeisUnavailable e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		} catch (NotWorkinDayException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
 		}
+		
+//		try {
+//			scheduleService.setPTShcedule(user, schedule);
+//		} catch (InvalidParamException e) {
+//			// 올바르지 않은 파라미터
+//		} catch (AllTimeisUnavailable e) {
+//			// 이용 가능 시간 없음
+//		} catch (NotWorkinDayException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
 	}
 	
 	// -------------------------------------------------------------------------

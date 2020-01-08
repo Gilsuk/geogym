@@ -33,6 +33,7 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public User getLoggedInUser() throws UserNotFoundException {
+		
 		try {
 			Object user = req.getSession().getAttribute("loggedInUser");
 			if (user == null) throw new NullPointerException();

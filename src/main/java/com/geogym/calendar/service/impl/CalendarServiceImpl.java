@@ -167,6 +167,7 @@ public class CalendarServiceImpl implements CalendarService {
 		int curmonth = month.getMonthValue();
 		int curyear = month.getYear();
 		List<Day> list = new ArrayList<>();
+		
 		for (int j = curyear; j <= curyear + 1; j++) {
 
 			for (int z = curmonth; z < 13; z++) {
@@ -201,21 +202,6 @@ public class CalendarServiceImpl implements CalendarService {
 
 			}
 		}
-
-//		for (int i = 0; i < list.size(); i++) {
-//			for (int j = 0; j < businessDayList.size(); j++) {
-//				if(!(list.get(i).getDate().isEqual(businessDayList.get(j).getBusiness_day_date()))) {
-//					
-//					list.get(i).setContent("break");
-//					i++;
-//				}
-//	
-//			}
-//		}
-		
-		
-		
-		
 		
 		return list;
 	}

@@ -77,16 +77,15 @@ public class CalendarController {
 
 	}
 
-	@RequestMapping(value = "/calendar/view/PTrequest", method = RequestMethod.GET)
+	@RequestMapping(value = "/calendar/view/PTrequest")
 	public String viewcalendar(Model model, LocalDate date, User user, Trainer trainer) {
 
 		List<LocalTime> list = new ArrayList<LocalTime>();
 		try {
 			list = scheduleService.getPTAvilableTime(trainer, date);
 		} catch (AllTimeisUnavailable e) {
-			return "redirect:/calendar/PT/request?trainer_no="+trainer.getTrainer_no();
+			return "redirect:/calendar/PT/request";
 		} catch (NotWorkinDayException e) {
-			
 		}
 		
 		model.addAttribute("day", date);
@@ -97,7 +96,7 @@ public class CalendarController {
 		return "/calendar/view";
 	}
 
-	@RequestMapping(value = "/calendar/PT/request", method = RequestMethod.GET)
+	@RequestMapping(value = "/calendar/PT/request")
 	public String ptcalendar(Model model, @RequestParam(defaultValue = "-999999999-01-01") LocalDate date, User user,
 			Trainer trainer) {
 		
@@ -110,6 +109,7 @@ public class CalendarController {
 		try {
 			user = userServ.getLoggedInUser();
 		} catch (UserNotFoundException e) {
+			e.printStackTrace();
 		}
 		
 		if (date.equals(LocalDate.MIN)) {
@@ -118,8 +118,10 @@ public class CalendarController {
 
 		List<Day> listDay = calendarService.getDayList(date);
 		
+		logger.info(listDay.toString());
+		
 		List<Schedule> timeList = scheduleService.getAttendance(trainer, date);
-
+		
 		listDay = calendarService.setPTToList(listDay, timeList);
 
 		model.addAttribute("listDay", new Gson().toJson(listDay));
@@ -133,7 +135,7 @@ public class CalendarController {
 		model.addAttribute("viewLink",
 				"/calendar/view/PTrequest?trainer_no=" + trainer.getTrainer_no() + "&user_no=" + user.getUser_no());
 
-		return "/calendar/viewcalendar";
+		return "/calendar/main";
 	}
 
 	@RequestMapping(value = "/calendar/schedule", method = RequestMethod.GET)
@@ -160,7 +162,7 @@ public class CalendarController {
 
 		logger.info(timeList.toString());
 
-		return "/calendar/viewcalendar";
+		return "/calendar/main";
 	}
 	
 	@RequestMapping(value = "/calendar/view/schedule", method = RequestMethod.GET)

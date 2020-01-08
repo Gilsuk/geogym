@@ -41,12 +41,17 @@ public class MatchingServiceImpl implements MatchingService {
 	@Override
 	public void match(User user, Schedule schedule) throws MatchingNotAvailable, CashNotEnoughException, AllTimeisUnavailable, NotWorkinDayException {
 		
+		System.out.println(1);
 		try {
 			if(tickectService.hasPTTicket(user, schedule.getTrainer())) {
+				
+				System.out.println(2);
+				
 				tickectService.payByTicket(user, schedule.getTrainer());
 			} else {
 				schedule.setTrainer(trainerService.getTrainer(schedule.getTrainer()));
 				
+				System.out.println(3);
 				//로그 입력 필요
 				
 				coinService.payByCash(schedule.getTrainer().getTrainer_price(), user, Product.DAILY);

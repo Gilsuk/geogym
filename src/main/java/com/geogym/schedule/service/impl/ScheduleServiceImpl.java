@@ -220,6 +220,7 @@ public class ScheduleServiceImpl implements ScheduleService {
 	public List<LocalTime> getPTAvilableTime(Trainer trainer, LocalDate localDate) throws AllTimeisUnavailable, NotWorkinDayException {
 
 		List<LocalTime> list = new ArrayList<LocalTime>();
+		
 		List<Schedule> scheduleList = getSchedule(trainer, localDate);
 
 		try {
@@ -229,12 +230,13 @@ public class ScheduleServiceImpl implements ScheduleService {
 		}
 
 		for (int i = 0; i < scheduleList.size(); i++) {
-
 			list.remove(scheduleList.get(i).getSchedule_from().minusHours(1));
-
 		}
 
-		list.remove(list.size() - 1);
+		if(list.size() > 0) {
+			
+			list.remove(list.size() - 1);
+		}
 		
 		return list;
 	}
