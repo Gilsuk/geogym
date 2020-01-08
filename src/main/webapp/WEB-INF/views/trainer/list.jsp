@@ -3,9 +3,14 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ include file="/WEB-INF/views/layouts/header.jsp"%>
 
-	<h1>트레이너리스트</h1>
+<br>
 
 <div class="container">
+
+	<h1>트레이너리스트</h1>
+	
+	<hr>
+	
 	<div class="card-deck overflow-auto">
 	<c:forEach items="${list }" var="al">
 	
@@ -23,35 +28,12 @@
 			<a href="/trainer/select?trainer_no=${al.trainer_no }" class="btn btn-primary">프로필 보기</a>
 		</div>
 	</div>
+	
 	</c:forEach>
 	
 	</div>
 	
-<!-- 		<a href=""> -->
-<!-- 		<div style="width:300px; height:500px; float: left; margin-right:15px;"> -->
-<!-- 			<div class="thumbnail"> -->
-<%-- 				<c:if test="${not empty al.attachment.attachment_stored_name }"> --%>
-<%-- 					<img src="/upload/${al.attachment.attachment_stored_name }" --%>
-<%-- 						alt="${al.attachment.attachment_origin_name }" /> --%>
-<!-- 					      //로고부분 넣는 실제로 들어가야함 -->
-<%-- 				</c:if> --%>
-<%-- 				<c:if test="${empty al.attachment.attachment_stored_name }"> --%>
-<!-- 					<img src="/upload/489921e0b979_test2.jpg" -->
-<!-- 						alt="기본" /> -->
-<!-- 					      //로고부분 넣는 실제로 들어가야함 -->
-<%-- 				</c:if> --%>
-<!-- 				<div class="caption"> -->
-
-
-<%-- 					<h6>주소 : ${al.trainer_address }</h6> --%>
-<!-- 					<h6>근</h6> -->
-<!-- 					<h6>프로필 : </h6> -->
-
-
-<!-- 				</div> -->
-<!-- 			</div> -->
-<!-- 		</div> -->
-<!-- 	</a> -->
-	
 </div>
+
+<br>
 <%@ include file="/WEB-INF/views/layouts/footer.jsp"%>
