@@ -10,7 +10,8 @@
 	<select id="getPtTicketToUser"
 		parameterType="com.geogym.payment.dto.PTTicket"
 		resultType="com.geogym.trainer.dto.Trainer">
-		SELECT * FROM trainer where trainer_no = #{trainer.trainer_no}
+		SELECT * FROM trainer where trainer_no =
+		#{trainer.trainer_no}
 	</select>
 	<select id="getPtUserToTrainer"
 		parameterType="com.geogym.trainer.dto.Trainer"
@@ -28,14 +29,18 @@
 		trainer_no = #{trainer_no}
 	</update>
 	<select id="viewTrainerList"
-		resultType="com.geogym.trainer.dto.Trainer">
-		SELECT trainer_no, user_no, trainer_address, trainer_price,
-		trainer_profile, a.attachment_no as 'attachment.attachment_no',
-		attachment_origin_name as 'attachment.attachment_origin_name',
-		attachment_stored_name as 'attachment.attachment_stored_name',
-		attachment_size as 'attachment.attachment_size', mime_no as
-		'attachment.mime_no' FROM trainer t, attachment a where
-		t.attachment_no = a.attachment_no order by trainer_no DESC
+		resultType="com.geogym.trainer.dto.Trainer2">
+		SELECT trainer_no, u.user_no as 'user.user_no', u.user_name
+		as 'user.user_name',u.user_gender as 'user.user_gender',u.user_birth
+		as 'user.user_birth',u.user_tel as 'user.user_tel',u.user_id as
+		'user.user_id',u.user_pw as 'user.user_pw',u.user_email as
+		'user.user_email', trainer_address, trainer_price, trainer_profile,
+		a.attachment_no as 'attachment.attachment_no', attachment_origin_name
+		as 'attachment.attachment_origin_name', attachment_stored_name as
+		'attachment.attachment_stored_name', attachment_size as
+		'attachment.attachment_size', mime_no as 'attachment.mime_no' FROM
+		trainer t, attachment a, user u where t.attachment_no =
+		a.attachment_no and u.user_no = t.user_no order by trainer_no DESC
 	</select>
 	<select id="getTrainer"
 		parameterType="com.geogym.trainer.dto.Trainer"
@@ -66,13 +71,13 @@
 		= #{trainer_no}
 	</select>
 
-	
+
 	<select id="getAllReputation" resultType="double">
 		SELECT
 		avg(trainer_reputation_score) FROM trainer_reputation
 	</select>
 
-	
+
 	<select id="countReputate"
 		parameterType="com.geogym.trainer.dto.T_reputation" resultType="int">
 		SELECT
@@ -90,9 +95,13 @@
 	<insert id="insertReputate"
 		parameterType="com.geogym.trainer.dto.T_reputation">
 		INSERT INTO trainer_reputation
-		(user_no, trainer_no, trainer_reputation_date, trainer_reputation_score, trainer_reputation_msg)
-		VALUES (#{user_no}, #{trainer_no}, datetime('now','localtime'),
-		#{trainer_reputation_score}, #{trainer_reputation_msg})
+		(user_no, trainer_no,
+		trainer_reputation_date, trainer_reputation_score,
+		trainer_reputation_msg)
+		VALUES (#{user_no}, #{trainer_no},
+		datetime('now','localtime'),
+		#{trainer_reputation_score},
+		#{trainer_reputation_msg})
 	</insert>
 	<insert id="insertTrainer"
 		parameterType="com.geogym.trainer.dto.Trainer">
@@ -101,14 +110,16 @@
 		VALUES (#{user_no}, #{trainer_address}, #{trainer_price},
 		#{trainer_profile}, #{attachment.attachment_no})
 	</insert>
-<!-- 	<select id="countUserNo" parameterType="com.geogym.trainer.dto.Trainer" resultType="int"> -->
-<!-- 		select count(*) from trainer where user_no = #{user_no} -->
-<!-- 	</select> -->
-	<select id="selectTrainernoByUserno" 
+	<!-- <select id="countUserNo" parameterType="com.geogym.trainer.dto.Trainer" 
+		resultType="int"> -->
+	<!-- select count(*) from trainer where user_no = #{user_no} -->
+	<!-- </select> -->
+	<select id="selectTrainernoByUserno"
 		parameterType="com.geogym.user.dto.User"
 		resultType="com.geogym.trainer.dto.Trainer">
-		SELECT trainer_no, user_no, trainer_address, trainer_price, trainer_profile, attachment_no 
-		 FROM trainer WHERE user_no = #{user_no}	
+		SELECT trainer_no, user_no, trainer_address, trainer_price,
+		trainer_profile, attachment_no
+		FROM trainer WHERE user_no = #{user_no}
 	</select>
-	
+
 </mapper>
