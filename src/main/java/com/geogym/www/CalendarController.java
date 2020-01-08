@@ -160,7 +160,7 @@ public class CalendarController {
 
 		logger.info(timeList.toString());
 
-		return "/calendar/viewcalendar";
+		return "/calendar/schedule";
 	}
 	
 	@RequestMapping(value = "/calendar/view/schedule", method = RequestMethod.GET)

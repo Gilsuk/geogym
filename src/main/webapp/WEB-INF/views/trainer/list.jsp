@@ -16,10 +16,10 @@
 	
 	<div class="card" style="width: 18rem;">
 		<c:if test="${not empty al.attachment.attachment_stored_name }">
-			<img src="/upload/${al.attachment.attachment_stored_name }" alt="${al.attachment.attachment_origin_name }" />
+			<img class="profilePic" src="/upload/${al.attachment.attachment_stored_name }" alt="${al.attachment.attachment_origin_name }" />
 		</c:if>
 		<c:if test="${empty al.attachment.attachment_stored_name }">
-			<img src="/upload/489921e0b979_test2.jpg" alt="기본" />
+			<img class="profilePic" src="/upload/489921e0b979_test2.jpg" alt="기본" />
 		</c:if>
 		
 		<div class="card-body">
