@@ -232,7 +232,9 @@ function drawLineColors() {
 <div class="col-4;">
 <div class="row">
 <div id="profileDiv" class="col-5" id="profile" style="background-color:white; border:2px solid gray;width:180px;height:160px;padding-right: 0px;padding-left: 0px" >
-	<img src="/upload/주석 2020-01-03 105902.png"/>
+	<c:forEach items="${profile }" var="i">
+	<img src="/upload/${i.attachment_stored_name }"/>
+	</c:forEach>
 </div>	
 <div class="col-7" >
 <table>

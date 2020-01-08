@@ -2,6 +2,7 @@ package com.geogym.body.service.face;
 
 import java.util.List;
 
+import com.geogym.attachment.dto.Attachment;
 import com.geogym.body.dto.BodyComment;
 import com.geogym.body.dto.BodyInfo;
 import com.geogym.common.exception.ParamIncorrectException;
@@ -63,5 +64,7 @@ public interface BodyInfoService {
 			throws ParamIncorrectException;
 	
 	void deleteBodyCommentary(BodyInfo bodyinfo);
+
+	List<Attachment> getProfile(User loggedInUser);
 	
 }

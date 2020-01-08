@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.geogym.attachment.dto.Attachment;
-import com.geogym.attachment.dto.Bodyinfo_attachment;
 import com.geogym.attachment.service.AttachmentService;
 import com.geogym.body.dto.BodyComment;
 import com.geogym.body.dto.BodyInfo;
@@ -55,7 +54,7 @@ public class BodyController {
 		}
 		
 
-		
+		List<Attachment> profile = bodyInfoService.getProfile(loggedInUser);
 
 		//userno 임의 지정 ( 추후 삭제 예정 )
 //		User user1 = new User();
@@ -76,7 +75,7 @@ public class BodyController {
 		}
 		
 //		logger.info(bodyComment.toString());
-		
+		model.addAttribute("profile", profile);
 		model.addAttribute("bodyInfo", bodyInfo);
 		model.addAttribute("bodycomment", bodyComment);
 		
@@ -153,7 +152,6 @@ public class BodyController {
 //		logger.info("신체정보입력 절차 접근");
 		logger.info(user.toString());
 		
-		logger.info("여기기");
 		try {
 			bodyInfoService.setBodyInfo(bodyinfo);
 			bodyInfoService.setBodyCommentary(commentary, trainer, bodyinfo);
@@ -177,20 +175,22 @@ public class BodyController {
 	}
 	
 	@RequestMapping(value="/info/uploadProfile")
-	public void uploadProfile() {
+	public void uploadProfile(User user, Model model) {
 		
 		logger.info("파일 업로드 접근");
 		
+		model.addAttribute("user_no", user.getUser_no());
+		
 	}
 	
-	@RequestMapping(value="info/fileUploadProc", method=RequestMethod.GET)
-	public String uploadProfile(BodyInfo bodyinfo, MultipartFile[] files) {
+	@RequestMapping(value="info/fileUploadProc", method=RequestMethod.POST)
+	public String uploadProfile(User user, MultipartFile file) {
 		
-		logger.info("파일 업로드 절차 접근");
-		bodyinfo.getBodyinfo_no();
-		logger.info(bodyinfo.toString());
+		user.setUser_no(user.getUser_no());
 		
-		attachmentService.fileUpload(files, bodyinfo);
+		MultipartFile[] files = new MultipartFile[1];
+		files[0] = file;
+		attachmentService.fileUpload(files, user);
 		
 		return "redirect:/info/bodyinfo";
 	}
@@ -223,7 +223,6 @@ public class BodyController {
 			@RequestParam(defaultValue = "week") String select,
 			Model model) {
 		
-		logger.info("바디인포유저");
 		
 		User loggedInUser = null;
 		try {
@@ -233,6 +232,8 @@ public class BodyController {
 			e1.printStackTrace();
 			logger.info("와우 널포인트 익셉션 로그인이 안됨");
 		}
+		
+		List<Attachment> profile = bodyInfoService.getProfile(loggedInUser);
 		
 		
 		//userno 임의 지정 ( 추후 삭제 예정 )
@@ -255,6 +256,7 @@ public class BodyController {
 		
 //		logger.info(bodyComment.toString());
 		
+		model.addAttribute("profile", profile);
 		model.addAttribute("bodyInfo", bodyInfo);
 		model.addAttribute("bodycomment", bodyComment);
 		

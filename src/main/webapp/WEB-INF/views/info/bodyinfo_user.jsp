@@ -45,7 +45,7 @@ $(document).ready(function(){
 // 	    var _left = Math.ceil(( window.screen.width - _width )/2);
 // 	    var _top = Math.ceil(( window.screen.width - _height )/2); 
 
-		window.open('http://localhost:8090/info/uploadProfile','window','width=400, height=500');
+		window.open('http://localhost:8090/info/uploadProfile?user_no=${user.user_no}','window','width=400, height=500');
 		
 		self.close();
 	});
@@ -215,7 +215,9 @@ function drawLineColors() {
 <div class="col-4;">
 <div class="row">
 <div id="profileDiv" class="col-5" id="profile" style="background-color:white; border:2px solid gray;width:180px;height:160px;padding-right: 0px;padding-left: 0px" >
-	<img src="/upload/주석 2020-01-03 105902.png"/>
+	<c:forEach items="${profile }" var="i">
+	<img src="/upload/${i.attachment_stored_name }"/>
+	</c:forEach>
 </div>	
 <div class="col-7" >
 <table>
@@ -256,7 +258,7 @@ function drawLineColors() {
 
 	<table style="text-align:center;width:325px">
 		<tr>
-			<td colspan="2"><button id="uploadBMI">BMI사진첨부하기</button></td>
+			<td colspan="2"></td>
 			<td></td>
 		</tr>
 		<tr>

@@ -9,6 +9,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.geogym.attachment.dto.Attachment;
 import com.geogym.body.dao.face.BodyInfoDao;
 import com.geogym.body.dto.BodyComment;
 import com.geogym.body.dto.BodyInfo;
@@ -290,5 +291,13 @@ public class BodyInfoServiceImpl implements BodyInfoService{
 		}
 		return arr;
 	}
+
+	@Override
+	public List<Attachment> getProfile(User loggedInUser) {
+		// TODO Auto-generated method stub
+		return bodyInfoDao.selectProfileByUserNo(loggedInUser);
+	}
+	
+	
 	
 }
