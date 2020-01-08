@@ -276,6 +276,11 @@ footer a {
     margin-bottom: 10px;
 }
 
+.profilePic{
+	width: 18rem;
+	height: 17rem;
+	
+}
 /* Featurettes
 ------------------------- */
 .featurette-divider {

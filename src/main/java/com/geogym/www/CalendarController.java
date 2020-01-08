@@ -24,6 +24,7 @@ import com.geogym.schedule.exception.AllTimeisUnavailable;
 import com.geogym.schedule.exception.NotWorkinDayException;
 import com.geogym.schedule.service.ScheduleService;
 import com.geogym.trainer.dto.Trainer;
+import com.geogym.trainer.service.TrainerService;
 import com.geogym.user.dto.User;
 import com.geogym.user.exception.UserNotFoundException;
 import com.geogym.user.service.UserService;
@@ -39,6 +40,8 @@ public class CalendarController {
 	private ScheduleService scheduleService;
 	@Autowired
 	private UserService userServ;
+	@Autowired
+	private TrainerService trainerService;
 
 	@RequestMapping(value = "/calendar/set", method = RequestMethod.GET)
 	public void getSpecialDate(Model model) {
@@ -100,11 +103,6 @@ public class CalendarController {
 	public String ptcalendar(Model model, @RequestParam(defaultValue = "-999999999-01-01") LocalDate date, User user,
 			Trainer trainer) {
 		
-		/************************************************
-		 * 
-		 *  PT 신청할 빈 시간이 없을 때 java.lang.ArrayIndexOutOfBoundsException 발생 
-		 * 
-		 ************************************************/
 
 		try {
 			user = userServ.getLoggedInUser();
@@ -115,6 +113,7 @@ public class CalendarController {
 		if (date.equals(LocalDate.MIN)) {
 			date = LocalDate.now();
 		}
+		trainer = trainerService.getTrainer(trainer);
 
 		List<Day> listDay = calendarService.getDayList(date);
 		
@@ -130,10 +129,12 @@ public class CalendarController {
 		model.addAttribute("prevMonth", "/calendar/PT/request?trainer_no=" + trainer.getTrainer_no() + "&user_no="
 				+ user.getUser_no() + "&date=" + date.minusMonths(1));
 		model.addAttribute("curMonth", date);
+		model.addAttribute("trainer", trainer);
 		model.addAttribute("trainer_no", trainer.getTrainer_no());
 		model.addAttribute("user_no", user.getUser_no());
 		model.addAttribute("viewLink",
 				"/calendar/view/PTrequest?trainer_no=" + trainer.getTrainer_no() + "&user_no=" + user.getUser_no());
+		model.addAttribute("request", true);
 
 		return "/calendar/main";
 	}
