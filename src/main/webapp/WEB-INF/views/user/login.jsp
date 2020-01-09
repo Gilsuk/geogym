@@ -64,11 +64,11 @@
 						type="button">로그인</button>
 					<hr class="my-4">
 					<button class="btn btn-lg btn-google btn-block text-uppercase"
-						type="submit">Google</button>
+						type="button">Google</button>
 					<button class="btn btn-lg btn-naver btn-block text-uppercase"
-						type="submit">NAVER</button>
+						type="button">NAVER</button>
 					<button class="btn btn-lg btn-kakao btn-block text-uppercase"
-						type="submit">KAKAO</button>
+						type="button">KAKAO</button>
 				</form>
 			</div>
 		</div>
