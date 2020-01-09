@@ -56,7 +56,11 @@ td:not(.info) {
 <tr><td colspan="4">${view.qna_content }</td></tr>
 
 </table>
-
+<c:if test="${fileList.size() != 0 }">
+	<c:forEach items="${fileList }" var="file">
+		<span><a href="/qna/file/download?qna_no=${view.qna_no }">${file.attachment_origin_name }</a></span>
+	</c:forEach>
+</c:if>
 <!-- 버튼 영역 -->
 <div class="text-center">
 	<a href="/qna/list"><button class="btn btn-default">목록</button></a>
@@ -82,14 +86,17 @@ td:not(.info) {
 <!-- 로그인상태 -->
 <%-- <c:if test="${login }"> --%>
 <!-- 댓글 입력 -->
+<c:if test="${empty answer }">
 <div class="form-inline text-center">
-	<form action="/answer/write" method="post">
+	<form action="/answer/write" method="post" enctype="multipart/form-data">
 <%-- 	<input type="text" size="10" class="form-control" id="commentWriter" value="${usernick }" readonly="readonly"/> --%>
 	<input type="text" name="qna_no" value="${view.qna_no }" hidden="hidden" >
 	<textarea rows="2" cols="60" class="form-control" id="answer" name="qna_answer_content"></textarea>
+	<input type="file" name="file">
 	<button class="btn btn-defualt">입력</button>
 	</form>
 </div>	<!-- 댓글 입력 end -->
+</c:if>
 <%-- </c:if> --%>
 
 <!-- 댓글 리스트 -->
@@ -97,18 +104,25 @@ td:not(.info) {
 <thead>
 <tr>
 	<th style="width: 10%;">작성자</th>
-	<th style="width: 80%;">답변</th>
-	<th style="width: 10%;">작성일</th>
+	<th style="width: 70%;">답변</th>
+	<th style="width: 20%;">작성일</th>
 </tr>
 </thead>
 <tbody id="answerBody">
 <tr>
-	<td>${answer.trainer_name }</td>
-	<td>${answer.qna_answer_content }</td>
-	<td>${answer.qna_answer_date }</td>
+	<td style="width: 10%;">${answer.trainer_name }</td>
+	<td style="width: 70%;">${answer.qna_answer_content }</td>
+	<td style="width: 20%;">${answer.qna_answer_date }</td>
 </tr>
 </tbody>
 </table>	<!-- 댓글 리스트 end -->
+<c:if test="${answerFileList.size() != 0 }">
+	<c:forEach var="file" items="${answerFileList }">
+		<c:forEach items="${answerFileList }" var="answerFile">
+			<span><a href="/answer/file/download?qna_answer_no=${answer.qna_answer_no }">${answerFile.attachment_origin_name }</a></span>
+		</c:forEach>
+	</c:forEach>
+</c:if>
 
 </div>	<!-- 댓글 처리 end -->
 

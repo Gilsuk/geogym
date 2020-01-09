@@ -46,7 +46,7 @@ td:nth-child(2) {
 
 <table class="table table-hover">
 <thead>
-	<tr>u7
+	<tr>
 		<th style="width: 10%">QnA번호</th>
 		<th style="width: 20%">작성자</th>
 		<th style="width: 50%; text-align: center;">제목</th>

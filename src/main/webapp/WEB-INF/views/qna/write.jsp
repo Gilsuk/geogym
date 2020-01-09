@@ -32,7 +32,7 @@ $(document).ready(function() {
 <h1>글쓰기 페이지</h1>
 <hr>
 
-<form action="/qna/write" method="post">
+<form action="/qna/write" method="post" enctype="multipart/form-data">
 <!-- 	<div class="form-group"> -->
 <!-- 		<label for="writer">작성자</label> -->
 <%-- 		<input type="text" id="writer" value="${nick }" readonly="readonly" class="form-control"/> --%>
@@ -47,6 +47,11 @@ $(document).ready(function() {
 		<script>
 	        CKEDITOR.replace( 'qna_content' );
        	</script>
+	</div>
+	
+	<div class="form-group">
+		<label for="file">파일</label>
+		<input type="file" name="file">
 	</div>
 	
 	<div class="form-group">

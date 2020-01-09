@@ -36,6 +36,8 @@
 		class="org.springframework.web.servlet.view.BeanNameViewResolver">
 		<beans:property name="order" value="0" />
 	</beans:bean>
+	
+	<beans:bean id="down" class="com.geogym.qna.view.DownloadView"/>
 
 	<beans:bean id="jsonView"
 		class="org.springframework.web.servlet.view.json.MappingJackson2JsonView">

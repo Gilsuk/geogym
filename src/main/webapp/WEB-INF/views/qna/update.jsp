@@ -12,8 +12,6 @@
 <!-- 합쳐지고 최소화된 최신 CSS -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
 
-<!-- Naver SmartEditor -->
-<script type="text/javascript" src="/resources/se/js/service/HuskyEZCreator.js" charset="utf-8"></script>
 
  
 <script type="text/javascript">
@@ -54,6 +52,11 @@ $(document).ready(function() {
 	        CKEDITOR.replace( 'qna_content' );
        	</script>
 	</div>
+	
+<!-- 	<div class="form-group"> -->
+<!-- 		<label for="file">파일</label> -->
+<!-- 		<input type="file" name="file"> -->
+<!-- 	</div> -->
 
 	<div class="text-center">
 		<button class="btn btn-primary" id="btnUpdate">수정</button>
