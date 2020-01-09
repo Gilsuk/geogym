@@ -77,7 +77,7 @@ public class MessageServiceImpl implements MessageService {
 	}
 
 	@Override
-	public List<Message> getMessages(User user, int count) {
+	public List<Message> getMessages(User user, int count, int offset) {
 		
 		if(count <= 0) {
 			count = 3;
@@ -86,6 +86,7 @@ public class MessageServiceImpl implements MessageService {
 		Map<String, Integer> map = new HashMap<>();
 		map.put("user_no", user.getUser_no());
 		map.put("count", count);
+		map.put("offset", offset);
 		
 		return messageDao.selectMessage(map);
 	}
@@ -113,4 +114,17 @@ public class MessageServiceImpl implements MessageService {
 		messageDao.updateToTrue(message);
 	}
 
+
+	@Override
+	public int getMessageCount(int user_no) {
+		
+		try {
+			int count = messageDao.selectCountMessage(user_no);
+			
+			return count;
+		} catch (Exception e) {
+			return 0;
+		}
+		
+	}
 }

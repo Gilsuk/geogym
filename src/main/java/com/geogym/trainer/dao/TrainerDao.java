@@ -5,6 +5,7 @@ import java.util.List;
 import com.geogym.payment.dto.PTTicket;
 import com.geogym.trainer.dto.T_reputation;
 import com.geogym.trainer.dto.Trainer;
+import com.geogym.trainer.dto.Trainer2;
 import com.geogym.user.dto.User;
 
 public interface TrainerDao {
@@ -48,7 +49,7 @@ public interface TrainerDao {
 	 *  
 	 * @return List<Trainer> - 리스트를 이용해 트레이너 정보를 받아온다
 	 */
-	List<Trainer> viewTrainerList();
+	List<Trainer2> viewTrainerList();
 
 	/**
 	 * 트레이너 정보 조회
@@ -125,5 +126,18 @@ public interface TrainerDao {
 	 * @return
 	 */
 	Trainer getTrainertoUser(Trainer trainer);
+
+
+	User selectbyuser_no(User user);
+
+	User selectbytrain_no(User uuser);
+
+	/****
+	 * 유저번호로 트레이너의 정보 조회
+	 * 
+	 * @param user - 현재 로그인한 회원 조회
+	 * @return - 해당 userno를 가진 트레이너 정보 반환
+	 */
+	Trainer selectTrainernoByUserno(User user);
 
 }

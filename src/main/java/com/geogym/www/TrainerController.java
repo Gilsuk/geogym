@@ -2,8 +2,6 @@ package com.geogym.www;
 
 import java.util.List;
 
-import javax.servlet.http.HttpSession;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.geogym.trainer.dto.Trainer;
+import com.geogym.trainer.dto.Trainer2;
 import com.geogym.attachment.service.AttachmentService;
 import com.geogym.trainer.dto.T_reputation;
 import com.geogym.trainer.service.TrainerService;
@@ -39,9 +38,10 @@ public class TrainerController {
 	private void TrainerList(Model model) {
 		logger.info("TrainerList");
 
-		List<Trainer> list = trainerService.viewTrainerList();
+		List<Trainer2> list = trainerService.viewTrainerList();
 		System.out.println(list);
 
+		
 		model.addAttribute("list", list);
 
 	}
@@ -66,18 +66,17 @@ public class TrainerController {
 
 		try {
 			User user = userService.getLoggedInUser();
-			if (userService.isTrainer(user)) {
-				return "redirect:/";
+			if (userService.isManager(user)) {
+				return "/trainer/insert";
 			} else {
 				System.out.println(user);
 				return null;
 			}
 		} catch (UserNotFoundException e) {
 			// TODO Auto-generated catch block
-			return "redirect:/";
+			return "/user/login";
 		}
 //		return null;
-
 	}
 
 	// 트레이너 생성
@@ -98,31 +97,37 @@ public class TrainerController {
 //			// TODO Auto-generated catch block
 //			e.printStackTrace();
 //		}
-
+		System.out.println("isnert 체크"+trainer);
 		trainerService.insertTrainer(trainer, file);
 
 	}
 
 	// 트레이너 테이블 수정
 	@RequestMapping(value = "/trainer/update", method = RequestMethod.GET)
-	private String updateTrainer() {
+	private String updateTrainer(Model model) {
 
 		try {
 			if (userService.isTrainer(userService.getLoggedInUser())) {
+				User user = userService.getLoggedInUser();
+				Trainer trainer = trainerService.getTrainertoUser(user);
+				
+				model.addAttribute("trainer", trainer);
+				model.addAttribute("user", user);
+				
 				return null;
 			} else {
-				return "redirect:/";
+				return "redirect:/user/login";
 			}
 		} catch (UserNotFoundException e) {
 			// TODO Auto-generated catch block
-			return "redirect:/";
+			return "redirect:/user/login";
 		}
 
 	}
 
 	// 트레이너 테이블 수정
 	@RequestMapping(value = "/trainer/update", method = RequestMethod.POST)
-	private void updateTrainer(Trainer trainer, MultipartFile file) {
+	private String updateTrainer(Trainer trainer, MultipartFile file) {
 		logger.info("updateTrainer");
 
 		// 이부분은 테스트용
@@ -133,10 +138,13 @@ public class TrainerController {
 //		trainer2.setTrainer_price(1);
 //		trainer2.setTrainer_profile("profile");
 
+		System.out.println(trainer);
+		
 		trainerService.updateTrainer(trainer, file);
 
 //		System.out.println(trainer2);
 		logger.info("성공");
+		return "redirect:/trainer/page";
 
 	}
 
@@ -190,8 +198,8 @@ public class TrainerController {
 		trainerService.reputate(reputation);
 
 	}
-	
-	/** 
+
+	/**
 	 * 트레이너 페이지 컨트롤러
 	 * 
 	 * @param model을 반환한다(정상일 때)
@@ -199,20 +207,70 @@ public class TrainerController {
 	 */
 	@RequestMapping(value = "/trainer/page")
 	private String TrainerPage(Model model) {
-		
+
 		try {
 			User user = userService.getLoggedInUser();
-			Trainer trainer = new Trainer();
-			trainer.setUser_no(user.getUser_no());
-			
-			model.addAttribute("trainer", trainerService.getTrainertoUser(trainer));
+
+			model.addAttribute("trainer", trainerService.getTrainertoUser(user));
+			model.addAttribute("user", user);
+
 			return null;
 		} catch (UserNotFoundException e) {
 			// TODO Auto-generated catch block
-			
+
 			return "redirect:/";
 		}
 	}
+
+	/**
+	 * 트레이너 프로필 보기
+	 * 
+	 * @param model
+	 */
+	@RequestMapping(value = "/trainer/profile")
+	private String TrainerProfile(Model model) {
+		
+		Trainer trainer = new Trainer();
+		try {
+			User user = userService.getLoggedInUser();
+			trainer = trainerService.getTrainertoUser(user);
+			System.out.println(trainer);
+
+			model.addAttribute("trainer", trainer);
+			
+			return null;
+
+		} catch (UserNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return "redirect:/user/login";
+		}
+	}
 	
+	@RequestMapping(value = "/trainer/clients")
+	private String TrainerClients(Model model) {
+		
+		Trainer trainer = new Trainer();
+
+		try {
+			User user = userService.getLoggedInUser();
+			trainer = trainerService.getTrainertoUser(user);
+			System.out.println(trainer);
+			
+			List<User> list = trainerService.getClients(trainer);
+
+			model.addAttribute("trainer", trainer);
+			model.addAttribute("list", list);
+			
+			return null;
+
+		} catch (UserNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return "redirect:/user/login";
+		}
+	}
+	
+
 
 }

@@ -101,5 +101,11 @@
 		attachment_stored_name = '삭제됨', attachment_size = '0' where
 		attachment_no = #{attachment.attachment_no}
 	</update>
+	
+	<insert id="setUser_attachment"
+		parameterType="com.geogym.attachment.dto.User_attachment">
+		insert into user_attachment (user_no, attachment_no)
+		VALUES (#{user_no}, #{attachment_no})
+	</insert>
 
 </mapper>

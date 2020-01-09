@@ -9,6 +9,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.geogym.payment.enumeration.Product;
 import com.geogym.payment.exception.CashNotEnoughException;
 import com.geogym.payment.service.CashService;
 import com.geogym.payment.service.PaymentLogService;
@@ -21,6 +22,7 @@ import com.geogym.pt.service.MatchingService;
 import com.geogym.schedule.dto.Schedule;
 import com.geogym.schedule.exception.AllTimeisUnavailable;
 import com.geogym.schedule.exception.InvalidParamException;
+import com.geogym.schedule.exception.NotWorkinDayException;
 import com.geogym.schedule.service.ScheduleService;
 import com.geogym.trainer.dto.Trainer;
 import com.geogym.trainer.service.TrainerService;
@@ -37,17 +39,22 @@ public class MatchingServiceImpl implements MatchingService {
 	@Autowired PaymentLogService paymentLogService;
 	
 	@Override
-	public void match(User user, Schedule schedule) throws MatchingNotAvailable, CashNotEnoughException, AllTimeisUnavailable {
+	public void match(User user, Schedule schedule) throws MatchingNotAvailable, CashNotEnoughException, AllTimeisUnavailable, NotWorkinDayException {
 		
+		System.out.println(1);
 		try {
 			if(tickectService.hasPTTicket(user, schedule.getTrainer())) {
+				
+				System.out.println(2);
+				
 				tickectService.payByTicket(user, schedule.getTrainer());
 			} else {
 				schedule.setTrainer(trainerService.getTrainer(schedule.getTrainer()));
 				
+				System.out.println(3);
 				//로그 입력 필요
 				
-				coinService.payByCash(schedule.getTrainer().getTrainer_price(), user);
+				coinService.payByCash(schedule.getTrainer().getTrainer_price(), user, Product.DAILY);
 			}
 			
 			scheduleService.setPTShcedule(user, schedule);
@@ -118,5 +125,14 @@ public class MatchingServiceImpl implements MatchingService {
 		
 		return matchingDao.selectCountPT(map);
 	}
-
+	@Override
+	public int countptpermonse(Trainer trainer, LocalDate month) {
+		
+		HashMap<String,Object> map = new HashMap<String,Object>();
+		
+		map.put("trainer_no",trainer.getTrainer_no());
+		map.put("start",LocalDate.of(month.getYear(), month.getMonthValue(), 1));
+		map.put("end",LocalDate.of(month.getYear(), month.getMonthValue(), month.lengthOfMonth()));
+		return matchingDao.selectCntPTBytrainer(map);
+	}
 }

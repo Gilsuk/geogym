@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import com.geogym.pt.dto.PT;
+import com.geogym.schedule.dto.Attendance;
 import com.geogym.schedule.dto.Schedule;
 
 public interface ScheduleDao {
@@ -24,5 +25,7 @@ public interface ScheduleDao {
 	List<PT> selectPTList(HashMap<String, Object> map);
 
 	List<Schedule> selectAttandanceInMonth(HashMap<String, Object> map);
+
+	void insertWorkHour(Attendance attendance);
 
 }

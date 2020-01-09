@@ -9,20 +9,9 @@
 <br>
 
 <script type="text/javascript">
-$(document).ready(function(){
-	
 
 
-
-
-
-
-
-
-
-})
-
-	$(document).ready(function() {
+$(document).ready(function() {
 
 		$("#btn-search-user").on("click", function() {
 			$.ajax({
@@ -34,8 +23,9 @@ $(document).ready(function(){
 				dataType: "json"
 			}).done(function(data) {
 				$("#user_name").val(data.user_name);
+				$("#user_no").val(data.user_no);
 				$("#user_gender").val(data.user_gender);
-				$("#user_birth").val(birth.year + "-" + birth.monthValue + "-" + birth.dayOfMonth);
+				$("#user_birth").val(data.user_birth.year + "-" + data.user_birth.monthValue + "-" + data.user_birth.dayOfMonth);
 				$("#user_email").val(data.user_email);
 				
 			})
@@ -49,14 +39,21 @@ $(document).ready(function(){
 
 <div class="container">
 <div class="row">
-<div class= "col-3">
-<h3>사이드바</h3>
-<ul>
- <li><a href="/user/login">운영시간</a></li>
- <li>매출정보</li>
- <li>트레이너등록</li>
-</ul>
-</div><!-- COL-3 -->
+<div class="col-12">
+<br>
+<h1>관리자페이지</h1>
+<hr>
+</div>
+
+<div class="col-sm-12 col-md-12 col-lg-3 col-xl-3">
+<div class="list-group">
+	
+	<a class="list-group-item list-group-item-action" aria-disabled="true" href="/test/setbusinessday">운영시간</a>
+	<a class="list-group-item list-group-item-action" href="/admin/pay">PT횟수정보</a>
+	<a class="list-group-item list-group-item-action active disabled" href="/trainer/insert">트레이너등록</a>
+
+</div>
+</div>
 <div class= "col-9">
 <div class="container">
 
@@ -71,14 +68,19 @@ $(document).ready(function(){
   <button id="btn-search-user" type="submit" class="btn btn-primary">검색</button>
 
 
- <form action= "/trainer/insert" method="post">
+ <form action= "/trainer/insert" method="post" enctype="multipart/form-data">
 <!-- 검색시 결과값 도출 -->
 <div class="form-group">
-    <label for="formGroupExampleInput">이름</label>
-    
+    <label for="formGroupExampleInput">이름</label>    
     <input type="text" class="form-control" id="user_name" name = "user_name" disabled>
-    
-   
+
+</div>
+
+
+<div class="form-group">
+<!--     <label for="formGroupExampleInput">번호</label>     -->
+    <input type="hidden" class="form-control" id="user_no" name = "user_no" >
+
 </div>
   
  <div class="form-group">
@@ -115,7 +117,16 @@ $(document).ready(function(){
   </div>
   <textarea class="form-control" aria-label="With textarea" name ="trainer_profile"></textarea>
 </div>
+
+<div class="form-group">
+    <label for="formGroupExampleInput">이미지파일</label>
+    <input type="file" class="form-control" name ="file">
+</div>
+
+
 <button type="submit" class="btn btn-primary">등록</button>
+
+
 </form>
 
 </div>

@@ -1,7 +1,10 @@
 package com.geogym.payment.service;
 
+import com.geogym.payment.enumeration.Product;
 import com.geogym.payment.exception.CashNotEnoughException;
+import com.geogym.payment.exception.FailPayException;
 import com.geogym.user.dto.User;
+import com.geogym.user.exception.UserNotFoundException;
 
 public interface CashService {
 	
@@ -17,11 +20,16 @@ public interface CashService {
 	 * @param amount - 소비될 코인의 양
 	 * @param user - 코인을 소비할 유저 객체
 	 */
-	void payByCash(int amount, User user) throws CashNotEnoughException;
 	
 	// 충전
 	// 환불
 	
 	void refundCash(int amount, User user);
+	
+	void chargeCash() throws FailPayException;
+
+	void payByCash(int amount, Product product) throws CashNotEnoughException, UserNotFoundException;
+
+	void payByCash(int amount, User user, Product product) throws CashNotEnoughException;
 	
 }

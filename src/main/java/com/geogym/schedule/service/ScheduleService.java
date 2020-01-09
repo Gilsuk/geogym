@@ -6,9 +6,11 @@ import java.time.LocalTime;
 import java.util.List;
 
 import com.geogym.pt.dto.PT;
+import com.geogym.schedule.dto.Attendance;
 import com.geogym.schedule.dto.Schedule;
 import com.geogym.schedule.exception.AllTimeisUnavailable;
 import com.geogym.schedule.exception.InvalidParamException;
+import com.geogym.schedule.exception.NotWorkinDayException;
 import com.geogym.trainer.dto.Trainer;
 import com.geogym.user.dto.User;
 
@@ -26,7 +28,7 @@ public interface ScheduleService {
 	 * @throws InvalidParamException 
 	 * @throws AllTimeisUnavailable 
 	 */
-	List<LocalTime> getAvilableTime(Trainer trainer, LocalDate localDate) throws InvalidParamException, AllTimeisUnavailable;
+	List<LocalTime> getAvilableTime(Trainer trainer, LocalDate localDate) throws InvalidParamException, AllTimeisUnavailable, NotWorkinDayException;
 	
 	/**
 	 * 
@@ -36,8 +38,9 @@ public interface ScheduleService {
 	 * @param locaDatetime
 	 * @throws InvalidParamException 
 	 * @throws AllTimeisUnavailable 
+	 * @throws NotWorkinDayException 
 	 */
-	void setPTShcedule(User user, Schedule schedule) throws InvalidParamException, AllTimeisUnavailable;
+	void setPTShcedule(User user, Schedule schedule) throws InvalidParamException, AllTimeisUnavailable, NotWorkinDayException;
 	
 	/**
 	 * 
@@ -62,8 +65,9 @@ public interface ScheduleService {
 	 * @param schedule
 	 * @throws InvalidParamException 
 	 * @throws AllTimeisUnavailable 
+	 * @throws NotWorkinDayException 
 	 */
-	void setSchedule(Schedule schedule) throws InvalidParamException, AllTimeisUnavailable;
+	void setSchedule(Schedule schedule) throws InvalidParamException, AllTimeisUnavailable, NotWorkinDayException;
 	
 	/**
 	 * 
@@ -94,9 +98,10 @@ public interface ScheduleService {
 	 * @param localDate
 	 * @return
 	 * @throws AllTimeisUnavailable 
+	 * @throws NotWorkinDayException 
 	 */
 
-	List<LocalTime> getPTAvilableTime(Trainer trainer, LocalDate localDate) throws AllTimeisUnavailable;
+	List<LocalTime> getPTAvilableTime(Trainer trainer, LocalDate localDate) throws AllTimeisUnavailable, NotWorkinDayException;
 
 	/**
 	 * 
@@ -106,4 +111,6 @@ public interface ScheduleService {
 	 * @return
 	 */
 	List<Schedule> getAttendance(Trainer trainer, LocalDate date);
+
+	void insertWorkHour(Attendance attendance);
 }

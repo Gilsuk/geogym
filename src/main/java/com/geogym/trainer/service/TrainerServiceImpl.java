@@ -21,7 +21,10 @@ import com.geogym.schedule.dto.Schedule;
 import com.geogym.trainer.dao.TrainerDao;
 import com.geogym.trainer.dto.T_reputation;
 import com.geogym.trainer.dto.Trainer;
+import com.geogym.trainer.dto.Trainer2;
+import com.geogym.trainer.exception.UserNotTrainerException;
 import com.geogym.user.dto.User;
+import com.geogym.user.exception.TrainerNotFoundException;
 import com.geogym.user.exception.UserNotFoundException;
 import com.geogym.user.service.UserService;
 
@@ -87,13 +90,15 @@ public class TrainerServiceImpl implements TrainerService {
 		// 트레이너 테이블 수정
 		
 		Trainer trainer2 = getTrainer(trainer);
-		
+		System.out.println("trainer : " + trainer);
+		System.out.println("trainer2 : " + trainer2);
 		
 		if (file == null) {
 			trainer.setAttachment(trainer2.getAttachment());
 		}else {
 			attachmentService.removeAttachment(trainer);
 			trainer.setAttachment(attachmentService.upload(file));
+			
 		}
 		if (trainer.getTrainer_address() == null) {
 			trainer.setTrainer_address(trainer2.getTrainer_address());
@@ -110,7 +115,7 @@ public class TrainerServiceImpl implements TrainerService {
 	}
 
 	@Override
-	public List<Trainer> viewTrainerList() {
+	public List<Trainer2> viewTrainerList() {
 		// TODO Auto-generated method stub
 		// 트레이너 리스트 받아오기
 		return trainerDao.viewTrainerList();
@@ -242,9 +247,17 @@ public class TrainerServiceImpl implements TrainerService {
 	}
 
 	@Override
-	public Trainer getTrainertoUser(Trainer trainer) {
+	public Trainer getTrainertoUser(User user) {
 		// TODO Auto-generated method stub
+		Trainer trainer = new Trainer();
+		trainer.setUser_no(user.getUser_no());
+		
 		return trainerDao.getTrainertoUser(trainer);
+	}
+
+	@Override
+	public Trainer getTrainerByUserno(User user) throws UserNotTrainerException {
+		return trainerDao.selectTrainernoByUserno(user);
 	}
 
 //	@Override
@@ -281,5 +294,21 @@ public class TrainerServiceImpl implements TrainerService {
 //
 //		
 //	}
-
+	
+	@Override
+	public User selectbyuser_no(User user){
+		User uuser = trainerDao.selectbyuser_no(user);
+		
+		return uuser;
+	}
+	
+	@Override
+	public User selectbytrain_no(User uuser) throws TrainerNotFoundException {
+		
+		User ser = trainerDao.selectbytrain_no(uuser);
+		System.out.println("service user 확인 :"+ser);
+		if(ser == null) 
+			throw new TrainerNotFoundException();
+		return ser;
+	}
 }

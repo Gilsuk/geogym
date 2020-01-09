@@ -6,6 +6,7 @@ import com.geogym.attachment.dto.Attachment;
 import com.geogym.attachment.dto.Bodyinfo_attachment;
 import com.geogym.attachment.dto.Qna_answer_attachment;
 import com.geogym.attachment.dto.Qna_attachment;
+import com.geogym.attachment.dto.User_attachment;
 import com.geogym.body.dto.BodyInfo;
 import com.geogym.memo.dto.TrainingMemo;
 import com.geogym.qna.dto.Qna;
@@ -90,6 +91,12 @@ public interface AttachmentDao {
 	 */
 	void setBodyinfo_attachment(Bodyinfo_attachment bodyinfo_attachment);
 
+	/**
+	 * User_attachment 작성
+	 * @param user_attachment를 입력하여 작성한다.
+	 */
+	void setUser_attachment(User_attachment user_attachment);
+	
 	/**
 	 * Attachment 삭제
 	 * 

@@ -7,8 +7,18 @@
 <mapper namespace="com.geogym.payment.dao.CashDao">
 
 <select id="selectCoinByUserNo" parameterType="com.geogym.user.dto.User" resultType="int">
-	SELECT user_cash_amount FROM user_cash
-	WHERE user_no = #{user_no }
+	SELECT ifnull((SELECT user_cash_amount FROM user_cash
+	WHERE user_no = ${user_no}), 0)
 </select>
 
+<insert id="insertCoin" parameterType="hashmap">
+	INSERT INTO user_cash (user_no, user_cash_amount)
+	VALUES (${user_no}, ${user_cash_amount})
+</insert>
+
+<delete id="deleteCoin" parameterType="com.geogym.user.dto.User">
+	DELETE FROM user_cash
+	WHERE user_no = #{user_no}
+</delete>
+	
 </mapper>

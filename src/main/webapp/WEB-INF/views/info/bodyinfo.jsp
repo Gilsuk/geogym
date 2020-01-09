@@ -22,15 +22,15 @@ $(document).ready(function(){
 <script type="text/javascript">
 
 	$(document).on('click','#inputBodyInfo', function(){
-// 	    var _width = '650';
-// 	    var _height = '380';
-	 
-// 	    // 팝업을 가운데 위치시키기 위해 아래와 같이 값 구하기
-// 	    var _left = Math.ceil(( window.screen.width - _width )/2);
-// 	    var _top = Math.ceil(( window.screen.width - _height )/2); 
-
-		window.open('http://localhost:8090/info/inputBodyInfo','window','width=400, height=500');
 		
+		var popupX = (window.screen.width / 2) - (400 / 2);
+		// 만들 팝업창 좌우 크기의 1/2 만큼 보정값으로 빼주었음
+
+		var popupY= (window.screen.height /2) - (580 / 2);
+		// 만들 팝업창 상하 크기의 1/2 만큼 보정값으로 빼주었음
+
+		window.open('http://localhost:8090/info/inputBodyInfo', 'window', 'status=no, height=580, width=400, left='+ popupX + ', top='+ popupY + ', screenX='+ popupX + ', screenY= '+ popupY);
+	
 		self.close();
 	});
 	
@@ -38,15 +38,15 @@ $(document).ready(function(){
 <script type="text/javascript">
 
 	$(document).on('click','#uploadProfile', function(){
-// 	    var _width = '650';
-// 	    var _height = '380';
-	 
-// 	    // 팝업을 가운데 위치시키기 위해 아래와 같이 값 구하기
-// 	    var _left = Math.ceil(( window.screen.width - _width )/2);
-// 	    var _top = Math.ceil(( window.screen.width - _height )/2); 
 
-		window.open('http://localhost:8090/info/uploadProfile','window','width=400, height=500');
-		
+		var popupX = (window.screen.width / 2) - (400 / 2);
+		// 만들 팝업창 좌우 크기의 1/2 만큼 보정값으로 빼주었음
+
+		var popupY= (window.screen.height /2) - (580 / 2);
+		// 만들 팝업창 상하 크기의 1/2 만큼 보정값으로 빼주었음
+
+		window.open('http://localhost:8090/info/uploadProfile', 'window', 'status=no, height=580, width=400, left='+ popupX + ', top='+ popupY + ', screenX='+ popupX + ', screenY= '+ popupY);
+	
 		self.close();
 	});
 	
@@ -54,15 +54,32 @@ $(document).ready(function(){
 <script type="text/javascript">
 
 	$(document).on('click','#uploadBMI', function(){
-// 	    var _width = '650';
-// 	    var _height = '380';
-	 
-// 	    // 팝업을 가운데 위치시키기 위해 아래와 같이 값 구하기
-// 	    var _left = Math.ceil(( window.screen.width - _width )/2);
-// 	    var _top = Math.ceil(( window.screen.width - _height )/2); 
 
-		window.open('http://localhost:8090/info/uploadBMI?bodyinfo_no=${bodyInfo.bodyinfo_no}','window','width=400, height=500');
-		
+		var popupX = (window.screen.width / 2) - (400 / 2);
+		// 만들 팝업창 좌우 크기의 1/2 만큼 보정값으로 빼주었음
+
+		var popupY= (window.screen.height /2) - (580 / 2);
+		// 만들 팝업창 상하 크기의 1/2 만큼 보정값으로 빼주었음
+
+		window.open('http://localhost:8090/info/uploadBMI?bodyinfo_no=${bodyInfo.bodyinfo_no}', 'window', 'status=no, height=580, width=400, left='+ popupX + ', top='+ popupY + ', screenX='+ popupX + ', screenY= '+ popupY);
+	
+		self.close();
+	});
+	
+</script>
+
+<script type="text/javascript">
+
+	$(document).on('click','#BMI', function(){
+
+		var popupX = (window.screen.width / 2) - (1200 / 2);
+		// 만들 팝업창 좌우 크기의 1/2 만큼 보정값으로 빼주었음
+
+		var popupY= (window.screen.height /2) - (1200 / 2);
+		// 만들 팝업창 상하 크기의 1/2 만큼 보정값으로 빼주었음
+
+		window.open('http://localhost:8090/info/BMI?bodyinfo_no=${bodyInfo.bodyinfo_no}', 'window', 'status=no, height=1200, width=1200, left='+ popupX + ', top='+ popupY + ', screenX='+ popupX + ', screenY= '+ popupY);
+	
 		self.close();
 	});
 	
@@ -215,12 +232,14 @@ function drawLineColors() {
 <div class="col-4;">
 <div class="row">
 <div id="profileDiv" class="col-5" id="profile" style="background-color:white; border:2px solid gray;width:180px;height:160px;padding-right: 0px;padding-left: 0px" >
-	<img src="/upload/주석 2020-01-03 105902.png"/>
+	<c:forEach items="${profile }" var="i">
+	<img src="/upload/${i.attachment_stored_name }"/>
+	</c:forEach>
 </div>	
 <div class="col-7" >
 <table>
 	<tr>
-		<th style="font-size:15px">&nbsp;회원</th>
+		<th style="font-size:15px">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;회원</th>
 	</tr>
 	<tr>
 		<td style="text-align:right"><strong style="font-size:25px">${user.user_name }</strong> 님 (${user.user_gender })<br></td>
@@ -236,7 +255,7 @@ function drawLineColors() {
 	</tr>
 	<tr>
 		<td style="text-align:center">
-			<button id="uploadProfile">프로필사진수정</button>
+<!-- 			<button id="uploadProfile">프로필사진수정</button> -->
 <%-- 			<form action="/info/fileUpload?bodyinfo_no=${bodyInfo.bodyinfo_no }" method="GET"> --%>
 <!-- 				<label for="uploadProfile" style="cursor:pointer">프로필사진수정</label> -->
 <!-- 				<input type="file" id="uploadProfile" style="display:none"/> -->
@@ -256,7 +275,9 @@ function drawLineColors() {
 
 	<table style="text-align:center;width:325px">
 		<tr>
-			<td colspan="2"><button id="uploadBMI">BMI사진첨부하기</button></td>
+			<td colspan="2">
+				<button id="uploadBMI">BMI사진첨부하기</button>
+				<button id="BMI">BMI 정보 보기</button>
 			<td></td>
 		</tr>
 		<tr>
@@ -287,6 +308,7 @@ function drawLineColors() {
 </fieldset><br>
 <button id="inputBodyInfo" class="btn btn-primary" style="margin-left: 60px">데이터입력</button>
 <button id="deleteInfo" onclick="deleteInfo();location.href='/info/delete?bodyinfo_no=${bodyInfo.bodyinfo_no}'" class="btn btn-primary" >데이터삭제</button>
+<br>
 </div>
 	<br>
 

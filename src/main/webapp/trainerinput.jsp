@@ -9,20 +9,9 @@
 <br>
 
 <script type="text/javascript">
-$(document).ready(function(){
-	
 
 
-
-
-
-
-
-
-
-})
-
-	$(document).ready(function() {
+$(document).ready(function() {
 
 		$("#btn-search-user").on("click", function() {
 			$.ajax({
@@ -35,7 +24,7 @@ $(document).ready(function(){
 			}).done(function(data) {
 				$("#user_name").val(data.user_name);
 				$("#user_gender").val(data.user_gender);
-				$("#user_birth").val(birth.year + "-" + birth.monthValue + "-" + birth.dayOfMonth);
+				$("#user_birth").val(data.user_birth.year + "-" + data.user_birth.monthValue + "-" + data.user_birth.dayOfMonth);
 				$("#user_email").val(data.user_email);
 				
 			})
@@ -70,8 +59,8 @@ $(document).ready(function(){
   </div>
   <button id="btn-search-user" type="submit" class="btn btn-primary">검색</button>
 
-
  <form action= "/trainer/insert" method="post">
+
 <!-- 검색시 결과값 도출 -->
 <div class="form-group">
     <label for="formGroupExampleInput">이름</label>
@@ -88,7 +77,7 @@ $(document).ready(function(){
   
 <div class="form-group">
     <label for="formGroupExampleInput">생년월일</label>
-    <input type="text" class="form-control" id="user_birth" name = "user_birth" disabled>
+    <input type="text" class="form-control" id= "user_birth" name = "user_birth" disabled>
 </div>
 
 <div class="form-group">
@@ -115,7 +104,16 @@ $(document).ready(function(){
   </div>
   <textarea class="form-control" aria-label="With textarea" name ="trainer_profile"></textarea>
 </div>
+
+<div class="form-group">
+    <label for="formGroupExampleInput">이미지파일</label>
+    <input type="file" class="form-control" name ="file">
+  </div>
+
+
 <button type="submit" class="btn btn-primary">등록</button>
+
+
 </form>
 
 </div>

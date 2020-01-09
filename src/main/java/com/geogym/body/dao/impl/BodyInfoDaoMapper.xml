@@ -21,7 +21,7 @@
   			 bodyinfo_fat , 
   			 bodyinfo_muscle )
   		VALUES
-  			( user_no , 
+  			( #{user_no} , 
   			#{bodyinfo_date} , 
   			#{bodyinfo_height} , 
   			#{bodyinfo_weight} , 
@@ -59,7 +59,10 @@
   	</insert>
   	
   	<select id="selectBodyCommentary" parameterType="com.geogym.user.dto.User" resultType="com.geogym.body.dto.BodyComment">
-  		SELECT * FROM body_comment NATURAL JOIN bodyinfo
+  		SELECT * FROM body_comment 
+  		NATURAL JOIN bodyinfo 
+  		WHERE user_no = #{user_no} 
+  		ORDER BY bodyinfo_date DESC limit 1
   	</select>
   	
   	<delete id="deleteBodyInfo" parameterType="com.geogym.body.dto.BodyInfo">
@@ -69,6 +72,14 @@
   	<delete id="deleteBodyCommentary" parameterType="com.geogym.body.dto.BodyInfo">
   		DELETE FROM Body_comment WHERE bodyinfo_no = #{bodyinfo_no}
   	</delete>
+  	
+  	<select id="selectBodyinfoNo" resultType="int">
+  		SELECT Bodyinfo_no FROM bodyinfo ORDER BY bodyinfo_date DESC limit 1
+  	</select>
+  	
+  	<select id="selectProfileByUserNo" parameterType="com.geogym.user.dto.User" resultType="com.geogym.attachment.dto.Attachment">
+  		SELECT * FROM attachment NATURAL JOIN user_attachment WHERE user_no = #{user_no} ;
+  	</select>
   	
   	
   </mapper>

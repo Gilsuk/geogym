@@ -1,7 +1,9 @@
 package com.geogym.body.dao.face;
 
+import java.util.List;
 import java.util.Map;
 
+import com.geogym.attachment.dto.Attachment;
 import com.geogym.body.dto.BodyComment;
 import com.geogym.body.dto.BodyInfo;
 import com.geogym.user.dto.User;
@@ -23,4 +25,8 @@ public interface BodyInfoDao {
 	public void deleteBodyInfo(BodyInfo bodyinfo);
 	
 	public void deleteBodyCommentary(BodyInfo bodyinfo);
+	
+	public int selectBodyinfoNo();
+	
+	public List<Attachment> selectProfileByUserNo(User user);
 }

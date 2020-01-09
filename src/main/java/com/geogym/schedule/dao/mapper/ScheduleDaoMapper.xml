@@ -74,4 +74,9 @@
 		AND trainer_no = #{trainer_no}
 		AND attendance_date BETWEEN #{start} AND #{end}
 	</select>
+	
+	<insert id="insertWorkHour" parameterType="com.geogym.schedule.dto.Attendance">
+		insert into attendance values(#{attendance_date},#{trainer_no},#{attendance_start},#{attendance_end})
+	
+	</insert>
 </mapper>

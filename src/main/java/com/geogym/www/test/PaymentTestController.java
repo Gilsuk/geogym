@@ -12,7 +12,7 @@ import com.geogym.trainer.dto.Trainer;
 import com.geogym.user.dto.User;
 
 @Controller
-public class PaymentController {
+public class PaymentTestController {
 
 	@Autowired TicketService ticketService;
 	

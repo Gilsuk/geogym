@@ -3,12 +3,14 @@ package com.geogym.attachment.service;
 import java.util.List;
 
 import org.springframework.web.multipart.MultipartFile;
+
 import com.geogym.attachment.dto.Attachment;
 import com.geogym.body.dto.BodyInfo;
 import com.geogym.memo.dto.TrainingMemo;
 import com.geogym.qna.dto.Qna;
 import com.geogym.qna.dto.QnaAnswer;
 import com.geogym.trainer.dto.Trainer;
+import com.geogym.user.dto.User;
 
 /**
  * 업로드 파일 관리 서비스
@@ -60,6 +62,15 @@ public interface AttachmentService {
 	 * @return List<Attachment> 를 리턴한다
 	 */
 	List<Attachment> fileUpload(MultipartFile[] files, BodyInfo bodyInfo);
+	
+	/**
+	 * user 전용 프로필사진 업로드
+	 * 반드시 이것을 사용할 것
+	 * 
+	 * @param file - 업로드할 프로필 사진
+	 * @param user - user_no 전달s
+	 */
+	List<Attachment> fileUpload(MultipartFile[] files, User user);
 	
 	
 	/**

@@ -3,6 +3,7 @@ package com.geogym.www.test;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -11,13 +12,19 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.geogym.payment.exception.CashNotEnoughException;
 import com.geogym.pt.dto.PT;
+import com.geogym.pt.exception.MatchingNotAvailable;
+import com.geogym.pt.service.MatchingService;
 import com.geogym.schedule.dto.Schedule;
 import com.geogym.schedule.exception.AllTimeisUnavailable;
 import com.geogym.schedule.exception.InvalidParamException;
+import com.geogym.schedule.exception.NotWorkinDayException;
 import com.geogym.schedule.service.ScheduleService;
 import com.geogym.trainer.dto.Trainer;
 import com.geogym.user.dto.User;
+import com.geogym.user.exception.UserNotFoundException;
+import com.geogym.user.service.UserService;
 
 @Controller
 public class ScheduleTestController {
@@ -25,6 +32,8 @@ public class ScheduleTestController {
 	private static final Logger logger = LoggerFactory.getLogger(ScheduleTestController.class);
 	
 	@Autowired ScheduleService scheduleService;
+	@Autowired UserService userService;
+	@Autowired MatchingService matchingService;
 	
 	// --- 트레이너의 비어있는 스케줄 얻어오기 -------------------------------------
 	@RequestMapping(value="/test/shedule/workingtime")
@@ -35,7 +44,7 @@ public class ScheduleTestController {
 		
 		LocalDate localDate = LocalDate.of(2019, 12, 30);
 		
-		List<LocalTime> list;
+		List<LocalTime> list = new ArrayList<LocalTime>();;
 		
 		try {
 			list = scheduleService.getAvilableTime(trainer, localDate);
@@ -43,6 +52,9 @@ public class ScheduleTestController {
 			return;
 		} catch (AllTimeisUnavailable e) {
 			return;
+		} catch (NotWorkinDayException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 		
 		logger.info(list.toString());
@@ -67,6 +79,9 @@ public class ScheduleTestController {
 			return;
 		} catch (AllTimeisUnavailable e) {
 			return;
+		} catch (NotWorkinDayException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 	}
 	
@@ -93,6 +108,9 @@ public class ScheduleTestController {
 			// 올바르지 않은 파라미터
 		} catch (AllTimeisUnavailable e) {
 			// 이용가능 시간 없음
+		} catch (NotWorkinDayException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 	}
 	
@@ -109,18 +127,45 @@ public class ScheduleTestController {
 		logger.info(schedule.toString());
 		logger.info(trainer.toString());
 		logger.info(user.toString());
+		
+		
+		try {
+			user = userService.getUserByUserno(user);
+		} catch (UserNotFoundException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 
-		schedule.setSchedule_msg("테스트테스트");
+		schedule.setSchedule_msg(user.getUser_name()+ "님 PT."+user.getUser_no());
 
 		schedule.setTrainer(trainer);
 		
 		try {
-			scheduleService.setPTShcedule(user, schedule);
-		} catch (InvalidParamException e) {
-			// 올바르지 않은 파라미터
-		} catch (AllTimeisUnavailable e) {
-			// 이용 가능 시간 없음
+			matchingService.match(user, schedule);
+		} catch (MatchingNotAvailable e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		} catch (CashNotEnoughException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		} catch (AllTimeisUnavailable e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		} catch (NotWorkinDayException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
 		}
+		
+//		try {
+//			scheduleService.setPTShcedule(user, schedule);
+//		} catch (InvalidParamException e) {
+//			// 올바르지 않은 파라미터
+//		} catch (AllTimeisUnavailable e) {
+//			// 이용 가능 시간 없음
+//		} catch (NotWorkinDayException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
 	}
 	
 	// -------------------------------------------------------------------------
@@ -134,12 +179,15 @@ public class ScheduleTestController {
 		
 		LocalDate localDate = LocalDate.of(2020, 01, 02);
 		
-		List<LocalTime> list;
+		List<LocalTime> list = new ArrayList<LocalTime>();;
 		
 		try {
 			list = scheduleService.getPTAvilableTime(trainer, localDate);
 		} catch (AllTimeisUnavailable e) {
 			return;
+		} catch (NotWorkinDayException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 		
 		logger.info(list.toString());

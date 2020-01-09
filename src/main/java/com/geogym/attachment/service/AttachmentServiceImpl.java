@@ -16,11 +16,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.context.ServletContextAware;
 import org.springframework.web.multipart.MultipartFile;
+
 import com.geogym.attachment.dao.AttachmentDao;
 import com.geogym.attachment.dto.Attachment;
 import com.geogym.attachment.dto.Bodyinfo_attachment;
 import com.geogym.attachment.dto.Qna_answer_attachment;
 import com.geogym.attachment.dto.Qna_attachment;
+import com.geogym.attachment.dto.User_attachment;
 import com.geogym.body.dto.BodyInfo;
 import com.geogym.common.enumeration.Table;
 import com.geogym.common.service.SequenceService;
@@ -28,6 +30,7 @@ import com.geogym.memo.dto.TrainingMemo;
 import com.geogym.qna.dto.Qna;
 import com.geogym.qna.dto.QnaAnswer;
 import com.geogym.trainer.dto.Trainer;
+import com.geogym.user.dto.User;
 
 @Service
 public class AttachmentServiceImpl implements AttachmentService, ServletContextAware {
@@ -716,9 +719,9 @@ public class AttachmentServiceImpl implements AttachmentService, ServletContextA
 		String u = uuid.toString().split("-")[4];
 
 		System.out.println(3);
-
+		
 		for (MultipartFile file : files) {
-
+			
 			System.out.println(4);
 			Attachment attachment = new Attachment();
 
@@ -797,4 +800,103 @@ public class AttachmentServiceImpl implements AttachmentService, ServletContextA
 		return list;
 	}
 
+	@Override
+	public List<Attachment> fileUpload(MultipartFile[] files, User user) {
+		// TODO Auto-generated method stub
+		System.out.println(2);
+
+		List<Attachment> list = new ArrayList<>();
+
+		logger.info("context " + context);
+		logger.info("context.getRealPath(\"upload\") : " + context.getRealPath("upload"));
+
+//		파일이 저장될 경로
+		String storedPath = context.getRealPath("upload");
+
+		// 랜덤 UID 생성
+		UUID uuid = UUID.randomUUID();
+
+		// 12자리 uid 얻기
+		String u = uuid.toString().split("-")[4];
+
+		System.out.println(3);
+				
+		for (MultipartFile file : files) {
+					
+			System.out.println(4);
+			Attachment attachment = new Attachment();
+
+			// 저장될 파일 이름
+			String filname = u + "_" + file.getOriginalFilename();
+
+			// 저장될 파일 객체
+			File dest = new File(storedPath, filname);
+
+			// DB 에 저장
+
+			attachment.setAttachment_no(getNextAttachmentNo());
+			attachment.setAttachment_origin_name(file.getOriginalFilename());
+			attachment.setAttachment_stored_name(filname);
+			attachment.setAttachment_size(file.getSize());
+
+			if (filname.substring(filname.indexOf(".") + 1).equals("zip")) {
+				attachment.setMime_no(1);
+				attachmentDao.upload(attachment);
+			} else if (filname.substring(filname.indexOf(".") + 1).equals("mpeg")) {
+				attachment.setMime_no(2);
+				attachmentDao.upload(attachment);
+			} else if (filname.substring(filname.indexOf(".") + 1).equals("x-wav")) {
+				attachment.setMime_no(3);
+				attachmentDao.upload(attachment);
+			} else if (filname.substring(filname.indexOf(".") + 1).equals("gif")) {
+				attachment.setMime_no(4);
+				attachmentDao.upload(attachment);
+			} else if (filname.substring(filname.indexOf(".") + 1).equals("jpeg")) {
+				attachment.setMime_no(5);
+				attachmentDao.upload(attachment);
+			} else if (filname.substring(filname.indexOf(".") + 1).equals("png")) {
+				System.out.println(attachment);
+				attachment.setMime_no(6);
+				attachmentDao.upload(attachment);
+			} else if (filname.substring(filname.indexOf(".") + 1).equals("mpg")) {
+				attachment.setMime_no(7);
+				attachmentDao.upload(attachment);
+			} else if (filname.substring(filname.indexOf(".") + 1).equals("mp4")) {
+				attachment.setMime_no(8);
+				attachmentDao.upload(attachment);
+			} else if (filname.substring(filname.indexOf(".") + 1).equals("jpg")) {
+				attachment.setMime_no(9);
+				attachmentDao.upload(attachment);
+			} else {
+				logger.info("확장자 없음");
+				return null;
+			}
+
+//			System.out.println(filname.substring(filname.indexOf(".")+1));
+
+			try {
+				file.transferTo(dest);
+			} catch (IllegalStateException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+
+//					logger.info("업로드성공");
+//					logger.info(Integer.toString(attachment.getAttachment_no()));
+//					System.out.println(attachment);
+
+			User_attachment user_attachment = new User_attachment();
+			user_attachment.setUser_no(user.getUser_no());
+			user_attachment.setAttachment_no(attachment.getAttachment_no());
+					
+			attachmentDao.setUser_attachment(user_attachment);
+
+			list.add(attachment);
+		
+	}
+		return list;
+	}
 }

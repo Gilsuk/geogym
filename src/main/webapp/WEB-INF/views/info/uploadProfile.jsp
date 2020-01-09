@@ -33,10 +33,12 @@
 <script type="text/javascript">
 	document.getElementById('today').valueAsDate = new Date();
 </script>
-<h1>프로필 사진 업로드</h1>
+<h1 style="text-align:center">프로필 사진 업로드</h1>
 <hr>
-<form action="/info/fileUploadProc" method="GET">
-<input type="file" name>
+<form action="/info/fileUploadProc" method="POST" enctype="multipart/form-data">
+<input type="file" name="file"/>
+<input type="hidden" name="user_no" value="${user_no }"/>
+<button>등록</button>
 </form>
 </body>
 </html>

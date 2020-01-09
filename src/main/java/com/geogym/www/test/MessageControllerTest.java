@@ -15,9 +15,9 @@ import com.geogym.message.service.MessageService;
 import com.geogym.user.dto.User;
 
 @Controller
-public class MessageController {
+public class MessageControllerTest {
 
-	private static final Logger logger = LoggerFactory.getLogger(MessageController.class);
+	private static final Logger logger = LoggerFactory.getLogger(MessageControllerTest.class);
 	
 	@Autowired MessageService messageService;
 	
@@ -113,9 +113,7 @@ public class MessageController {
 	@RequestMapping(value="/test/message/list")
 	public void viewMessage(User user) { 
 		
-		user.setUser_no(1);
-		
-		List<Message> list = messageService.getMessages(user, 2);
+		List<Message> list = messageService.getMessages(user, 5, 1);
 		
 		logger.info(list.toString());
 	}
@@ -129,7 +127,7 @@ public class MessageController {
 		user.setUser_no(12);
 		
 		// 불러올 메세지 갯수에 0이하의 수를 입력시 기본 3개 출력
-		List<Message> list = messageService.getMessages(user, -999);
+		List<Message> list = messageService.getMessages(user, -999, 1);
 		
 		logger.info(list.toString());
 	}

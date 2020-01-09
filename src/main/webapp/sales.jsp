@@ -9,7 +9,7 @@
 <jsp:include page="/WEB-INF/views/layouts/header.jsp"/>
 <br>
 
-<from>
+<form action = "/admin/pay" method = "get">
 <div class="container">
 <div class="row">
 <div class= "col-3">
@@ -27,39 +27,29 @@
     <tr>
       <th scope="col">#</th>
       <th scope="col">트레이너</th>
-      <th scope="col">누적 PT 회원권 횟수</th>
-      <th scope="col">누적 PT 매출액</th>
+      <th scope="col">PT 진행 횟수</th>
+      <th scope="col">일일 PT 진행 횟수</th>
     </tr>
   </thead>
   <tbody>
+  <c:forEach var="list" items="${list }">
     <tr>
       <th scope="row">1</th>
-      <td>Mark</td>
+      <td>${list.trainer_no }k</td>
       <td>3</td>
       <td>300000</td>
     </tr>
-    <tr>
-      <th scope="row">2</th>
-      <td>Jacob</td>
-      <td>Thornton</td>
-      <td>@fat</td>
-    </tr>
-    <tr>
-      <th scope="row">3</th>
-      <td>Larry</td>
-      <td>the Bird</td>
-      <td>@twitter</td>
-    </tr>
+   </c:forEach>
   </tbody>
 </table>
 </div>
 
 
-<button type="submit" class="btn btn-primary">Submit</button>
+
 </div><!-- COL-9 -->
 </div>
 </div>
-</from>
+</form>
 
 <br>
 
