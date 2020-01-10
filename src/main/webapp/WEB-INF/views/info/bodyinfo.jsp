@@ -78,14 +78,26 @@ $(document).ready(function(){
 </script>
 
 <script type="text/javascript">
-function deleteInfo(){
+$(document).ready( function(){
+    $("#deleteInfo").click( function() {
+        if(confirm("정말 삭제하시겠습니까? 가장 최근에 입력한 데이터가 삭제됩니다.")) {
+			alert("삭제가 완료되었습니다.")	            
+			location.href="/info/delete?bodyinfo_no=${bodyInfo.bodyinfo_no}"
+        } else {
+        	alert("삭제를 취소하셨습니다.")
+            return false;
+        }
+    });
+});
+
+// function deleteInfo(){
 	
-	  /* confirm(문자열, 초기값) */
-	  var check = confirm("정말 삭제하시겠습니까? 가장 최근에 입력한 데이터가 삭제됩니다.");
-	  /* if(check == true) else false */
-	  if(check) alert("삭제가 완료되었습니다.");
-	  else alert("삭제를 취소하셨습니다.");
-	}
+// 	  /* confirm(문자열, 초기값) */
+// 	  var check = confirm("정말 삭제하시겠습니까? 가장 최근에 입력한 데이터가 삭제됩니다.");
+// 	  /* if(check == true) else false */
+// 	  if(check) alert("삭제가 완료되었습니다.");
+// 	  else alert("삭제를 취소하셨습니다.");
+// 	}
 </script>
 
 
