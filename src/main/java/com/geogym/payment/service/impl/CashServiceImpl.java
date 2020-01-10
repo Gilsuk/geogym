@@ -91,14 +91,14 @@ public class CashServiceImpl implements CashService {
 	}
 
 	@Override
-	public void chargeCash() throws FailPayException {
+	public void chargeCash(String imp_uid) throws FailPayException {
 		User user = null;
 		try {
 			user = userSrv.getLoggedInUser();
 		} catch (UserNotFoundException e) { return; }
 
 		String uri = req.getRequestURI();
-		String imp_uid = uri.split("/")[3];
+//		String imp_uid = uri.split("/")[3];
 		String completeResponse = getCompleteResponse(imp_uid);
 		
 		int amountPay = getAmountPay(completeResponse);

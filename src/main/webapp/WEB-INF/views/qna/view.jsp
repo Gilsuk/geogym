@@ -41,7 +41,7 @@ td:not(.info) {
 </tr>
 
 <tr>
-<td class="info">아이디</td><td colspan="2">${view.user_name }</td>
+<td class="info">아이디</td><td colspan="2">${view.user.user_name }</td>
 </tr>
 
 <tr>

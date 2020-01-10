@@ -26,7 +26,7 @@ public interface CashService {
 	
 	void refundCash(int amount, User user);
 	
-	void chargeCash() throws FailPayException;
+	void chargeCash(String imp_uid) throws FailPayException;
 
 	void payByCash(int amount, Product product) throws CashNotEnoughException, UserNotFoundException;
 
