@@ -311,4 +311,27 @@ public class TrainerServiceImpl implements TrainerService {
 			throw new TrainerNotFoundException();
 		return ser;
 	}
+
+	@Override
+	public Trainer2 getTrainer2(Trainer trainer) {
+		// TODO Auto-generated method stub
+		trainer = getTrainer(trainer);
+		Trainer2 trainer2 = new Trainer2();
+		User user = new User();
+		user.setUser_no(trainer.getUser_no());
+		
+		trainer2.setTrainer_no(trainer.getTrainer_no());
+		try {
+			trainer2.setUser(userService.getUserByUserno(user));
+		} catch (UserNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		trainer2.setTrainer_address(trainer.getTrainer_address());
+		trainer2.setTrainer_price(trainer.getTrainer_price());
+		trainer2.setTrainer_profile(trainer.getTrainer_profile());
+		
+		
+		return trainer2;
+	}
 }

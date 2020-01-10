@@ -90,7 +90,7 @@ td:not(.info) {
 <div class="form-inline text-center">
 	<form action="/answer/write" method="post" enctype="multipart/form-data">
 <%-- 	<input type="text" size="10" class="form-control" id="commentWriter" value="${usernick }" readonly="readonly"/> --%>
-	<input type="text" name="qna_no" value="${view.qna_no }" hidden="hidden" >
+	<input type="text" name="qna.qna_no" value="${view.qna_no }" hidden="hidden" >
 	<textarea rows="2" cols="60" class="form-control" id="answer" name="qna_answer_content"></textarea>
 	<input type="file" name="file">
 	<button class="btn btn-defualt">입력</button>
@@ -110,7 +110,7 @@ td:not(.info) {
 </thead>
 <tbody id="answerBody">
 <tr>
-	<td style="width: 10%;">${answer.trainer_name }</td>
+	<td style="width: 10%;">${answer.trainer.user.user_name }</td>
 	<td style="width: 70%;">${answer.qna_answer_content }</td>
 	<td style="width: 20%;">${answer.qna_answer_date }</td>
 </tr>
