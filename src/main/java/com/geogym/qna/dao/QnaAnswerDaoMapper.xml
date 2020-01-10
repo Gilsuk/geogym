@@ -8,7 +8,7 @@
 	<insert id="writeAnswer"
 		parameterType="com.geogym.qna.dto.QnaAnswer">
 		INSERT INTO qna_answer VALUES (#{qna_answer_no},
-		#{qna_no}, 1,
+		#{qna.qna_no}, #{trainer.trainer_no},
 		#{qna_answer_content}, datetime('now','localtime'))
 	</insert>
 
@@ -19,4 +19,7 @@
 		'trainer.trainer_no', qna_answer_content, qna_answer_date,
 		qna_answer_date FROM qna_answer WHERE qna_no = #{qna_no}
 	</select>
+	<delete id="delete" parameterType="com.geogym.qna.dto.QnaAnswer">
+		delete from qna_answer where qna_answer_no = #{qna_answer_no}
+	</delete>
 </mapper>

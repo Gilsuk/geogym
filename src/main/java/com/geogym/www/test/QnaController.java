@@ -142,9 +142,6 @@ public class QnaController {
 		return "/qna/view";
 	}
 
-	public void view() {
-
-	}
 
 	@RequestMapping(value = "/qna/update", method = RequestMethod.GET)
 	public void update(Model model, Qna qna) {
@@ -193,6 +190,7 @@ public class QnaController {
 
 			qnaAnswer.setQna_answer_no(sequenceService.getNextVal(Table.QNA_ANSWER));
 
+			System.out.println(qnaAnswer);
 			qnaAnswerService.writeAnswer(qnaAnswer);
 
 			fileService.fileUpload(files, qnaAnswer);
@@ -233,6 +231,23 @@ public class QnaController {
 		mav.setViewName("down");
 
 		return mav;
+	}
+	
+	@RequestMapping(value = "/answer/delete", method = RequestMethod.GET)
+	public void AnswerDelete(QnaAnswer answer, HttpServletResponse response) {
+		System.out.println(answer);
+		qnaAnswerService.answerDelete(answer);
+
+		PrintWriter out;
+		try {
+			response.setContentType("text/html; charset=UTF-8");
+			out = response.getWriter();
+			out.println("<script>alert('삭제되었습니다.'); location.href='/qna/list';</script>");
+			out.flush();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
 	}
 
 }

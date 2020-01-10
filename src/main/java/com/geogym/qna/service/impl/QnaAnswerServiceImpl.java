@@ -3,6 +3,7 @@ package com.geogym.qna.service.impl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.geogym.attachment.service.AttachmentService;
 import com.geogym.qna.dao.QnaAnswerDao;
 import com.geogym.qna.dto.Qna;
 import com.geogym.qna.dto.QnaAnswer;
@@ -24,9 +25,12 @@ public class QnaAnswerServiceImpl implements QnaAnswerService {
 	TrainerService trainerService;
 	@Autowired
 	UserService userService;
+	@Autowired
+	AttachmentService attachmentService;
 
 	@Override
 	public void writeAnswer(QnaAnswer qnaAnswer) {
+		System.out.println("1");
 		qnaAnswerDao.writeAnswer(qnaAnswer);
 	}
 
@@ -35,13 +39,23 @@ public class QnaAnswerServiceImpl implements QnaAnswerService {
 
 		QnaAnswer answer = qnaAnswerDao.selectAnswerByQnaNo(qna);
 		Trainer trainer = new Trainer() ;
-		trainer.setTrainer_no(answer.getTrainer().getTrainer_no());
+		if (answer != null) {
+			trainer.setTrainer_no(answer.getTrainer().getTrainer_no());
+			answer.setTrainer(trainerService.getTrainer2(trainer));			
+			answer.setQna(qnaService.view(answer.getQna()));
+		}
 		
-		answer.setQna(qnaService.view(answer.getQna()));
-		answer.setTrainer(trainerService.getTrainer2(trainer));
 		
 		return answer;
 
+	}
+
+	@Override
+	public void answerDelete(QnaAnswer answer) {
+		// TODO Auto-generated method stub
+		attachmentService.removeAllAttachments(answer);
+		qnaAnswerDao.delete(answer);
+		
 	}
 
 }

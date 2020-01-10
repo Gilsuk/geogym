@@ -92,7 +92,7 @@ td:not(.info) {
 <%-- 	<input type="text" size="10" class="form-control" id="commentWriter" value="${usernick }" readonly="readonly"/> --%>
 	<input type="text" name="qna.qna_no" value="${view.qna_no }" hidden="hidden" >
 	<textarea rows="2" cols="60" class="form-control" id="answer" name="qna_answer_content"></textarea>
-	<input type="file" name="file">
+	<input multiple="multiple" type="file" name="file">
 	<button class="btn btn-defualt">입력</button>
 	</form>
 </div>	<!-- 댓글 입력 end -->
@@ -104,15 +104,17 @@ td:not(.info) {
 <thead>
 <tr>
 	<th style="width: 10%;">작성자</th>
-	<th style="width: 70%;">답변</th>
+	<th style="width: 60%;">답변</th>
 	<th style="width: 20%;">작성일</th>
+	<th style="width: 10%;"></th>
 </tr>
 </thead>
 <tbody id="answerBody">
 <tr>
 	<td style="width: 10%;">${answer.trainer.user.user_name }</td>
-	<td style="width: 70%;">${answer.qna_answer_content }</td>
+	<td style="width: 60%;">${answer.qna_answer_content }</td>
 	<td style="width: 20%;">${answer.qna_answer_date }</td>
+	<td style="width: 10%;"><a href="/answer/delete?qna_answer_no=${answer.qna_answer_no }"><button>삭제</button></a> </td>
 </tr>
 </tbody>
 </table>	<!-- 댓글 리스트 end -->
