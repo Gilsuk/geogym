@@ -25,6 +25,14 @@ public interface QnaAnswerService {
 	 */
 	public QnaAnswer viewAnswer(Qna qna);
 
+	/**
+	 * 답글 삭제
+	 * 
+	 * @param answer - QnaAnswer 의 QnaAnswer_no 를 가용
+	 */
+	public void answerDelete(QnaAnswer answer);
+
+
 
 
 }

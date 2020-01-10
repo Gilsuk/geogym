@@ -1,21 +1,19 @@
 package com.geogym.qna.dto;
 
-import java.time.LocalDate;
+import com.geogym.trainer.dto.Trainer2;
 
 public class QnaAnswer {
 
 	private int qna_answer_no; // 답글 번호
-	private int trainer_no; // 트레이너 번호
-	private String trainer_name; // 트레이너 이름
-	private int qna_no; // qna 번호
+	private Trainer2 trainer; // 트레이너 번호
+	private Qna qna; // qna 번호
 	private String qna_answer_content; // 본문내용
 	private String qna_answer_date; // 등록일시
 
 	@Override
 	public String toString() {
-		return "QnaAnswer [qna_answer_no=" + qna_answer_no + ", trainer_no=" + trainer_no + ", trainer_name="
-				+ trainer_name + ", qna_no=" + qna_no + ", qna_answer_content=" + qna_answer_content
-				+ ", qna_answer_date=" + qna_answer_date + "]";
+		return "QnaAnswer [qna_answer_no=" + qna_answer_no + ", trainer=" + trainer + ", qna=" + qna
+				+ ", qna_answer_content=" + qna_answer_content + ", qna_answer_date=" + qna_answer_date + "]";
 	}
 
 	public int getQna_answer_no() {
@@ -26,28 +24,20 @@ public class QnaAnswer {
 		this.qna_answer_no = qna_answer_no;
 	}
 
-	public int getTrainer_no() {
-		return trainer_no;
+	public Trainer2 getTrainer() {
+		return trainer;
 	}
 
-	public void setTrainer_no(int trainer_no) {
-		this.trainer_no = trainer_no;
+	public void setTrainer(Trainer2 trainer) {
+		this.trainer = trainer;
 	}
 
-	public String getTrainer_name() {
-		return trainer_name;
+	public Qna getQna() {
+		return qna;
 	}
 
-	public void setTrainer_name(String trainer_name) {
-		this.trainer_name = trainer_name;
-	}
-
-	public int getQna_no() {
-		return qna_no;
-	}
-
-	public void setQna_no(int qna_no) {
-		this.qna_no = qna_no;
+	public void setQna(Qna qna) {
+		this.qna = qna;
 	}
 
 	public String getQna_answer_content() {
