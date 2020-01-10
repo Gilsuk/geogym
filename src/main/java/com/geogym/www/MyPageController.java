@@ -79,6 +79,7 @@ public class MyPageController {
 		
 		model.addAttribute("isTrainer", isTrainer);
 		model.addAttribute("isManager", isManager);
+		model.addAttribute("user", user);
 		
 		model.addAttribute("list", list);
 	}

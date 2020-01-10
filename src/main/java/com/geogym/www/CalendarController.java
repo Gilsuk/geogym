@@ -219,7 +219,7 @@ public class CalendarController {
 		model.addAttribute("prevMonth",
 				"/calendar/memolist?&user_no=" + user.getUser_no() + "&date=" + date.minusMonths(1));
 		model.addAttribute("curMonth", date);
-		model.addAttribute("user_no", user.getUser_no());
+		model.addAttribute("user", user);
 		model.addAttribute("viewLink", "/calendar/viewmemo?user_no=" + user.getUser_no());
 		model.addAttribute("pageName", "memo");
 		
@@ -274,7 +274,7 @@ public class CalendarController {
 		model.addAttribute("prevMonth",
 				"/calendar/PT/schedule?&user_no=" + user.getUser_no() + "&date=" + date.minusMonths(1));
 		model.addAttribute("curMonth", date);
-		model.addAttribute("user_no", user.getUser_no());
+		model.addAttribute("user", user);
 		model.addAttribute("viewLink", "/calendar/viewmemo?user_no=" + user.getUser_no());
 		model.addAttribute("pageName", "PT");
 		
