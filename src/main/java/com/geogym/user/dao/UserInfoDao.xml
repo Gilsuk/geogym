@@ -49,4 +49,9 @@
 		SELECT user_no,user_name,user_gender,user_birth,user_email FROM user
 		WHERE user_id = #{user_id}
 	</select>
+
+	<insert id="insertSocialUser" parameterType="hashmap">
+		INSERT INTO social_user (user_no, social_no, social_user_key)
+		VALUES (${user_no}, ${social_no}, #{id_token})
+	</insert>
 </mapper>

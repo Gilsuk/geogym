@@ -12,12 +12,12 @@
 
 		$(".btn-ajax").on("click", function() {
 			$.ajax({
-				url : "/user/join/google",
+				url : "/user/join/google/proc",
 				data : {
 					user_id : $("#user_id").val(),
 					user_pw : $("#user_pw").val(),
 					user_name : $("#user_name").val(),
-					user_gender : $("#user_gender").val(),
+					user_gender : $("input[name='user_gender']:checked").val(),
 					user_birth : $("#user_birth").val(),
 					user_tel : $("#user_tel").val(),
 					user_email : $("#user_email").val(),
@@ -29,7 +29,10 @@
 				if (data == true) {
 					window.location.replace(window.location.href);
 				}
-			})
+			}).fail(function(data) {
+				
+				console.log(data);
+			});
 
 			return false;
 		})
@@ -61,12 +64,12 @@
 					</div>
 					<div class="custom-control custom-radio custom-control-inline">
 						<input class="custom-control-input" type="radio"
-							id="user_gender_m" name="user_gender" value="M" checked="checked">
+							id="user_gender_m" name="user_gender" value="M" checked="checked" />
 						<label class="custom-control-label" for="user_gender_m">남자</label>
 					</div>
 					<div class="custom-control custom-radio custom-control-inline">
 						<input class="custom-control-input" type="radio"
-							id="user_gender_f" name="user_gender" value="F"> <label
+							id="user_gender_f" name="user_gender" value="F" /> <label
 							class="custom-control-label" for="user_gender_f">여자</label>
 					</div>
 
@@ -82,7 +85,7 @@
 							for="user_tel">전화번호</label>
 					</div>
 
-					<input type="text" id="id_token" hidden="${id_token }" name="id_token" required />
+					<input type="text" id="id_token" name="id_token" value="${id_token }" hidden="hidden" required />
 
 					<div class="form-label-group">
 						<input class="form-control" type="email"

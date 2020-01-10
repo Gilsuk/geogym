@@ -17,10 +17,10 @@
 					user_id : $("#user_id").val(),
 					user_pw : $("#user_pw").val(),
 					user_name : $("#user_name").val(),
-					user_gender : $("#user_gender").val(),
+					user_gender : $("input[name='user_gender']:checked").val(),
 					user_birth : $("#user_birth").val(),
 					user_tel : $("#user_tel").val(),
-					user_email : $("#user_email").val(),
+					user_email : $("#user_email").val()
 				},
 				method : "POST",
 				dataType : "json"

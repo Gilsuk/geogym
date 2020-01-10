@@ -67,6 +67,19 @@ public class UserController {
 		return "/user/google";
 	}
 
+	@RequestMapping(value = "/user/join/google/proc")
+	public String googleJoinProc(Model model, String id_token, User user) {
+		
+		try {
+			userServ.join(user);
+			userServ.linkSocial(userServ.getUserByUserid(user), id_token, Social.GOOGLE);
+		} catch (ParamIncorrectException e) { } catch (UserNotFoundException e) {
+			e.printStackTrace();
+		}
+		
+		return "/user/google";
+	}
+
 	@ResponseBody
 	@RequestMapping(value = "/ajax/user/join", method = RequestMethod.POST)
 	public boolean join(User user) {

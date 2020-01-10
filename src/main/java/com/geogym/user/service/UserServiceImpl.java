@@ -1,5 +1,8 @@
 package com.geogym.user.service;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -131,6 +134,16 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public void login(String id_token, Social google) throws UserNotFoundException {
 		
+	}
+
+	@Override
+	public void linkSocial(User user, String id_token, Social google) {
+		Map<String, String> map = new HashMap<>();
+		map.put("user_no", String.valueOf(user.getUser_no()));
+		map.put("id_token", id_token);
+		map.put("social_no", String.valueOf(google.getValue()));
+		
+		dao.insertSocialUser(map);
 	}
 
 }

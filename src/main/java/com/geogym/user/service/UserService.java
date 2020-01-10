@@ -45,5 +45,7 @@ public interface UserService {
 	void setUserToSession(User user);
 
 	void login(String id_token, Social google) throws UserNotFoundException;
+
+	void linkSocial(User user, String id_token, Social google);
 	
 }
