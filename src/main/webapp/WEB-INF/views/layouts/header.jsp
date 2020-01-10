@@ -101,6 +101,7 @@
 					</c:if>
 					<li class="nav-item"><a class="nav-link" href="/trainer/list">트레이너</a></li>
 					<li class="nav-item"><a class="nav-link" href="/qna/list">QnA</a></li>
+					<li class="nav-item"><a class="nav-link" href="/static/map">소개</a></li>
 					<c:if test="${not empty loggedInUser }">
 <!-- 					<li class="nav-item"><a class="nav-link" href="/admin/main">관리자</a></li> -->
 					<li class="nav-item"><a class="nav-link disabled" href="#"
