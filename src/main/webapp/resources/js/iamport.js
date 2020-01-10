@@ -29,7 +29,7 @@ $(document).ready(function() {
 		    m_redirect_url : domain + '/payment/complete'
 		}, function(rsp) {
 		    if ( rsp.success ) {
-		    	window.location.href = '/payment/complete/' + rsp.ump_uid;
+		    	window.location.href = '/payment/complete/' + rsp.imp_uid;
 		    } else {
 		        var url = '/payment/fail';
 		        var form = $('<form action="' + url + '" method="post">' +
