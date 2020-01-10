@@ -111,9 +111,6 @@
 				</ul>
 				
 				<form class="form-inline mt-2 mt-md-0">
-					<input class="form-control mr-sm-2" type="text"
-						placeholder="종합검색" aria-label="Search">
-					<button class="btn btn-outline-success my-2 my-sm-0" type="submit">검색</button>
 					<c:if test="${not empty loggedInUser }">
 						<button id="messageButton" type="button" class="btn my-2 my-sm-0">
 							알림 <span id="messageCount" class="badge badge-light"></span>
