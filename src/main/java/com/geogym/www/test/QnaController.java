@@ -11,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -24,6 +25,8 @@ import com.geogym.qna.dto.QnaAnswer;
 import com.geogym.qna.service.face.QnaAnswerService;
 import com.geogym.qna.service.face.QnaService;
 import com.geogym.user.dto.User;
+import com.geogym.user.exception.UserNotFoundException;
+import com.geogym.user.service.UserService;
 
 @Controller
 public class QnaController {
@@ -34,6 +37,8 @@ public class QnaController {
 	private QnaAnswerService qnaAnswerService;
 	@Autowired
 	private AttachmentService fileService;
+	@Autowired
+	private UserService userService;
 
 	// 시퀀스를 사용하기 위해 미리 준비해놓는 서비스 객체
 	@Autowired
@@ -56,22 +61,37 @@ public class QnaController {
 
 	// 질문글 작성(유저)
 	@RequestMapping(value = "/qna/write", method = RequestMethod.GET)
-	public void write() {
+	public String write() {
+		try {
+			userService.getLoggedInUser();
+		} catch (UserNotFoundException e) {
+			// TODO Auto-generated catch block
+			return "redirect:/user/login";
+		}
+		return null;
 	}
 
 	@RequestMapping(value = "/qna/write", method = RequestMethod.POST)
-	public String write(MultipartFile file, Qna qna, boolean qna_isprivate) {
+	public String write(@RequestParam("file") MultipartFile[] files, Qna qna, boolean qna_isprivate) {
 		qna.setQna_isprivate(qna_isprivate);
 
+		User user = new User();
 		// 작성자 추가하기 (추가할 부분)
+		try {
+			user = userService.getLoggedInUser();
+		} catch (UserNotFoundException e) {
+			// TODO Auto-generated catch block
+			return "redirect:/user/login";
+		}
+		
 
 		// 시퀀스 넥스트벨 가져오기
 		int no = sequenceService.getNextVal(Table.QNA);
 
 		qna.setQna_no(no);
+		qna.setUser(user);
+		System.out.println("qna : " + qna);
 
-		MultipartFile[] files = new MultipartFile[1];
-		files[0] = file;
 
 		qnaService.write(qna);
 
@@ -82,7 +102,20 @@ public class QnaController {
 
 	// 질문글 작성(트레이너)
 	@RequestMapping(value = "/qna/writeAnswer", method = RequestMethod.GET)
-	public void writeAnswer() {
+	public String writeAnswer() {
+		try {
+			User user = userService.getLoggedInUser();
+			if (userService.isTrainer(user)) {
+				return null;
+
+			}else {
+				return "redirect:/";
+
+			}
+		} catch (UserNotFoundException e) {
+			// TODO Auto-generated catch block
+			return "redirect:/user/login";
+		}		
 	}
 
 	@RequestMapping(value = "/qna/view", method = RequestMethod.GET)
