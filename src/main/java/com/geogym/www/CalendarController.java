@@ -91,7 +91,19 @@ public class CalendarController {
 		} catch (NotWorkinDayException e) {
 		}
 		
+		List<LocalDate> week = scheduleService.getTwoWeek(date);
+		
+//		List<Integer> dayList = new ArrayList<Integer>();
+		
+//		for(int i = 0; i < week.size(); i++ ) {
+//			dayList.add(week.get(i).getDayOfMonth());
+//		}
+		
+		logger.info(week.toString());
+		
 		model.addAttribute("day", date);
+		model.addAttribute("week", week);
+//		model.addAttribute("dayList", dayList);
 		model.addAttribute("list", list);
 		model.addAttribute("user_no", user.getUser_no());
 		model.addAttribute("trainer_no", trainer.getTrainer_no());
@@ -219,7 +231,7 @@ public class CalendarController {
 		model.addAttribute("prevMonth",
 				"/calendar/memolist?&user_no=" + user.getUser_no() + "&date=" + date.minusMonths(1));
 		model.addAttribute("curMonth", date);
-		model.addAttribute("user_no", user.getUser_no());
+		model.addAttribute("user", user);
 		model.addAttribute("viewLink", "/calendar/viewmemo?user_no=" + user.getUser_no());
 		model.addAttribute("pageName", "memo");
 		
@@ -274,7 +286,7 @@ public class CalendarController {
 		model.addAttribute("prevMonth",
 				"/calendar/PT/schedule?&user_no=" + user.getUser_no() + "&date=" + date.minusMonths(1));
 		model.addAttribute("curMonth", date);
-		model.addAttribute("user_no", user.getUser_no());
+		model.addAttribute("user", user);
 		model.addAttribute("viewLink", "/calendar/viewmemo?user_no=" + user.getUser_no());
 		model.addAttribute("pageName", "PT");
 		

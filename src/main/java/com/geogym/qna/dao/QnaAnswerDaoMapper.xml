@@ -3,13 +3,23 @@
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-  
+
 <mapper namespace="com.geogym.qna.dao.QnaAnswerDao">
-	<insert id="writeAnswer" parameterType="com.geogym.qna.dto.QnaAnswer">
-	INSERT INTO qna_answer VALUES (#{qna_answer_no}, #{qna_no}, 1, #{qna_answer_content}, datetime('now','localtime'))
+	<insert id="writeAnswer"
+		parameterType="com.geogym.qna.dto.QnaAnswer">
+		INSERT INTO qna_answer VALUES (#{qna_answer_no},
+		#{qna.qna_no}, #{trainer.trainer_no},
+		#{qna_answer_content}, datetime('now','localtime'))
 	</insert>
-	
-	<select id="selectAnswerByQnaNo" parameterType="com.geogym.qna.dto.Qna" resultType="com.geogym.qna.dto.QnaAnswer">
-	SELECT qna_answer_no, qna_no, user_name AS trainer_name, qna_answer_content, qna_answer_date, qna_answer_date FROM qna_answer, user WHERE qna_answer.trainer_no = user.user_no AND qna_no = #{qna_no}
+
+	<select id="selectAnswerByQnaNo"
+		parameterType="com.geogym.qna.dto.Qna"
+		resultType="com.geogym.qna.dto.QnaAnswer">
+		SELECT qna_answer_no, qna_no as 'qna.qna_no', trainer_no as
+		'trainer.trainer_no', qna_answer_content, qna_answer_date,
+		qna_answer_date FROM qna_answer WHERE qna_no = #{qna_no}
 	</select>
+	<delete id="delete" parameterType="com.geogym.qna.dto.QnaAnswer">
+		delete from qna_answer where qna_answer_no = #{qna_answer_no}
+	</delete>
 </mapper>

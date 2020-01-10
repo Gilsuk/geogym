@@ -102,6 +102,17 @@ public interface TrainerService {
 	 */
 	Trainer getTrainer(Trainer trainer);
 	
+	/**
+	 * 트레이너 정보 조회
+	 * 트레이너 정보 불러오기
+	 * 트레이너의 상세정보 조회 시 사용한다
+	 * user_no 대신 user를 이너 dto 로 사용한다
+	 * 
+	 * @param trainer - 트레이너 ID 혹은 트레이너 번호를 기준으로 한다
+	 * @return	Trainer - 트레이너 DTO 를 불러온다
+	 */
+	Trainer2 getTrainer2(Trainer trainer);
+	
 
 	
 	/**

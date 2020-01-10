@@ -113,4 +113,7 @@ public interface ScheduleService {
 	List<Schedule> getAttendance(Trainer trainer, LocalDate date);
 
 	void insertWorkHour(Attendance attendance);
+
+	List<LocalDate> getTwoWeek(LocalDate date);
+
 }

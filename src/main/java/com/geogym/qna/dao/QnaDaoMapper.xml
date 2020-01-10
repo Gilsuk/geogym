@@ -3,59 +3,81 @@
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-  
+
 <mapper namespace="com.geogym.qna.dao.QnaDao">
-	<select id="selectCntAll" parameterType="com.geogym.qna.dto.Paging" resultType="int">
-	SELECT count(*) FROM qna WHERE 1 = 1
-	<if test="search != null and search != ''">
-	<choose>
-		<when test="categoryNo == 2">
-		AND qna_content LIKE '%' || #{search} || '%'
-		</when>
-		<when test="categoryNo == 3">
-		AND qna_title LIKE '%' || #{search} || '%'
-		OR qna_content LIKE '%' || #{search} || '%'
-		</when>
-		<otherwise>
-		AND qna_title LIKE '%' || #{search} || '%'
-		</otherwise>
-	</choose>
-	</if>
+	<select id="selectCntAll"
+		parameterType="com.geogym.qna.dto.Paging" resultType="int">
+		SELECT count(*) FROM qna WHERE 1 = 1
+		<if test="search != null and search != ''">
+			<choose>
+				<when test="categoryNo == 2">
+					AND qna_content LIKE '%' || #{search} || '%'
+				</when>
+				<when test="categoryNo == 3">
+					AND qna_title LIKE '%' || #{search} || '%'
+					OR
+					qna_content LIKE '%' || #{search} || '%'
+				</when>
+				<otherwise>
+					AND qna_title LIKE '%' || #{search} || '%'
+				</otherwise>
+			</choose>
+		</if>
 	</select>
-	
-	<select id="selectAll" parameterType="com.geogym.qna.dto.Paging" resultType="com.geogym.qna.dto.Qna">
-	SELECT qna.*, (SELECT user_name FROM user WHERE qna.user_no = user_no) AS user_name FROM qna WHERE 1 = 1
-	<if test="search != null and search != ''">
-	<choose>
-		<when test="categoryNo == 2">
-		AND qna_content LIKE '%' || #{search} || '%'
-		</when>
-		<when test="categoryNo == 3">
-		AND qna_title LIKE '%' || #{search} || '%'
-		OR qna_content LIKE '%' || #{search} || '%'
-		</when>
-		<otherwise>
-		AND qna_title LIKE '%' || #{search} || '%'
-		</otherwise>
-	</choose>
-	</if>
-	Order by qna_no DESC limit 10 offset #{startNo } - 1
+
+	<select id="selectAll" parameterType="com.geogym.qna.dto.Paging"
+		resultType="com.geogym.qna.dto.Qna">
+		SELECT q.qna_no, q.qna_title, q.qna_content, q.qna_date,
+		q.qna_isprivate, u.user_no as 'user.user_no', u.user_name as
+		'user.user_name', u.user_gender as 'user.user_gender',u.user_birth as
+		'user.user_birth', u.user_tel as 'user.user_tel',u.user_id as
+		'user.user_id', u.user_pw as 'user.user_pw', u.user_email as
+		'user.user_email' FROM qna q , user u WHERE u.user_no = q.user_no
+		<if test="search != null and search != ''">
+			<choose>
+				<when test="categoryNo == 2">
+					AND qna_content LIKE '%' || #{search} || '%'
+				</when>
+				<when test="categoryNo == 3">
+					AND qna_title LIKE '%' || #{search} || '%'
+					OR
+					qna_content LIKE '%' || #{search} || '%'
+				</when>
+				<otherwise>
+					AND qna_title LIKE '%' || #{search} || '%'
+				</otherwise>
+			</choose>
+		</if>
+		Order by qna_no DESC limit 10 offset #{startNo } - 1
 	</select>
-	
-	<select id="selectQnaByQnaNo" parameterType="com.geogym.qna.dto.Qna" resultType="com.geogym.qna.dto.Qna">
-	SELECT qna.*, (SELECT user_name FROM user WHERE qna.user_no = user_no) AS user_name FROM qna WHERE qna_no = #{qna_no}
+
+	<select id="selectQnaByQnaNo"
+		parameterType="com.geogym.qna.dto.Qna"
+		resultType="com.geogym.qna.dto.Qna">
+		SELECT q.qna_no, q.qna_title, q.qna_content, q.qna_date,
+		q.qna_isprivate, u.user_no as 'user.user_no', u.user_name as
+		'user.user_name', u.user_gender as 'user.user_gender',u.user_birth as
+		'user.user_birth', u.user_tel as 'user.user_tel',u.user_id as
+		'user.user_id', u.user_pw as 'user.user_pw', u.user_email as
+		'user.user_email' FROM qna q , user u WHERE u.user_no = q.user_no
+		and qna_no = #{qna_no}
 	</select>
-	
+
 	<update id="update" parameterType="com.geogym.qna.dto.Qna">
-	UPDATE qna SET qna_title = #{qna_title}, qna_content = #{qna_content} WHERE qna_no = #{qna_no}
+		UPDATE qna SET qna_title =
+		#{qna_title}, qna_content = #{qna_content} WHERE
+		qna_no = #{qna_no}
 	</update>
-	
+
 	<delete id="delete" parameterType="com.geogym.qna.dto.Qna">
-	DELETE FROM qna WHERE qna_no = #{qna_no}
+		DELETE FROM qna WHERE qna_no =
+		#{qna_no}
 	</delete>
-	
+
 	<insert id="write" parameterType="com.geogym.qna.dto.Qna">
-	INSERT INTO qna VALUES (#{qna_no}, 1, #{qna_title}, #{qna_content}, datetime('now','localtime'), #{qna_isprivate})
+		INSERT INTO qna VALUES
+		(#{qna_no}, #{user.user_no}, #{qna_title}, #{qna_content},
+		datetime('now','localtime'), #{qna_isprivate})
 	</insert>
 
 </mapper>

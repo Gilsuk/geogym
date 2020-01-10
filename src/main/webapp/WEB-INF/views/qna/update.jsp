@@ -39,7 +39,7 @@ $(document).ready(function() {
 
 	<div class="form-group">
 		<label for="writer">작성자</label>
-		<input type="text" id="writer" value="${view.user_name }" readonly="readonly" class="form-control"/>
+		<input type="text" id="writer" value="${view.user.user_name }" readonly="readonly" class="form-control"/>
 	</div>
 	<div class="form-group">
 		<label for="title">제목</label>

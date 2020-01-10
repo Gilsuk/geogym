@@ -195,19 +195,19 @@ public class BodyController {
 		return "redirect:/info/bodyinfo";
 	}
 	
-	@RequestMapping(value="/info/uploadBMI")
-	public void uploadBMI(BodyInfo bodyinfo, Model model) {
+	@RequestMapping(value="/info/uploadinbody")
+	public void uploadinbody(BodyInfo bodyinfo, Model model) {
 		
-		logger.info("BMI 사진 첨부 접근");
+		logger.info("inbody 사진 첨부 접근");
 
 		model.addAttribute("bodyinfo_no", bodyinfo.getBodyinfo_no());
 		
 	}
 	
-	@RequestMapping(value="/info/uploadBMIProc", method=RequestMethod.POST)
-	public String uploadBMI(BodyInfo bodyinfoAttachment, MultipartFile file) {
+	@RequestMapping(value="/info/uploadinbodyProc", method=RequestMethod.POST)
+	public String uploadinbody(BodyInfo bodyinfoAttachment, MultipartFile file) {
 		
-		logger.info("BMI 사진 첨부 절차 접근");
+		logger.info("인바디 사진 첨부 절차 접근");
 		bodyinfoAttachment.setBodyinfo_no(bodyinfoAttachment.getBodyinfo_no());
 		logger.info(bodyinfoAttachment.toString());
 		
@@ -290,16 +290,16 @@ public class BodyController {
 		
 	}
 	
-	@RequestMapping(value="/info/BMI", method=RequestMethod.GET)
-	public void BMI(BodyInfo bodyinfo, Model model) {
+	@RequestMapping(value="/info/inbody", method=RequestMethod.GET)
+	public void inbody(BodyInfo bodyinfo, Model model) {
 		
-		logger.info("BMI 정보 보기");
+		logger.info("inbody 정보 보기");
 		logger.info(bodyinfo.toString());
 		
-		List<Attachment> BMI = attachmentService.getAttachments(bodyinfo);
-		logger.info(BMI.toString());
+		List<Attachment> inbody = attachmentService.getAttachments(bodyinfo);
+		logger.info(inbody.toString());
 		
-		model.addAttribute("BMI", BMI);
+		model.addAttribute("inbody", inbody);
 		
 	}
 }

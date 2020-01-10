@@ -19,7 +19,7 @@
   </c:if>
   <c:if test="${isManager }">
 	  <li class="nav-item">
-	    <a class="nav-link" href="#">관리자</a>
+	    <a class="nav-link" href="/test/setbusinessday">관리자</a>
 	  </li>
   </c:if>
 </ul>

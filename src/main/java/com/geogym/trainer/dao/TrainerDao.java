@@ -140,4 +140,6 @@ public interface TrainerDao {
 	 */
 	Trainer selectTrainernoByUserno(User user);
 
+
+
 }

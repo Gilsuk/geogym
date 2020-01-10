@@ -22,55 +22,47 @@ $(document).ready(function(){
 <script type="text/javascript">
 
 	$(document).on('click','#inputBodyInfo', function(){
+			
+		var popupX = (window.screen.width / 2) - (400 / 2);
+		// 만들 팝업창 좌우 크기의 1/2 만큼 보정값으로 빼주었음
+
+		var popupY= (window.screen.height /2) - (580 / 2);
+		// 만들 팝업창 상하 크기의 1/2 만큼 보정값으로 빼주었음
 		
-		var popupX = (window.screen.width / 2) - (400 / 2);
-		// 만들 팝업창 좌우 크기의 1/2 만큼 보정값으로 빼주었음
-
-		var popupY= (window.screen.height /2) - (580 / 2);
-		// 만들 팝업창 상하 크기의 1/2 만큼 보정값으로 빼주었음
-
-		window.open('http://localhost:8090/info/inputBodyInfo', 'window', 'status=no, height=580, width=400, left='+ popupX + ', top='+ popupY + ', screenX='+ popupX + ', screenY= '+ popupY);
+		
+			window.name="inputBodyinfo.do";
+			
+			window.open('http://localhost:8090/info/inputBodyInfo', 'window', 'status=no, height=580, width=400, left='+ popupX + ', top='+ popupY + ', screenX='+ popupX + ', screenY= '+ popupY);
+			
+		
 	
-		self.close();
-	});
-	
-</script>
-<script type="text/javascript">
-
-	$(document).on('click','#uploadProfile', function(){
-
-		var popupX = (window.screen.width / 2) - (400 / 2);
-		// 만들 팝업창 좌우 크기의 1/2 만큼 보정값으로 빼주었음
-
-		var popupY= (window.screen.height /2) - (580 / 2);
-		// 만들 팝업창 상하 크기의 1/2 만큼 보정값으로 빼주었음
-
-		window.open('http://localhost:8090/info/uploadProfile', 'window', 'status=no, height=580, width=400, left='+ popupX + ', top='+ popupY + ', screenX='+ popupX + ', screenY= '+ popupY);
-	
-		self.close();
-	});
-	
-</script>
-<script type="text/javascript">
-
-	$(document).on('click','#uploadBMI', function(){
-
-		var popupX = (window.screen.width / 2) - (400 / 2);
-		// 만들 팝업창 좌우 크기의 1/2 만큼 보정값으로 빼주었음
-
-		var popupY= (window.screen.height /2) - (580 / 2);
-		// 만들 팝업창 상하 크기의 1/2 만큼 보정값으로 빼주었음
-
-		window.open('http://localhost:8090/info/uploadBMI?bodyinfo_no=${bodyInfo.bodyinfo_no}', 'window', 'status=no, height=580, width=400, left='+ popupX + ', top='+ popupY + ', screenX='+ popupX + ', screenY= '+ popupY);
-	
-		self.close();
+// 		self.close();
 	});
 	
 </script>
 
 <script type="text/javascript">
 
-	$(document).on('click','#BMI', function(){
+	$(document).on('click','#uploadinbody', function(){
+
+		var popupX = (window.screen.width / 2) - (400 / 2);
+		// 만들 팝업창 좌우 크기의 1/2 만큼 보정값으로 빼주었음
+
+		var popupY= (window.screen.height /2) - (580 / 2);
+		// 만들 팝업창 상하 크기의 1/2 만큼 보정값으로 빼주었음
+		
+		window.name="uploadinbody.do";
+		
+		window.open('http://localhost:8090/info/uploadinbody?bodyinfo_no=${bodyInfo.bodyinfo_no}', 'window', 'status=no, height=580, width=400, left='+ popupX + ', top='+ popupY + ', screenX='+ popupX + ', screenY= '+ popupY);
+	
+		window.close();
+	});
+	
+</script>
+
+<script type="text/javascript">
+
+	$(document).on('click','#inbody', function(){
 
 		var popupX = (window.screen.width / 2) - (1200 / 2);
 		// 만들 팝업창 좌우 크기의 1/2 만큼 보정값으로 빼주었음
@@ -78,7 +70,7 @@ $(document).ready(function(){
 		var popupY= (window.screen.height /2) - (1200 / 2);
 		// 만들 팝업창 상하 크기의 1/2 만큼 보정값으로 빼주었음
 
-		window.open('http://localhost:8090/info/BMI?bodyinfo_no=${bodyInfo.bodyinfo_no}', 'window', 'status=no, height=1200, width=1200, left='+ popupX + ', top='+ popupY + ', screenX='+ popupX + ', screenY= '+ popupY);
+		window.open('http://localhost:8090/info/inbody?bodyinfo_no=${bodyInfo.bodyinfo_no}', 'window', 'status=no, height=1200, width=1200, left='+ popupX + ', top='+ popupY + ', screenX='+ popupX + ', screenY= '+ popupY);
 	
 		self.close();
 	});
@@ -86,14 +78,26 @@ $(document).ready(function(){
 </script>
 
 <script type="text/javascript">
-function deleteInfo(){
+$(document).ready( function(){
+    $("#deleteInfo").click( function() {
+        if(confirm("정말 삭제하시겠습니까? 가장 최근에 입력한 데이터가 삭제됩니다.")) {
+			alert("삭제가 완료되었습니다.")	            
+			location.href="/info/delete?bodyinfo_no=${bodyInfo.bodyinfo_no}"
+        } else {
+        	alert("삭제를 취소하셨습니다.")
+            return false;
+        }
+    });
+});
+
+// function deleteInfo(){
 	
-	  /* confirm(문자열, 초기값) */
-	  var check = confirm("정말 삭제하시겠습니까? 가장 최근에 입력한 데이터가 삭제됩니다.");
-	  /* if(check == true) else false */
-	  if(check) alert("삭제가 완료되었습니다.");
-	  else alert("삭제를 취소하셨습니다.");
-	}
+// 	  /* confirm(문자열, 초기값) */
+// 	  var check = confirm("정말 삭제하시겠습니까? 가장 최근에 입력한 데이터가 삭제됩니다.");
+// 	  /* if(check == true) else false */
+// 	  if(check) alert("삭제가 완료되었습니다.");
+// 	  else alert("삭제를 취소하셨습니다.");
+// 	}
 </script>
 
 
@@ -119,7 +123,7 @@ function drawLineColors() {
         vAxis: {
           title: '단위: cm'
         },
-        width: 700,
+        width: $("#chartDiv").width(),
         height: 230
         
       };
@@ -156,7 +160,7 @@ function drawLineColors() {
         vAxis: {
           title: '단위: kg'
         },
-        width: 700,
+        width: $("#chartDiv").width(),
         height: 230
         
       };
@@ -188,7 +192,7 @@ function drawLineColors() {
         vAxis: {
           title: '단위: kg'
         },
-        width: 700,
+        width: $("#chartDiv").width(),
         height: 230
         
       };
@@ -276,8 +280,8 @@ function drawLineColors() {
 	<table style="text-align:center;width:325px">
 		<tr>
 			<td colspan="2">
-				<button id="uploadBMI">BMI사진첨부하기</button>
-				<button id="BMI">BMI 정보 보기</button>
+				<button id="uploadinbody">인바디첨부하기</button>
+				<button id="inbody">인바디 정보 보기</button>
 			<td></td>
 		</tr>
 		<tr>
@@ -312,13 +316,13 @@ function drawLineColors() {
 </div>
 	<br>
 
-<div class="col-8">
+<div class="col-8" id="chartDiv">
 <div>
 <form action="/info/bodyinfo" method="GET">
 	<button id="btnSelect" class="btn btn-primary" style="float:right">조회</button>
 	<select id="selectCondition" Style="float:right;height:38px;" name="select">
-		<option value="week">7일단위</option>
-		<option value="month">30일단위</option>
+		<option value="week" selected="${select eq 'week' ? 'selected' : '' }">7일단위</option>
+		<option value="month" selected="${select eq 'month' ? 'selected' : '' }">30일단위</option>
 	</select>
 </form>
 

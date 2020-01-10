@@ -92,5 +92,9 @@ public class UserController {
 
 	}
 	
+	@RequestMapping(value="/static/map")
+	public void map() {
+		
+	}
 
 }
