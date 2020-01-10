@@ -119,7 +119,7 @@ public class ScheduleTestController {
 	
 	// --- PT 스케줄 추가 ------------------------------------------------------
 	@RequestMapping(value="/test/setPTshedule")
-	public void setPTSchedule(
+	public String setPTSchedule(
 			Schedule schedule,
 			Trainer trainer,
 			User user) {
@@ -144,17 +144,25 @@ public class ScheduleTestController {
 			matchingService.match(user, schedule);
 		} catch (MatchingNotAvailable e1) {
 			// TODO Auto-generated catch block
-			e1.printStackTrace();
+			logger.info("매칭 실패함");
+			e1.printStackTrace();			
 		} catch (CashNotEnoughException e1) {
 			// TODO Auto-generated catch block
+			logger.info("돈 없음");
 			e1.printStackTrace();
 		} catch (AllTimeisUnavailable e1) {
 			// TODO Auto-generated catch block
+			logger.info("빈 시간 없음");
 			e1.printStackTrace();
 		} catch (NotWorkinDayException e1) {
 			// TODO Auto-generated catch block
+			logger.info("일하는 날 아님");
 			e1.printStackTrace();
 		}
+		
+		String string = "calendar/view/PTrequest?trainer_no="+trainer.getTrainer_no();
+		
+		return string;
 		
 //		try {
 //			scheduleService.setPTShcedule(user, schedule);

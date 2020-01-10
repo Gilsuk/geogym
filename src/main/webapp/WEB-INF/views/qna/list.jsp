@@ -58,7 +58,7 @@ td:nth-child(2) {
 	<tr>
 	<c:if test="${b.qna_isprivate }">
 		<td>${b.qna_no }</td>
-		<td>${b.user_name }</td>
+		<td>${b.user.user_name }</td>
 		<td><a href="/qna/view?qna_no=${b.qna_no }">${b.qna_title }</a></td>
 <%-- 		<fmt:parseDate value="${b.qna_date }" pattern="yyyy-MM-dd'T'HH:mm" var="parsedDateTime" type="both" /> --%>
 		<td>${b.qna_date }</td>
@@ -67,7 +67,7 @@ td:nth-child(2) {
 	</c:if>
 	<c:if test="${!b.qna_isprivate }">
 		<td>${b.qna_no }</td>
-		<td>${b.user_name }</td>
+		<td>${b.user.user_name }</td>
 		<td><span class="glyphicon glyphicon-eye-close" style="margin-right:2px;"></span>비공개</td>
 		<td>${b.qna_date }</td>
 	</c:if>
