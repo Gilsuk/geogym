@@ -61,11 +61,11 @@
 		</tr>
 		<tr>
 			<th><h3>골격근량</h3></th>
-			<td><input type="text" name="bodyinfo_fat" class="form-control" placeholder="kg"></td>
+			<td><input type="text" name="bodyinfo_muscle" class="form-control" placeholder="kg"></td>
 		</tr>
 		<tr>
 			<th><h3>체지방량</h3></th>
-			<td><input type="text" name="bodyinfo_muscle" class="form-control" placeholder="kg"></td>
+			<td><input type="text" name="bodyinfo_fat" class="form-control" placeholder="kg"></td>
 		</tr>
 	</table>
 	

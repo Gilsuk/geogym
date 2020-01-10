@@ -31,7 +31,8 @@ $(document).ready(function(){
 
 		window.name="uploadprofile.do";
 		
-		window.open('http://localhost:8090/info/uploadProfile?user_no=${user.user_no}','window','width=400, height=500');
+// 		window.open('http://localhost:8090/info/uploadProfile?user_no=${user.user_no}','window','width=400, height=500');
+		window.open('http://localhost:8090/info/uploadProfile?user_no=${user.user_no}', 'window', 'status=no, height=500, width=400, left='+ popupX + ', top='+ popupY + ', screenX='+ popupX + ', screenY= '+ popupY);
 		
 		self.close();
 	});
@@ -64,7 +65,7 @@ function drawLineColors() {
         vAxis: {
           title: '단위: cm'
         },
-        width: 700,
+        width: $("#chartDiv").width(),
         height: 230
         
       };
@@ -101,7 +102,7 @@ function drawLineColors() {
         vAxis: {
           title: '단위: kg'
         },
-        width: 700,
+        width: $("#chartDiv").width(),
         height: 230
         
       };
@@ -133,7 +134,7 @@ function drawLineColors() {
         vAxis: {
           title: '단위: kg'
         },
-        width: 700,
+        width: $("#chartDiv").width(),
         height: 230
         
       };
@@ -250,7 +251,8 @@ function drawLineColors() {
 </div>
 	<br>
 
-<div class="col-8">
+<div class="col-8" id="chartDiv">
+<div class="row">
 <div>
 <form action="/info/bodyinfo" method="GET">
 	<button id="btnSelect" class="btn btn-primary" style="float:right">조회</button>
@@ -259,10 +261,12 @@ function drawLineColors() {
 		<option value="month">30일단위</option>
 	</select>
 </form>
-
-	<button id="heightInfo" class="btn btn-primary" style="float:left">키 정보 보기</button>
 </div>
-	<div class="col">
+	<div>
+	<button id="heightInfo" class="btn btn-primary" style="float:left">키 정보 보기</button>
+	</div>
+</div>
+	<div class="col" id="chart-container">
   <div id="chart_div_height" style="display:none;float:right"></div>
   <div id="chart_div_weight" style="float:right"></div>
   <div id="chart_div_etc" style="float:right"></div>
