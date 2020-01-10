@@ -123,7 +123,7 @@ function drawLineColors() {
         vAxis: {
           title: '단위: cm'
         },
-        width: 700,
+        width: $("#chartDiv").width(),
         height: 230
         
       };
@@ -160,7 +160,7 @@ function drawLineColors() {
         vAxis: {
           title: '단위: kg'
         },
-        width: 700,
+        width: $("#chartDiv").width(),
         height: 230
         
       };
@@ -192,7 +192,7 @@ function drawLineColors() {
         vAxis: {
           title: '단위: kg'
         },
-        width: 700,
+        width: $("#chartDiv").width(),
         height: 230
         
       };
@@ -316,7 +316,7 @@ function drawLineColors() {
 </div>
 	<br>
 
-<div class="col-8">
+<div class="col-8" id="chartDiv">
 <div>
 <form action="/info/bodyinfo" method="GET">
 	<button id="btnSelect" class="btn btn-primary" style="float:right">조회</button>
