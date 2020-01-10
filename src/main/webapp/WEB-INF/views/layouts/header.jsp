@@ -100,12 +100,13 @@
 					<li class="nav-item"><a class="nav-link" href="/user/join">회원가입</a></li>
 					</c:if>
 					<li class="nav-item"><a class="nav-link" href="/trainer/list">트레이너</a></li>
+					<li class="nav-item"><a class="nav-link" href="/qna/list">QnA</a></li>
+					<li class="nav-item"><a class="nav-link" href="/static/map">소개</a></li>
 					<c:if test="${not empty loggedInUser }">
 <!-- 					<li class="nav-item"><a class="nav-link" href="/admin/main">관리자</a></li> -->		
 					<li class="nav-item"><a class="nav-link" href="/mypage/main">마이 페이지</a></li>
 					<li class="nav-item"><a class="nav-link" href="/user/logout">나가기</a></li>
 					</c:if>
-					<li class="nav-item"><a class="nav-link" href="/qna/list">QnA</a></li>
 				</ul>
 				
 				<form class="form-inline mt-2 mt-md-0">
