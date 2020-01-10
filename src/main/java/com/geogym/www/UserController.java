@@ -2,6 +2,7 @@ package com.geogym.www;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -9,6 +10,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.geogym.common.exception.ParamIncorrectException;
 import com.geogym.user.dto.LoginInfo;
 import com.geogym.user.dto.User;
+import com.geogym.user.enumeration.Social;
 import com.geogym.user.exception.UserNotFoundException;
 import com.geogym.user.service.UserService;
 
@@ -19,6 +21,19 @@ public class UserController {
 	
 	@RequestMapping(value = "/user/login",method = RequestMethod.GET)
 	public void loginForm() {
+	}
+
+	@ResponseBody
+	@RequestMapping(value = "/user/login/google")
+	public boolean loginByGoogle(String id_token) {
+
+		try {
+			userServ.login(id_token, Social.GOOGLE);
+			return false;
+		} catch (UserNotFoundException e) {
+			return false;
+		}
+		
 	}
 
 	@ResponseBody
@@ -40,6 +55,16 @@ public class UserController {
 	
 	@RequestMapping(value = "/user/join", method = RequestMethod.GET)
 	public void joinForm() {
+	}
+
+	@RequestMapping(value = "/user/join/google")
+	public String googleJoinForm(Model model, String id_token, String user_email, String user_name) {
+		
+		model.addAttribute("id_token", id_token);
+		model.addAttribute("user_email", user_email);
+		model.addAttribute("user_name", user_name);
+
+		return "/user/google";
 	}
 
 	@ResponseBody

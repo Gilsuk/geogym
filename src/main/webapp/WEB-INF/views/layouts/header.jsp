@@ -9,6 +9,7 @@
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="google-signin-client_id" content="123975318354-o9am10v465q0m9miruu3k86i75v90vnu.apps.googleusercontent.com">
 <title>GEOGYM</title>
 <!-- JQuery 3.4.1 -->
 <script src="https://code.jquery.com/jquery-3.4.1.min.js"

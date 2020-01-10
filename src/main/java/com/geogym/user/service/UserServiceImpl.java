@@ -10,6 +10,7 @@ import com.geogym.common.exception.ParamIncorrectException;
 import com.geogym.user.dao.UserInfoDao;
 import com.geogym.user.dto.LoginInfo;
 import com.geogym.user.dto.User;
+import com.geogym.user.enumeration.Social;
 import com.geogym.user.exception.CookieNotFoundException;
 import com.geogym.user.exception.UserNotFoundException;
 
@@ -125,6 +126,11 @@ public class UserServiceImpl implements UserService {
 			throw new UserNotFoundException();
 		
 		return selectedUser;
+	}
+
+	@Override
+	public void login(String id_token, Social google) throws UserNotFoundException {
+		
 	}
 
 }

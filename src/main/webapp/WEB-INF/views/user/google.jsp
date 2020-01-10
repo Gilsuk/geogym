@@ -12,7 +12,7 @@
 
 		$(".btn-ajax").on("click", function() {
 			$.ajax({
-				url : "/ajax/user/join",
+				url : "/user/join/google",
 				data : {
 					user_id : $("#user_id").val(),
 					user_pw : $("#user_pw").val(),
@@ -21,6 +21,7 @@
 					user_birth : $("#user_birth").val(),
 					user_tel : $("#user_tel").val(),
 					user_email : $("#user_email").val(),
+					id_token: $("#id_token").val()
 				},
 				method : "POST",
 				dataType : "json"
@@ -39,7 +40,7 @@
 	<div class="col-sm-9 col-md-7 col-lg-5 mx-auto">
 		<div class="card card-signin my-5">
 			<div class="card-body">
-				<h5 class="card-title text-center">회원가입</h5>
+				<h5 class="card-title text-center">처음이시군요?</h5>
 				<form class="form-join">
 					<div class="form-label-group">
 						<input type="text" id="user_id" class="form-control"
@@ -55,7 +56,7 @@
 
 					<div class="form-label-group">
 						<input type="text" id="user_name" class="form-control"
-							name="user_name" placeholder="ID" required autofocus> <label
+							name="user_name" value="${user_name }" readonly required > <label
 							for="user_name">이름</label>
 					</div>
 					<div class="custom-control custom-radio custom-control-inline">
@@ -68,7 +69,7 @@
 							id="user_gender_f" name="user_gender" value="F"> <label
 							class="custom-control-label" for="user_gender_f">여자</label>
 					</div>
-					<!-- 				user_birth:date, user_tel:tel, user_email:email -->
+
 					<div class="form-label-group">
 						<input class="form-control" type="date"
 							id="user_birth" name="user_birth" required> <label
@@ -81,9 +82,11 @@
 							for="user_tel">전화번호</label>
 					</div>
 
+					<input type="text" id="id_token" hidden="${id_token }" name="id_token" required />
+
 					<div class="form-label-group">
 						<input class="form-control" type="email"
-							id="user_email" name="user_email" required> <label
+							id="user_email" name="user_email" readonly required value="${user_email }"> <label
 							for="user_email">메일주소</label>
 					</div>
 
