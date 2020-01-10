@@ -28,6 +28,10 @@ main {
 .bg-dark {
 	background-color: #111 !important;
 }
+
+.overflow-auto {
+    white-space: nowrap;
+}
 /***********************
 	타이포그래피
 ***********************/
