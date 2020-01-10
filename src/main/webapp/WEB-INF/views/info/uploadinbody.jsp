@@ -27,16 +27,23 @@
 	crossorigin="anonymous"></script>
 <!-- GEOGYM Script -->
 <script src="/resources/js/geogym.js" type="text/javascript"></script>
+<script type="text/javascript">
+	function popupClose(form){
+		form.target = opener.name;
+		
+		form.submit();
+	}
+</script>
 </head>
 <body>
 
 <h1 style="text-align:center">BMI사진 업로드</h1>
 <hr>
 
-<form action="/info/uploadBMIProc" method="POST" enctype="multipart/form-data">
+<form action="/info/uploadinbodyProc" method="POST" enctype="multipart/form-data" target="uploadinbody.do">
 <input type="file" name="file"/>
 <input type="hidden" name="bodyinfo_no" value="${bodyinfo_no }"/>
-<button>등록</button>
+<button onclick="window.close()">등록</button>
 </form>
 
 </body>
