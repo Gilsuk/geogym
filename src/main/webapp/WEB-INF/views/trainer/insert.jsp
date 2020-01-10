@@ -51,7 +51,7 @@ $(document).ready(function() {
 	<a class="list-group-item list-group-item-action" aria-disabled="true" href="/test/setbusinessday">운영시간</a>
 	<a class="list-group-item list-group-item-action" href="/admin/pay">PT횟수정보</a>
 	<a class="list-group-item list-group-item-action active disabled" href="/trainer/insert">트레이너등록</a>
-
+	<a class="list-group-item list-group-item-action" href="/admin/insertWorkHour">트레이너 근무시간 등록</a>
 </div>
 </div>
 <div class= "col-9">
