@@ -63,7 +63,7 @@
 
 <div class="col-sm-12 col-md-12 col-lg-9 col-xl-9">
 
-<%@ include file="/WEB-INF/views/info/bodyinfo.jsp"%>
+///
 
 </div>
 
