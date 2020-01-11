@@ -223,6 +223,12 @@ function drawLineColors() {
 		width: 100%;
 		height: 100%;		
 	}
+	
+	.profileimg{
+		width: auto; height: auto;
+    	max-width: 180px;
+    	max-height: 160px;
+	}
 </style>
 
 
@@ -237,7 +243,7 @@ function drawLineColors() {
 <div class="row">
 <div id="profileDiv" class="col-5" id="profile" style="background-color:white; border:2px solid gray;width:180px;height:160px;padding-right: 0px;padding-left: 0px" >
 	<c:forEach items="${profile }" var="i">
-	<img src="/upload/${i.attachment_stored_name }"/>
+	<img class="profileimg" src="/upload/${i.attachment_stored_name }"/>
 	</c:forEach>
 </div>	
 <div class="col-7" >
