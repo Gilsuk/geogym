@@ -280,7 +280,6 @@ function drawLineColors() {
 </div>
 
 <div class="col-sm-12 col-md-12 col-lg-9 col-xl-9">
-
 <div class="row">
 	<div class="col-5">
 	<div class="row">
@@ -317,7 +316,7 @@ function drawLineColors() {
 
 
 
-<div style="border:2px solid grey">
+<div>
 	<table class="table_bodyinfo" style="text-align:center;width:325px">
 		<tr>
 			<th style="font-size:22px">키</th>
@@ -337,19 +336,54 @@ function drawLineColors() {
 			<td>${bodyInfo.bodyinfo_fat }kg</td>
 		</tr>
 		<tr>
-			<td colspan="2">
+			<td>
 				<button id="uploadinbody">인바디첨부하기</button>
+			</td>
+			<td>
 				<button id="inbody">인바디 정보 보기</button>
-			<td></td>
+			</td>
 		</tr>		
 	</table>
 </div>
 
 </div>
 
+
+<div class="col-5">
+	<fieldset style="width:300px">
+		<legend>특이사항</legend>
+		<textarea rows="9" cols="39" readonly="readonly" disabled>${bodycomment.body_comment_msg }</textarea>
+		<fmt:parseDate value="${bodycomment.body_comment_date }" pattern="yyyy-MM-dd'T'HH:mm" var="parsedDateTime" type="both" />
+		<small style="color:grey">마지막입력 : <fmt:formatDate pattern="yyyy-MM-dd HH:mm" value="${ parsedDateTime }" /></small>
+	</fieldset><br>
+
+	
+</div>
+
+</div>
+<div class="col">
+<br>
+<div  id="chartDiv">
+<div>
+<form action="/info/bodyinfo" method="GET">
+	<button id="btnSelect" class="btn btn-primary" style="float:right">조회</button>
+	<select id="selectCondition" Style="float:right;height:38px;" name="select">
+		<option value="week" selected="${select eq 'week' ? 'selected' : '' }">7일단위</option>
+		<option value="month" selected="${select eq 'month' ? 'selected' : '' }">30일단위</option>
+	</select>
+</form>
+
+	<button id="heightInfo" class="btn btn-primary" style="float:left">키 정보 보기</button>
+</div>
+  <div id="chart_div_height" style="display:none;float:right"></div>
+  <div id="chart_div_weight" style="float:right"></div>
+  <div id="chart_div_etc" style="float:right"></div>
+  </div>
 </div>
 </div>
 
+  <button id="inputBodyInfo" class="btn btn-primary">데이터입력</button>
+	<button id="deleteInfo" onclick="deleteInfo();location.href='/info/delete?bodyinfo_no=${bodyInfo.bodyinfo_no}'" class="btn btn-primary" >데이터삭제</button>
 </div>
 </div>
 <br>
@@ -366,55 +400,32 @@ function drawLineColors() {
 
 
 
-<div class="container">
-<br>
-<br>
-<div class="row">
-<div class="col-4;">
-<div class="row">
+<!-- <div class="container"> -->
+<!-- <br> -->
+<!-- <br> -->
+<!-- <div class="row"> -->
+<!-- <div class="col-4;"> -->
+<!-- <div class="row"> -->
 
-<div class="col-7" >
+<!-- <div class="col-7" > -->
 
-</div>
-</div>
-<br>
-<br>
-
-
+<!-- </div> -->
+<!-- </div> -->
+<!-- <br> -->
+<!-- <br> -->
 
 
-<fieldset style="width:300px">
-<legend>특이사항</legend>
-<textarea rows="10" cols="45" readonly="readonly" disabled>${bodycomment.body_comment_msg }</textarea>
-<fmt:parseDate value="${bodycomment.body_comment_date }" pattern="yyyy-MM-dd'T'HH:mm" var="parsedDateTime" type="both" />
-<small style="color:grey">마지막입력 : <fmt:formatDate pattern="yyyy-MM-dd HH:mm" value="${ parsedDateTime }" /></small>
-</fieldset><br>
-<button id="inputBodyInfo" class="btn btn-primary" style="margin-left: 60px">데이터입력</button>
-<button id="deleteInfo" onclick="deleteInfo();location.href='/info/delete?bodyinfo_no=${bodyInfo.bodyinfo_no}'" class="btn btn-primary" >데이터삭제</button>
-<br>
-</div>
-	<br>
 
-<div class="col-8" id="chartDiv">
-<div>
-<form action="/info/bodyinfo" method="GET">
-	<button id="btnSelect" class="btn btn-primary" style="float:right">조회</button>
-	<select id="selectCondition" Style="float:right;height:38px;" name="select">
-		<option value="week" selected="${select eq 'week' ? 'selected' : '' }">7일단위</option>
-		<option value="month" selected="${select eq 'month' ? 'selected' : '' }">30일단위</option>
-	</select>
-</form>
 
-	<button id="heightInfo" class="btn btn-primary" style="float:left">키 정보 보기</button>
-</div>
-  <div id="chart_div_height" style="display:none;float:right"></div>
-  <div id="chart_div_weight" style="float:right"></div>
-  <div id="chart_div_etc" style="float:right"></div>
-  
-  </div>
- </div>
- </div>
+
+
+<!-- <br> -->
+<!-- </div> -->
+<!-- 	<br> -->
+
+
+<!--  </div> -->
+<!--  </div> -->
 <!-- </body> -->
 <!-- </html> -->
 
-<jsp:include page="/WEB-INF/views/layouts/footer.jsp" />
