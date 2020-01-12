@@ -15,7 +15,6 @@
 				url : "/user/join/google/proc",
 				data : {
 					user_id : $("#user_id").val(),
-					user_pw : $("#user_pw").val(),
 					user_name : $("#user_name").val(),
 					user_gender : $("input[name='user_gender']:checked").val(),
 					user_birth : $("#user_birth").val(),
@@ -27,7 +26,11 @@
 				dataType : "json"
 			}).done(function(data) {
 				if (data == true) {
-					window.location.replace(window.location.href);
+					window.location.replace('/');
+				} else {
+					var nameinput = $("#user_id");
+					nameinput.val("다른 별명을 사용하세요");
+					nameinput.focus();
 				}
 			}).fail(function(data) {
 				
@@ -49,12 +52,6 @@
 						<input type="text" id="user_id" class="form-control"
 							name="user_id" placeholder="ID" required autofocus> <label
 							for="user_id">아이디</label>
-					</div>
-
-					<div class="form-label-group">
-						<input type="password" id="user_pw" class="form-control"
-							name="user_pw" placeholder="Password" required> <label
-							for="user_pw">비밀번호</label>
 					</div>
 
 					<div class="form-label-group">

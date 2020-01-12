@@ -3,12 +3,19 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ include file="/WEB-INF/views/layouts/header.jsp"%>
 <script>
+	var clickedGSignIn = false;
+	function clickGSignIn() {
+		clickedGSignIn = true;
+	}
+	
     function onSuccess(googleUser) {
+    	if (!clickedGSignIn) return;
+    	
     	console.log(googleUser);
     	var profile = googleUser.getBasicProfile();
     	var email = profile.getEmail();
     	var name = profile.getName();
-    	var id_token = googleUser.Zi.id_token;
+    	var id_token = email;
     	
 		var url = '/user/login/google';
 
@@ -22,13 +29,13 @@
 		}).done(function(data) {
 			// 달아드렸습니다.
 			if (data == true) {
-				var href = windows.location.href;
+				var href = window.location.href;
 				var loginUriRegex = RegExp("/user/login");
 				
 				if (loginUriRegex.test(href)) {
 					window.location.replace("/");
 				} else {
-					window.location.replace(window.location.href);
+					window.location.replace(href);
 				}
 				
 			} else {
@@ -131,9 +138,10 @@
 						class="btn btn-ajax btn-lg btn-submit btn-block text-uppercase"
 						type="submit">로그인</button>
 					<hr class="my-4">
-					<div id="my-signin2"></div>
+					<div id="my-signin2" onclick="clickGSignIn()"></div>
+					
 					<button class="btn btn-lg btn-google btn-block text-uppercase"
-						type="button" data-onsuccess="onSignIn">Google</button>
+						type="button">Google</button>
 					<button class="btn btn-lg btn-naver btn-block text-uppercase"
 						type="button">NAVER</button>
 					<button class="btn btn-lg btn-kakao btn-block text-uppercase"

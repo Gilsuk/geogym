@@ -25,4 +25,6 @@ public interface UserInfoDao {
 
 	void insertSocialUser(Map<String, String> map);
 
+	User selectUserBySocialToken(Map<String, String> map);
+
 }

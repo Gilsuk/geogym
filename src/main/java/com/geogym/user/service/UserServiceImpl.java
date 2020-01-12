@@ -133,15 +133,22 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public void login(String id_token, Social google) throws UserNotFoundException {
+		Map<String, String> map = new HashMap<>();
+		map.put("social_user_key", id_token);
+		map.put("social_no", String.valueOf(google.getValue()));
 		
+		User user = dao.selectUserBySocialToken(map);
+		if (user == null) throw new UserNotFoundException();
+		
+		setUserToSession(user);
 	}
 
 	@Override
-	public void linkSocial(User user, String id_token, Social google) {
+	public void linkSocial(User user, String id_token, Social social) {
 		Map<String, String> map = new HashMap<>();
 		map.put("user_no", String.valueOf(user.getUser_no()));
 		map.put("id_token", id_token);
-		map.put("social_no", String.valueOf(google.getValue()));
+		map.put("social_no", String.valueOf(social.getValue()));
 		
 		dao.insertSocialUser(map);
 	}

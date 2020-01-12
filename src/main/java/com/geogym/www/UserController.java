@@ -29,7 +29,7 @@ public class UserController {
 
 		try {
 			userServ.login(id_token, Social.GOOGLE);
-			return false;
+			return true;
 		} catch (UserNotFoundException e) {
 			return false;
 		}
@@ -67,17 +67,19 @@ public class UserController {
 		return "/user/google";
 	}
 
+	@ResponseBody
 	@RequestMapping(value = "/user/join/google/proc")
-	public String googleJoinProc(Model model, String id_token, User user) {
+	public boolean googleJoinProc(Model model, String id_token, User user) {
 		
+		user.setUser_pw("randompw");
 		try {
 			userServ.join(user);
 			userServ.linkSocial(userServ.getUserByUserid(user), id_token, Social.GOOGLE);
-		} catch (ParamIncorrectException e) { } catch (UserNotFoundException e) {
-			e.printStackTrace();
+			return true;
+		} catch (Exception e) {
+			return false;
 		}
 		
-		return "/user/google";
 	}
 
 	@ResponseBody

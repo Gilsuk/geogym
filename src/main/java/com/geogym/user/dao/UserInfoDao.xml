@@ -54,4 +54,11 @@
 		INSERT INTO social_user (user_no, social_no, social_user_key)
 		VALUES (${user_no}, ${social_no}, #{id_token})
 	</insert>
+
+	<select id="selectUserBySocialToken" parameterType="hashmap" resultType="com.geogym.user.dto.User">
+		SELECT * FROM user
+		NATURAL JOIN social_user
+		WHERE social_user_key = #{social_user_key}
+		AND social_no = ${social_no}
+	</select>
 </mapper>
