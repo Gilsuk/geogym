@@ -1,17 +1,25 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ include file="/WEB-INF/views/layouts/header.jsp"%>
+<style>
+	.abcRioButtonBlue {
+		background-color : #dc3545;
+    }
+</style>
 <script>
+	
+	
 	var clickedGSignIn = false;
 	function clickGSignIn() {
 		clickedGSignIn = true;
 	}
 	
     function onSuccess(googleUser) {
+		$("div.abcRioButton.abcRioButtonBlue").css("width", "100%");
+		$("span.abcRioButtonContents").children("span:nth-child(2)").text("구글 계정으로 로그인");
+		$("div.abcRioButton.abcRioButtonBlue").css("visibility", "visible");
     	if (!clickedGSignIn) return;
     	
-    	console.log(googleUser);
     	var profile = googleUser.getBasicProfile();
     	var email = profile.getEmail();
     	var name = profile.getName();
@@ -58,9 +66,8 @@
 	function renderButton() {
 		gapi.signin2.render('my-signin2', {
 			'scope' : 'profile email',
-			'width' : 240,
-			'height' : 50,
-			'longtitle' : true,
+			'longtitle' : false,
+			'height': 48,
 			'theme' : 'dark',
 			'onsuccess' : onSuccess,
 			'onfailure' : onFailure
@@ -138,14 +145,8 @@
 						class="btn btn-ajax btn-lg btn-submit btn-block text-uppercase"
 						type="submit">로그인</button>
 					<hr class="my-4">
-					<div id="my-signin2" onclick="clickGSignIn()"></div>
+					<div id="my-signin2" onclick="clickGSignIn()" style="visibility:hidden;"></div>
 					
-					<button class="btn btn-lg btn-google btn-block text-uppercase"
-						type="button">Google</button>
-					<button class="btn btn-lg btn-naver btn-block text-uppercase"
-						type="button">NAVER</button>
-					<button class="btn btn-lg btn-kakao btn-block text-uppercase"
-						type="button">KAKAO</button>
 				</form>
 			</div>
 		</div>

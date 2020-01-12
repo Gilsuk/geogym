@@ -1,23 +1,24 @@
 @charset "UTF-8";
 
 :root {
-	--color-main: #ff007b;
-	--color-main-hover: #d90069;
-	--color-main-active: #d90069;
-	--color-main-faint: #d90069;
+	--color-main: #dc3545;
+	--color-main-hover: #c82333;
+	--color-main-active: #bd2130;
+	--color-main-border: #b21f2d;
+	--color-main-glow: rgba(225,83,97,.5);
 	
-	--color-sub: #ff007b;
-	--color-sub-hover: #d90069;
-	--color-sub-active: #d90069;
-	--color-sub-faint: #d90069;
+	--color-sub: #23272b;
+	--color-sub-hover: #343a40;
+	--color-sub-active: #1d2124;
+	--color-sub-border: #171a1d;
 }
 
 /***********************
 		공통
 ***********************/
-body {
-	color: #5a5a5a;
-}
+/* body { */
+/* 	color: #5a5a5a; */
+/* } */
 
 
 main {
@@ -26,7 +27,7 @@ main {
 
 
 .bg-dark {
-	background-color: #111 !important;
+	background-color: var(--color-sub) !important;
 }
 
 .overflow-auto {
@@ -42,7 +43,7 @@ a {
     color: var(--color-main);
 }
 a:hover {
-    color: #b30056;
+    color: #6c757d;
 }
 /***********************
 		ul,ol,li List
@@ -56,8 +57,8 @@ a:hover {
     border-bottom-left-radius: 0;
 }
 .list-group-item.active {
-    background-color: #ff007b;
-    border-color: #ff007b;
+    background-color: var(--color-main);
+    border-color: var(--color-main);
 }
 /***********************
 		버튼
@@ -69,41 +70,41 @@ a:hover {
 .btn-primary {
 	background-color: var(--color-main);
 	background-image: none;
-	border-color: #ff007b;
+	border-color: var(--color-main);
 }
 .btn-primary:not(:disabled):not(.disabled).active, .btn-primary:not(:disabled):not(.disabled):active, .show>.btn-primary.dropdown-toggle {
     color: #fff;
-    background-color: #cc0062;
-    border-color: #gf005c;
+    background-color: var(--color-main-active);
+    border-color: var(--color-main-border);
 }
 .btn-primary:hover {
     color: #fff;
-    background-color: #d90069;
-    border-color: #cc0062;
+    background-color: var(--color-main-hover);
+    border-color: var(--color-main-active);
 }
 .btn-primary.focus, .btn-primary:focus {
     color: #fff;
-    background-color: #d90069;
-    border-color: #cc0062;
-    box-shadow: 0 0 0 0.2rem rgba(255,38,143,.5);
+    background-color: var(--color-main-hover);
+    border-color: var(--color-main-active);
+    box-shadow: 0 0 0 0.2rem var(--color-main-glow);
 }
 
 .btn-outline-primary{
-	color: #ff007b;
-    border-color: #ff007b;
+	color: var(--color-main);
+    border-color: var(--color-main);
 }
 .btn-outline-primary:hover {
     color: #fff;
-    background-color: #ff007b;
-    border-color: #ff007b;
+    background-color: var(--color-main);
+    border-color: var(--color-main);
 }
 .btn-outline-primary:not(:disabled):not(.disabled).active, .btn-outline-primary:not(:disabled):not(.disabled):active, .show>.btn-outline-primary.dropdown-toggle {
     color: #fff;
-    background-color: #ff007b;
-    border-color: #ff007b;
+    background-color: var(--color-main);
+    border-color: var(--color-main);
 }
 .btn-outline-primary.focus, .btn-outline-primary:focus {
-    box-shadow: 0 0 0 0.2rem rgba(255,0,123,.5);
+    box-shadow: 0 0 0 0.2rem var(--color-main-glow);
 }
 /***********************
 		폼(form)
@@ -113,8 +114,8 @@ a:hover {
 }
 
 .form-control:focus {
-	box-shadow: 0 0 0 0.2rem rgba(255,0,0,1);
-	border-color: red;
+	box-shadow: 0 0 0 0.2rem rgba(220,53,69,.25);
+	border-color: #ea8992;
 }
 
 /***********************
@@ -124,7 +125,7 @@ a:hover {
 	font-weight: bold;
 }
 .nav-item.active {
-	background-color: red;
+	background-color: var(--color-main);
 }
 .navbar-dark .navbar-nav .active>.nav-link {
 	font-weight: bold;
@@ -151,13 +152,12 @@ footer {
 	padding-top: 4em;
 	padding-bottom: 3em;
 }
-
 footer p {
-	color: red;
+	color: var(--color-main);
 }
 
 footer a {
-	color: #ccc;
+	color: #ffffff;
 }
 
 .card-body {
