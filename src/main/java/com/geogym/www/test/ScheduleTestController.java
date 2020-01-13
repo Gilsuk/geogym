@@ -153,17 +153,19 @@ public class ScheduleTestController {
 		
 		PrintWriter out;
 		
-		String string = "calendar/PT/request?trainer_no="+trainer.getTrainer_no();
+		String string = "/calendar/PT/request?trainer_no="+trainer.getTrainer_no();
+		System.out.println(string);
 		try {
 			matchingService.match(user, schedule);
 		} catch (MatchingNotAvailable e1) {
 			// TODO Auto-generated catch block
 			logger.info("매칭 실패함");
-			response.setContentType("text/html; charset=UTF-8");
 			try {
+				response.setContentType("text/html; charset=UTF-8");
 				out = response.getWriter();
 				out.println("<script>alert('매칭 실패함.'); location.href='"+string+"';</script>");
 				out.flush();
+				return null;
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -171,23 +173,25 @@ public class ScheduleTestController {
 		} catch (CashNotEnoughException e1) {
 			// TODO Auto-generated catch block
 			logger.info("돈 없음");
-			response.setContentType("text/html; charset=UTF-8");
 			try {
+				response.setContentType("text/html; charset=UTF-8");
 				out = response.getWriter();
 				out.println("<script>alert('돈 없음.'); location.href='"+string+"';</script>");
 				out.flush();
+				return null;
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
-				e.printStackTrace();
+				System.out.println("e.printStackTrace();");
 			}
 		} catch (AllTimeisUnavailable e1) {
 			// TODO Auto-generated catch block
 			logger.info("빈 시간 없음");
-			response.setContentType("text/html; charset=UTF-8");
 			try {
+				response.setContentType("text/html; charset=UTF-8");
 				out = response.getWriter();
 				out.println("<script>alert('빈 시간 없음.'); location.href='"+string+"';</script>");
 				out.flush();
+				return null;
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -195,11 +199,12 @@ public class ScheduleTestController {
 		} catch (NotWorkinDayException e1) {
 			// TODO Auto-generated catch block
 			logger.info("일하는 날 아님");
-			response.setContentType("text/html; charset=UTF-8");
 			try {
+				response.setContentType("text/html; charset=UTF-8");
 				out = response.getWriter();
 				out.println("<script>alert('일하는 날 아님.'); location.href='"+string+"';</script>");
 				out.flush();
+				return null;
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -207,7 +212,7 @@ public class ScheduleTestController {
 		}
 		
 		
-		return "redirect:/"+string;
+		return "redirect:"+string;
 		
 //		try {
 //			scheduleService.setPTShcedule(user, schedule);
