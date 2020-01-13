@@ -21,7 +21,7 @@
 	<select id="selectCntManagerByUserno" parameterType="int"
 		resultType="int">
 		SELECT count(*) FROM user
-		INNER JOIN manager USING (user_no)
+		INNER JOIN manager USING (user_no) where user_no = #{user_no}
 	</select>
 
 	<select id="selectUserByIdAndPw"

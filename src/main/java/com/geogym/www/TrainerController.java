@@ -213,6 +213,9 @@ public class TrainerController {
 
 			model.addAttribute("trainer", trainerService.getTrainertoUser(user));
 			model.addAttribute("user", user);
+			model.addAttribute("isTrainer", userService.isTrainer(user));
+			model.addAttribute("isManager", userService.isManager(user));
+			
 
 			return null;
 		} catch (UserNotFoundException e) {
