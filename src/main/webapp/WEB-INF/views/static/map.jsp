@@ -40,8 +40,8 @@
 }
 
 #map {
-	width: 1100px;
-	height : 600px;
+	width: 650px;
+	height : 500px;
 	padding: 20px;
     margin: auto auto 30px auto;
 	border: 1px solid #bcbcbc;
@@ -111,9 +111,8 @@ body{
 }
 </style>
 
-<div id="jb-container">
 
-	<div id="map"  ></div>
+	
 
 
 
@@ -124,7 +123,7 @@ body{
 	   
 	   function initMap() {
 			
-		   var uluru = {lat : 40.7768188, lng : -73.9630839 };
+		   var uluru = {lat : 36.1609847, lng : -115.1541048 };
 
 		   var map = new google.maps.Map(document.getElementById('map'), {
 		     zoom: 15,
@@ -142,11 +141,52 @@ body{
 
     </script>
 
+<div class="container">
+<div class="row">
+<div class="col-12">
+<br>
+<h1>소개</h1>
+<hr>
+</div>
 
+	
+	
+<div class="col-sm-12 col-md-12 col-lg-3 col-xl-3">
+	<div class="list-group">
+		<a class="list-group-item list-group-item-action active disabled" aria-disabled="true" href="/static/map">오시는길</a>
+		<a class="list-group-item list-group-item-action" href="">시설소개</a>
+		
+		
+	</div>
+</div>
+	
+	
+	
+<div class= "col-9">
+<div class="container">
+	
+<!-- 	<div id="jb-container"> -->
+	<div>
+	<div id="map"  >
+	</div>
+	</div>
+	
+	
+	<div>
+	<h2>※오시는방법※</h2>
+	<h6>인천공항 -> 매캐런국제공항 -> EB Bonneville after 1st -> 도보로 이동 -> 353 E Bonneville Ave UNIT 183</h6>
+	<br>
+	
+	</div>
+<!-- 	</div> -->
+	
+</div>
+</div>
 
+	
+</div>
+</div>
 
 	
 
-	<div style="clear: both;"></div>
-</div>
 <jsp:include page="/WEB-INF/views/layouts/footer.jsp"/>
