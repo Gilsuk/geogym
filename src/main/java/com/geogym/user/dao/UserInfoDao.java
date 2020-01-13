@@ -27,4 +27,8 @@ public interface UserInfoDao {
 
 	User selectUserBySocialToken(Map<String, String> map);
 
+	int selectCntByEmail(String param_user);
+
+	int selectCntById(String param_user);
+
 }

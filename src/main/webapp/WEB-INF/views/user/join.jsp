@@ -2,39 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ include file="/WEB-INF/views/layouts/header.jsp"%>
-<script type="text/javascript">
-	$(document).ready(function() {
-
-		$(".form-join").on("submit", function() {
-			$(".btn-ajax").click();
-			return false;
-		});
-
-		$(".btn-ajax").on("click", function() {
-			$.ajax({
-				url : "/ajax/user/join",
-				data : {
-					user_id : $("#user_id").val(),
-					user_pw : $("#user_pw").val(),
-					user_name : $("#user_name").val(),
-					user_gender : $("input[name='user_gender']:checked").val(),
-					user_birth : $("#user_birth").val(),
-					user_tel : $("#user_tel").val(),
-					user_email : $("#user_email").val()
-				},
-				method : "POST",
-				dataType : "json"
-			}).done(function(data) {
-				if (data == true) {
-					window.location.replace(window.location.href);
-				}
-			})
-
-			return false;
-		})
-
-	});
-</script>
+<script src="/resources/js/join.js" type="text/javascript"></script>
 <div class="row">
 	<div class="col-sm-9 col-md-7 col-lg-5 mx-auto">
 		<div class="card card-signin my-5">
@@ -45,12 +13,19 @@
 						<input type="text" id="user_id" class="form-control"
 							name="user_id" placeholder="ID" required autofocus> <label
 							for="user_id">아이디</label>
+						<div class="feedback-text"></div>
 					</div>
 
 					<div class="form-label-group">
 						<input type="password" id="user_pw" class="form-control"
 							name="user_pw" placeholder="Password" required> <label
 							for="user_pw">비밀번호</label>
+					</div>
+
+					<div class="form-label-group">
+						<input type="password" id="user_pw_confirm" class="form-control"
+							name="user_pw_confirm" placeholder="Password" required> <label
+							for="user_pw_confirm">비밀번호 확인</label>
 					</div>
 
 					<div class="form-label-group">
@@ -85,6 +60,7 @@
 						<input class="form-control" type="email"
 							id="user_email" name="user_email" required> <label
 							for="user_email">메일주소</label>
+						<div class="feedback-text"></div>
 					</div>
 
 					<button
