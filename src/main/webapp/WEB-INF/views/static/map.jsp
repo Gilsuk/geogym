@@ -166,9 +166,12 @@ body{
 <div class="container">
 	
 <!-- 	<div id="jb-container"> -->
-
+	<div>
 	<div id="map"  >
 	</div>
+	</div>
+	
+	
 	<div>
 	<h2>※오시는방법※</h2>
 	<h6>인천공항 -> 매캐런국제공항 -> EB Bonneville after 1st -> 도보로 이동 -> 353 E Bonneville Ave UNIT 183</h6>
