@@ -1,10 +1,14 @@
 package com.geogym.www.test;
 
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.servlet.http.HttpServletResponse;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -122,12 +126,17 @@ public class ScheduleTestController {
 	public String setPTSchedule(
 			Schedule schedule,
 			Trainer trainer,
-			User user) {
+			HttpServletResponse response) {
 		
 		logger.info(schedule.toString());
 		logger.info(trainer.toString());
-		logger.info(user.toString());
-		
+		User user = new User();
+		try {
+			user = userService.getLoggedInUser();
+		} catch (UserNotFoundException e2) {
+			// TODO Auto-generated catch block
+			e2.printStackTrace();
+		}
 		
 		try {
 			user = userService.getUserByUserno(user);
@@ -135,34 +144,70 @@ public class ScheduleTestController {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
+		logger.info("user");
+		logger.info(user.toString());
 
 		schedule.setSchedule_msg(user.getUser_name()+ "님 PT."+user.getUser_no());
 
 		schedule.setTrainer(trainer);
 		
+		PrintWriter out;
+		
+		String string = "calendar/PT/request?trainer_no="+trainer.getTrainer_no();
 		try {
 			matchingService.match(user, schedule);
 		} catch (MatchingNotAvailable e1) {
 			// TODO Auto-generated catch block
 			logger.info("매칭 실패함");
-			e1.printStackTrace();			
+			response.setContentType("text/html; charset=UTF-8");
+			try {
+				out = response.getWriter();
+				out.println("<script>alert('매칭 실패함.'); location.href='"+string+"';</script>");
+				out.flush();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		} catch (CashNotEnoughException e1) {
 			// TODO Auto-generated catch block
 			logger.info("돈 없음");
-			e1.printStackTrace();
+			response.setContentType("text/html; charset=UTF-8");
+			try {
+				out = response.getWriter();
+				out.println("<script>alert('돈 없음.'); location.href='"+string+"';</script>");
+				out.flush();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		} catch (AllTimeisUnavailable e1) {
 			// TODO Auto-generated catch block
 			logger.info("빈 시간 없음");
-			e1.printStackTrace();
+			response.setContentType("text/html; charset=UTF-8");
+			try {
+				out = response.getWriter();
+				out.println("<script>alert('빈 시간 없음.'); location.href='"+string+"';</script>");
+				out.flush();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		} catch (NotWorkinDayException e1) {
 			// TODO Auto-generated catch block
 			logger.info("일하는 날 아님");
-			e1.printStackTrace();
+			response.setContentType("text/html; charset=UTF-8");
+			try {
+				out = response.getWriter();
+				out.println("<script>alert('일하는 날 아님.'); location.href='"+string+"';</script>");
+				out.flush();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 		
-		String string = "calendar/view/PTrequest?trainer_no="+trainer.getTrainer_no();
 		
-		return string;
+		return "redirect:/"+string;
 		
 //		try {
 //			scheduleService.setPTShcedule(user, schedule);
