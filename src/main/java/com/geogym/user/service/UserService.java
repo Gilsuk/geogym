@@ -47,5 +47,9 @@ public interface UserService {
 	void login(String id_token, Social google) throws UserNotFoundException;
 
 	void linkSocial(User user, String id_token, Social google);
+
+	boolean isEmailDuplicated(String param_user);
+
+	boolean isIdDuplicated(String param_user);
 	
 }
