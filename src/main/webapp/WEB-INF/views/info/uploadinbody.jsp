@@ -37,7 +37,7 @@
 </head>
 <body>
 
-<h1 style="text-align:center">inbody결과 사진 업로드</h1>
+<h1 style="text-align:center">inbody 사진 업로드</h1>
 <hr>
 
 <form action="/info/uploadinbodyProc" method="POST" enctype="multipart/form-data" target="uploadinbody.do">

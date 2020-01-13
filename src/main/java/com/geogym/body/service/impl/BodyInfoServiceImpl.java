@@ -294,8 +294,12 @@ public class BodyInfoServiceImpl implements BodyInfoService{
 
 	@Override
 	public List<Attachment> getProfile(User loggedInUser) {
-		// TODO Auto-generated method stub
 		return bodyInfoDao.selectProfileByUserNo(loggedInUser);
+	}
+
+	@Override
+	public int getCountBodyinfo(HashMap<String, Object> list) {
+		return bodyInfoDao.selectCountBodyinfoByDate(list);
 	}
 	
 	

@@ -1,5 +1,7 @@
 package com.geogym.body.dao.face;
 
+import java.time.LocalDate;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -29,4 +31,6 @@ public interface BodyInfoDao {
 	public int selectBodyinfoNo();
 	
 	public List<Attachment> selectProfileByUserNo(User user);
+
+	public int selectCountBodyinfoByDate(HashMap<String, Object> list);
 }
