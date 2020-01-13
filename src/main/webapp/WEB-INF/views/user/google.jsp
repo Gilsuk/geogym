@@ -12,23 +12,30 @@
 
 		$(".btn-ajax").on("click", function() {
 			$.ajax({
-				url : "/ajax/user/join",
+				url : "/user/join/google/proc",
 				data : {
 					user_id : $("#user_id").val(),
-					user_pw : $("#user_pw").val(),
 					user_name : $("#user_name").val(),
 					user_gender : $("input[name='user_gender']:checked").val(),
 					user_birth : $("#user_birth").val(),
 					user_tel : $("#user_tel").val(),
-					user_email : $("#user_email").val()
+					user_email : $("#user_email").val(),
+					id_token: $("#id_token").val()
 				},
 				method : "POST",
 				dataType : "json"
 			}).done(function(data) {
 				if (data == true) {
-					window.location.replace(window.location.href);
+					window.location.replace('/');
+				} else {
+					var nameinput = $("#user_id");
+					nameinput.val("다른 별명을 사용하세요");
+					nameinput.focus();
 				}
-			})
+			}).fail(function(data) {
+				
+				console.log(data);
+			});
 
 			return false;
 		})
@@ -39,7 +46,7 @@
 	<div class="col-sm-9 col-md-7 col-lg-5 mx-auto">
 		<div class="card card-signin my-5">
 			<div class="card-body">
-				<h5 class="card-title text-center">회원가입</h5>
+				<h5 class="card-title text-center">처음이시군요?</h5>
 				<form class="form-join">
 					<div class="form-label-group">
 						<input type="text" id="user_id" class="form-control"
@@ -48,27 +55,21 @@
 					</div>
 
 					<div class="form-label-group">
-						<input type="password" id="user_pw" class="form-control"
-							name="user_pw" placeholder="Password" required> <label
-							for="user_pw">비밀번호</label>
-					</div>
-
-					<div class="form-label-group">
 						<input type="text" id="user_name" class="form-control"
-							name="user_name" placeholder="ID" required autofocus> <label
+							name="user_name" value="${user_name }" readonly required > <label
 							for="user_name">이름</label>
 					</div>
 					<div class="custom-control custom-radio custom-control-inline">
 						<input class="custom-control-input" type="radio"
-							id="user_gender_m" name="user_gender" value="M" checked="checked">
+							id="user_gender_m" name="user_gender" value="M" checked="checked" />
 						<label class="custom-control-label" for="user_gender_m">남자</label>
 					</div>
 					<div class="custom-control custom-radio custom-control-inline">
 						<input class="custom-control-input" type="radio"
-							id="user_gender_f" name="user_gender" value="F"> <label
+							id="user_gender_f" name="user_gender" value="F" /> <label
 							class="custom-control-label" for="user_gender_f">여자</label>
 					</div>
-					<!-- 				user_birth:date, user_tel:tel, user_email:email -->
+
 					<div class="form-label-group">
 						<input class="form-control" type="date"
 							id="user_birth" name="user_birth" required> <label
@@ -81,9 +82,11 @@
 							for="user_tel">전화번호</label>
 					</div>
 
+					<input type="text" id="id_token" name="id_token" value="${id_token }" hidden="hidden" required />
+
 					<div class="form-label-group">
 						<input class="form-control" type="email"
-							id="user_email" name="user_email" required> <label
+							id="user_email" name="user_email" readonly required value="${user_email }"> <label
 							for="user_email">메일주소</label>
 					</div>
 

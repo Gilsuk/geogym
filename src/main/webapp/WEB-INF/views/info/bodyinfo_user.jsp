@@ -19,65 +19,28 @@ $(document).ready(function(){
 	});
 });
 </script>
-<script type="text/javascript">
 
-	$(document).on('click','#inputBodyInfo', function(){
-// 	    var _width = '650';
-// 	    var _height = '380';
-	 
-// 	    // 팝업을 가운데 위치시키기 위해 아래와 같이 값 구하기
-// 	    var _left = Math.ceil(( window.screen.width - _width )/2);
-// 	    var _top = Math.ceil(( window.screen.width - _height )/2); 
-
-		window.open('http://localhost:8090/info/inputBodyInfo','window','width=400, height=500');
-		
-		self.close();
-	});
-	
-</script>
 <script type="text/javascript">
 
 	$(document).on('click','#uploadProfile', function(){
-// 	    var _width = '650';
-// 	    var _height = '380';
-	 
-// 	    // 팝업을 가운데 위치시키기 위해 아래와 같이 값 구하기
-// 	    var _left = Math.ceil(( window.screen.width - _width )/2);
-// 	    var _top = Math.ceil(( window.screen.width - _height )/2); 
+		var popupX = (window.screen.width / 2) - (400 / 2);
+		// 만들 팝업창 좌우 크기의 1/2 만큼 보정값으로 빼주었음
 
-		window.open('http://localhost:8090/info/uploadProfile?user_no=${user.user_no}','window','width=400, height=500');
+		var popupY= (window.screen.height /2) - (500 / 2);
+		// 만들 팝업창 상하 크기의 1/2 만큼 보정값으로 빼주었음
+
+		window.name="uploadprofile.do";
 		
-		self.close();
-	});
-	
-</script>
-<script type="text/javascript">
-
-	$(document).on('click','#uploadBMI', function(){
-// 	    var _width = '650';
-// 	    var _height = '380';
-	 
-// 	    // 팝업을 가운데 위치시키기 위해 아래와 같이 값 구하기
-// 	    var _left = Math.ceil(( window.screen.width - _width )/2);
-// 	    var _top = Math.ceil(( window.screen.width - _height )/2); 
-
-		window.open('http://localhost:8090/info/uploadBMI?bodyinfo_no=${bodyInfo.bodyinfo_no}','window','width=400, height=500');
+// 		window.open('http://localhost:8090/info/uploadProfile?user_no=${user.user_no}','window','width=400, height=500');
+		window.open('http://localhost:8090/info/uploadProfile?user_no=${user.user_no}', 'window', 'status=no, height=500, width=400, left='+ popupX + ', top='+ popupY + ', screenX='+ popupX + ', screenY= '+ popupY);
 		
 		self.close();
 	});
 	
 </script>
 
-<script type="text/javascript">
-function deleteInfo(){
-	
-	  /* confirm(문자열, 초기값) */
-	  var check = confirm("정말 삭제하시겠습니까? 가장 최근에 입력한 데이터가 삭제됩니다.");
-	  /* if(check == true) else false */
-	  if(check) alert("삭제가 완료되었습니다.");
-	  else alert("삭제를 취소하셨습니다.");
-	}
-</script>
+
+
 
 
 <script type="text/javascript">
@@ -102,7 +65,7 @@ function drawLineColors() {
         vAxis: {
           title: '단위: cm'
         },
-        width: 700,
+        width: $("#chartDiv").width(),
         height: 230
         
       };
@@ -139,7 +102,7 @@ function drawLineColors() {
         vAxis: {
           title: '단위: kg'
         },
-        width: 700,
+        width: $("#chartDiv").width(),
         height: 230
         
       };
@@ -171,7 +134,7 @@ function drawLineColors() {
         vAxis: {
           title: '단위: kg'
         },
-        width: 700,
+        width: $("#chartDiv").width(),
         height: 230
         
       };
@@ -288,7 +251,8 @@ function drawLineColors() {
 </div>
 	<br>
 
-<div class="col-8">
+<div class="col-8" id="chartDiv">
+<div class="row">
 <div>
 <form action="/info/bodyinfo" method="GET">
 	<button id="btnSelect" class="btn btn-primary" style="float:right">조회</button>
@@ -297,13 +261,16 @@ function drawLineColors() {
 		<option value="month">30일단위</option>
 	</select>
 </form>
-
-	<button id="heightInfo" class="btn btn-primary" style="float:left">키 정보 보기</button>
 </div>
+	<div>
+	<button id="heightInfo" class="btn btn-primary" style="float:left">키 정보 보기</button>
+	</div>
+</div>
+	<div class="col" id="chart-container">
   <div id="chart_div_height" style="display:none;float:right"></div>
   <div id="chart_div_weight" style="float:right"></div>
   <div id="chart_div_etc" style="float:right"></div>
-  
+  </div>
   </div>
  </div>
  </div>

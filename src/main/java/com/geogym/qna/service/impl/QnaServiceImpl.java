@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.geogym.attachment.service.AttachmentService;
 import com.geogym.qna.dao.QnaDao;
 import com.geogym.qna.dto.Paging;
 import com.geogym.qna.dto.Qna;
@@ -18,6 +19,8 @@ public class QnaServiceImpl implements QnaService {
 
 	@Autowired
 	QnaDao qnaDao;
+	@Autowired
+	AttachmentService attachmentService;
 
 	@Override
 	public List<Qna> getListAll(Paging paging) {
@@ -80,6 +83,7 @@ public class QnaServiceImpl implements QnaService {
 
 	@Override
 	public void delete(Qna qna) {
+		attachmentService.removeAllAttachments(qna);
 		qnaDao.delete(qna);
 	}
 
@@ -88,5 +92,7 @@ public class QnaServiceImpl implements QnaService {
 
 		return qnaDao.selectQnaByQnaNo(qna);
 	}
+
+	
 
 }

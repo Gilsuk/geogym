@@ -24,6 +24,7 @@ import com.geogym.qna.dto.Qna;
 import com.geogym.qna.dto.QnaAnswer;
 import com.geogym.qna.service.face.QnaAnswerService;
 import com.geogym.qna.service.face.QnaService;
+import com.geogym.trainer.service.TrainerService;
 import com.geogym.user.dto.User;
 import com.geogym.user.exception.UserNotFoundException;
 import com.geogym.user.service.UserService;
@@ -39,6 +40,8 @@ public class QnaController {
 	private AttachmentService fileService;
 	@Autowired
 	private UserService userService;
+	@Autowired
+	private TrainerService trainerService;
 
 	// 시퀀스를 사용하기 위해 미리 준비해놓는 서비스 객체
 	@Autowired
@@ -83,7 +86,6 @@ public class QnaController {
 			// TODO Auto-generated catch block
 			return "redirect:/user/login";
 		}
-		
 
 		// 시퀀스 넥스트벨 가져오기
 		int no = sequenceService.getNextVal(Table.QNA);
@@ -91,7 +93,6 @@ public class QnaController {
 		qna.setQna_no(no);
 		qna.setUser(user);
 		System.out.println("qna : " + qna);
-
 
 		qnaService.write(qna);
 
@@ -108,14 +109,14 @@ public class QnaController {
 			if (userService.isTrainer(user)) {
 				return null;
 
-			}else {
+			} else {
 				return "redirect:/";
 
 			}
 		} catch (UserNotFoundException e) {
 			// TODO Auto-generated catch block
 			return "redirect:/user/login";
-		}		
+		}
 	}
 
 	@RequestMapping(value = "/qna/view", method = RequestMethod.GET)
@@ -136,13 +137,11 @@ public class QnaController {
 		model.addAttribute("answerFileList", fileService.getAttachments(answer));
 		model.addAttribute("view", viewBoard);
 		model.addAttribute("answer", answer);
+		
 
 		return "/qna/view";
 	}
 
-	public void view() {
-
-	}
 
 	@RequestMapping(value = "/qna/update", method = RequestMethod.GET)
 	public void update(Model model, Qna qna) {
@@ -175,17 +174,31 @@ public class QnaController {
 	}
 
 	@RequestMapping(value = "/answer/write", method = RequestMethod.POST)
-	public String answerWrite(QnaAnswer qnaAnswer, MultipartFile file) {
-		qnaAnswer.setQna_answer_no(sequenceService.getNextVal(Table.QNA_ANSWER));
+	public String answerWrite(QnaAnswer qnaAnswer, @RequestParam("file") MultipartFile[] files) {
 
-		qnaAnswerService.writeAnswer(qnaAnswer);
-		
-		MultipartFile[] files = new MultipartFile[1];
-		files[0] = file;
-		
-		fileService.fileUpload(files, qnaAnswer);
+		User user = new User();
 
-		return "redirect:/qna/view?qna_no=" + qnaAnswer.getQna_no();
+		try {
+			user = userService.getLoggedInUser();
+		} catch (UserNotFoundException e) {
+			// TODO Auto-generated catch block
+			return "redirect:/user/login";
+		}
+		if (userService.isTrainer(user)) {
+
+			qnaAnswer.setTrainer(trainerService.getTrainer2(trainerService.getTrainertoUser(user)));
+
+			qnaAnswer.setQna_answer_no(sequenceService.getNextVal(Table.QNA_ANSWER));
+
+			System.out.println(qnaAnswer);
+			qnaAnswerService.writeAnswer(qnaAnswer);
+
+			fileService.fileUpload(files, qnaAnswer);
+
+			return "redirect:/qna/view?qna_no=" + qnaAnswer.getQna().getQna_no();
+		} else {
+			return "redirect:/";
+		}
 	}
 
 	@RequestMapping(value = "/qna/file/download")
@@ -203,7 +216,7 @@ public class QnaController {
 
 		return mav;
 	}
-	
+
 	@RequestMapping(value = "/answer/file/download")
 	public ModelAndView download(QnaAnswer qnaAnswer, // 파일번호 파라미터
 			ModelAndView mav) {
@@ -218,6 +231,23 @@ public class QnaController {
 		mav.setViewName("down");
 
 		return mav;
+	}
+	
+	@RequestMapping(value = "/answer/delete", method = RequestMethod.GET)
+	public void AnswerDelete(QnaAnswer answer, HttpServletResponse response) {
+		System.out.println(answer);
+		qnaAnswerService.answerDelete(answer);
+
+		PrintWriter out;
+		try {
+			response.setContentType("text/html; charset=UTF-8");
+			out = response.getWriter();
+			out.println("<script>alert('삭제되었습니다.'); location.href='/qna/list';</script>");
+			out.flush();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
 	}
 
 }

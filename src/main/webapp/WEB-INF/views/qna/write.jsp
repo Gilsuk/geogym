@@ -51,7 +51,7 @@ $(document).ready(function() {
 	
 	<div class="form-group">
 		<label for="file">파일</label>
-		<input type="file" name="file">
+		<input multiple="multiple" type="file" name="file">
 	</div>
 	
 	<div class="form-group">

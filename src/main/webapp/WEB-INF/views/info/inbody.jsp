@@ -11,7 +11,7 @@
 
 
 
-	<c:forEach items="${BMI }" var="i">
+	<c:forEach items="${inbody }" var="i">
 		<img src="/upload/${i.attachment_stored_name }" />
 	</c:forEach>
 </body>
