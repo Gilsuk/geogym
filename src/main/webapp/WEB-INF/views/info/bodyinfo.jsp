@@ -92,7 +92,7 @@ $(document).ready( function(){
 </script>
 <script type="text/javascript">
 function inputFail(){
-	alert("하루에 한번만 입력 가능합니다.");
+	alert("하루에 한번만 입력 가능합니다.\n데이터 삭제 후 이용하세요.");
 }
 </script>
 
@@ -321,7 +321,7 @@ function drawLineColors() {
 	<div class="col-sm-4" style="text-align:center">
 	<fieldset style="width:300px">
 		<legend>특이사항</legend>
-		<textarea rows="5" cols="33" readonly="readonly" disabled>${bodycomment.body_comment_msg }</textarea>
+		<textarea rows="5" cols="27" readonly="readonly" disabled>${bodycomment.body_comment_msg }</textarea>
 		<fmt:parseDate value="${bodycomment.body_comment_date }" pattern="yyyy-MM-dd'T'HH:mm" var="parsedDateTime" type="both" />
 	</fieldset>
 		<small style="color:grey">마지막입력 : <fmt:formatDate pattern="yyyy-MM-dd HH:mm" value="${ parsedDateTime }" /></small>
