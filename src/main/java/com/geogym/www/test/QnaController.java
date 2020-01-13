@@ -137,6 +137,12 @@ public class QnaController {
 		model.addAttribute("answerFileList", fileService.getAttachments(answer));
 		model.addAttribute("view", viewBoard);
 		model.addAttribute("answer", answer);
+		try {
+			model.addAttribute("trainer", userService.isTrainer(userService.getLoggedInUser()));
+		} catch (UserNotFoundException e) {
+			// TODO Auto-generated catch block
+			return "/qna/view";
+		}
 		
 
 		return "/qna/view";

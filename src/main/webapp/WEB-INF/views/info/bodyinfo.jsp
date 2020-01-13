@@ -89,16 +89,13 @@ $(document).ready( function(){
         }
     });
 });
-
-// function deleteInfo(){
-	
-// 	  /* confirm(문자열, 초기값) */
-// 	  var check = confirm("정말 삭제하시겠습니까? 가장 최근에 입력한 데이터가 삭제됩니다.");
-// 	  /* if(check == true) else false */
-// 	  if(check) alert("삭제가 완료되었습니다.");
-// 	  else alert("삭제를 취소하셨습니다.");
-// 	}
 </script>
+<script type="text/javascript">
+function inputFail(){
+	alert("하루에 한번만 입력 가능합니다.");
+}
+</script>
+
 
 
 <script type="text/javascript">
@@ -217,6 +214,12 @@ function drawLineColors() {
     	max-width: 160px;
     	max-height: 160px;
 	}
+	
+	#four_button button{
+		width: 150px;
+   		height: 38px;	
+   		margin-top: 3px;
+	}
 </style>
 
 
@@ -254,113 +257,97 @@ function drawLineColors() {
 	
 	<c:choose>
 		<c:when test="${pageName eq 'PT'}">
-			<a class="list-group-item list-group-item-action active" href="/calendar/PT/schedule">내 PT 일정 보기</a>
+			<a class="list-group-item list-group-item-action" href="/calendar/PT/schedule">내 PT 일정 보기</a>
 			<a class="list-group-item list-group-item-action" href="/calendar/memolist?user_no=${user.user_no }">트레이너 메모 보기</a>
 		</c:when>
 		<c:when test="${pageName eq 'memo'}">
 			<a class="list-group-item list-group-item-action" href="/calendar/PT/schedule">내 PT 일정 보기</a>
-			<a class="list-group-item list-group-item-action active" href="/calendar/memolist?user_no=${user.user_no }">트레이너 메모 보기</a>
+			<a class="list-group-item list-group-item-action" href="/calendar/memolist?user_no=${user.user_no }">트레이너 메모 보기</a>
 		</c:when>
 		<c:otherwise>
 			<a class="list-group-item list-group-item-action" href="/calendar/PT/schedule">내 PT 일정 보기</a>
-			<a class="list-group-item list-group-item-action active" href="/calendar/memolist?user_no=${user.user_no }">트레이너 메모 보기</a>
+			<a class="list-group-item list-group-item-action" href="/calendar/memolist?user_no=${user.user_no }">트레이너 메모 보기</a>
 		</c:otherwise>
 	</c:choose>
 	
 	<c:if test="${isTrainer }">
-		<a class="list-group-item list-group-item-action" href="/info/bodyinfo">바디 인포</a>
+		<a class="list-group-item list-group-item-action active" href="/info/bodyinfo">바디 인포</a>
 	</c:if>
 	<c:if test="${isTrainer ne true}">
-		<a class="list-group-item list-group-item-action" href="/info/bodyinfo_user">바디 인포</a>
+		<a class="list-group-item list-group-item-action active" href="/info/bodyinfo_user">바디 인포</a>
 	</c:if>
 	
 	<a class="list-group-item list-group-item-action" href="/mypage/messagelist">메세지 확인</a>
-
+	<a class="list-group-item list-group-item-action" href="/payment/form">캐시 충전</a>
+	<br>
 </div>
 </div>
 
 <div class="col-sm-12 col-md-12 col-lg-9 col-xl-9">
 <div class="row">
-	<div class="col-5">
+
+<div class="col-sm-5" style="align-self: center">
 	<div class="row">
-	<div id="profileDiv" id="profile" style="background-color:white; border:2px solid gray;" >
+	<div class="col-5" id="profileDiv" style="background-color:white; border:2px solid gray;" >
 		<c:forEach items="${profile }" var="i">
 		<img class="profileimg" src="/upload/${i.attachment_stored_name }"/>
 		</c:forEach>
 	</div>
-	<div>
-		<table class="table_userinfo">
-			<tr>
-				<th style="font-size:15px">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;회원</th>
-			</tr>
-			<tr>
-				<td style="text-align:right"><strong style="font-size:25px">${user.user_name }</strong> 님 (${user.user_gender })<br></td>
-			<tr>
-			<tr>
-				<td style="height:10px"></td>
-			</tr>
-			<tr>
-				<td><strong>&nbsp;생년월일</strong> : ${user.user_birth }</td>
-			</tr>
-			<tr>
-				<td><strong>&nbsp;연락처</strong> : ${user.user_tel }</td>
-			</tr>
-			<tr>
-				<td style="text-align:center">
-				</td>
-			</tr>
-		</table>
+	<div class="col-7" style="align-self: center">
+				<div><strong style="font-size:25px">${user.user_name }</strong> 님 (${user.user_gender })<hr></div>
+				<div><strong>&nbsp;생년월일</strong> : ${user.user_birth }</div>
+				<div><strong>&nbsp;연락처</strong> : ${user.user_tel }</div>
 	</div>
 	</div>
 	
-
-
-
-<div>
-	<table class="table_bodyinfo" style="text-align:center;width:325px">
-		<tr>
-			<th style="font-size:22px">키</th>
-			<th style="font-size:22px">몸무게</th>
-		</tr>
-		<tr>
-			<td>${bodyInfo.bodyinfo_height }cm</td>
-			<td>${bodyInfo.bodyinfo_weight }kg</td>
-		</tr>
-
-		<tr>
-			<th style="font-size:22px">골격근량</th>
-			<th style="font-size:22px">체지방량</th>
-		</tr>
-		<tr>
-			<td>${bodyInfo.bodyinfo_muscle }kg</td>
-			<td>${bodyInfo.bodyinfo_fat }kg</td>
-		</tr>
-		<tr>
-			<td>
-				<button id="uploadinbody">인바디첨부하기</button>
-			</td>
-			<td>
-				<button id="inbody">인바디 정보 보기</button>
-			</td>
-		</tr>		
-	</table>
 </div>
-
-</div>
-
-
-<div class="col-5">
+	<div class="col-sm-3" style="align-self: center;text-align:center">
+			<div class="row">
+			<div class="col-6"><strong style="font-size:19px">키</strong><br>
+			${bodyInfo.bodyinfo_height }cm</div>
+			
+			<div class="col-6"><strong style="font-size:19px">몸무게</strong><br>
+			${bodyInfo.bodyinfo_weight }kg</div>
+			</div>
+			
+			<div class="row">
+			<div class="col-6"><strong style="font-size:19px">골격근량</strong><br>
+			${bodyInfo.bodyinfo_muscle }kg</div>
+			
+			<div class="col-6"><strong style="font-size:19px">체지방량</strong><br>
+			${bodyInfo.bodyinfo_fat }kg</div>
+			</div>
+	</div>
+	<div class="col-sm-4" style="text-align:center">
 	<fieldset style="width:300px">
 		<legend>특이사항</legend>
-		<textarea rows="9" cols="39" readonly="readonly" disabled>${bodycomment.body_comment_msg }</textarea>
+		<textarea rows="5" cols="33" readonly="readonly" disabled>${bodycomment.body_comment_msg }</textarea>
 		<fmt:parseDate value="${bodycomment.body_comment_date }" pattern="yyyy-MM-dd'T'HH:mm" var="parsedDateTime" type="both" />
+	</fieldset>
 		<small style="color:grey">마지막입력 : <fmt:formatDate pattern="yyyy-MM-dd HH:mm" value="${ parsedDateTime }" /></small>
-	</fieldset><br>
+	</div>
+
+
 
 	
 </div>
 
+
+<div id="four_button" class="row" style="text-align: center">
+
+	<div class="col-sm-3"><button id="uploadinbody" class="btn btn-primary">inbody 첨부하기</button></div>
+	<div class="col-sm-3"><button id="inbody" class="btn btn-primary">inbody 정보보기</button></div>
+	<c:if test="${isbodyinfo eq 0 }">
+  		<div class="col-sm-3"><button id="inputBodyInfo" class="btn btn-primary">데이터입력</button></div>
+  	</c:if>
+  	<c:if test="${isbodyinfo ne 0 }">
+  		<div class="col-sm-3"><button id="inputBodyInfoFail" onclick="inputFail();" class="btn btn-primary">데이터입력</button></div>
+  	</c:if>
+	<div class="col-sm-3"><button id="deleteInfo" onclick="deleteInfo();location.href='/info/delete?bodyinfo_no=${bodyInfo.bodyinfo_no}'" class="btn btn-primary" >데이터삭제</button></div>
+
 </div>
+
+
 <div class="col">
 <br>
 <div  id="chartDiv">
@@ -382,8 +369,6 @@ function drawLineColors() {
 </div>
 </div>
 
-  <button id="inputBodyInfo" class="btn btn-primary">데이터입력</button>
-	<button id="deleteInfo" onclick="deleteInfo();location.href='/info/delete?bodyinfo_no=${bodyInfo.bodyinfo_no}'" class="btn btn-primary" >데이터삭제</button>
 </div>
 </div>
 <br>

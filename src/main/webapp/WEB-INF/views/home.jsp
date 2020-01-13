@@ -11,10 +11,9 @@
 	</ol>
 	<div class="carousel-inner">
 		<div class="carousel-item active">
-			<svg class="bd-placeholder-img" width="100%" height="100%"
-				xmlns="http://www.w3.org/2000/svg"
-				preserveAspectRatio="xMidYMid slice" focusable="false" role="img">
-				<rect width="100%" height="100%" fill="#777" /></svg>
+			<img class="bd-placeholder-img" width="100%" height="100%"
+				src="/resources/img/contest.jpg" >
+				<rect width="100%" height="100%" fill="#777" />
 			<div class="container">
 				<div class="carousel-caption text-left">
 					<h1>ONLINE QUALIFIER</h1>
@@ -28,37 +27,29 @@
 			</div>
 		</div>
 		<div class="carousel-item">
-			<svg class="bd-placeholder-img" width="100%" height="100%"
-				xmlns="http://www.w3.org/2000/svg"
-				preserveAspectRatio="xMidYMid slice" focusable="false" role="img">
-				<rect width="100%" height="100%" fill="#777" /></svg>
+			<img class="bd-placeholder-img" width="100%" height="100%"
+				src="/resources/img/cash1.jpg" >
+				<rect width="100%" height="100%" fill="#777" />
 			<div class="container">
 				<div class="carousel-caption">
-					<h1>Another example headline.</h1>
-					<p>Cras justo odio, dapibus ac facilisis in, egestas eget quam.
-						Donec id elit non mi porta gravida at eget metus. Nullam id dolor
-						id nibh ultricies vehicula ut id elit.</p>
+					<h1>캐쉬충전 어찌고 저찌고</h1>
+					<p>이 사이트 이용할라믄 캐쉬충전해야함. 블라블라~~~~~</p>
 					<p>
-						<a class="btn btn-lg btn-primary" href="#" role="button">Learn
-							more</a>
+						<a class="btn btn-lg btn-primary" href="#" role="button">충전하러 GO</a>
 					</p>
 				</div>
 			</div>
 		</div>
 		<div class="carousel-item">
-			<svg class="bd-placeholder-img" width="100%" height="100%"
-				xmlns="http://www.w3.org/2000/svg"
-				preserveAspectRatio="xMidYMid slice" focusable="false" role="img">
-				<rect width="100%" height="100%" fill="#777" /></svg>
+			<img class="bd-placeholder-img" width="100%" height="100%"
+				src="/resources/img/matching.jpg" >
+				<rect width="100%" height="100%" fill="#777" />
 			<div class="container">
 				<div class="carousel-caption text-right">
-					<h1>One more for good measure.</h1>
-					<p>Cras justo odio, dapibus ac facilisis in, egestas eget quam.
-						Donec id elit non mi porta gravida at eget metus. Nullam id dolor
-						id nibh ultricies vehicula ut id elit.</p>
+					<h1>트레이너 매칭 어찌고 </h1>
+					<p>블라블라</p>
 					<p>
-						<a class="btn btn-lg btn-primary" href="#" role="button">Browse
-							gallery</a>
+						<a class="btn btn-lg btn-primary" href="#" role="button">매칭하기</a>
 					</p>
 				</div>
 			</div>
@@ -132,7 +123,7 @@
 			<p>Donec sed odio dui. Cras justo odio, dapibus ac facilisis in,
 				egestas eget quam. Vestibulum id ligula porta felis euismod semper.
 				Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum
-				nibh, ut fermentum massa justo sit amet risus.</p>
+				nibh, ut fermentum massa justo sit amet risus.</p>k
 			<p>
 				<a class="btn btn-secondary" href="#" role="button">View details
 					&raquo;</a>
@@ -159,14 +150,11 @@
 				dapibus, tellus ac cursus commodo.</p>
 		</div>
 		<div class="col-md-5">
-			<svg
+			<img
 				class="bd-placeholder-img bd-placeholder-img-lg featurette-image img-fluid mx-auto"
-				width="500" height="500" xmlns="http://www.w3.org/2000/svg"
-				preserveAspectRatio="xMidYMid slice" focusable="false" role="img"
-				aria-label="Placeholder: 500x500">
+				width="500" height="500" src="/resources/img/food.jpg"  >
 				<title>Placeholder</title><rect width="100%" height="100%"
 					fill="#eee" />
-				<text x="50%" y="50%" fill="#aaa" dy=".3em">500x500</text></svg>
 		</div>
 	</div>
 
@@ -184,14 +172,11 @@
 				dapibus, tellus ac cursus commodo.</p>
 		</div>
 		<div class="col-md-5 order-md-1">
-			<svg
+			<img
 				class="bd-placeholder-img bd-placeholder-img-lg featurette-image img-fluid mx-auto"
-				width="500" height="500" xmlns="http://www.w3.org/2000/svg"
-				preserveAspectRatio="xMidYMid slice" focusable="false" role="img"
-				aria-label="Placeholder: 500x500">
+				width="500" height="500" src="/resources/img/main.jpg" >
 				<title>Placeholder</title><rect width="100%" height="100%"
 					fill="#eee" />
-				<text x="50%" y="50%" fill="#aaa" dy=".3em">500x500</text></svg>
 		</div>
 	</div>
 
@@ -208,14 +193,11 @@
 				dapibus, tellus ac cursus commodo.</p>
 		</div>
 		<div class="col-md-5">
-			<svg
+			<img
 				class="bd-placeholder-img bd-placeholder-img-lg featurette-image img-fluid mx-auto"
-				width="500" height="500" xmlns="http://www.w3.org/2000/svg"
-				preserveAspectRatio="xMidYMid slice" focusable="false" role="img"
-				aria-label="Placeholder: 500x500">
+				width="500" height="500" src="/resources/img/main2.jpg" >
 				<title>Placeholder</title><rect width="100%" height="100%"
 					fill="#eee" />
-				<text x="50%" y="50%" fill="#aaa" dy=".3em">500x500</text></svg>
 		</div>
 	</div>
 
