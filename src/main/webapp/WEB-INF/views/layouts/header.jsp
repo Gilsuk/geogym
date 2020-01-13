@@ -9,6 +9,7 @@
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="google-signin-client_id" content="123975318354-o9am10v465q0m9miruu3k86i75v90vnu.apps.googleusercontent.com">
 <title>GEOGYM</title>
 <!-- JQuery 3.4.1 -->
 <script src="https://code.jquery.com/jquery-3.4.1.min.js"
@@ -76,6 +77,15 @@
 // 			})
  		});
 	})
+	
+		function signOut() {
+			try {
+				gapi.auth2.getAuthInstance().signOut();
+			} finally {
+				window.location.replace("/user/logout");
+			}
+		}
+
 	</script>
 </c:if>
 
@@ -92,29 +102,27 @@
 			</button>
 			<div class="collapse navbar-collapse" id="navbarCollapse">
 				<ul class="navbar-nav mr-auto">
-					<li class="nav-item active"><a class="nav-link" href="/">메인
-							<span class="sr-only">(current)</span>
-					</a></li>
+<!-- 					<li class="nav-item active"><a class="nav-link" href="/">메인 -->
+<!-- 							<span class="sr-only">(current)</span> -->
+<!-- 					</a></li> -->
 					<c:if test="${empty loggedInUser }">
 					<li class="nav-item"><a class="nav-link" href="/user/login">로그인</a></li>
 					<li class="nav-item"><a class="nav-link" href="/user/join">회원가입</a></li>
 					</c:if>
 					<li class="nav-item"><a class="nav-link" href="/trainer/list">트레이너</a></li>
-					<li class="nav-item"><a class="nav-link" href="/qna/list">QnA</a></li>
+					<li class="nav-item"><a class="nav-link" href="/qna/list">문의하기</a></li>
+					<li class="nav-item"><a class="nav-link" href="/static/map">시설안내</a></li>
 					<c:if test="${not empty loggedInUser }">
-<!-- 					<li class="nav-item"><a class="nav-link" href="/admin/main">관리자</a></li> -->
-					<li class="nav-item"><a class="nav-link disabled" href="#"
-						tabindex="-1" aria-disabled="true">${loggedInUser.user_name } is logged in</a></li>
-					<li class="nav-item"><a class="nav-link" href="/mypage/main">마이 페이지</a></li>
-					<li class="nav-item"><a class="nav-link" href="/user/logout">나가기</a></li>
+<!-- 					<li class="nav-item"><a class="nav-link" href="/admin/main">관리자</a></li> -->		
+					<li class="nav-item"><a class="nav-link" href="/mypage/main">내 정보</a></li>
+					<li class="nav-item"><a class="nav-link" href="#" onclick="signOut()">나가기</a></li>
 					</c:if>
 				</ul>
 				
 				<form class="form-inline mt-2 mt-md-0">
-					<input class="form-control mr-sm-2" type="text"
-						placeholder="종합검색" aria-label="Search">
-					<button class="btn btn-outline-success my-2 my-sm-0" type="submit">검색</button>
 					<c:if test="${not empty loggedInUser }">
+						<a class="nav-link disabled" href="#"
+							tabindex="-1" aria-disabled="true">${loggedInUser.user_name }님</a>
 						<button id="messageButton" type="button" class="btn my-2 my-sm-0">
 							알림 <span id="messageCount" class="badge badge-light"></span>
 						</button>

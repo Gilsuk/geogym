@@ -78,7 +78,7 @@
   	</select>
   	
   	<select id="selectProfileByUserNo" parameterType="com.geogym.user.dto.User" resultType="com.geogym.attachment.dto.Attachment">
-  		SELECT * FROM attachment NATURAL JOIN user_attachment WHERE user_no = #{user_no} ;
+  		SELECT * FROM attachment NATURAL JOIN user_attachment WHERE user_no = #{user_no} ORDER BY attachment_no DESC Limit 1 ;
   	</select>
   	
   	

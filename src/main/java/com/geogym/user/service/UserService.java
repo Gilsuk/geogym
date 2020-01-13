@@ -3,6 +3,7 @@ package com.geogym.user.service;
 import com.geogym.common.exception.ParamIncorrectException;
 import com.geogym.user.dto.LoginInfo;
 import com.geogym.user.dto.User;
+import com.geogym.user.enumeration.Social;
 import com.geogym.user.exception.UserNotFoundException;
 
 /**
@@ -42,5 +43,9 @@ public interface UserService {
 	void join(User info) throws ParamIncorrectException;
 
 	void setUserToSession(User user);
+
+	void login(String id_token, Social google) throws UserNotFoundException;
+
+	void linkSocial(User user, String id_token, Social google);
 	
 }

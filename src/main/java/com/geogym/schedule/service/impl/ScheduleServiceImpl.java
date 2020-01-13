@@ -260,4 +260,16 @@ public class ScheduleServiceImpl implements ScheduleService {
 		scheduleDao.insertWorkHour(attendance);
 	}
 
+	@Override
+	public List<LocalDate> getTwoWeek(LocalDate date) {
+		
+		List<LocalDate> weeklist = new ArrayList<LocalDate>();
+		
+		for(int i = -2; i < 12; i++) {
+			weeklist.add(date.plusDays(i));
+		}
+		
+		return weeklist;
+	}
+
 }

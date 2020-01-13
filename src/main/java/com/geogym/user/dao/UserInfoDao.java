@@ -1,5 +1,7 @@
 package com.geogym.user.dao;
 
+import java.util.Map;
+
 import com.geogym.user.dto.LoginInfo;
 import com.geogym.user.dto.User;
 
@@ -20,5 +22,9 @@ public interface UserInfoDao {
 	void deleteFromManager(int user_no);
 
 	User selectUserByUserid(String user_id);
+
+	void insertSocialUser(Map<String, String> map);
+
+	User selectUserBySocialToken(Map<String, String> map);
 
 }

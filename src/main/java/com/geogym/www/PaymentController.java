@@ -5,6 +5,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -34,12 +35,11 @@ public class PaymentController {
 			return "/user/login";
 		}
 	}
-
-	@RequestMapping(value = "/payment/complete/*")
-	public String paymentComplete(Model model) {
+	@RequestMapping(value = "/payment/complete/{imp_uid}")
+	public String paymentComplete(Model model, @PathVariable("imp_uid") String imp_uid) {
 		
 		try {
-			cashSrv.chargeCash();
+			cashSrv.chargeCash(imp_uid);
 			return "/payment/success";
 		} catch (FailPayException e) {
 			return "redirect:/payment/fail";

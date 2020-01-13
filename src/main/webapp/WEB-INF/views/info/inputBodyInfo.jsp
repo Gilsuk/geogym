@@ -36,10 +36,17 @@
 <script type="text/javascript">
 	document.getElementById('today').valueAsDate = new Date();
 </script>
+<script type="text/javascript">
+	function popupClose(form){
+		form.target = opener.name;
+		
+		form.submit();
+	}
+</script>
 <h1 style="text-align:center">신체정보입력</h1>
 >>${user.user_name } 회원님
 <hr>
-<form action="/info/inputBodyInfo" method="POST">
+<form action="/info/inputBodyInfo" method="POST" target="inputBodyinfo.do">
 
 <!-- <h2>입력일자 : </h2><input type="date" id="today" name="bodyinfo_date" size="10"/> -->
 
@@ -54,18 +61,18 @@
 		</tr>
 		<tr>
 			<th><h3>골격근량</h3></th>
-			<td><input type="text" name="bodyinfo_fat" class="form-control" placeholder="kg"></td>
+			<td><input type="text" name="bodyinfo_muscle" class="form-control" placeholder="kg"></td>
 		</tr>
 		<tr>
 			<th><h3>체지방량</h3></th>
-			<td><input type="text" name="bodyinfo_muscle" class="form-control" placeholder="kg"></td>
+			<td><input type="text" name="bodyinfo_fat" class="form-control" placeholder="kg"></td>
 		</tr>
 	</table>
 	
 	
 	<textarea style="margin-left:13px" rows="10" cols="50" name="body_comment_msg">${bodyComment.body_comment_msg }</textarea>
 
-	<button style="margin-left:336px;width: 48px">입력</button>
+	<button style="margin-left:336px;width: 48px" onclick="window.close()">입력</button>
 	<input type="hidden" value="${user.user_no }" name="user_no"/>
 	<input Type="hidden" value="${trainer.trainer_no }" name="trainer_no"/>
 </form>
