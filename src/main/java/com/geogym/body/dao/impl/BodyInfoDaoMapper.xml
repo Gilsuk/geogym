@@ -81,5 +81,8 @@
   		SELECT * FROM attachment NATURAL JOIN user_attachment WHERE user_no = #{user_no} ORDER BY attachment_no DESC Limit 1 ;
   	</select>
   	
+  	<select id="selectCountBodyinfoByDate" parameterType="HashMap" resultType="int">
+  		SELECT COUNT(*) FROM bodyinfo WHERE user_no = #{user_no} AND bodyinfo_date = #{bodyinfo_date}
+  	</select>
   	
   </mapper>

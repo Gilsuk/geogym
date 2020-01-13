@@ -1,5 +1,7 @@
 package com.geogym.www;
 
+import java.time.LocalDate;
+import java.util.HashMap;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -40,7 +42,7 @@ public class BodyController {
 	private static final Logger logger = LoggerFactory.getLogger(BodyController.class);
 
 	@RequestMapping(value="/info/bodyinfo", method=RequestMethod.GET)
-	public void bodyInfo(
+	public String bodyInfo(
 			@RequestParam(defaultValue = "week") String select,
 			Model model) {
 		
@@ -51,6 +53,8 @@ public class BodyController {
 		} catch (UserNotFoundException e1) {
 			e1.printStackTrace();
 			logger.info("와우 널포인트 익셉션 로그인이 안됨");
+			
+			return "redirect:/user/login";
 		}
 		
 
@@ -74,10 +78,17 @@ public class BodyController {
 			e.printStackTrace();
 		}
 		
+		HashMap<String,Object> list = new HashMap<>();
+		list.put("user_no", loggedInUser.getUser_no());
+		list.put("bodyinfo_date", LocalDate.now());
+		
+		int isbodyinfo = bodyInfoService.getCountBodyinfo(list);
+		
 //		logger.info(bodyComment.toString());
 		model.addAttribute("profile", profile);
 		model.addAttribute("bodyInfo", bodyInfo);
 		model.addAttribute("bodycomment", bodyComment);
+		model.addAttribute("isbodyinfo", isbodyinfo);
 		
 //		1주일 단위로 불러오기
 		if(select.equals("week")) {
@@ -90,7 +101,7 @@ public class BodyController {
 			model.addAttribute("list",bodyInfoByWeek);
 			model.addAttribute("weightInfo", weightInfoByWeek);
 			model.addAttribute("heightInfo", heightInfoByWeek);
-			return;
+			return "/info/bodyinfo";
 		}
 		
 //		30일 단위로 불러오기
@@ -104,15 +115,16 @@ public class BodyController {
 			model.addAttribute("list", bodyInfoByMonth);
 			model.addAttribute("weightInfo", weightInfoByMonth);
 			model.addAttribute("heightInfo", heightInfoByMonth);
-			return;
+			return "/info/bodyinfo";
 		}		
-		
+		return "/info/bodyinfo";
 	}
 	
 	@RequestMapping(value="/info/inputBodyInfo", method=RequestMethod.GET)
 	public void inputBodyInfo(Model model) {
 		
 //		logger.info("신체정보입력 접근");
+		
 		
 		User loggedInUser = null;
 		try {
@@ -122,6 +134,8 @@ public class BodyController {
 			e1.printStackTrace();
 			logger.info("와우 널포인트 익셉션 로그인이 안됨");
 		}
+		
+		
 		
 		BodyComment bodyComment = bodyInfoService.getCommentary(loggedInUser);
 		model.addAttribute("bodyComment", bodyComment);

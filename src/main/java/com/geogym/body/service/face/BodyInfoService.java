@@ -1,5 +1,7 @@
 package com.geogym.body.service.face;
 
+import java.time.LocalDate;
+import java.util.HashMap;
 import java.util.List;
 
 import com.geogym.attachment.dto.Attachment;
@@ -66,5 +68,7 @@ public interface BodyInfoService {
 	void deleteBodyCommentary(BodyInfo bodyinfo);
 
 	List<Attachment> getProfile(User loggedInUser);
+
+	int getCountBodyinfo(HashMap<String, Object> list);
 	
 }
