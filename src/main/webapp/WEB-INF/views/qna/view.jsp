@@ -87,6 +87,7 @@ td:not(.info) {
 <%-- <c:if test="${login }"> --%>
 <!-- 댓글 입력 -->
 <c:if test="${empty answer }">
+<c:if test="${trainer }">
 <div class="form-inline text-center">
 	<form action="/answer/write" method="post" enctype="multipart/form-data">
 <%-- 	<input type="text" size="10" class="form-control" id="commentWriter" value="${usernick }" readonly="readonly"/> --%>
@@ -97,9 +98,12 @@ td:not(.info) {
 	</form>
 </div>	<!-- 댓글 입력 end -->
 </c:if>
+</c:if>
 <%-- </c:if> --%>
 
 <!-- 댓글 리스트 -->
+<c:if test="${not empty answer }">
+
 <table class="table table-striped table-hover table-condensed">
 <thead>
 <tr>
@@ -124,6 +128,7 @@ td:not(.info) {
 			<span><a href="/answer/file/download?qna_answer_no=${answer.qna_answer_no }">${answerFile.attachment_origin_name }</a></span>
 		</c:forEach>
 	</c:forEach>
+</c:if>
 </c:if>
 
 </div>	<!-- 댓글 처리 end -->
