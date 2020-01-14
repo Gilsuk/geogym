@@ -66,7 +66,7 @@ public class TrainerController {
 
 		try {
 			User user = userService.getLoggedInUser();
-			if (userService.isManager(user)) {
+			if (userService.isTrainer(user)) {
 				return "/trainer/insert";
 			} else {
 				System.out.println(user);
