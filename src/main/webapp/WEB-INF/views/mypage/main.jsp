@@ -33,12 +33,8 @@
 	<a class="list-group-item list-group-item-action" href="/calendar/PT/schedule">내 PT 일정 보기</a>
 	<a class="list-group-item list-group-item-action" href="/calendar/memolist?user_no=${user.user_no }">트레이너 메모 보기</a>
 	
-	<c:if test="${isTrainer }">
-		<a class="list-group-item list-group-item-action" href="/info/bodyinfo">바디 인포</a>
-	</c:if>
-	<c:if test="${isTrainer ne true}">
+	
 	<a class="list-group-item list-group-item-action" href="/info/bodyinfo_user">바디 인포</a>
-	</c:if>
 	
 	<a class="list-group-item list-group-item-action" href="/mypage/messagelist">메세지 확인</a>
 	<a class="list-group-item list-group-item-action" href="/payment/form">캐시 충전</a>

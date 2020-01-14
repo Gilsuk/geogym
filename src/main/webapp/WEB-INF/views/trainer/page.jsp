@@ -29,7 +29,7 @@
 			<a	class="list-group-item list-group-item-action"
 			href="/calendar/memolist?user_no=${user.user_no }">근무</a> 
 			<a class="list-group-item list-group-item-action" 
-			href="/info/bodyinfo">바디 인포</a> 
+			href="/info/bodyinfo_user">바디 인포</a> 
 	</div>
 </div>
 

@@ -57,7 +57,8 @@ public class BodyController {
 			return "redirect:/user/login";
 		}
 		
-
+		boolean isTrainer = userService.isTrainer(loggedInUser);
+		boolean isManager = userService.isManager(loggedInUser);
 		List<Attachment> profile = bodyInfoService.getProfile(loggedInUser);
 
 		//userno 임의 지정 ( 추후 삭제 예정 )
@@ -89,6 +90,8 @@ public class BodyController {
 		model.addAttribute("bodyInfo", bodyInfo);
 		model.addAttribute("bodycomment", bodyComment);
 		model.addAttribute("isbodyinfo", isbodyinfo);
+		model.addAttribute("isTrainer", isTrainer);
+		model.addAttribute("isManager", isManager);
 		
 //		1주일 단위로 불러오기
 		if(select.equals("week")) {
@@ -247,6 +250,8 @@ public class BodyController {
 			logger.info("와우 널포인트 익셉션 로그인이 안됨");
 		}
 		
+		boolean isTrainer = userService.isTrainer(loggedInUser);
+		boolean isManager = userService.isManager(loggedInUser);
 		List<Attachment> profile = bodyInfoService.getProfile(loggedInUser);
 		
 		
@@ -273,6 +278,8 @@ public class BodyController {
 		model.addAttribute("profile", profile);
 		model.addAttribute("bodyInfo", bodyInfo);
 		model.addAttribute("bodycomment", bodyComment);
+		model.addAttribute("isTrainer", isTrainer);
+		model.addAttribute("isManager", isManager);
 		
 //		1주일 단위로 불러오기
 		if(select.equals("week")) {

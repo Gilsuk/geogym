@@ -49,12 +49,7 @@
 		</c:otherwise>
 	</c:choose>
 	
-	<c:if test="${isTrainer }">
-		<a class="list-group-item list-group-item-action" href="/info/bodyinfo">바디 인포</a>
-	</c:if>
-	<c:if test="${isTrainer ne true}">
 		<a class="list-group-item list-group-item-action" href="/info/bodyinfo_user">바디 인포</a>
-	</c:if>
 	
 	<a class="list-group-item list-group-item-action" href="/mypage/messagelist">메세지 확인</a>
 
