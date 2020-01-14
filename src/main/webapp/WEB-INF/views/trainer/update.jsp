@@ -10,7 +10,7 @@
 <label>setTrainer_address :</label> <input type="text" name="trainer_address" id="trainer_address" required="required" value="${trainer.trainer_address }"/><br>
 <label>setTrainer_price :</label> <input type="number" name="trainer_price" id="trainer_price" required="required" value="${trainer.trainer_price }"/><br>
 <label>setTrainer_profile :</label> <textarea rows="" cols="" name="trainer_profile" id="trainer_profile" required="required">${trainer.trainer_profile }</textarea><br>
-<label>file :</label> <input type="file" name="file" id="file" required="required" /><br>
+<label>file :</label> <input type="file" name="file" id="file"/><br>
 <button>확인</button>
 </form>
 <%@ include file="/WEB-INF/views/layouts/footer.jsp"%>

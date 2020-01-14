@@ -92,14 +92,15 @@ public class TrainerServiceImpl implements TrainerService {
 		Trainer trainer2 = getTrainer(trainer);
 		System.out.println("trainer : " + trainer);
 		System.out.println("trainer2 : " + trainer2);
+		Attachment attachment = attachmentService.upload(file);
 		
-		if (file == null) {
-			trainer.setAttachment(trainer2.getAttachment());
+		if (attachment.getAttachment_no() != 0) {
+			attachmentService.removeAttachment(trainer2);
+			trainer.setAttachment(attachment);
 		}else {
-			attachmentService.removeAttachment(trainer);
-			trainer.setAttachment(attachmentService.upload(file));
+			trainer.setAttachment(trainer2.getAttachment());
 			
-		}
+		} 
 		if (trainer.getTrainer_address() == null) {
 			trainer.setTrainer_address(trainer2.getTrainer_address());
 		}
@@ -109,6 +110,8 @@ public class TrainerServiceImpl implements TrainerService {
 		if (trainer.getTrainer_profile() == null) {
 			trainer.setTrainer_profile(trainer2.getTrainer_profile());
 		}
+		System.out.println("trainer : " + trainer);
+		System.out.println("trainer2 : " + trainer2);
 		
 		trainerDao.updateTrainer(trainer);
 		
