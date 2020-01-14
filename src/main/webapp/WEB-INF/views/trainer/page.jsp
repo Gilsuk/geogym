@@ -16,9 +16,25 @@
 <div class="container">
 <div class="row">
 <div class="col-12">
-	<br>
-	<h1>마이 페이지</h1>
-	<hr>
+<br>
+
+<ul class="nav nav-tabs">
+  <li class="nav-item">
+    <a class="nav-link" href="/mypage/main">마이 페이지</a>
+  </li>
+  <c:if test="${isTrainer }">
+	  <li class="nav-item">
+	    <a class="nav-link active" href="/trainer/page">트레이너 페이지</a>
+	  </li>
+  </c:if>
+  <c:if test="${isManager }">
+	  <li class="nav-item">
+	    <a class="nav-link" href="/test/setbusinessday">관리자</a>
+	  </li>
+  </c:if>
+</ul>
+
+<br>
 </div>
 <div class="col-sm-12 col-md-12 col-lg-3 col-xl-3">
 	<div class="list-group">

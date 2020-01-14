@@ -66,7 +66,7 @@ public class TrainerController {
 
 		try {
 			User user = userService.getLoggedInUser();
-			if (userService.isManager(user)) {
+			if (userService.isTrainer(user)) {
 				return "/trainer/insert";
 			} else {
 				System.out.println(user);
@@ -213,6 +213,9 @@ public class TrainerController {
 
 			model.addAttribute("trainer", trainerService.getTrainertoUser(user));
 			model.addAttribute("user", user);
+			model.addAttribute("isTrainer", userService.isTrainer(user));
+			model.addAttribute("isManager", userService.isManager(user));
+			
 
 			return null;
 		} catch (UserNotFoundException e) {

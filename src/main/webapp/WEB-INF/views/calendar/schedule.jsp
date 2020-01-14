@@ -13,10 +13,10 @@
 		<c:if test="${isTrainer }">
 		<div class="col-sm-12 col-md-12 col-lg-3 col-xl-3">
 			<div class="list-group">
-				<a class="list-group-item list-group-item-action active"
+				<a class="list-group-item list-group-item-action"
 					href="/trainer/page">내 정보</a> <a
-					class="list-group-item list-group-item-action"
-					href="/calendar/schedule?trainer_no=${trainer.trainer_no }">PT</a>
+					class="list-group-item list-group-item-action active"
+					href="/calendar/schedule?trainer_no=${trainer.trainer_no }">내 스케줄</a>
 				<a class="list-group-item list-group-item-action"
 					href="/calendar/memolist?user_no=${user.user_no }">근무</a> <a
 					class="list-group-item list-group-item-action"

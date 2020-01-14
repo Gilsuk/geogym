@@ -153,4 +153,20 @@ public class UserServiceImpl implements UserService {
 		dao.insertSocialUser(map);
 	}
 
+	@Override
+	public boolean isEmailDuplicated(String param_user) {
+		int cnt = dao.selectCntByEmail(param_user);
+		if (cnt > 0)
+			return true;
+		return false;
+	}
+
+	@Override
+	public boolean isIdDuplicated(String param_user) {
+		int cnt = dao.selectCntById(param_user);
+		if (cnt > 0)
+			return true;
+		return false;
+	}
+
 }

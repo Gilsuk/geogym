@@ -46,20 +46,6 @@ public interface TrainerService {
 	List<User> getClients(Trainer trainer);
 	
 	
-	/**
-	 * 
-	 * @param user 해당 유저번호에 맞는 유저에게 평가 내용 작성
-	 * @param trainer 트레이너별로 회원정보 평가 삽입
-	 */
-//	void userEvaluation(User_issue user_issue);
-	
-	/**
-	 * 
-	 * xx
-	 * @param user
-	 * @return
-	 */
-//	List<UserEvaluation> selectEvaluation(User user);
 	
 	/**
 	 * 트레이너 프로필 수정
@@ -146,14 +132,6 @@ public interface TrainerService {
 	 */
 	void reputate(T_reputation reputation);
 	
-	/**
-	 * 이 유저아이디와 같은 유저넘버를 가지는 트레이너 테이블이 있는지 조회
-	 * 
-	 * 이전 버전용
-	 * @param trainer - user_no 를 받아온다
-	 */
-//	boolean checkTrainer(Trainer trainer);
-
 
 	/**
 	 * 트레이너 한달 단위 근무일정 맵 받아오는 서비스

@@ -107,6 +107,18 @@ public class UserController {
 
 	}
 	
+	@ResponseBody
+	@RequestMapping(value = "/user/check/id", method = RequestMethod.POST)
+	public boolean checkIfDuplicatedId(String param_user) {
+		return userServ.isIdDuplicated(param_user);
+	}
+
+	@ResponseBody
+	@RequestMapping(value = "/user/check/email", method = RequestMethod.POST)
+	public boolean checkIfDuplicatedEmail(String param_user) {
+		return userServ.isEmailDuplicated(param_user);
+	}
+
 	@RequestMapping(value="/static/map")
 	public void map() {
 		

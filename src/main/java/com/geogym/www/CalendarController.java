@@ -172,10 +172,21 @@ public class CalendarController {
 				"/calendar/PT?user_no=" + trainer.getTrainer_no() + "&date=" + date.minusMonths(1));
 		model.addAttribute("curMonth", date);
 		model.addAttribute("viewLink", "/calendar/view/schedule?trainer_no=" + trainer.getTrainer_no());
-
+		
+		User user;
+		try {
+			user = userServ.getLoggedInUser();
+			model.addAttribute("user", user);
+			model.addAttribute("isTrainer", userServ.isTrainer(user));
+			model.addAttribute("isManager", userServ.isManager(user));
+		} catch (UserNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 		logger.info(timeList.toString());
 
-		return "/calendar/main";
+		return "/calendar/schedule";
 	}
 	
 	@RequestMapping(value = "/calendar/view/schedule", method = RequestMethod.GET)
@@ -186,6 +197,7 @@ public class CalendarController {
 		model.addAttribute("day", date);
 		model.addAttribute("list", list);
 		model.addAttribute("trainer_no", trainer.getTrainer_no());
+		
 
 		return "/calendar/shceduleview";
 	}

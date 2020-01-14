@@ -21,7 +21,7 @@
 	<select id="selectCntManagerByUserno" parameterType="int"
 		resultType="int">
 		SELECT count(*) FROM user
-		INNER JOIN manager USING (user_no)
+		INNER JOIN manager USING (user_no) where user_no = #{user_no}
 	</select>
 
 	<select id="selectUserByIdAndPw"
@@ -60,5 +60,15 @@
 		NATURAL JOIN social_user
 		WHERE social_user_key = #{social_user_key}
 		AND social_no = ${social_no}
+	</select>
+
+	<select id="selectCntByEmail" parameterType="java.lang.String" resultType="int">
+		SELECT count(*) FROM user
+		WHERE user_email = #{user_email}
+	</select>
+
+	<select id="selectCntById" parameterType="java.lang.String" resultType="int">
+		SELECT count(*) FROM user
+		WHERE user_id = #{user_id}
 	</select>
 </mapper>
