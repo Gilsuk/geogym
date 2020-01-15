@@ -96,6 +96,7 @@
 </div>
 <br>
 <br>
+<a href="/trainer/reputate?trainer_no=${trainer.trainer_no }"><button>이 트레이너 평가하기</button></a>
 <a href="/calendar/PT/request?trainer_no=${trainer.trainer_no }"><button>이 트레이너 시간표 보기</button></a>
 
 <div id = "info_info"><span  style="font-family: 'NIXGONB-Vb';font-size: 15px;color: #bcbcbc"></span></div>
