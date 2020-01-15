@@ -160,7 +160,45 @@ function drawLineColors() {
 	});
 	
 </script>
+<script type="text/javascript">
+function inputFail(){
+	alert("하루에 한번만 입력 가능합니다.\n데이터 삭제 후 이용하세요.");
+}
+</script>
+<script type="text/javascript">
+$(document).ready( function(){
+    $("#deleteInfo").click( function() {
+        if(confirm("정말 삭제하시겠습니까? 가장 최근에 입력한 데이터가 삭제됩니다.")) {
+			alert("삭제가 완료되었습니다.")	            
+			location.href="/info/deleteUser?bodyinfo_no=${bodyInfo.bodyinfo_no}&user_no=${user.user_no}"
+        } else {
+        	alert("삭제를 취소하셨습니다.")
+            return false;
+        }
+    });
+});
+</script>
+<script type="text/javascript">
 
+	$(document).on('click','#inputBodyInfo', function(){
+			
+		var popupX = (window.screen.width / 2) - (400 / 2);
+		// 만들 팝업창 좌우 크기의 1/2 만큼 보정값으로 빼주었음
+
+		var popupY= (window.screen.height /2) - (580 / 2);
+		// 만들 팝업창 상하 크기의 1/2 만큼 보정값으로 빼주었음
+		
+		
+			window.name="inputBodyinfo.do";
+			
+			window.open('http://localhost:8090/info/inputBodyInfoUser?user_no=${user.user_no}', 'window', 'status=no, height=580, width=400, left='+ popupX + ', top='+ popupY + ', screenX='+ popupX + ', screenY= '+ popupY);
+			
+		
+	
+// 		self.close();
+	});
+	
+</script>
 <!-- </head> -->
 <!-- <body> -->
 
@@ -294,8 +332,15 @@ function drawLineColors() {
 	</div>
 	<br>			
 	<div class="col-sm-2 row-sm" style="align-self: center;text-align:center">
-			<div><button id="uploadProfile" class="btn btn-primary" style="margin-bottom: 3px;">프로필사진<br>수정</button></div>
-			<div><button id="inbody" class="btn btn-primary" style="margin-top: 3px;">인바디정보<br>보기</button></div>
+			<div><button id="uploadProfile" class="btn btn-primary" style="margin-bottom: 2px;">프로필수정</button></div>
+			<div><button id="inbody" class="btn btn-primary" style="margin-bottom: 2px;">인바디정보</button></div>
+			<c:if test="${isbodyinfo eq 0 }">
+  				<div><button id="inputBodyInfo" class="btn btn-primary" style="margin-bottom: 2px;">데이터입력</button></div>
+  			</c:if>
+  			<c:if test="${isbodyinfo ne 0 }">
+  				<div><button id="inputBodyInfoFail" onclick="inputFail();" class="btn btn-primary" style="margin-bottom: 2px;">데이터입력</button></div>
+  			</c:if>
+  			<div><button id="deleteInfo" onclick="deleteInfo();location.href='/info/delete?bodyinfo_no=${bodyInfo.bodyinfo_no}'" class="btn btn-primary" >데이터삭제</button></div>
 	</div>		
 
 
@@ -310,7 +355,7 @@ function drawLineColors() {
 <br>
 <div  id="chartDiv">
 <div>
-<form action="/info/bodyinfo" method="GET">
+<form action="/info/bodyinfo_user?user_no=${user.user_no }" method="GET">
 	<button id="btnSelect" class="btn btn-primary" style="float:right">조회</button>
 	<select id="selectCondition" Style="float:right;height:38px;" name="select">
 		<option value="week" selected="${select eq 'week' ? 'selected' : '' }">7일단위</option>

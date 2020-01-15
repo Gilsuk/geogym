@@ -46,7 +46,7 @@
 <h1 style="text-align:center">신체정보입력</h1>
 >> ${user.user_name }님
 <hr>
-<form action="/info/inputBodyInfo" method="POST" target="inputBodyinfo.do">
+<form action="/info/inputBodyInfoUser" method="POST" target="inputBodyinfo.do">
 
 <!-- <h2>입력일자 : </h2><input type="date" id="today" name="bodyinfo_date" size="10"/> -->
 
@@ -70,11 +70,9 @@
 	</table>
 	
 	
-	<textarea style="margin-left:13px" rows="10" cols="50" name="body_comment_msg">${bodyComment.body_comment_msg }</textarea>
 
 	<button style="margin-left:336px;width: 48px" onclick="window.close()">입력</button>
 	<input type="hidden" value="${user.user_no }" name="user_no"/>
-	<input Type="hidden" value="${trainer.trainer_no }" name="trainer_no"/>
 </form>
 
 

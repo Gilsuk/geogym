@@ -43,6 +43,7 @@
 <form action="/info/uploadinbodyProc" method="POST" enctype="multipart/form-data" target="uploadinbody.do">
 <input type="file" name="file"/>
 <input type="hidden" name="bodyinfo_no" value="${bodyinfo_no }"/>
+<input type="hidden" name="user_no" value="${user.user_no }"/>
 <button onclick="window.close()">등록</button>
 </form>
 
