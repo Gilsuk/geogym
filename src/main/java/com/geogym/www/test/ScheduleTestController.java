@@ -163,7 +163,7 @@ public class ScheduleTestController {
 			try {
 				response.setContentType("text/html; charset=UTF-8");
 				out = response.getWriter();
-				out.println("<script>alert('매칭 실패함.'); location.href='"+string+"';</script>");
+				out.println("<script>alert('매칭에 실패했습니다.'); location.href='"+string+"';</script>");
 				out.flush();
 				return null;
 			} catch (IOException e) {
@@ -176,7 +176,7 @@ public class ScheduleTestController {
 			try {
 				response.setContentType("text/html; charset=UTF-8");
 				out = response.getWriter();
-				out.println("<script>alert('돈 없음.'); location.href='"+string+"';</script>");
+				out.println("<script>alert('보유하신 캐시가 부족합니다.'); location.href='"+string+"';</script>");
 				out.flush();
 				return null;
 			} catch (IOException e) {
@@ -189,7 +189,7 @@ public class ScheduleTestController {
 			try {
 				response.setContentType("text/html; charset=UTF-8");
 				out = response.getWriter();
-				out.println("<script>alert('빈 시간 없음.'); location.href='"+string+"';</script>");
+				out.println("<script>alert('해당 트레이너의 빈 시간이 없습니다.'); location.href='"+string+"';</script>");
 				out.flush();
 				return null;
 			} catch (IOException e) {
@@ -202,7 +202,7 @@ public class ScheduleTestController {
 			try {
 				response.setContentType("text/html; charset=UTF-8");
 				out = response.getWriter();
-				out.println("<script>alert('일하는 날 아님.'); location.href='"+string+"';</script>");
+				out.println("<script>alert('운영시간이 아닙니다.'); location.href='"+string+"';</script>");
 				out.flush();
 				return null;
 			} catch (IOException e) {

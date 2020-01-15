@@ -112,7 +112,7 @@ public class PTController {
 		System.out.println("월:"+month.getMonthValue());
 		for(int i=0;i<list.size();i++ ) {
 			trainer.setTrainer_no(list.get(i).getTrainer_no());
-			int num = matchingService.countptpermonse(trainer, month);
+			int num = matchingService.countptpermonth(trainer, month);
 			if(num != 0) {
 				countpt.setCount_pt(num);
 				countpt.setTrainer_no(list.get(i).getTrainer_no());

@@ -35,7 +35,7 @@
 					<h1>캐쉬충전 어찌고 저찌고</h1>
 					<p>이 사이트 이용할라믄 캐쉬충전해야함. 블라블라~~~~~</p>
 					<p>
-						<a class="btn btn-lg btn-primary" href="#" role="button">충전하러 GO</a>
+						<a class="btn btn-lg btn-primary" href="/payment/form" role="button">충전하러 GO</a>
 					</p>
 				</div>
 			</div>
@@ -49,7 +49,7 @@
 					<h1>트레이너 매칭 어찌고 </h1>
 					<p>블라블라</p>
 					<p>
-						<a class="btn btn-lg btn-primary" href="#" role="button">매칭하기</a>
+						<a class="btn btn-lg btn-primary" href="/trainer/list" role="button">매칭하기</a>
 					</p>
 				</div>
 			</div>

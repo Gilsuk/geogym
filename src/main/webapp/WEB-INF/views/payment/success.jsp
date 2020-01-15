@@ -60,7 +60,7 @@
 		<div class="col-sm-12 col-md-12 col-lg-7 col-xl-7">
 			<h2>결제</h2>
 			<hr>
-			<p>성공적</p>
+			<p>결제 성공했습니다.</p>
 		</div>
 	</div>
 </div>
