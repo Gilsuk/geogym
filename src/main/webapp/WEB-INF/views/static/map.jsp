@@ -153,8 +153,8 @@ body{
 	
 <div class="col-sm-12 col-md-12 col-lg-3 col-xl-3">
 	<div class="list-group">
+		<a class="list-group-item list-group-item-action" href="/static/facility">시설소개</a>
 		<a class="list-group-item list-group-item-action active disabled" aria-disabled="true" href="/static/map">오시는길</a>
-		<a class="list-group-item list-group-item-action" href="">시설소개</a>
 		
 		
 	</div>
