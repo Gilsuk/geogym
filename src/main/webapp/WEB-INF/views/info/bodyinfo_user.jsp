@@ -191,7 +191,7 @@ $(document).ready( function(){
 		
 			window.name="inputBodyinfo.do";
 			
-			window.open('http://localhost:8090/info/inputBodyInfoUser?user_no=${user.user_no}', 'window', 'status=no, height=580, width=400, left='+ popupX + ', top='+ popupY + ', screenX='+ popupX + ', screenY= '+ popupY);
+			window.open('/info/inputBodyInfoUser?user_no=${user.user_no}', 'window', 'status=no, height=580, width=400, left='+ popupX + ', top='+ popupY + ', screenX='+ popupX + ', screenY= '+ popupY);
 			
 		
 	
