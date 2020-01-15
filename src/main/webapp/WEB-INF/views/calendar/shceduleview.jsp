@@ -32,7 +32,7 @@
 <tr>
 	<td>${list.schedule_from} ~ ${list.schedule_to}</td>
 	
-	<td><a href="/calendar/viewmemo?user_no=${list.user_no }&date=${list.schedule_date}"> ${list.schedule_msg } ${list.user_no }번 유저</a></td>
+	<td><a href="/calendar/viewmemo?user_no=${list.user_no }&date=${list.schedule_date}"> ${list.schedule_msg } ${list.user_no }번 유저</a>&nbsp;<a href="/info/bodyinfo?user_no=${list.user_no }">(바디인포 바로가기)</a></td>
 </tr>	
 </c:forEach>
 </table>
