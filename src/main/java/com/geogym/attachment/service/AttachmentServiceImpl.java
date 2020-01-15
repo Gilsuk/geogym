@@ -109,7 +109,7 @@ public class AttachmentServiceImpl implements AttachmentService, ServletContextA
 			attachment.setMime_no(8);
 			attachmentDao.upload(attachment);
 		} else if (filname.substring(filname.indexOf(".") + 1).equals("jpg")) {
-			attachment.setMime_no(9);
+			attachment.setMime_no(5);
 			attachmentDao.upload(attachment);
 		} else {
 			logger.info("확장자 없음 or 파일 없음");
