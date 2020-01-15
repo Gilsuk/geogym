@@ -3,60 +3,6 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ include file="/WEB-INF/views/layouts/header.jsp"%>
 
-<style>
-/* #mypage_info{ */
-/* 	height: 40px; */
-/* 	text-align: center; */
-/* 	display: flex; */
-/* 	justify-content: center; */
-/* 	align-items: stretch; */
-/* 	min-height : 100px; */
-/* 	margin-right: 730px; */
-/* 	font-family: 'NIXGONB-Vb'; */
-/* } */
-
-/* .container { */
-/* 	width : 1400px; */
-/*     display: block; */
-/*     text-align: center; */
-/* 	justify-content: center; */
-/* 	align-items: stretch; */
-	
-/* } */
-
-/* #photo{ */
-/* 	width: 20%; */
-/*     float : left; */
-/* } */
-/* #info_name{ */
-/* 	width: 80%; */
-/*  	float : right; */
-/* 	height: 50px; */
-/*     color: #1C5B8C; */
-/*     font-family: dotum; */
-/*     line-height: 150%; */
-/*     text-align: left; */
-/* } */
-/* #info_nick{ */
-/* 	width: 80%; */
-/* 	float : right;	 */
-/* 	height: 50px; */
-/*     color: #1C5B8C; */
-/*     font-family: dotum; */
-/*     line-height: 150%; */
-/*     text-align: left;     */
-/* } */
-/* #info_info{ */
-/* 	width: 80%; */
-/* 	float : right; */
-/* 	height: 50px; */
-/*     color: #1C5B8C; */
-/*     font-family: dotum; */
-/*     line-height: 150%; */
-/*     text-align: left; */
-/* } */
-</style>
-
 <div class = "container">
 <br>
 

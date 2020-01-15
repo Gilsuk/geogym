@@ -3,13 +3,6 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>   
 
 <%@ include file="/WEB-INF/views/layouts/header.jsp"%>
- 
-<script
-  src="https://code.jquery.com/jquery-3.4.1.min.js"
-  integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
-  crossorigin="anonymous"></script>
-<!-- 합쳐지고 최소화된 최신 CSS -->
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
 
 <script src="//cdn.ckeditor.com/4.13.1/standard/ckeditor.js"></script>
 
@@ -27,6 +20,7 @@ $(document).ready(function() {
 <style type="text/css">
 </style>
 
+<br>
 <div class="container">
 
 <h1>글쓰기 페이지</h1>

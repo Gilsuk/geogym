@@ -108,7 +108,20 @@
 				<button type="button" id="btn-payment"
 					class="btn btn-primary btn-block">결제</button>
 			</form>
+			
+		<hr>
+		
+		<form action="/issue/ticket" method="post">
+			<select name="monthLength">
+				<option value="1">1개월 : 100,000</option>
+				<option value="3">3개월 : 270,000</option>
+				<option value="6">6개월 : 480,000</option>
+				<option value="12">12개월 : 840,000</option>
+			</select>
+			<button>이용권 발권</button>
+		</form>
 		</div>
+		
 	</div>
 </div>
 <br>

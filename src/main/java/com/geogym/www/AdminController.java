@@ -65,13 +65,9 @@ public class AdminController {
 	}
 	
 	@RequestMapping(value="/admin/insertWorkHour", method = RequestMethod.POST)
-	public String insertWorkHourProc(int user_no,Attendance attendance) {
+	public String insertWorkHourProc(User user,Attendance attendance) {
 		
-		
-		
-		attendance.setTrainer_no(user_no);
-		
-//		Trainer trainer=trainerService.selectbyuser_no(user_no);
+		attendance.setTrainer_no(trainerService.getTrainertoUser(user).getTrainer_no());
 		
 		scheduleService.insertWorkHour(attendance);
 		

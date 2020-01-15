@@ -179,6 +179,16 @@ public class TicketServiceImpl implements TicketService {
 	}
 
 	private void logPay(User user, int price, Currency currency) {
+		
+		switch (currency) {
+		case ONLINE:
+			
+			break;
+
+		default:
+			break;
+		}
+		
 		Payment payment = new Payment();
 		payment.setCurrency(currency);
 		payment.setPay_amount(price);
