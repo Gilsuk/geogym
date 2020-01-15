@@ -32,7 +32,11 @@ $(document).ready(function(){
 		
 			window.name="inputBodyinfo.do";
 			
+<<<<<<< HEAD
+			window.open('http://localhost:8090/info/inputBodyInfo?user_no=${user.user_no}', 'window', 'status=no, height=580, width=400, left='+ popupX + ', top='+ popupY + ', screenX='+ popupX + ', screenY= '+ popupY);
+=======
 			window.open('/info/inputBodyInfo', 'window', 'status=no, height=580, width=400, left='+ popupX + ', top='+ popupY + ', screenX='+ popupX + ', screenY= '+ popupY);
+>>>>>>> refs/remotes/origin/develop
 			
 		
 	
@@ -53,7 +57,11 @@ $(document).ready(function(){
 		
 		window.name="uploadinbody.do";
 		
+<<<<<<< HEAD
+		window.open('http://localhost:8090/info/uploadinbody?bodyinfo_no=${bodyInfo.bodyinfo_no}&user_no=${user.user_no}', 'window', 'status=no, height=580, width=400, left='+ popupX + ', top='+ popupY + ', screenX='+ popupX + ', screenY= '+ popupY);
+=======
 		window.open('/info/uploadinbody?bodyinfo_no=${bodyInfo.bodyinfo_no}', 'window', 'status=no, height=580, width=400, left='+ popupX + ', top='+ popupY + ', screenX='+ popupX + ', screenY= '+ popupY);
+>>>>>>> refs/remotes/origin/develop
 	
 		window.close();
 	});
@@ -82,7 +90,7 @@ $(document).ready( function(){
     $("#deleteInfo").click( function() {
         if(confirm("정말 삭제하시겠습니까? 가장 최근에 입력한 데이터가 삭제됩니다.")) {
 			alert("삭제가 완료되었습니다.")	            
-			location.href="/info/delete?bodyinfo_no=${bodyInfo.bodyinfo_no}"
+			location.href="/info/delete?bodyinfo_no=${bodyInfo.bodyinfo_no}&user_no=${user.user_no}"
         } else {
         	alert("삭제를 취소하셨습니다.")
             return false;
@@ -348,12 +356,13 @@ function drawLineColors() {
 <br>
 <div  id="chartDiv">
 <div>
-<form action="/info/bodyinfo" method="GET">
+<form action="/info/bodyinfo?user_no=${user.user_no }" method="GET">
 	<button id="btnSelect" class="btn btn-primary" style="float:right">조회</button>
 	<select id="selectCondition" Style="float:right;height:38px;" name="select">
 		<option value="week" selected="${select eq 'week' ? 'selected' : '' }">7일단위</option>
 		<option value="month" selected="${select eq 'month' ? 'selected' : '' }">30일단위</option>
 	</select>
+	<input type="hidden" name="user_no" value="${bodyinfo }"/>
 </form>
 
 	<button id="heightInfo" class="btn btn-primary" style="float:left">키 정보 보기</button>

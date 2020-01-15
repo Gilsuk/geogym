@@ -44,43 +44,43 @@ public class BodyController {
 	@RequestMapping(value="/info/bodyinfo", method=RequestMethod.GET)
 	public String bodyInfo(
 			@RequestParam(defaultValue = "week") String select,
-			Model model) {
+			Model model,
+			User user) {
 		
-		User loggedInUser = null;
-		try {
-			loggedInUser = userService.getLoggedInUser();
+//		User loggedInUser = null;
+//		try {
+//			loggedInUser = userService.getLoggedInUser();
+//
+//		} catch (UserNotFoundException e1) {
+//			e1.printStackTrace();
+//			logger.info("와우 널포인트 익셉션 로그인이 안됨");
+//			
+//			return "redirect:/user/login";
+//		}
+		
 
-		} catch (UserNotFoundException e1) {
-			e1.printStackTrace();
-			logger.info("와우 널포인트 익셉션 로그인이 안됨");
-			
-			return "redirect:/user/login";
-		}
-		
-		boolean isTrainer = userService.isTrainer(loggedInUser);
-		boolean isManager = userService.isManager(loggedInUser);
-		List<Attachment> profile = bodyInfoService.getProfile(loggedInUser);
+		List<Attachment> profile = bodyInfoService.getProfile(user);
 
 		//userno 임의 지정 ( 추후 삭제 예정 )
 //		User user1 = new User();
 //		user1.setUser_no(1);
 		
 		//가장 최근에 입력한 신체정보 불러오기
-		BodyInfo bodyInfo = bodyInfoService.getRecentBodyInfo(loggedInUser);
+		BodyInfo bodyInfo = bodyInfoService.getRecentBodyInfo(user);
 		
 		//가장 최근에 입력한 특이사항 불러오기
-		BodyComment bodyComment = bodyInfoService.getCommentary(loggedInUser);
+		BodyComment bodyComment = bodyInfoService.getCommentary(user);
 		
 		//user_no로 user_name 불러오기
 		try {
-			User user = userService.getUserByUserno(loggedInUser);
-			model.addAttribute("user", user);
+			User user_name = userService.getUserByUserno(user);
+			model.addAttribute("user", user_name);
 		} catch (UserNotFoundException e) {
 			e.printStackTrace();
 		}
 		
 		HashMap<String,Object> list = new HashMap<>();
-		list.put("user_no", loggedInUser.getUser_no());
+		list.put("user_no", user.getUser_no());
 		list.put("bodyinfo_date", LocalDate.now());
 		
 		int isbodyinfo = bodyInfoService.getCountBodyinfo(list);
@@ -90,14 +90,12 @@ public class BodyController {
 		model.addAttribute("bodyInfo", bodyInfo);
 		model.addAttribute("bodycomment", bodyComment);
 		model.addAttribute("isbodyinfo", isbodyinfo);
-		model.addAttribute("isTrainer", isTrainer);
-		model.addAttribute("isManager", isManager);
 		
 //		1주일 단위로 불러오기
 		if(select.equals("week")) {
-			List<BodyInfo> bodyInfoByWeek = bodyInfoService.getBodyInfosByWeek(loggedInUser);
-			List<BodyInfo> weightInfoByWeek = bodyInfoService.getWeightByWeek(loggedInUser);
-			List<BodyInfo> heightInfoByWeek = bodyInfoService.getHeightByWeek(loggedInUser);
+			List<BodyInfo> bodyInfoByWeek = bodyInfoService.getBodyInfosByWeek(user);
+			List<BodyInfo> weightInfoByWeek = bodyInfoService.getWeightByWeek(user);
+			List<BodyInfo> heightInfoByWeek = bodyInfoService.getHeightByWeek(user);
 
 //			logger.info(bodyInfoByWeek.toString());
 			
@@ -110,9 +108,9 @@ public class BodyController {
 //		30일 단위로 불러오기
 		if(select.equals("month")) {
 			
-			List<BodyInfo> bodyInfoByMonth = bodyInfoService.getBodyInfosByMonth(loggedInUser);
-			List<BodyInfo> weightInfoByMonth = bodyInfoService.getWeightByMonth(loggedInUser);
-			List<BodyInfo> heightInfoByMonth = bodyInfoService.getHeightByMonth(loggedInUser);
+			List<BodyInfo> bodyInfoByMonth = bodyInfoService.getBodyInfosByMonth(user);
+			List<BodyInfo> weightInfoByMonth = bodyInfoService.getWeightByMonth(user);
+			List<BodyInfo> heightInfoByMonth = bodyInfoService.getHeightByMonth(user);
 //			logger.info(bodyInfoByMonth.toString());
 			
 			model.addAttribute("list", bodyInfoByMonth);
@@ -124,9 +122,9 @@ public class BodyController {
 	}
 	
 	@RequestMapping(value="/info/inputBodyInfo", method=RequestMethod.GET)
-	public void inputBodyInfo(Model model) {
+	public void inputBodyInfo(Model model,User user) {
 		
-//		logger.info("신체정보입력 접근");
+		logger.info("신체정보입력 접근");
 		
 		
 		User loggedInUser = null;
@@ -140,7 +138,7 @@ public class BodyController {
 		
 		
 		
-		BodyComment bodyComment = bodyInfoService.getCommentary(loggedInUser);
+		BodyComment bodyComment = bodyInfoService.getCommentary(user);
 		model.addAttribute("bodyComment", bodyComment);
 		
 		try {
@@ -148,13 +146,13 @@ public class BodyController {
 			logger.info(trainer.toString());
 			model.addAttribute("trainer", trainer);
 		} catch (UserNotTrainerException e1) {
-			e1.printStackTrace();
+			return;
 		}
 		
 		try {
-			User user = userService.getUserByUserno(loggedInUser);
-			logger.info(user.toString());
-			model.addAttribute("user", user);
+			User userr = userService.getUserByUserno(user);
+			logger.info(userr.toString());
+			model.addAttribute("user", userr);
 		} catch (UserNotFoundException e) {
 			e.printStackTrace();
 		}
@@ -166,7 +164,7 @@ public class BodyController {
 	@RequestMapping(value="/info/inputBodyInfo", method=RequestMethod.POST)
 	public String inputBodyInfoProc(BodyInfo bodyinfo, BodyComment commentary, Trainer trainer, User user) {
 		
-//		logger.info("신체정보입력 절차 접근");
+		logger.info("신체정보입력 절차 접근");
 		logger.info(user.toString());
 		
 		try {
@@ -175,20 +173,64 @@ public class BodyController {
 		} catch (ParamIncorrectException e) {
 			e.printStackTrace();
 		}
+//		model.addAttribute("user", )
 		
-		return "redirect:/info/bodyinfo";
+		return "redirect:/info/bodyinfo?user_no="+user.getUser_no();
+	}
+	
+	@RequestMapping(value="/info/inputBodyInfoUser")
+	public void inputBodyInfoUser(Model model,User user) {
+		User loggedInUser = null;
+		try {
+			loggedInUser = userService.getLoggedInUser();
+
+		} catch (UserNotFoundException e1) {
+			e1.printStackTrace();
+			logger.info("와우 널포인트 익셉션 로그인이 안됨");
+		}
+		
+		try {
+			User userr = userService.getUserByUserno(user);
+			logger.info(userr.toString());
+			model.addAttribute("user", userr);
+		} catch (UserNotFoundException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	@RequestMapping(value="/info/inputBodyInfoUser", method=RequestMethod.POST)
+	public String inputBodyInfoProcUser(BodyInfo bodyinfo, BodyComment commentary, User user) {
+		
+		try {
+			bodyInfoService.setBodyInfo(bodyinfo);
+		} catch (ParamIncorrectException e) {
+			e.printStackTrace();
+		}
+		
+		User user_no = new User();
+		user_no.setUser_no(user.getUser_no());
+		return "redirect:/info/bodyinfo_user?user_no="+user_no.getUser_no();
 	}
 	
 	@RequestMapping(value="/info/delete")
-	public String deleteInfo(BodyInfo bodyInfo) {
+	public String deleteInfo(BodyInfo bodyInfo,User user) {
 		
 		logger.info("데이터삭제접근");
 		logger.info(bodyInfo.toString());
-		
+		logger.info(user.toString());
 		bodyInfoService.deleteBodyInfo(bodyInfo);
 		bodyInfoService.deleteBodyCommentary(bodyInfo);
 		
-		return "redirect:/info/bodyinfo";
+		return "redirect:/info/bodyinfo?user_no="+user.getUser_no();
+	}
+	
+	@RequestMapping(value="/info/deleteUser")
+	public String deleteInfoUser(BodyInfo bodyInfo,User user) {
+		
+		bodyInfoService.deleteBodyInfo(bodyInfo);
+		bodyInfoService.deleteBodyCommentary(bodyInfo);	
+		
+		return "redirect:/info/bodyinfo_user";
 	}
 	
 	@RequestMapping(value="/info/uploadProfile")
@@ -209,20 +251,23 @@ public class BodyController {
 		files[0] = file;
 		attachmentService.fileUpload(files, user);
 		
-		return "redirect:/info/bodyinfo";
+		return "redirect:/info/bodyinfo_user";
 	}
 	
 	@RequestMapping(value="/info/uploadinbody")
-	public void uploadinbody(BodyInfo bodyinfo, Model model) {
+	public void uploadinbody(BodyInfo bodyinfo, Model model, User user) {
 		
 		logger.info("inbody 사진 첨부 접근");
-
+		
+		User user_no = new User();
+		user_no.setUser_no(user.getUser_no());
+		model.addAttribute("user",user_no);
 		model.addAttribute("bodyinfo_no", bodyinfo.getBodyinfo_no());
 		
 	}
 	
 	@RequestMapping(value="/info/uploadinbodyProc", method=RequestMethod.POST)
-	public String uploadinbody(BodyInfo bodyinfoAttachment, MultipartFile file) {
+	public String uploadinbody(BodyInfo bodyinfoAttachment, MultipartFile file,User user) {
 		
 		logger.info("인바디 사진 첨부 절차 접근");
 		bodyinfoAttachment.setBodyinfo_no(bodyinfoAttachment.getBodyinfo_no());
@@ -232,7 +277,7 @@ public class BodyController {
 		files[0] = file;
 		attachmentService.fileUpload(files, bodyinfoAttachment);
 		
-		return "redirect:/info/bodyinfo";
+		return "redirect:/info/bodyinfo?user_no="+user.getUser_no();
 	}
 	
 	@RequestMapping(value="/info/bodyinfo_user", method=RequestMethod.GET)
@@ -273,6 +318,12 @@ public class BodyController {
 			e.printStackTrace();
 		}
 		
+		HashMap<String,Object> list = new HashMap<>();
+		list.put("user_no", loggedInUser.getUser_no());
+		list.put("bodyinfo_date", LocalDate.now());
+		
+		int isbodyinfo = bodyInfoService.getCountBodyinfo(list);
+		
 //		logger.info(bodyComment.toString());
 		
 		model.addAttribute("profile", profile);
@@ -280,6 +331,7 @@ public class BodyController {
 		model.addAttribute("bodycomment", bodyComment);
 		model.addAttribute("isTrainer", isTrainer);
 		model.addAttribute("isManager", isManager);
+		model.addAttribute("isbodyinfo",isbodyinfo);
 		
 //		1주일 단위로 불러오기
 		if(select.equals("week")) {
