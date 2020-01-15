@@ -17,4 +17,8 @@ public class StaticController {
 		
 	}
 	
+	@RequestMapping(value = "/static/facility", method = RequestMethod.GET)
+	public void facility() {
+		
+	}
 }

@@ -62,7 +62,7 @@
 				<p>${msg }</p>
 			</c:if>
 			<c:if test="${empty msg }">
-				<p>무언가 잘못되어가고 있어요</p>
+				<p>결제 실패하였습니다.</p>
 			</c:if>
 		</div>
 	</div>

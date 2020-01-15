@@ -111,24 +111,29 @@ public class PTController {
 		System.out.println(list.get(0));
 		System.out.println("월:"+month.getMonthValue());
 		for(int i=0;i<list.size();i++ ) {
+			System.out.println("리스트 사이즈 화긴"+list.size());
 			trainer.setTrainer_no(list.get(i).getTrainer_no());
-			int num = matchingService.countptpermonse(trainer, month);
+			int num = matchingService.countptpermonth(trainer, month);
 			if(num != 0) {
-				countpt.setCount_pt(num);
-				countpt.setTrainer_no(list.get(i).getTrainer_no());
-				user.setUser_no(countpt.getTrainer_no());
+				Countpt c = new Countpt();
+				c.setCount_pt(num);
+				c.setTrainer_no(list.get(i).getTrainer_no());
+				user.setUser_no(c.getTrainer_no());
 				try {
 					user= userService.getUserByUserno(user);
 				} catch (UserNotFoundException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-				countpt.setUser_name(user.getUser_name());
-				clist.add(countpt);
+				c.setUser_name(user.getUser_name());
+				System.out.println("유저이름"+countpt.getUser_name());
+				clist.add(c);
+				System.out.println(clist);
 			}
+			
 		}
 		model.addAttribute("clist", clist);
-		System.out.println(clist);
+		
 		return "/payment/list";
 	}
 	

@@ -52,6 +52,7 @@
 		<a class="list-group-item list-group-item-action" href="/info/bodyinfo_user">바디 인포</a>
 	
 	<a class="list-group-item list-group-item-action" href="/mypage/messagelist">메세지 확인</a>
+	<a class="list-group-item list-group-item-action" href="/payment/form">캐시 충전</a>
 
 </div>
 </div>

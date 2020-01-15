@@ -3,8 +3,6 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ include file="/WEB-INF/views/layouts/header.jsp"%>
 
-<script type="text/javascript"
-	src="https://www.gstatic.com/charts/loader.js"></script>
 <script type="text/javascript">
 	google.charts.load('current', {'packages' : [ 'corechart' ]});
 	google.charts.setOnLoadCallback(drawVisualization);
