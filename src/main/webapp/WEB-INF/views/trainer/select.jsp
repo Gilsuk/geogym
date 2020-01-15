@@ -105,6 +105,5 @@
 <div class="col-2"></div>
 
 </div>
-
 </div>
 <%@ include file="/WEB-INF/views/layouts/footer.jsp"%>

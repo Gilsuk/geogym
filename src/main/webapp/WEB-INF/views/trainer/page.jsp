@@ -96,32 +96,21 @@ ${ticket.ticket_active_date }(${ticket.ticket_duration } 일)<br>
 ${cash }<br>
 
 </div>
-<div class="col-4">
-<div id="profileDiv" class="col-12" id="profile" style="background-color:white; border:2px solid gray; width:180px;height:160px;padding-right: 0px;padding-left: 0px" >
-	<div class="thumbnail">
-	<img src="/upload/${trainer.attachment.attachment_stored_name }"
+<div class="card col-4">
+	<img class="profilePic" src="/upload/${trainer.attachment.attachment_stored_name }"
 			alt="${trainer.attachment.attachment_origin_name }" />
-	</div>
-</div>
-<div class="row">	
-<div class="col-sm-3 col-md-3 col-lg-3 col-xl-3">
-주소 : <br>
-값 : <br>
-</div>
+<div class="card-body row">	
 
-<div class="col-sm-8 col-md-8 col-lg-8 col-xl-8">
-${trainer.trainer_address }<br>
-${trainer.trainer_price }<br>
-<br>
-
-</div>
+<div class="card-body">
+	<h5 class="card-title">주소 : ${trainer.trainer_address }</h5>
+	<p class="card-text">값 : ${trainer.trainer_price }</p>
 </div>
 <a href="/trainer/update"><button>내 트레이너 정보 수정하기</button></a>
 </div>
 
+</div>
  <div id="chart_div" style="width: 900px; height: 500px;"></div>
 </div>
-</div>
 <br>
-
+</div>
 <%@ include file="/WEB-INF/views/layouts/footer.jsp"%>
