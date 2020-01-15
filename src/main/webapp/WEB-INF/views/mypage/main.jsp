@@ -107,7 +107,7 @@
     	<div class="col-sm-10">
         	<input type="text" readonly class="form-control-plaintext" value="'${list.trainer_name }' 트레이너 : ${list.pt_ticket_expire } 까지 /${list.pt_ticket_amount }회">
         	<a href="/trainer/select?trainer_no=${list.trainer.trainer_no }">
-        		<button class="btn btn-primary">트레이너 프로필</button>
+        		<input type="button" class="btn btn-primary" value="트레이너 프로필"/>
         	</a>
     	</div>
       </c:forEach>

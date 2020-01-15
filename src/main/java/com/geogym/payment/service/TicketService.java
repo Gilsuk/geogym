@@ -42,7 +42,7 @@ public interface TicketService {
 	 * @param user
 	 * @param trainer
 	 */
-	void payByTicket(User user, Trainer trainer);
+	void payByPTTicket(User user, Trainer trainer);
 
 	/**
 	 * 

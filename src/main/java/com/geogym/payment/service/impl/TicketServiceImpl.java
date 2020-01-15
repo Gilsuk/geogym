@@ -45,7 +45,6 @@ public class TicketServiceImpl implements TicketService {
 			return false;
 		}
 		return false;
-
 	}
 
 	@Override
@@ -142,8 +141,19 @@ public class TicketServiceImpl implements TicketService {
 	}
 
 	@Override
-	public void payByTicket(User user, Trainer trainer){
-		// TODO Auto-generated method stub
+	public void payByPTTicket(User user, Trainer trainer){
+		List<PTTicket> list = getPTTicketList(user);
+		
+		PTTicket ticket = new PTTicket();
+		
+		for(int i = 0; i< list.size(); i++) {
+			if(list.get(i).getTrainer().getTrainer_no() == trainer.getTrainer_no()) {
+				ticket = list.get(i);
+				ticket.setPt_ticket_amount(ticket.getPt_ticket_amount()-1);
+			}
+		}
+		
+		dao.updatePTTicket(ticket);
 	}
 
 	@Override

@@ -47,7 +47,7 @@ public class MatchingServiceImpl implements MatchingService {
 				
 				System.out.println(2);
 				
-				tickectService.payByTicket(user, schedule.getTrainer());
+				tickectService.payByPTTicket(user, schedule.getTrainer());
 			} else {
 				schedule.setTrainer(trainerService.getTrainer(schedule.getTrainer()));
 				
