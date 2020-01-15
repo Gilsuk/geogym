@@ -96,7 +96,7 @@
 				dataType: "json"
 			}).done(function(data) {
 				if (data == true) {
-					var href = windows.location.href;
+					var href = window.location.href;
 					var loginUriRegex = RegExp("/user/login");
 				
 					if (loginUriRegex.test(href)) {

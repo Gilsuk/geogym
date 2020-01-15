@@ -12,5 +12,13 @@ public class StaticController {
 		
 	}
 	
+	@RequestMapping(value = "/page/conditions", method = RequestMethod.GET)
+	public void conditions() {
+		
+	}
 	
+	@RequestMapping(value = "/static/facility", method = RequestMethod.GET)
+	public void facility() {
+		
+	}
 }

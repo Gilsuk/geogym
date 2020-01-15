@@ -1,24 +1,36 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-</head>
-<body>
-<h1>reputate 00</h1>
+	pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ include file="/WEB-INF/views/layouts/header.jsp"%>
+
+<br>
+<div class="container">
+
+<h1>트레이너 평점</h1>
+<hr>
 
 <form action="/trainer/reputate" method="post">
-<label>tno :</label> <input type="number" name="trainer_no" id="trainer_no" required="required" /><br>
-<label>setTrainer_reputation_score :</label> <input type="number" name="trainer_reputation_score" id="trainer_reputation_score" required="required" /><br>
-<label>setTrainer_reputation_msg :</label> <input type="text" name="trainer_reputation_msg" id="trainer_reputation_msg" required="required" /><br>
-<button>확인</button>
+<div class="form-group">
+<input type="hidden" name="trainer_no" id="trainer_no" required="required" value="${trainer.trainer_no }" /><br>
+<label>트레이너에게 줄 점수를 입력하세요</label>&nbsp;
+<select class="custom-select" name="trainer_reputation_score" id="trainer_reputation_score" required="required" >
+    <option value="1">★</option>
+    <option value="2">★★</option>
+    <option value="3">★★★</option>
+    <option value="4">★★★★</option>
+    <option value="5">★★★★★</option>
+</select>
+<br>
+<br>
+<label>이유를 작성해주세요</label>
+<textarea class="form-control" rows="10"name="trainer_reputation_msg" id="trainer_reputation_msg" required="required" ></textarea><br>
+<button class="btn btn-primary">확인</button>
+&nbsp;
+</div>
 </form>
 
-<form action="/trainer/reputation" method="get">
-<label>setTrainer_no <input type="number" name="trainer_no"></label>
-<button>평점 조회</button>
-</form>
-</body>
-</html>
+<a href="/trainer/reputation?trainer_no=${trainer.trainer_no }"><button class="btn btn-primary">평점 조회</button></a>
+
+</div>
+
+<%@ include file="/WEB-INF/views/layouts/footer.jsp"%>

@@ -20,8 +20,6 @@
 
 
 
-
-
 		<%-- 이전 페이지 버튼 --%>
 		<%-- 첫 페이지면 금지 표시 --%>
 		<c:if test="${paging.curPage ne 1 }">
@@ -30,7 +28,7 @@
 			aria-label="Previous"> <span aria-hidden="true">&laquo;</span></a></li>
 		</c:if>
 		<c:if test="${paging.curPage eq 1 }">
-			<li class="page-item disabled"><span aria-hidden="true">&laquo;</span></li>
+			<li class="page-item disabled"><span class="page-link" aria-hidden="true">&laquo;</span></li>
 		</c:if>
 
 
@@ -64,7 +62,7 @@
 			aria-label="Previous Next"> <span aria-hidden="true">&raquo;</span></a></li>
 		</c:if>
 		<c:if test="${paging.curPage eq paging.totalPage }">
-			<li class="page-item disabled"><span aria-hidden="true">&raquo;</span></li>
+			<li class="page-item disabled"><span class="page-link" aria-hidden="true">&raquo;</span></li>
 		</c:if>
 	</ul>
 </nav>

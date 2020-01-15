@@ -8,7 +8,7 @@
 	</p>
 	<p>
 		&copy; 2019-2020 GEOGYM, Co &middot; <a href="#">개인정보 처리방침</a>
-		&middot; <a href="#">이용약관</a>
+		&middot; <a href="/page/conditions" >이용약관</a>
 	</p>
 	</div>
 </footer>

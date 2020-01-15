@@ -32,7 +32,11 @@ $(document).ready(function(){
 		
 			window.name="inputBodyinfo.do";
 			
+<<<<<<< HEAD
 			window.open('http://localhost:8090/info/inputBodyInfo?user_no=${user.user_no}', 'window', 'status=no, height=580, width=400, left='+ popupX + ', top='+ popupY + ', screenX='+ popupX + ', screenY= '+ popupY);
+=======
+			window.open('/info/inputBodyInfo', 'window', 'status=no, height=580, width=400, left='+ popupX + ', top='+ popupY + ', screenX='+ popupX + ', screenY= '+ popupY);
+>>>>>>> refs/remotes/origin/develop
 			
 		
 	
@@ -53,7 +57,11 @@ $(document).ready(function(){
 		
 		window.name="uploadinbody.do";
 		
+<<<<<<< HEAD
 		window.open('http://localhost:8090/info/uploadinbody?bodyinfo_no=${bodyInfo.bodyinfo_no}&user_no=${user.user_no}', 'window', 'status=no, height=580, width=400, left='+ popupX + ', top='+ popupY + ', screenX='+ popupX + ', screenY= '+ popupY);
+=======
+		window.open('/info/uploadinbody?bodyinfo_no=${bodyInfo.bodyinfo_no}', 'window', 'status=no, height=580, width=400, left='+ popupX + ', top='+ popupY + ', screenX='+ popupX + ', screenY= '+ popupY);
+>>>>>>> refs/remotes/origin/develop
 	
 		window.close();
 	});
@@ -70,7 +78,7 @@ $(document).ready(function(){
 		var popupY= (window.screen.height /2) - (1200 / 2);
 		// 만들 팝업창 상하 크기의 1/2 만큼 보정값으로 빼주었음
 
-		window.open('http://localhost:8090/info/inbody?bodyinfo_no=${bodyInfo.bodyinfo_no}', 'window', 'status=no, height=1200, width=1200, left='+ popupX + ', top='+ popupY + ', screenX='+ popupX + ', screenY= '+ popupY);
+		window.open('/info/inbody?bodyinfo_no=${bodyInfo.bodyinfo_no}', 'window', 'status=no, height=1200, width=1200, left='+ popupX + ', top='+ popupY + ', screenX='+ popupX + ', screenY= '+ popupY);
 	
 		self.close();
 	});

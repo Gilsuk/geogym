@@ -47,7 +47,7 @@ public class MatchingServiceImpl implements MatchingService {
 				
 				System.out.println(2);
 				
-				tickectService.payByTicket(user, schedule.getTrainer());
+				tickectService.payByPTTicket(user, schedule.getTrainer());
 			} else {
 				schedule.setTrainer(trainerService.getTrainer(schedule.getTrainer()));
 				
@@ -126,7 +126,7 @@ public class MatchingServiceImpl implements MatchingService {
 		return matchingDao.selectCountPT(map);
 	}
 	@Override
-	public int countptpermonse(Trainer trainer, LocalDate month) {
+	public int countptpermonth(Trainer trainer, LocalDate month) {
 		
 		HashMap<String,Object> map = new HashMap<String,Object>();
 		

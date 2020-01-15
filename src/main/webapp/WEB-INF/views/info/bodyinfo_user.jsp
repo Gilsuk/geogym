@@ -32,7 +32,7 @@ $(document).ready(function(){
 		window.name="uploadprofile.do";
 		
 // 		window.open('http://localhost:8090/info/uploadProfile?user_no=${user.user_no}','window','width=400, height=500');
-		window.open('http://localhost:8090/info/uploadProfile?user_no=${user.user_no}', 'window', 'status=no, height=500, width=400, left='+ popupX + ', top='+ popupY + ', screenX='+ popupX + ', screenY= '+ popupY);
+		window.open('/info/uploadProfile?user_no=${user.user_no}', 'window', 'status=no, height=500, width=400, left='+ popupX + ', top='+ popupY + ', screenX='+ popupX + ', screenY= '+ popupY);
 		
 		self.close();
 	});
@@ -154,7 +154,7 @@ function drawLineColors() {
 		var popupY= (window.screen.height /2) - (1200 / 2);
 		// 만들 팝업창 상하 크기의 1/2 만큼 보정값으로 빼주었음
 
-		window.open('http://localhost:8090/info/inbody?bodyinfo_no=${bodyInfo.bodyinfo_no}', 'window', 'status=no, height=1200, width=1200, left='+ popupX + ', top='+ popupY + ', screenX='+ popupX + ', screenY= '+ popupY);
+		window.open('/info/inbody?bodyinfo_no=${bodyInfo.bodyinfo_no}', 'window', 'status=no, height=1200, width=1200, left='+ popupX + ', top='+ popupY + ', screenX='+ popupX + ', screenY= '+ popupY);
 	
 		self.close();
 	});

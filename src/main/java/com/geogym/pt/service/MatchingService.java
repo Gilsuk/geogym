@@ -76,6 +76,6 @@ public interface MatchingService {
 	int getPTcount(Trainer trainer, LocalDate month);
 	
 	
-	public int countptpermonse(Trainer trainer,LocalDate month); 
+	public int countptpermonth(Trainer trainer,LocalDate month); 
 	
 }
