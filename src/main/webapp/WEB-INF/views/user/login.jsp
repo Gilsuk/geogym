@@ -5,6 +5,12 @@
 	.abcRioButtonBlue {
 		background-color : #dc3545;
     }
+    .abcRioButtonBlue:active {
+		background-color: #ed4656;
+	}
+	.abcRioButtonBlue:hover {
+		background-color: #5396ff;
+	}
 </style>
 <script>
 	
@@ -17,7 +23,6 @@
     function onSuccess(googleUser) {
 		$("div.abcRioButton.abcRioButtonBlue").css("width", "100%");
 		$("span.abcRioButtonContents").children("span:nth-child(2)").text("구글 계정으로 로그인");
-		$("div.abcRioButton.abcRioButtonBlue").css("visibility", "visible");
     	if (!clickedGSignIn) return;
     	
     	var profile = googleUser.getBasicProfile();
@@ -145,7 +150,7 @@
 						class="btn btn-ajax btn-lg btn-submit btn-block text-uppercase"
 						type="submit">로그인</button>
 					<hr class="my-4">
-					<div id="my-signin2" onclick="clickGSignIn()" style="visibility:hidden;"></div>
+					<div id="my-signin2" onclick="clickGSignIn()"></div>
 					
 				</form>
 			</div>
