@@ -84,6 +84,13 @@
 		count(*) FROM trainer_reputation where trainer_no = #{trainer_no} and
 		user_no = #{user_no}
 	</select>
+	
+	<select id="countReputate2"
+		parameterType="com.geogym.trainer.dto.T_reputation" resultType="int">
+		SELECT
+		count(*) FROM trainer_reputation where trainer_no = #{trainer_no}
+	</select>
+	
 	<update id="updateReputate"
 		parameterType="com.geogym.trainer.dto.T_reputation">
 		update trainer_reputation set trainer_reputation_date =

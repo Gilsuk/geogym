@@ -17,6 +17,7 @@ import com.geogym.trainer.dto.Trainer2;
 import com.geogym.trainer.exception.UserNotTrainerException;
 import com.geogym.user.dto.User;
 import com.geogym.user.exception.TrainerNotFoundException;
+import com.geogym.user.exception.UserNotFoundException;
 
 /**
  * 트레이너 관리 서비스

@@ -12,6 +12,32 @@
 <!-- 합쳐지고 최소화된 최신 자바스크립트 -->
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+<script type="text/javascript"
+	src="https://www.gstatic.com/charts/loader.js"></script>
+<script type="text/javascript">
+	google.charts.load('current', {'packages' : [ 'corechart' ]});
+	google.charts.setOnLoadCallback(drawVisualization);
+	
+	function drawVisualization() {
+	var data = google.visualization.arrayToDataTable([
+          ['today',   'you', 'Average'],
+          ['today',   ${reputation},      ${average}]
+        ]);
+
+        var options = {
+          title : '타이틀',
+          vAxis: {title: 'vAxis'},
+          hAxis: {title: 'hAxis'},
+          seriesType: 'bars'
+                  };
+
+
+		var chart = new google.visualization.ComboChart(document.getElementById('chart_div'));
+        chart.draw(data, options);
+			
+		}
+		
+</script>
 
 <div class="container">
 <div class="row">
@@ -108,7 +134,7 @@ ${trainer.trainer_price }<br>
 <a href="/trainer/update"><button>내 트레이너 정보 수정하기</button></a>
 </div>
 
-
+ <div id="chart_div" style="width: 900px; height: 500px;"></div>
 </div>
 </div>
 <br>
