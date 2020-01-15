@@ -183,7 +183,9 @@ public class TrainerController {
 	}
 
 	@RequestMapping(value = "/trainer/reputate", method = RequestMethod.GET)
-	private void TrainerReputate() {
+	private void TrainerReputate(Trainer trainer, Model model) {
+		
+		model.addAttribute("trainer", trainerService.getTrainer2(trainer));
 
 	}
 

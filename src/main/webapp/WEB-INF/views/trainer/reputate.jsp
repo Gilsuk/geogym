@@ -7,17 +7,17 @@
 <title>Insert title here</title>
 </head>
 <body>
-<h1>reputate 00</h1>
+<h1>reputate</h1>
 
 <form action="/trainer/reputate" method="post">
-<label>tno :</label> <input type="number" name="trainer_no" id="trainer_no" required="required" /><br>
-<label>setTrainer_reputation_score :</label> <input type="number" name="trainer_reputation_score" id="trainer_reputation_score" required="required" /><br>
-<label>setTrainer_reputation_msg :</label> <input type="text" name="trainer_reputation_msg" id="trainer_reputation_msg" required="required" /><br>
+<input type="hidden" name="trainer_no" id="trainer_no" required="required" value="${trainer.trainer_no }" /><br>
+<label>트레이너에게 줄 점수를 입력하세요 :</label> <input type="number" name="trainer_reputation_score" id="trainer_reputation_score" required="required" /><br>
+<label>이 점수를 주는 이유</label><br> <textarea rows="10" cols="30" name="trainer_reputation_msg" id="trainer_reputation_msg" required="required" ></textarea><br>
 <button>확인</button>
 </form>
 
 <form action="/trainer/reputation" method="get">
-<label>setTrainer_no <input type="number" name="trainer_no"></label>
+<input type="hidden" name="trainer_no" value="${trainer.trainer_no }">
 <button>평점 조회</button>
 </form>
 </body>
