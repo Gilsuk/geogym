@@ -7,6 +7,21 @@
 	<div class="row">
 		<div class="col-12">
 			<br>
+			<ul class="nav nav-tabs">
+  <li class="nav-item">
+    <a class="nav-link" href="/mypage/main">마이 페이지</a>
+  </li>
+  <c:if test="${isTrainer }">
+	  <li class="nav-item">
+	    <a class="nav-link active" href="/trainer/page">트레이너 페이지</a>
+	  </li>
+  </c:if>
+  <c:if test="${isManager }">
+	  <li class="nav-item">
+	    <a class="nav-link" href="/test/setbusinessday">관리자</a>
+	  </li>
+  </c:if>
+</ul>
 			<h1>PT 일정</h1>
 			<hr>
 		</div>
@@ -17,10 +32,6 @@
 					href="/trainer/page">내 정보</a> <a
 					class="list-group-item list-group-item-action active"
 					href="/calendar/schedule?trainer_no=${trainer.trainer_no }">내 스케줄</a>
-				<a class="list-group-item list-group-item-action"
-					href="/calendar/memolist?user_no=${user.user_no }">근무</a> <a
-					class="list-group-item list-group-item-action"
-					href="/info/bodyinfo">바디 인포</a>
 			</div>
 		</div>
 		</c:if>
