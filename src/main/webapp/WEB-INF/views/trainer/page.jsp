@@ -66,12 +66,8 @@
 	<div class="list-group">
 		<a class="list-group-item list-group-item-action active"
 			href="/trainer/page">내 정보</a> 
-			<a class="list-group-item list-group-item-action"
+		<a class="list-group-item list-group-item-action"
 			href="/calendar/schedule?trainer_no=${trainer.trainer_no }">PT</a>
-			<a	class="list-group-item list-group-item-action"
-			href="/calendar/memolist?user_no=${user.user_no }">근무</a> 
-			<a class="list-group-item list-group-item-action" 
-			href="/info/bodyinfo_user">바디 인포</a> 
 	</div>
 </div>
 
