@@ -48,14 +48,26 @@ public class TrainerController {
 
 	// 트레이너 정보 받아오기
 	@RequestMapping(value = "/trainer/select", method = RequestMethod.GET)
-	private void TrainerSelect(Model model, Trainer trainer) {
+	private String TrainerSelect(Model model, Trainer trainer) {
 		logger.info("TrainerSelect");
 //		trainer.setTrainer_no(1);
 
 		trainer = trainerService.getTrainer(trainer);
 		System.out.println(trainer);
+		User user = new User();
 
 		model.addAttribute("trainer", trainer);
+		try {
+			user = userService.getLoggedInUser();
+			
+		} catch (UserNotFoundException e) {
+			// TODO Auto-generated catch block
+			user = null;
+		}
+		System.out.println(user);
+		model.addAttribute("user", user);
+		return null;
+		
 
 	}
 
