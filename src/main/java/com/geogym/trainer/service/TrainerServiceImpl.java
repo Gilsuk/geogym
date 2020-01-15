@@ -211,7 +211,10 @@ public class TrainerServiceImpl implements TrainerService {
 	@Override
 	public double getReputation(Trainer trainer) {
 		// TODO Auto-generated method stub
-		
+		int i = trainerDao.countReputate2(trainer);
+		if (i == 0) {
+			return 0;
+		}
 		
 		return trainerDao.getReputation(trainer);
 

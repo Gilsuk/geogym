@@ -183,7 +183,9 @@ public class TrainerController {
 	}
 
 	@RequestMapping(value = "/trainer/reputate", method = RequestMethod.GET)
-	private void TrainerReputate() {
+	private void TrainerReputate(Trainer trainer, Model model) {
+		
+		model.addAttribute("trainer", trainerService.getTrainer2(trainer));
 
 	}
 
@@ -210,8 +212,15 @@ public class TrainerController {
 
 		try {
 			User user = userService.getLoggedInUser();
+			Trainer trainer = trainerService.getTrainertoUser(user);
 
-			model.addAttribute("trainer", trainerService.getTrainertoUser(user));
+			double getAllReputation = trainerService.getAllReputation();
+			double getReputation = trainerService.getReputation(trainer);
+			
+			model.addAttribute("average", getAllReputation);
+			model.addAttribute("reputation", getReputation);
+			model.addAttribute("trainer", trainer);
+
 			model.addAttribute("user", user);
 			model.addAttribute("isTrainer", userService.isTrainer(user));
 			model.addAttribute("isManager", userService.isManager(user));
@@ -232,14 +241,16 @@ public class TrainerController {
 	 */
 	@RequestMapping(value = "/trainer/profile")
 	private String TrainerProfile(Model model) {
-		
+
 		Trainer trainer = new Trainer();
+		
+		
 		try {
 			User user = userService.getLoggedInUser();
 			trainer = trainerService.getTrainertoUser(user);
 			System.out.println(trainer);
 
-			model.addAttribute("trainer", trainer);
+
 			
 			return null;
 

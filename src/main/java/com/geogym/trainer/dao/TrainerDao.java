@@ -140,6 +140,13 @@ public interface TrainerDao {
 	 */
 	Trainer selectTrainernoByUserno(User user);
 
+	/**
+	 * 트레이너의 평점 갯수 구하기
+	 * @param trainer
+	 * @return
+	 */
+	int countReputate2(Trainer trainer);
+
 
 
 }

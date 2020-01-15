@@ -3,6 +3,31 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ include file="/WEB-INF/views/layouts/header.jsp"%>
 
+<script type="text/javascript">
+	google.charts.load('current', {'packages' : [ 'corechart' ]});
+	google.charts.setOnLoadCallback(drawVisualization);
+	
+	function drawVisualization() {
+	var data = google.visualization.arrayToDataTable([
+          ['today',   'you', 'Average'],
+          ['today',   ${reputation},      ${average}]
+        ]);
+
+        var options = {
+          title : '타이틀',
+          vAxis: {title: 'vAxis'},
+          hAxis: {title: 'hAxis'},
+          seriesType: 'bars'
+                  };
+
+
+		var chart = new google.visualization.ComboChart(document.getElementById('chart_div'));
+        chart.draw(data, options);
+			
+		}
+		
+</script>
+
 <div class="container">
 <div class="row">
 <div class="col-12">
@@ -30,12 +55,8 @@
 	<div class="list-group">
 		<a class="list-group-item list-group-item-action active"
 			href="/trainer/page">내 정보</a> 
-			<a class="list-group-item list-group-item-action"
+		<a class="list-group-item list-group-item-action"
 			href="/calendar/schedule?trainer_no=${trainer.trainer_no }">PT</a>
-			<a	class="list-group-item list-group-item-action"
-			href="/calendar/memolist?user_no=${user.user_no }">근무</a> 
-			<a class="list-group-item list-group-item-action" 
-			href="/info/bodyinfo_user">바디 인포</a> 
 	</div>
 </div>
 
@@ -98,7 +119,7 @@ ${trainer.trainer_price }<br>
 <a href="/trainer/update"><button>내 트레이너 정보 수정하기</button></a>
 </div>
 
-
+ <div id="chart_div" style="width: 900px; height: 500px;"></div>
 </div>
 </div>
 <br>

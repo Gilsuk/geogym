@@ -111,7 +111,7 @@
 					</c:if>
 					<li class="nav-item"><a class="nav-link" href="/trainer/list">트레이너</a></li>
 					<li class="nav-item"><a class="nav-link" href="/qna/list">문의하기</a></li>
-					<li class="nav-item"><a class="nav-link" href="/static/map">시설안내</a></li>
+					<li class="nav-item"><a class="nav-link" href="/static/facility">시설안내</a></li>
 					<c:if test="${not empty loggedInUser }">
 <!-- 					<li class="nav-item"><a class="nav-link" href="/admin/main">관리자</a></li> -->		
 					<li class="nav-item"><a class="nav-link" href="/mypage/main">내 정보</a></li>
