@@ -42,23 +42,23 @@ public class PaymentTestController {
 		
 	}
 	
-	@RequestMapping(value="/payment/ticket/issue")
-	public void issuePTTicket() {
-		
-		PTTicket ptTicket = new PTTicket();
-		
-		User user = new User();
-		user.setUser_no(2);
-		
-		Trainer trainer = new Trainer();
-		trainer.setTrainer_no(1);
-		
-		ptTicket.setUser(user);
-		ptTicket.setTrainer(trainer);
-		ptTicket.setPt_ticket_expire(LocalDate.of(2020, 12, 30));
-		ptTicket.setPt_ticket_amount(5);
-		
-		ticketService.issuePTTicket(ptTicket);
-	}
+//	@RequestMapping(value="/payment/ticket/issue")
+//	public void issuePTTicket() {
+//		
+//		PTTicket ptTicket = new PTTicket();
+//		
+//		User user = new User();
+//		user.setUser_no(2);
+//		
+//		Trainer trainer = new Trainer();
+//		trainer.setTrainer_no(1);
+//		
+//		ptTicket.setUser(user);
+//		ptTicket.setTrainer(trainer);
+//		ptTicket.setPt_ticket_expire(LocalDate.of(2020, 12, 30));
+//		ptTicket.setPt_ticket_amount(5);
+//		
+//		ticketService.issuePTTicket(ptTicket);
+//	}
 	
 }
