@@ -1,7 +1,33 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+
 <%@ include file="/WEB-INF/views/layouts/header.jsp"%>
+<script type="text/javascript">
+	google.charts.load('current', {'packages' : [ 'corechart' ]});
+	google.charts.setOnLoadCallback(drawVisualization);
+	
+	function drawVisualization() {
+	var data = google.visualization.arrayToDataTable([
+          ['today',   'you', 'Average'],
+          ['today',   ${reputation},      ${average}]
+        ]);
+
+        var options = {
+          title : '평점',
+          vAxis: {title: 'vAxis'},
+          hAxis: {title: 'hAxis'},
+          seriesType: 'bars'
+                  };
+
+
+		var chart = new google.visualization.ComboChart(document.getElementById('chart_div'));
+        chart.draw(data, options);
+			
+		}
+		
+</script>
 
 <div class = "container">
 <br>
@@ -41,6 +67,7 @@
     </div>
   </div>
 </form>
+<div id=chart_div style="width: 900px; height: 500px;"></div>
 
 <a href="/trainer/reputate?trainer_no=${trainer.trainer_no }"><button class="btn btn-primary">이 트레이너 평가하기</button></a>
 &nbsp;

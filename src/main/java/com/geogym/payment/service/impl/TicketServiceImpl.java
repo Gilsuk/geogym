@@ -15,6 +15,8 @@ import com.geogym.payment.dto.Payment;
 import com.geogym.payment.dto.Ticket;
 import com.geogym.payment.enumeration.Currency;
 import com.geogym.payment.enumeration.Product;
+import com.geogym.payment.exception.CashNotEnoughException;
+import com.geogym.payment.service.CashService;
 import com.geogym.payment.service.PaymentLogService;
 import com.geogym.payment.service.TicketService;
 import com.geogym.trainer.dto.Trainer;
@@ -25,7 +27,7 @@ public class TicketServiceImpl implements TicketService {
 
 	@Autowired private TicketDao dao;
 	@Autowired private PaymentLogService payLogServ;
-
+	@Autowired private CashService cashservice;
 	
 	@Override
 	public boolean hasPTTicket(User user, Trainer trainer) {
@@ -181,8 +183,12 @@ public class TicketServiceImpl implements TicketService {
 	private void logPay(User user, int price, Currency currency) {
 		
 		switch (currency) {
-		case ONLINE:
-			
+		case CASH:
+			try {
+				cashservice.payByCash(price, user, Product.TICKET);
+			} catch (CashNotEnoughException e) {
+				e.printStackTrace();
+			}
 			break;
 
 		default:

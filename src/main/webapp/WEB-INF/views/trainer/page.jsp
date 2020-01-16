@@ -2,6 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ include file="/WEB-INF/views/layouts/header.jsp"%>
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 
 <script type="text/javascript">
 	google.charts.load('current', {'packages' : [ 'corechart' ]});
@@ -14,7 +15,7 @@
         ]);
 
         var options = {
-          title : '타이틀',
+          title : '평점',
           vAxis: {title: 'vAxis'},
           hAxis: {title: 'hAxis'},
           seriesType: 'bars'
@@ -105,14 +106,12 @@ ${cash }<br>
 	<h5 class="card-title">주소 : ${trainer.trainer_address }</h5>
 	<p class="card-text">값 : ${trainer.trainer_price }</p>
 </div>
-<a href="/trainer/update"><button class="btn btn-primary">내 트레이너 정보 수정하기</button></a>
+<a href="/trainer/update"><button>내 트레이너 정보 수정하기</button></a>
 </div>
 
 </div>
  <div id="chart_div" style="width: 900px; height: 500px;"></div>
 </div>
 <br>
-
 </div>
-
 <%@ include file="/WEB-INF/views/layouts/footer.jsp"%>
