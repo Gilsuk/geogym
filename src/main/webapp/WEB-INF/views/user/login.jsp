@@ -9,7 +9,7 @@
 		background-color: #ed4656;
 	}
 	.abcRioButtonBlue:hover {
-		background-color: #5396ff;
+		background-color: #ed4656;
 	}
 </style>
 <script>

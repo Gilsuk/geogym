@@ -48,7 +48,7 @@ public class TicketIssueController {
 			return "redirect:/error/pay";
 		}
 		
-		ticketService.issueTicket(user, monthLength, price, Currency.ONLINE);
+		ticketService.issueTicket(user, monthLength, price, Currency.CASH);
 		
 		return "redirect:/mypage/main";
 	}
