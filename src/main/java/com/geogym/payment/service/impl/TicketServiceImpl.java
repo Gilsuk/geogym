@@ -69,7 +69,7 @@ public class TicketServiceImpl implements TicketService {
 	}
 
 	@Override
-	public void issuePTTicket(PTTicket ptTicket) {
+	public void issuePTTicket(PTTicket ptTicket, int price) {
 		
 		if(hasPTTicket(ptTicket.getUser(), ptTicket.getTrainer())) {
 			
@@ -91,6 +91,8 @@ public class TicketServiceImpl implements TicketService {
 			}
 			return;
 		}
+		
+		logPay(ptTicket.getUser(), price, Currency.CASH);
 		
 		dao.insertPTTicket(ptTicket);
 		
@@ -182,10 +184,19 @@ public class TicketServiceImpl implements TicketService {
 
 	private void logPay(User user, int price, Currency currency) {
 		
+		Payment payment = new Payment();
+		
 		switch (currency) {
 		case CASH:
 			try {
 				cashservice.payByCash(price, user, Product.TICKET);
+			
+				payment.setCurrency(currency);
+				payment.setPay_amount(price);
+				payment.setPay_date(LocalDateTime.now());
+				payment.setProduct(Product.TICKET);
+				payment.setUser(user);
+			
 			} catch (CashNotEnoughException e) {
 				e.printStackTrace();
 			}
@@ -195,12 +206,6 @@ public class TicketServiceImpl implements TicketService {
 			break;
 		}
 		
-		Payment payment = new Payment();
-		payment.setCurrency(currency);
-		payment.setPay_amount(price);
-		payment.setPay_date(LocalDateTime.now());
-		payment.setProduct(Product.TICKET);
-		payment.setUser(user);
 		payLogServ.logPayment(payment);
 	}
 	
