@@ -5,8 +5,22 @@
 	.abcRioButtonBlue {
 		background-color : #dc3545;
     }
+	.abcRioButtonBlue:hover {
+		background-color : #fd4656;
+    }
+	.abcRioButtonBlue:active {
+		background-color : #fd4656;
+    }
 </style>
 <script>
+	$(document).ready(function() {
+		setTimeout(function() {
+			$("div.abcRioButton.abcRioButtonBlue").css("width", "100%");
+			$("span.abcRioButtonContents").children("span:nth-child(2)").text("구글 계정으로 로그인");
+			$("div.abcRioButton.abcRioButtonBlue").css("visibility", "visible");
+				
+		}, 250);
+	});
 	
 	
 	var clickedGSignIn = false;
@@ -15,11 +29,9 @@
 	}
 	
     function onSuccess(googleUser) {
-		$("div.abcRioButton.abcRioButtonBlue").css("width", "100%");
-		$("span.abcRioButtonContents").children("span:nth-child(2)").text("구글 계정으로 로그인");
-		$("div.abcRioButton.abcRioButtonBlue").css("visibility", "visible");
     	if (!clickedGSignIn) return;
     	
+		$("span.abcRioButtonContents").children("span:nth-child(2)").text("구글 계정으로 로그인");
     	var profile = googleUser.getBasicProfile();
     	var email = profile.getEmail();
     	var name = profile.getName();

@@ -256,7 +256,7 @@ public class ScheduleServiceImpl implements ScheduleService {
 	
 	@Override
 	public void insertWorkHour(Attendance attendance) {
-		// TODO Auto-generated method stub
+		
 		scheduleDao.insertWorkHour(attendance);
 	}
 

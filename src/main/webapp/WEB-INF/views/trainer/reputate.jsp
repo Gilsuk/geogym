@@ -23,7 +23,7 @@
 <br>
 <br>
 <label>이유를 작성해주세요</label>
-<textarea class="form-control" rows="10"name="trainer_reputation_msg" id="trainer_reputation_msg" required="required" ></textarea><br>
+<textarea class="form-control" rows="10" name="trainer_reputation_msg" id="trainer_reputation_msg" required="required" ></textarea><br>
 <button class="btn btn-primary">확인</button>
 &nbsp;
 </div>

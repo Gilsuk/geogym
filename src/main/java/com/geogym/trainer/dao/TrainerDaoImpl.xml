@@ -126,7 +126,10 @@
 	</select>
 	
 	<select id ="selectbytrain_no" parameterType="com.geogym.user.dto.User" resultType="com.geogym.user.dto.User">
-		select user.user_no,user.user_name from trainer , user where (trainer.user_no = user.user_no) and trainer.user_no = #{user_no}
+		select user.user_no,user.user_name 
+		from trainer , user 
+		where (trainer.user_no = user.user_no) 
+		and trainer.user_no = #{user_no}
 	</select>
 	
 
