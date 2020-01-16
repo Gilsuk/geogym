@@ -66,6 +66,15 @@ public class TrainerController {
 		}
 		System.out.println(user);
 		model.addAttribute("user", user);
+		
+		double getAllReputation = trainerService.getAllReputation();
+		double getReputation = trainerService.getReputation(trainer);
+		
+		System.out.println(getReputation);
+		
+		model.addAttribute("average", getAllReputation);
+		model.addAttribute("reputation", getReputation);
+		model.addAttribute("trainer", trainer);
 		return null;
 		
 
