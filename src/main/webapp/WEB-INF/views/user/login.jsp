@@ -5,14 +5,22 @@
 	.abcRioButtonBlue {
 		background-color : #dc3545;
     }
-    .abcRioButtonBlue:active {
-		background-color: #ed4656;
-	}
 	.abcRioButtonBlue:hover {
-		background-color: #5396ff;
-	}
+		background-color : #fd4656;
+    }
+	.abcRioButtonBlue:active {
+		background-color : #fd4656;
+    }
 </style>
 <script>
+	$(document).ready(function() {
+		setTimeout(function() {
+			$("div.abcRioButton.abcRioButtonBlue").css("width", "100%");
+			$("span.abcRioButtonContents").children("span:nth-child(2)").text("구글 계정으로 로그인");
+			$("div.abcRioButton.abcRioButtonBlue").css("visibility", "visible");
+				
+		}, 250);
+	});
 	
 	
 	var clickedGSignIn = false;
@@ -21,10 +29,9 @@
 	}
 	
     function onSuccess(googleUser) {
-		$("div.abcRioButton.abcRioButtonBlue").css("width", "100%");
-		$("span.abcRioButtonContents").children("span:nth-child(2)").text("구글 계정으로 로그인");
     	if (!clickedGSignIn) return;
     	
+		$("span.abcRioButtonContents").children("span:nth-child(2)").text("구글 계정으로 로그인");
     	var profile = googleUser.getBasicProfile();
     	var email = profile.getEmail();
     	var name = profile.getName();
@@ -150,7 +157,7 @@
 						class="btn btn-ajax btn-lg btn-submit btn-block text-uppercase"
 						type="submit">로그인</button>
 					<hr class="my-4">
-					<div id="my-signin2" onclick="clickGSignIn()"></div>
+					<div id="my-signin2" onclick="clickGSignIn()" style="visibility:hidden;"></div>
 					
 				</form>
 			</div>
