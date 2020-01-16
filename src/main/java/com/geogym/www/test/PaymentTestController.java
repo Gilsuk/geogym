@@ -59,7 +59,6 @@ public class PaymentTestController {
 		ptTicket.setPt_ticket_amount(5);
 		
 		ticketService.issuePTTicket(ptTicket);
-		
 	}
 	
 }

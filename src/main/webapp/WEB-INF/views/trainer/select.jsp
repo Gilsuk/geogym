@@ -46,6 +46,19 @@
 &nbsp;
 <a href="/calendar/PT/request?trainer_no=${trainer.trainer_no }"><button class="btn btn-primary">이 트레이너 시간표 보기</button></a>
 
+<br>
+
+<form action="/issue/ptticket" method="post">
+	<input type="hidden" name="trainer_no" value="${trainer.trainer_no }"/>
+	<input type="hidden" name="price" value="${trainer.trainer_price }"/>
+	<select name="pt_ticket_amount">
+		<option value="5">5회 : ${trainer.trainer_price*5*0.9 }</option>
+		<option value="10">10회 : ${trainer.trainer_price*10*0.8 }</option>
+		<option value="15">15회 : ${trainer.trainer_price*15*0.7 }</option>
+	</select>
+	<button>구매하기</button>
+</form>
+
 </div>
 
 <div class="col-2"></div>

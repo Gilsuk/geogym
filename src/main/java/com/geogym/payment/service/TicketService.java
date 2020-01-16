@@ -17,9 +17,10 @@ public interface TicketService {
 	 * 
 	 * 
 	 * @param ptTicket
+	 * @param price 
 	 * @throws InvalidParamException
 	 */
-	void issuePTTicket(PTTicket ptTicket);
+	void issuePTTicket(PTTicket ptTicket, int price);
 	
 	
 	/**
