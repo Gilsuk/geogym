@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+
 <%@ include file="/WEB-INF/views/layouts/header.jsp"%>
 <script type="text/javascript">
 	google.charts.load('current', {'packages' : [ 'corechart' ]});
@@ -13,7 +15,7 @@
         ]);
 
         var options = {
-          title : '타이틀',
+          title : '평점',
           vAxis: {title: 'vAxis'},
           hAxis: {title: 'hAxis'},
           seriesType: 'bars'
@@ -65,7 +67,7 @@
     </div>
   </div>
 </form>
-<div id="chart_div" style="width: 900px; height: 500px;"></div>
+<div id=chart_div style="width: 900px; height: 500px;"></div>
 
 <a href="/trainer/reputate?trainer_no=${trainer.trainer_no }"><button class="btn btn-primary">이 트레이너 평가하기</button></a>
 &nbsp;
