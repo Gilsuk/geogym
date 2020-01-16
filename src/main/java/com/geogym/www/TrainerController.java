@@ -212,13 +212,15 @@ public class TrainerController {
 
 	// 트레이너 평점 등록
 	@RequestMapping(value = "/trainer/reputate", method = RequestMethod.POST)
-	private void TrainerReputate(T_reputation reputation) {
+	private String TrainerReputate(T_reputation reputation) {
 
 		logger.info("reputate");
 
 		System.out.println(reputation);
 
 		trainerService.reputate(reputation);
+		
+		return "redirect:/trainer/select?trainer_no="+reputation.getTrainer_no();
 
 	}
 
